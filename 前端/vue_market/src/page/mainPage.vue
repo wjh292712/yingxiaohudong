@@ -1,0 +1,260 @@
+<template>
+    <div class="main_wrap" style="display:block">
+        <div class="main_con">
+            <header>
+                <div class="header_con">
+                    <div class="header_one">
+                        <span class="one_text">北京聚通达科技股份有限公司</span>
+                        <i class="one_icon1"></i>
+                        <i class="one_icon2"></i>
+                    </div>
+                    <div class="header_two">
+                        <div class="two_con">
+                            <i></i>
+                            <span>{{informmsg}}</span>
+                        </div>
+                    </div>
+                    <!-- banner轮播图 -->
+                    <div class="block">
+                        <el-carousel trigger="click" height="132px">
+                            <el-carousel-item v-for="(items,index) in banner" :key=index>
+                                <img :src="items.imgUrl" alt="">
+                            </el-carousel-item>
+                        </el-carousel>
+                    </div>
+                </div>
+            </header>
+            <div class="main_body">
+                <div class="up">
+                    <h3>推荐活动</h3>
+                    <div class="main_list">
+                        <div class="main_list_box" v-for="(item,index) in mainmsg" :key="index">
+                            <div class="body_img">
+                                <img src="../../static/mainPage/Group 17 Copy 3.png" alt="">
+                            </div>
+                            <div class="body_text">
+                                <h5>{{item.title}}</h5>
+                                <span class="body_text_btn" @click="">创建活动</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import {mapState,mapMutations,mapActions} from 'vuex'
+    import axios from 'axios';
+    import qs from 'qs';
+    export default ({
+        data() {
+            return {
+                // mainmsg:[{
+                //     img:1,
+                //     title:"开心快乐砸金蛋，来来来",
+                // },{
+                //     img:2,
+                //     title:"I was feeling epic"
+                // },{
+                //     img:3,
+                //     title:"开心快乐砸金蛋，来来来",
+                // },{
+                //     img:4,
+                //     title:"I was feeling epic"
+                // },{
+                //     img:5,
+                //     title:"I was feeling epic"
+                // }],
+                mainmsg: [],
+                informmsg: "",
+                // banner:[]
+            }
+
+        },
+        computed:{
+            ...mapState(['count','banner']),
+            ...mapActions(['saveForm'])
+    },
+        mounted() {
+            this.inform()
+            //测试代码
+            // this.$axios.post("center/activityDataModel/list").then((res)=>{
+            //     console.log(res)
+            // })
+        },
+        methods: {
+            inform() {
+                // 商品列表
+                this.$axios({
+                    method: "post",
+                    url: "center/activityDataModel/list",
+                    params: {
+
+                    }
+                }).then(res => {
+                    // console.log(res.data.data)
+                    this.mainmsg = res.data.data.list
+                    console.log(this.mainmsg)
+                }).catch(res => {
+                    console.log(res)
+                })
+
+                // 轮播
+                // this.$axios({
+                //     method:"post",
+                //     url:"/center/ActivityNoticeImg/list",
+                //     params:{
+
+                //     }
+                // }).then(res =>{
+                //     // console.log(res.data.data)
+                //     this.banner = res.data.data
+                // }).catch(res =>{
+                //     console.log(res)
+                // })
+
+                this.$store.dispatch('saveForm')
+
+                //通告接口
+
+                this.$axios({
+                    method: "post",
+                    url: "/center/activityNotice/list",
+                    params: {
+
+                    }
+                }).then(res => {
+                    // console.log(res.data.data[0])
+                    this.informmsg = res.data.data[0].tittle
+                }).catch(res => {
+                    console.log(res)
+                })
+                //     axios.post('http://center.marketing.yunpaas.cn/activityNotice/list', qs.stringify())
+                //             .then(response => {
+                //             console.log(response.data.data);
+                //             })
+                //             .catch(err => {
+                //             console.log(err);
+                //             });
+            }
+        }
+    })
+</script>
+
+<style lang="scss">
+    .main_wrap {
+        width: 100%;
+        .main_con {
+            width: 97%;
+            margin: 1.5% auto 0;
+            .header_one {
+                width: 100%;
+                background: #fff;
+                border-radius: 3px;
+                padding: 1rem 0;
+                margin: 0 auto .5rem;
+                text-indent: .5rem;
+                .one_text {
+                    font-size: .7rem;
+                }
+            }
+            .header_two {
+                width: 100%;
+                background: #FFF6E2;
+                border: 1px solid #F3E6CB;
+                padding: .5rem 0;
+                margin-bottom: .5rem;
+                text-indent: .5rem;
+                .two_con {
+                    span {
+                        font-family: MicrosoftYaHei;
+                        font-size: 12px;
+                        color: #FE4D1E;
+                        letter-spacing: 0;
+
+                    }
+                }
+            }
+            .block {
+                margin-bottom: 0.5rem;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .el-carousel__item h3 {
+                color: #475669;
+                font-size: 14px;
+                opacity: 0.75;
+                line-height: 150px;
+            }
+            .el-carousel__item:nth-child(2n) {
+                background-color: #99a9bf;
+            }
+
+            .el-carousel__item:nth-child(2n+1) {
+                background-color: #d3dce6;
+            }
+            .main_body {
+                width: 100%;
+                background: #fff;
+                .up {
+                    width: 80%;
+                    margin: .5rem auto 0;
+                    padding: .5rem 0 0;
+                    h3 {
+                        margin-bottom: .5rem;
+                        border-left: 0.5rem solid #FC7132;
+                        text-indent: 1rem;
+                        font-size: .7rem;
+                    }
+                    .main_list {
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        flex-wrap: wrap;
+                        .main_list_box {
+                            border-radius: 0.3rem;
+                            border: 0.05rem solid #ccc;
+                            width: 18%;
+                            min-width: 8rem;
+                            .body_img {
+                                border-radius: 0.3rem;
+                                width: 100%;
+                                height: 80%;
+                                vertical-align: top;
+                                img {
+                                    border-radius: 0.15rem;
+                                    width: 100%;
+                                    height: 100%;
+                                    vertical-align: top;
+                                }
+                            }
+                            .body_text {
+                                text-align: center;
+                                h5 {
+                                    width: 100%;
+                                    font-size: .7rem;
+                                }
+                                .body_text_btn {
+                                    font-size: .5rem;
+                                    margin: 0.25rem 0;
+                                    width: 3.5rem;
+                                    height: 20%;
+                                    border-radius: 0.15rem;
+                                    background: #FC7132;
+                                    color: #fff;
+                                    display: inline-block;
+                                }
+                            }
+                        }
+                    }
+
+
+                }
+            }
+        }
+    }
+</style>

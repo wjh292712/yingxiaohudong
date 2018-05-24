@@ -1,0 +1,136 @@
+<template>
+  <div class="container">
+    <!-- <button></button> -->
+    <div class="dialog">
+      <div class="cent">
+        <header class="header">
+          <span class="batch">批量上下架</span>
+        </header>
+        <section class="section">
+          <div class="up">
+            <div class="down">
+              <span>上下架状态:</span>
+              <Select v-model="model6" style="width:200px">
+                <Option value="beijing">上架</Option>
+                <Option value="shanghai">下架</Option>
+              </Select>
+            </div>
+          </div>
+        </section>
+        <footer class="footer">
+          <div class="sure">
+            <Button type="primary">确定</Button>
+            <Button type="ghost">取消</Button>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  // name: 'dialog',
+  data() {
+    return {
+      cityList: [
+        {
+          value: '上架',
+          label: '上架'
+        },
+        {
+          value: '下架',
+          label: '下架'
+        },
+        {
+          value: 'Ottawa',
+          label: 'Ottawa'
+        },
+        {
+          value: 'Paris',
+          label: 'Paris'
+        },
+        {
+          value: 'Canberra',
+          label: 'Canberra'
+        }
+      ],
+      model5: '',
+      model6: '',
+    }
+  },
+}
+</script>
+<style>
+.container {
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background: rgba(0, 0, 1, 0.4); */
+  z-index: 1000;
+  transition: all .3s ease-in-out;
+}
+
+.cent {
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  background: #dec;
+}
+
+.header {
+  width: 100%;
+  height: 3rem;
+  line-height: 3rem;
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  -webkit-align-items: center;
+  justify-content: center;
+  background: #fff;
+  font-size: 16px;
+}
+
+.up {
+  width: 100%;
+  height: 3rem;
+  margin-top: 2rem;
+}
+
+.up p {
+  margin-right: 10px;
+}
+
+.up .down {
+  margin-left: 18%;
+}
+
+.footer {
+  width: 100%;
+  height: 2rem;
+  border: 1px solid #ccc;
+  margin-top: 10%;
+  text-align: center;
+  font-size: 16px;
+  border: 0;
+  /* line-height: 2rem; */
+}
+
+.footer .leftbtn {
+  width: 3rem;
+  height: 2rem;
+  background: #fff;
+}
+
+.footer .rightbtn {
+  width: 3rem;
+  height: 2rem;
+  background: #fff;
+}
+</style>
