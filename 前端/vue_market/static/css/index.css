@@ -1,0 +1,33 @@
+.box {
+    margin: 20px auto;
+    padding-left: 10px;
+    padding-top: 10px;
+    width: 63%;
+    height: 143px;
+    background-color: red;
+    position: absolute;
+    top:0;
+}
+
+.ten {
+    position:relative;
+}
+
+.ten img {
+    float: left;
+   height: 28%;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.ten img:nth-child(5):hover {
+    opacity: .8;
+    cursor: pointer;
+}
+
+/*#app img:nth-child(1){*/
+
+/*opacity: .8;*/
+
+/*}*/
