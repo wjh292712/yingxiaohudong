@@ -14,30 +14,14 @@
                     系统检测到您当前的账号归属多个企业，请选择登录
                 </h3>
                 <div class="company">
-                <div class="company_con">
-                    <i></i>
-                    <span>北京聚通达科技股份有限公司</span>
-                </div>
-                <div class="company_con">
-                    <i></i>
-                    <span>北京聚通达科技股份有限公司</span>
-                </div>
-                <div class="company_con">
-                    <i></i>
-                    <span>北京聚通达科技股份有限公司</span>
-                </div>
-                <div class="company_con">
-                        <i></i>
-                        <span>北京聚通达科技股份有限公司</span>
-                    </div>
-                <div class="company_con">
-                    <i></i>
-                    <span>北京聚通达科技股份有限公司</span>
-                </div>
-                <div class="company_con">
-                    <i></i>
-                    <span>北京聚通达科技股份有限公司</span>
-                </div>
+                <ul class="company_con">
+
+                    <li v-for="(item,index) in list" :key="index" @click="loginHome()">
+                      <i></i>
+                      {{item.companyName}}
+                    </li>
+                </ul>
+
                 </div>
             </div>
           </div>
@@ -48,8 +32,34 @@
 
 <script>
     export default({
+data(){
+  return{
+    list:[{"companyLogo":null,"companyName":"宏基伟业","updateUser":null,"updateTime":null,"del":null,"telephone":null,"contactsName":null,"userId":605238,"contactsMobile":null,"accountId":null,"companyNumber":null,"createTime":null,"createUser":null,"id":439,"companyAbbreviation":null,"email":null,"authenticationStatus":null},{"companyLogo":null,"companyName":"万科","updateUser":null,"updateTime":null,"del":null,"telephone":null,"contactsName":null,"userId":605252,"contactsMobile":null,"accountId":null,"companyNumber":null,"createTime":null,"createUser":null,"id":445,"companyAbbreviation":null,"email":null,"authenticationStatus":null}]
+  }
+},
 
+      mounted(){
+
+      },
+      methods:{
+        loginHome(){
+          this.$router.push({path:"/mainPage"})
+        },
+
+
+function (){
+  axios({
+    method:"get",
+    url:''
+  })
+}
+
+      },
+      components:{
+
+      }
     })
+
 </script>
 
 <style scss="lang" scoped>
@@ -194,4 +204,8 @@
     border-bottom:solid 1px #ccc;
     line-height: 3rem;
 }
+  .company_con li{
+    border-bottom: 1px solid #f0f2f5;
+  }
+
 </style>

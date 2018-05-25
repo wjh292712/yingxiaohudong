@@ -8,7 +8,7 @@ import mainPage from '@/page/mainPage'
 import activeFirst from '@/page/activeFirst'
 import activelist from '@/page/activelist'
 import activeslide from '@/page/activeslide'
-import company from '@/page/company'
+import company from '@/components/company'
 
 //砍价活动
 import bargainlist from '@/page/bargainlist'
@@ -176,7 +176,7 @@ export default new Router({
 
 
 
-
+//九宫格商户设置
     {
       path: "/setting",
       component: resolve => void(require(['@/page/setting'],resolve)),
@@ -248,7 +248,10 @@ export default new Router({
     {
       path: '/login',
       name: 'login',
-      component: login
+      component: login,
+      // children:[{
+      //   path:'/login/company',component:company
+      // }]
     },
     {
       path: '/details',

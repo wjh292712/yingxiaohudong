@@ -55,24 +55,41 @@ export default ({
     login(){
       sessionStorage.setItem('userName',this.userName)
       sessionStorage.setItem('userPwd',this.userPwd)
+      sessionStorage.setItem('companyId',this.companyId)
+      sessionStorage.setItem('userId',this.userId)
+
       sessionStorage.getItem('userName',this.userName)
       console.log(this.userName)
       console.log(this.userPwd)
       var _this = this
+
       this.$axios({
                     method: "post",
-                    url: "http://center.marketing.yunpaas.cn/center/enterpriseuser/login",
+                    url: "http://center.marketing.yunpaas.cn/center/enterpriseuser/login_step1?",
                     params: {
-                      userName:"13521103385",
-                      password:"lhw123"
+                      userName:this.userName,
+                      password:this.userPwd
                     }
                 }).then(res => {
-                    this.username = res.data.data.name
-                    console.log(this.username)
-                    this.$bus.emit('name',this.username)
-                    this.$store.dispatch('undisappear')
-                    // this.$store.commit('show'),
-                    this.$router.push({path:"/mainPage"})
+        console.log(res);
+        console.log(res.data);
+        if(res.data.status===true){
+
+          // this.username = res.data.data.name
+          // this.$bus.emit('name',this.username)
+          this.$store.dispatch('undisappear')
+          // this.$store.commit('show'),
+          if(res.data.code===200){
+             this.$router.push({path:"/mainPage"})//跳转主页
+          }else if(res.data.code===201){
+            this.$router.push({path:'/company'})
+          }
+
+}else{
+
+          alert("用户名或密码错误")
+}
+        //商户选择
                 }).catch(res => {
                     console.log(res)
                 })
