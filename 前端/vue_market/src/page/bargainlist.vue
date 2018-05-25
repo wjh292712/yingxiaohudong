@@ -177,7 +177,7 @@
   }
   .sett{
     width: 60%;
-    /*height: 100%;*/
+    height: 100%;
     position: absolute;
     right: 0;
     margin-bottom: 4rem;
@@ -193,7 +193,7 @@
     background: #fff;
   }
   .pic_view {
-    width: 100%;
+    width: 112%;
     height: auto;
     position: relative;
   }
@@ -240,13 +240,18 @@
             border-bottom: #FC7132 2px solid;
           }
           .el-button--primary {
-            width: 4rem;
+            width: 6rem;
             height: 1.5rem;
             line-height: 1.5rem;
             text-align: center;
-            background: greenyellow;
+            background: #fc7132;
             padding: 0;
-            border: 1px solid greenyellow;
+            border: 1px solid #fc7132;
+          }
+          .el-button--primary:hover{
+            background: #fbfbfb;
+            color: #4a4a4a;
+            border: 1px solid #9b9b9b;
           }
           .active_down {
             width: 100%;

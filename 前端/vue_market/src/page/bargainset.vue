@@ -19,7 +19,8 @@
             <barsettingbase></barsettingbase>
           </el-tab-pane>
           <el-tab-pane label="商品设置" name="second">
-            <reword></reword>
+
+            <barreword></barreword>
           </el-tab-pane>
           <el-tab-pane label="砍价设置" name="third">
             <award></award>
@@ -33,15 +34,15 @@
 
       </div>
     </div>
-    <el-button type="primary" @click="onSave()">保存</el-button>
-    <el-button @click="name()">返回</el-button>
+
   </div>
 </template>
 <script>
 
   // import settingBase from '@/page/settingbase'
   import barsettingbase from '@/page/barsettingbase'
-  import reword from '@/page/reword'
+  import barreword from '@/page/barreword'
+  // import reword from '@/page/reword'
   import share from '@/page/share'
   import advanced from '@/page/advanced'
   import award from '@/page/award'
@@ -170,7 +171,8 @@
     components:{
       barsettingbase,
       // settingBase,
-      reword,
+      barreword,
+      // reword,
       share,
       advanced,
       award
@@ -179,7 +181,7 @@
 </script>
 <style lang="scss" scoped>
   .setting_wrap {
-    width:60%;
+    width:100%;
     .setting_con {
       width:100%;
       min-width:22.8rem;

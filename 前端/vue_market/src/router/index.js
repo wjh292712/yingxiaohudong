@@ -14,6 +14,7 @@ import company from '@/page/company'
 import bargainlist from '@/page/bargainlist'
 import bargainset from '@/page/bargainset'
 import barsettingbase from '@/page/barsettingbase'
+import barreword from '@/page/barreword'
 
 
 // 运营端
@@ -124,6 +125,56 @@ export default new Router({
           component: bargainlist,
         }]
     },
+
+    //砍价商户设置
+    {
+      path: "/bargainset",
+      component: resolve => void(require(['@/page/bargainset'],resolve)),
+      children: [
+        {
+          path: "/bargainset/barsettingbase",
+          component: barsettingbase
+        },
+        {
+          path: "/bargainset/barreword",
+          component: barreword
+        },
+        {
+          path: "/setting/advanced",
+          component: advanced
+        },
+        {
+          path: "/setting/award ",
+          component: award
+        },
+        {
+          path: "/setting/activepage",
+          component: activepage
+        },
+        {
+          path: "/setting/explainpage",
+          component: explainpage
+        },
+        {
+          path: "/setting/draw",
+          component: draw
+        },
+        {
+          path: "/setting/detailpage",
+          component: detailpage
+        },
+        {
+          path: "/setting/losing",
+          component: losing
+        },
+        {
+          path: "/setting/winning",
+          component: winning
+        }
+      ]
+    },
+
+
 
 
     {

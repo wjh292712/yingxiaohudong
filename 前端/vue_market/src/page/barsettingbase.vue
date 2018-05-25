@@ -23,7 +23,7 @@
             <el-radio label="1" >显示</el-radio>
             <el-radio label="2">隐藏</el-radio>
             <div class="label_text">在实际参与人数基础上增加
-              <span class="people" style="display: block;width: 50px;height: 20px;border: 1px solid lavender;text-align: center">{{setting_data.addNum}}</span>
+              <input class="people" style="display: inline-block;width: 50px;height: 20px;text-align: center"/>{{setting_data.addNum}}
               倍
             </div>
           </el-radio-group>
@@ -36,20 +36,23 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="活动说明">
-          <el-input style="height:3rem;" type="textarea" v-model="form.desc"></el-input>
+          <el-input style="height:6rem;" type="textarea" v-model="form.desc.explain"></el-input>
         </el-form-item>
         <el-form-item label="商家简介">
-          <el-input style="height:3rem;" type="textarea" v-model="form.desc"></el-input>
+          <el-input style="height:6rem;" type="textarea" v-model="form.desc.intro"></el-input>
         </el-form-item>
         <el-form-item label="商家地址">
-          <el-input style="height:3rem;" type="textarea" v-model="form.desc"></el-input>
+          <el-input style="height:3rem;" type="textarea" v-model="form.desc.address"></el-input>
         </el-form-item>
         <el-form-item label="商家电话">
-          <el-input style="height:3rem;" type="textarea" v-model="form.desc"></el-input>
+          <el-input style="height:3rem;" type="textarea" v-model="form.desc.phone"></el-input>
         </el-form-item>
         <el-form-item>
           <!--<el-button type="primary" @click="saveBase()" :class='checkBtn==true?"newactive":""'>保存</el-button>-->
-
+          <div class="btn_click">
+          <el-button type="primary" @click="onSave()">保存</el-button>
+          <el-button type='primary' @click="name()">返回</el-button>
+          </div>
         </el-form-item>
       </el-form>
     </div>
@@ -72,7 +75,10 @@
           type: [],
           resource: '',
           resource1: '',
-          desc: ''
+          desc:{
+            explain:"222",intro:"111",address:"nih",phone:"12233"
+          }
+
         },
         checkBtn: false,//��ť��ʽ
         formName:"砍价活动" ,//������
@@ -212,11 +218,43 @@
   }
 </style>
 <style>
+  .base_wrap{
+    background: #fbfbfb;
+    padding: 30px;
+    height: 100%;
+    position: relative;
+  }
   .el-radio-group {
     display: inline-block;
-    /*line-height: 1;*/
+    line-height: 2rem;
     vertical-align: middle;
     font-size: small;
   }
+  .label_text{
+    width: 200px;
+    height: 80px;
+  }
+  .el-input__inner{
+    width: 80%;
+  }
+  .el-textarea__inner{
+    width: 80%;
+    /*height: 130px;*/
+  }
+  .el-form-item__label{
+    text-align: left;
+  }
 
+  .el-radio__input.is-checked .el-radio__inner {
+    border-color: #fc7132;
+    background: #fc7132;
+  }
+  .el-radio__input.is-checked+.el-radio__label {
+    color: #fc7132;
+  }
+  .btn_click{
+    position: absolute;
+    bottom: -70px;
+    margin-left: -60px;
+  }
 </style>
