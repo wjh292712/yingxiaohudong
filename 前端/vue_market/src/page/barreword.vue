@@ -6,6 +6,7 @@
           <!-- <span class="reword_num" v-for="(item,index) in reword" :key="index">{{item}}</span> -->
           <el-tabs v-model="activeName" @tab-click="handleClick">
             <!-- 商品一 -->
+
             <el-tab-pane label="商品一" name="first">
               <el-form-item label="商品类型">
                 <el-select v-model="value" placeholder="请选择">
@@ -21,515 +22,667 @@
               <el-form-item label="商品名称">
                 <el-input v-model="form.name1" placeholder="不超过15个字"></el-input>
               </el-form-item>
-              <el-form-item>
+              <el-form-item label="商品图片">
                 <el-upload
+                  class="avatar-uploader"
                   action="https://jsonplaceholder.typicode.com/posts/"
-                  list-type="picture-card"
-
-                  :on-remove="handleRemove">
-                  <i class="el-icon-plus"></i>
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
-                <span class="load_text">奖品图片将在九宫格中显示</span>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
-                </el-dialog>
+              </el-form-item>
 
+              <el-form-item label="商品原价">
+                <el-input v-model="form.name2" placeholder="必须是大于0的数，支持小数点后两位"></el-input>
               </el-form-item>
-              <el-form-item label="奖品数量">
-                <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+              <el-form-item label="商品低价">
+                <el-input v-model="form.name2" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改"></el-input>
+                <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
+                  <el-button>?</el-button>
+                </el-tooltip>
               </el-form-item>
-              <el-form-item label="导入券码">
-                <el-radio-group v-model="radio2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">手动导入</el-radio>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="">
+
+              <el-form-item label="商品库存">
                 <el-input type="textarea" v-model="form.desc1"></el-input>
               </el-form-item>
-              <el-form-item label="奖品类型">
-                <el-select v-model="form.region" placeholder="请选择活动区域">
-                  <el-option v-for="(items,index) in reword_type1"  :label="items.name" :value="index+1" :key="index"></el-option>
-                </el-select>
+              <el-form-item label="虚拟销量">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
               </el-form-item>
-              <el-form-item label="活动时间">
-                <el-col :span="11">
-                  <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
-                </el-col>
-                <el-col class="line" :span="2">-</el-col>
-                <el-col :span="11">
-                  <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
-                </el-col>
-              </el-form-item>
-              <el-form-item label="兑奖方式"  style="width:26rem;">
-                <el-radio-group v-model="radio3">
-                  <el-radio label="1">公众号兑奖</el-radio>
-                  <el-radio label="2">线下门店兑奖</el-radio>
-                  <div class="second">
-                    <el-radio label="3">联系客服兑奖</el-radio>
-                    <el-radio label="4">平台提供兑奖说明</el-radio>
-                  </div>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="公众号名称" >
-                <el-input  v-model="form.name3" placeholder="不超过15个字"></el-input>
+              <el-form-item label="商品详情">
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+
               </el-form-item>
 
-              <el-form-item label="兑奖说明">
+
+              <el-form-item label="配送方式"  style="width:26rem;">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
+              </el-form-item>
+
+
+              <el-form-item label="发货说明">
                 <el-input type="textarea" v-model="form.desc2"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="saveReword()">保存</el-button>
+                <el-button type="primary" @click="backReword()">返回</el-button>
               </el-form-item>
             </el-tab-pane>
-            <!-- 奖品二 -->
+            <!-- 商品二 -->
             <el-tab-pane label="商品二" name="second">
-              <el-form-item label="奖品来源">
-                <el-radio-group v-model="radio2_1">
-                  <el-radio label="1">自家商品</el-radio>
-                  <el-radio label="2">平台奖品库</el-radio>
-                </el-radio-group>
-                <a href="javascript:;">去奖平商城购买</a>
-              </el-form-item>
-              <el-form-item label="奖品名称">
-                <el-input v-model="form.name2_1" placeholder="不超过15个字"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  list-type="picture-card"
-
-                  :on-remove="handleRemove">
-                  <i class="el-icon-plus"></i>
-                </el-upload>
-                <span class="load_text">奖品图片将在九宫格中显示</span>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
-                </el-dialog>
-
-              </el-form-item>
-              <el-form-item label="奖品数量">
-                <el-input v-model="form.name2_2" placeholder="不超过15个字"></el-input>
-              </el-form-item>
-              <el-form-item label="导入券码">
-                <el-radio-group v-model="radio2_2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">手动导入</el-radio>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="">
-                <el-input type="textarea" v-model="form.desc2_1"></el-input>
-              </el-form-item>
-              <el-form-item label="奖品类型">
-                <el-select v-model="form.region2_2" placeholder="请选择活动区域">
-                  <el-option v-for="(items,index) in reword_type2"  :label="items.name" :value="index+1" :key="index"></el-option>
+              <el-form-item label="商品类型">
+                <el-select v-model="value" placeholder="请选择">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
                 </el-select>
+
               </el-form-item>
-              <el-form-item label="活动时间">
-                <el-col :span="11">
-                  <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
-                </el-col>
-                <el-col class="line" :span="2">-</el-col>
-                <el-col :span="11">
-                  <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
-                </el-col>
+              <el-form-item label="商品名称">
+                <el-input v-model="form.name1" placeholder="不超过15个字"></el-input>
               </el-form-item>
-              <el-form-item label="兑奖方式"  style="width:26rem;">
-                <el-radio-group v-model="radio2_3">
-                  <el-radio label="1">公众号兑奖</el-radio>
-                  <el-radio label="2">线下门店兑奖</el-radio>
-                  <div class="second">
-                    <el-radio label="3">联系客服兑奖</el-radio>
-                    <el-radio label="4">平台提供兑奖说明</el-radio>
-                  </div>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="公众号名称" >
-                <el-input  v-model="form.name2_3" placeholder="不超过15个字"></el-input>
+              <el-form-item label="商品图片">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
               </el-form-item>
 
-              <el-form-item label="兑奖说明">
-                <el-input type="textarea" v-model="form.desc2_2"></el-input>
+              <el-form-item label="商品原价">
+                <el-input v-model="form.name2" placeholder="必须是大于0的数，支持小数点后两位"></el-input>
+              </el-form-item>
+              <el-form-item label="商品低价">
+                <el-input v-model="form.name2" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改"></el-input>
+                <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
+                  <el-button>?</el-button>
+                </el-tooltip>
+              </el-form-item>
+
+              <el-form-item label="商品库存">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
+              </el-form-item>
+              <el-form-item label="虚拟销量">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
+              </el-form-item>
+              <el-form-item label="商品详情">
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+
+              </el-form-item>
+
+
+              <el-form-item label="配送方式"  style="width:26rem;">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
+              </el-form-item>
+
+
+              <el-form-item label="发货说明">
+                <el-input type="textarea" v-model="form.desc2"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="saveReword()">保存</el-button>
+                <el-button type="primary" @click="backReword()">返回</el-button>
               </el-form-item>
             </el-tab-pane>
-            <!-- 奖品三 -->
+            <!-- 商品三 -->
             <el-tab-pane label="商品三" name="third">
-              <el-form-item label="奖品来源">
-                <el-radio-group v-model="radio3_1">
-                  <el-radio label="1">自家商品</el-radio>
-                  <el-radio label="2">平台奖品库</el-radio>
-                </el-radio-group>
-                <a href="javascript:;">去奖平商城购买</a>
-              </el-form-item>
-              <el-form-item label="奖品名称">
-                <el-input v-model="form.name3_1" placeholder="不超过15个字"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  list-type="picture-card"
-
-                  :on-remove="handleRemove">
-                  <i class="el-icon-plus"></i>
-                </el-upload>
-                <span class="load_text">奖品图片将在九宫格中显示</span>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
-                </el-dialog>
-
-              </el-form-item>
-              <el-form-item label="奖品数量">
-                <el-input v-model="form.name3_2" placeholder="不超过15个字"></el-input>
-              </el-form-item>
-              <el-form-item label="导入券码">
-                <el-radio-group v-model="radio3_2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">手动导入</el-radio>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="">
-                <el-input type="textarea" v-model="form.desc3_1"></el-input>
-              </el-form-item>
-              <el-form-item label="奖品类型">
-                <el-select v-model="form.region3" placeholder="请选择活动区域">
-                  <el-option v-for="(items,index) in reword_type3"  :label="items.name" :value="index+1" :key="index"></el-option>
+              <el-form-item label="商品类型">
+                <el-select v-model="value" placeholder="请选择">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
                 </el-select>
+
               </el-form-item>
-              <el-form-item label="活动时间">
-                <el-col :span="11">
-                  <el-date-picker type="date" placeholder="选择日期" v-model="form.date3_1" style="width: 100%;"></el-date-picker>
-                </el-col>
-                <el-col class="line" :span="2">-</el-col>
-                <el-col :span="11">
-                  <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date3_2" style="width: 100%;"></el-time-picker>
-                </el-col>
+              <el-form-item label="商品名称">
+                <el-input v-model="form.name1" placeholder="不超过15个字"></el-input>
               </el-form-item>
-              <el-form-item label="兑奖方式"  style="width:26rem;">
-                <el-radio-group v-model="radio3_3">
-                  <el-radio label="1">公众号兑奖</el-radio>
-                  <el-radio label="2">线下门店兑奖</el-radio>
-                  <div class="second">
-                    <el-radio label="3">联系客服兑奖</el-radio>
-                    <el-radio label="4">平台提供兑奖说明</el-radio>
-                  </div>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="公众号名称" >
-                <el-input  v-model="form.name3_3" placeholder="不超过15个字"></el-input>
+              <el-form-item label="商品图片">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
               </el-form-item>
 
-              <el-form-item label="兑奖说明">
-                <el-input type="textarea" v-model="form.desc3_2"></el-input>
+              <el-form-item label="商品原价">
+                <el-input v-model="form.name2" placeholder="必须是大于0的数，支持小数点后两位"></el-input>
+              </el-form-item>
+              <el-form-item label="商品低价">
+                <el-input v-model="form.name2" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改"></el-input>
+                <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
+                  <el-button>?</el-button>
+                </el-tooltip>
+              </el-form-item>
+
+              <el-form-item label="商品库存">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
+              </el-form-item>
+              <el-form-item label="虚拟销量">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
+              </el-form-item>
+              <el-form-item label="商品详情">
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+
+              </el-form-item>
+
+
+              <el-form-item label="配送方式"  style="width:26rem;">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
+              </el-form-item>
+
+
+              <el-form-item label="发货说明">
+                <el-input type="textarea" v-model="form.desc2"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="saveReword()">保存</el-button>
+                <el-button type="primary" @click="backReword()">返回</el-button>
               </el-form-item>
             </el-tab-pane>
 
 
-            <!-- 奖品四 -->
+            <!-- 商品四 -->
             <el-tab-pane label="商品四" name="fourth">
-              <el-form-item label="奖品来源">
-                <el-radio-group v-model="radio4_1">
-                  <el-radio label="1">自家商品</el-radio>
-                  <el-radio label="2">平台奖品库</el-radio>
-                </el-radio-group>
-                <a href="javascript:;">去奖平商城购买</a>
-              </el-form-item>
-              <el-form-item label="奖品名称">
-                <el-input v-model="form.name4_1" placeholder="不超过15个字"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  list-type="picture-card"
-
-                  :on-remove="handleRemove">
-                  <i class="el-icon-plus"></i>
-                </el-upload>
-                <span class="load_text">奖品图片将在九宫格中显示</span>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
-                </el-dialog>
-
-              </el-form-item>
-              <el-form-item label="奖品数量">
-                <el-input v-model="form.name4_2" placeholder="不超过15个字"></el-input>
-              </el-form-item>
-              <el-form-item label="导入券码">
-                <el-radio-group v-model="radio4_2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">手动导入</el-radio>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="">
-                <el-input type="textarea" v-model="form.desc4_1"></el-input>
-              </el-form-item>
-              <el-form-item label="奖品类型">
-                <el-select v-model="form.region4" placeholder="请选择活动区域">
-                  <el-option v-for="(items,index) in reword_type4"  :label="items.name" :value="index+1" :key="index"></el-option>
+              <el-form-item label="商品类型">
+                <el-select v-model="value" placeholder="请选择">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
                 </el-select>
+
               </el-form-item>
-              <el-form-item label="活动时间">
-                <el-col :span="11">
-                  <el-date-picker type="date" placeholder="选择日期" v-model="form.date4_1" style="width: 100%;"></el-date-picker>
-                </el-col>
-                <el-col class="line" :span="2">-</el-col>
-                <el-col :span="11">
-                  <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date4_2" style="width: 100%;"></el-time-picker>
-                </el-col>
+              <el-form-item label="商品名称">
+                <el-input v-model="form.name1" placeholder="不超过15个字"></el-input>
               </el-form-item>
-              <el-form-item label="兑奖方式"  style="width:26rem;">
-                <el-radio-group v-model="radio4_3">
-                  <el-radio label="1">公众号兑奖</el-radio>
-                  <el-radio label="2">线下门店兑奖</el-radio>
-                  <div class="second">
-                    <el-radio label="3">联系客服兑奖</el-radio>
-                    <el-radio label="4">平台提供兑奖说明</el-radio>
-                  </div>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="公众号名称" >
-                <el-input  v-model="form.name4_3" placeholder="不超过15个字"></el-input>
+              <el-form-item label="商品图片">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
               </el-form-item>
 
-              <el-form-item label="兑奖说明">
-                <el-input type="textarea" v-model="form.desc4_2"></el-input>
+              <el-form-item label="商品原价">
+                <el-input v-model="form.name2" placeholder="必须是大于0的数，支持小数点后两位"></el-input>
+              </el-form-item>
+              <el-form-item label="商品低价">
+                <el-input v-model="form.name2" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改"></el-input>
+                <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
+                  <el-button>?</el-button>
+                </el-tooltip>
+              </el-form-item>
+
+              <el-form-item label="商品库存">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
+              </el-form-item>
+              <el-form-item label="虚拟销量">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
+              </el-form-item>
+              <el-form-item label="商品详情">
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+
+              </el-form-item>
+
+
+              <el-form-item label="配送方式"  style="width:26rem;">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
+              </el-form-item>
+
+
+              <el-form-item label="发货说明">
+                <el-input type="textarea" v-model="form.desc2"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="saveReword()">保存</el-button>
+                <el-button type="primary" @click="backReword()">返回</el-button>
               </el-form-item>
             </el-tab-pane>
 
-            <!-- 奖品五 -->
+            <!-- 商品五 -->
             <el-tab-pane label="商品五" name="fifth">
-              <el-form-item label="奖品来源">
-                <el-radio-group v-model="radio5_1">
-                  <el-radio label="1">自家商品</el-radio>
-                  <el-radio label="2">平台奖品库</el-radio>
-                </el-radio-group>
-                <a href="javascript:;">去奖平商城购买</a>
-              </el-form-item>
-              <el-form-item label="奖品名称">
-                <el-input v-model="form.name5_1" placeholder="不超过15个字"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  list-type="picture-card"
-
-                  :on-remove="handleRemove">
-                  <i class="el-icon-plus"></i>
-                </el-upload>
-                <span class="load_text">奖品图片将在九宫格中显示</span>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
-                </el-dialog>
-
-              </el-form-item>
-              <el-form-item label="奖品数量">
-                <el-input v-model="form.name5_2" placeholder="不超过15个字"></el-input>
-              </el-form-item>
-              <el-form-item label="导入券码">
-                <el-radio-group v-model="radio5_2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">手动导入</el-radio>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="">
-                <el-input type="textarea" v-model="form.desc5_1"></el-input>
-              </el-form-item>
-              <el-form-item label="奖品类型">
-                <el-select v-model="form.region5" placeholder="请选择活动区域">
-                  <el-option v-for="(items,index) in reword_type5"  :label="items.name" :value="index+1" :key="index"></el-option>
+              <el-form-item label="商品类型">
+                <el-select v-model="value" placeholder="请选择">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
                 </el-select>
+
               </el-form-item>
-              <el-form-item label="活动时间">
-                <el-col :span="11">
-                  <el-date-picker type="date" placeholder="选择日期" v-model="form.date5_1" style="width: 100%;"></el-date-picker>
-                </el-col>
-                <el-col class="line" :span="2">-</el-col>
-                <el-col :span="11">
-                  <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date5_2" style="width: 100%;"></el-time-picker>
-                </el-col>
+              <el-form-item label="商品名称">
+                <el-input v-model="form.name1" placeholder="不超过15个字"></el-input>
               </el-form-item>
-              <el-form-item label="兑奖方式"  style="width:26rem;">
-                <el-radio-group v-model="radio5_3">
-                  <el-radio label="1">公众号兑奖</el-radio>
-                  <el-radio label="2">线下门店兑奖</el-radio>
-                  <div class="second">
-                    <el-radio label="3">联系客服兑奖</el-radio>
-                    <el-radio label="4">平台提供兑奖说明</el-radio>
-                  </div>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="公众号名称" >
-                <el-input  v-model="form.name5_3" placeholder="不超过15个字"></el-input>
+              <el-form-item label="商品图片">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
               </el-form-item>
 
-              <el-form-item label="兑奖说明">
-                <el-input type="textarea" v-model="form.desc5_2"></el-input>
+              <el-form-item label="商品原价">
+                <el-input v-model="form.name2" placeholder="必须是大于0的数，支持小数点后两位"></el-input>
+              </el-form-item>
+              <el-form-item label="商品低价">
+                <el-input v-model="form.name2" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改"></el-input>
+                <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
+                  <el-button>?</el-button>
+                </el-tooltip>
+              </el-form-item>
+
+              <el-form-item label="商品库存">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
+              </el-form-item>
+              <el-form-item label="虚拟销量">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
+              </el-form-item>
+              <el-form-item label="商品详情">
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+
+              </el-form-item>
+
+
+              <el-form-item label="配送方式"  style="width:26rem;">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
+              </el-form-item>
+
+
+              <el-form-item label="发货说明">
+                <el-input type="textarea" v-model="form.desc2"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="saveReword()">保存</el-button>
+                <el-button type="primary" @click="backReword()">返回</el-button>
               </el-form-item>
             </el-tab-pane>
 
-            <!-- 奖品六 -->
-            <el-tab-pane label="商品六" name="sixth">
-              <el-form-item label="奖品来源">
-                <el-radio-group v-model="radio6_1">
-                  <el-radio label="1">自家商品</el-radio>
-                  <el-radio label="2">平台奖品库</el-radio>
-                </el-radio-group>
-                <a href="javascript:;">去奖平商城购买</a>
-              </el-form-item>
-              <el-form-item label="奖品名称">
-                <el-input v-model="form.name6_1" placeholder="不超过15个字"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  list-type="picture-card"
-
-                  :on-remove="handleRemove">
-                  <i class="el-icon-plus"></i>
-                </el-upload>
-                <span class="load_text">奖品图片将在九宫格中显示</span>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
-                </el-dialog>
-
-              </el-form-item>
-              <el-form-item label="奖品数量">
-                <el-input v-model="form.name6_2" placeholder="不超过15个字"></el-input>
-              </el-form-item>
-              <el-form-item label="导入券码">
-                <el-radio-group v-model="radio6_2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">手动导入</el-radio>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="">
-                <el-input type="textarea" v-model="form.desc6_1"></el-input>
-              </el-form-item>
-              <el-form-item label="奖品类型">
-                <el-select v-model="form.region6" placeholder="请选择活动区域">
-                  <el-option v-for="(items,index) in reword_type6"  :label="items.name" :value="index+1" :key="index"></el-option>
+            <!-- 商品六 -->
+            <el-tab-pane label="商品六" name="six">
+              <el-form-item label="商品类型">
+                <el-select v-model="value" placeholder="请选择">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
                 </el-select>
+
               </el-form-item>
-              <el-form-item label="活动时间">
-                <el-col :span="11">
-                  <el-date-picker type="date" placeholder="选择日期" v-model="form.date6_1" style="width: 100%;"></el-date-picker>
-                </el-col>
-                <el-col class="line" :span="2">-</el-col>
-                <el-col :span="11">
-                  <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date6_2" style="width: 100%;"></el-time-picker>
-                </el-col>
+              <el-form-item label="商品名称">
+                <el-input v-model="form.name1" placeholder="不超过15个字"></el-input>
               </el-form-item>
-              <el-form-item label="兑奖方式"  style="width:26rem;">
-                <el-radio-group v-model="radio3">
-                  <el-radio label="1">公众号兑奖</el-radio>
-                  <el-radio label="2">线下门店兑奖</el-radio>
-                  <div class="second">
-                    <el-radio label="3">联系客服兑奖</el-radio>
-                    <el-radio label="4">平台提供兑奖说明</el-radio>
-                  </div>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="公众号名称" >
-                <el-input  v-model="form.name6_3" placeholder="不超过15个字"></el-input>
+              <el-form-item label="商品图片">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
               </el-form-item>
 
-              <el-form-item label="兑奖说明">
-                <el-input type="textarea" v-model="form.desc6"></el-input>
+              <el-form-item label="商品原价">
+                <el-input v-model="form.name2" placeholder="必须是大于0的数，支持小数点后两位"></el-input>
+              </el-form-item>
+              <el-form-item label="商品低价">
+                <el-input v-model="form.name2" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改"></el-input>
+                <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
+                  <el-button>?</el-button>
+                </el-tooltip>
+              </el-form-item>
+
+              <el-form-item label="商品库存">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
+              </el-form-item>
+              <el-form-item label="虚拟销量">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
+              </el-form-item>
+              <el-form-item label="商品详情">
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+
+              </el-form-item>
+
+
+              <el-form-item label="配送方式"  style="width:26rem;">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
+              </el-form-item>
+
+
+              <el-form-item label="发货说明">
+                <el-input type="textarea" v-model="form.desc2"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="saveReword()">保存</el-button>
+                <el-button type="primary" @click="backReword()">返回</el-button>
               </el-form-item>
             </el-tab-pane>
 
-            <!-- 奖品七 -->
+            <!-- 商品七 -->
             <el-tab-pane label="商品七" name="seventh">
-              <el-form-item label="奖品来源">
-                <el-radio-group v-model="radio7_1">
-                  <el-radio label="1">自家商品</el-radio>
-                  <el-radio label="2">平台奖品库</el-radio>
-                </el-radio-group>
-                <a href="javascript:;">去奖平商城购买</a>
-              </el-form-item>
-              <el-form-item label="奖品名称">
-                <el-input v-model="form.name7_1" placeholder="不超过15个字"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  list-type="picture-card"
-
-                  :on-remove="handleRemove">
-                  <i class="el-icon-plus"></i>
-                </el-upload>
-                <span class="load_text">奖品图片将在九宫格中显示</span>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
-                </el-dialog>
-
-              </el-form-item>
-              <el-form-item label="奖品数量">
-                <el-input v-model="form.name7_2" placeholder="不超过15个字"></el-input>
-              </el-form-item>
-              <el-form-item label="导入券码">
-                <el-radio-group v-model="radio7_2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">手动导入</el-radio>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="">
-                <el-input type="textarea" v-model="form.desc7_1"></el-input>
-              </el-form-item>
-              <el-form-item label="奖品类型">
-                <el-select v-model="form.region7" placeholder="请选择活动区域">
-                  <el-option v-for="(items,index) in reword_type7"  :label="items.name" :value="index+1" :key="index"></el-option>
+              <el-form-item label="商品类型">
+                <el-select v-model="value" placeholder="请选择">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
                 </el-select>
+
               </el-form-item>
-              <el-form-item label="活动时间">
-                <el-col :span="11">
-                  <el-date-picker type="date" placeholder="选择日期" v-model="form.date7_1" style="width: 100%;"></el-date-picker>
-                </el-col>
-                <el-col class="line" :span="2">-</el-col>
-                <el-col :span="11">
-                  <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date7_2" style="width: 100%;"></el-time-picker>
-                </el-col>
+              <el-form-item label="商品名称">
+                <el-input v-model="form.name1" placeholder="不超过15个字"></el-input>
               </el-form-item>
-              <el-form-item label="兑奖方式"  style="width:26rem;">
-                <el-radio-group v-model="radio7_3">
-                  <el-radio label="1">公众号兑奖</el-radio>
-                  <el-radio label="2">线下门店兑奖</el-radio>
-                  <div class="second">
-                    <el-radio label="3">联系客服兑奖</el-radio>
-                    <el-radio label="4">平台提供兑奖说明</el-radio>
-                  </div>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="公众号名称" >
-                <el-input  v-model="form.name7_3" placeholder="不超过15个字"></el-input>
+              <el-form-item label="商品图片">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
               </el-form-item>
 
-              <el-form-item label="兑奖说明">
-                <el-input type="textarea" v-model="form.desc7_2"></el-input>
+              <el-form-item label="商品原价">
+                <el-input v-model="form.name2" placeholder="必须是大于0的数，支持小数点后两位"></el-input>
+              </el-form-item>
+              <el-form-item label="商品低价">
+                <el-input v-model="form.name2" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改"></el-input>
+                <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
+                  <el-button>?</el-button>
+                </el-tooltip>
+              </el-form-item>
+
+              <el-form-item label="商品库存">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
+              </el-form-item>
+              <el-form-item label="虚拟销量">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
+              </el-form-item>
+              <el-form-item label="商品详情">
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+                <span class="scccc">
+                <el-upload
+                  class="avatar-uploader"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+</span>
+
+              </el-form-item>
+
+
+              <el-form-item label="配送方式"  style="width:26rem;">
+                <el-input type="textarea" v-model="form.desc1"></el-input>
+              </el-form-item>
+
+
+              <el-form-item label="发货说明">
+                <el-input type="textarea" v-model="form.desc2"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="saveReword()">保存</el-button>
+                <el-button type="primary" @click="backReword()">返回</el-button>
               </el-form-item>
             </el-tab-pane>
 
 
           </el-tabs>
-          <span class="reword_num" @click="addgift()">+</span>
-          <span class="reword_num" @click="reducegift()">-</span>
+<div class="cddd">
+  <span class="reword_num" @click="addgift()">+</span>
+  <span class="reword_num" @click="reducegift()">-</span>
+</div>
         </div>
       </el-form>
     </div>
@@ -854,6 +1007,14 @@
         this.$bus.emit("send_reword",this.reword_send)
         console.log(this.reword_data)
       },
+
+      //返回
+      backReword(){
+        //点击返回
+
+
+      },
+
       //添加奖品
       addgift(){
         if(this.reword.length==7){
@@ -904,9 +1065,11 @@
         width:95%;
         margin:0 auto .5rem;
         .reword_num {
-          width:3rem;
-          height:1.4rem;
-          line-height:1.4rem;
+          right: 2rem;
+          top: 0;
+          width:1rem;
+          height:1rem;
+          line-height:1rem;
           border:solid 1px #ccc;
           margin:0 .1rem;
           text-align:center;
@@ -916,5 +1079,44 @@
         }
       }
     }
+  }
+  .cddd{
+    position: absolute;
+    top: 10px;
+    right: 1rem;
+  }
+  .scccc{
+    display: inline-block;
+    float: left;
+    padding: 10px;
+  }
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+  }
+
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 60px;
+    color: #c5c5c5;
+    width: 150px;
+    height: 150px;
+    line-height: 150px;
+    text-align: center;
+    background: #f2f2f2;
+  }
+  .avatar {
+    width: 150px;
+    height: 150px;
+    display: block;
   }
 </style>

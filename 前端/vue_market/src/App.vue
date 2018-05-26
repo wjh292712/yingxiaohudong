@@ -24,7 +24,7 @@ export default {
   },
   methods:{
     ...mapActions(['disappear'])
-    
+
   },
   // watch:{
   //   $route(to,from){
@@ -36,7 +36,7 @@ export default {
   //   }
   // },
   mounted(){
-      
+
 
   },
   computed:{
@@ -91,3 +91,4 @@ li {
   list-style: none;
 }
 </style>
+//11

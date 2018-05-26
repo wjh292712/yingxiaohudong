@@ -7,15 +7,23 @@
           <!-- <div>{{setting_data}}</div> -->
         </el-form-item>
         <el-form-item label="活动日期">
+          <!--<el-date-picker-->
+            <!--v-model="value7"-->
+            <!--type="daterange"-->
+            <!--align="right"-->
+            <!--unlink-panels-->
+            <!--range-separator="至"-->
+            <!--start-placeholder="开始日期"-->
+            <!--end-placeholder="结束日期"-->
+            <!--:picker-options="pickerOptions2">-->
+
+          <!--</el-date-picker>-->
           <el-date-picker
-            v-model="value7"
-            type="daterange"
-            align="right"
-            unlink-panels
+            v-model="value4"
+            type="datetimerange"
             range-separator="至"
             start-placeholder="开始日期"
-            end-placeholder="结束日期"
-            :picker-options="pickerOptions2">
+            end-placeholder="结束日期">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="参与人数">
@@ -117,8 +125,8 @@
             }
           }]
         },
-        value6: '',
-        value7: ''
+        value4: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
+        value5: ''
       };
 
 

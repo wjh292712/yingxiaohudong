@@ -136,7 +136,7 @@ export default new Router({
           component: barsettingbase
         },
         {
-          path: "/bargainset/barreword",
+          path: "/bargainset/barreword",//商品设置
           component: barreword
         },
         {
