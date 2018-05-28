@@ -8,6 +8,7 @@
             <!-- 商品一 -->
 
             <el-tab-pane label="商品一" name="first">
+
               <el-form-item label="商品类型">
                 <el-select v-model="value" placeholder="请选择">
                   <el-option

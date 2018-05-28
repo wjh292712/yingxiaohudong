@@ -3,32 +3,31 @@
   <div class="setting_wrap">
     <div class="setting_con">
       <div class="setting_header clearfloat">
-        <!-- <div class="setting_button" @click="target()">基础设置</div> -->
-        <!-- <div class="setting_button" @click="changeActive(index)" :class="{active_button:classActive == index}"  v-for="(item,index) in settingmsg" :key = "index" type="primary" plain>{{item}}</div> -->
+
       </div>
       <div class="setting_title">
         <el-tabs v-model="activeName2" @tab-click="tabChange(name,label)">
-          <!-- <el-tab-pane label="基础设置" name="first"><router-view></router-view></el-tab-pane>
-          <el-tab-pane label="奖品设置" name="second"><router-view></router-view></el-tab-pane>
-          <el-tab-pane label="派奖设置" name="third"><router-view></router-view></el-tab-pane>
-          <el-tab-pane label="分享设置" name="fourth"><router-view></router-view></el-tab-pane>
-          <el-tab-pane label="高级设置" name="ffifth"><router-view></router-view></el-tab-pane> -->
+
 
 
           <el-tab-pane label="基础设置" name="first">
-            <barsettingbase></barsettingbase>
+       <answsettingbase></answsettingbase>
           </el-tab-pane>
-          <el-tab-pane label="商品设置" name="second">
+          <el-tab-pane label="奖品设置" name="second">
 
-            <barreword></barreword>
+            <ansreword></ansreword>
           </el-tab-pane>
-          <el-tab-pane label="砍价设置" name="third">
+          <el-tab-pane label="派奖设置" name="third">
+
+            <baraward></baraward>
+          </el-tab-pane>
+          <el-tab-pane label="分享设置" name="third">
 
             <baraward></baraward>
           </el-tab-pane>
           <!--<el-tab-pane label="分享设置" name="fourth"><share></share></el-tab-pane>-->
           <el-tab-pane label="高级设置" name="ffifth">
-<baradvanced></baradvanced>
+            <baradvanced></baradvanced>
 
           </el-tab-pane>
 
@@ -42,8 +41,9 @@
 <script>
 
   // import settingBase from '@/page/settingbase'
-  import barsettingbase from '@/page/barsettingbase'
-  import barreword from '@/page/barreword'
+
+  import answsettingbase from '@/page/answsettingbase'
+  import ansreword from '@/page/ansreword'
   import baraward from '@/page/baraward'
   import baradvanced from '@/page/baradvanced'
   // import reword from '@/page/reword'
@@ -56,7 +56,7 @@
   export default  ({
     data(){
       return {
-        settingmsg:["基础设置","商品设置","砍价设置","高级设置"],
+        settingmsg:["基础设置","奖品设置","派奖设置","分享设置","高级设置"],
         classActive:0,
         activeName2: 'first',
         msg:"this is parent data",
@@ -173,8 +173,8 @@
       }
     },
     components:{
-      barsettingbase,
-      barreword,
+      answsettingbase,
+      ansreword,
       baraward,
       baradvanced,
       share,

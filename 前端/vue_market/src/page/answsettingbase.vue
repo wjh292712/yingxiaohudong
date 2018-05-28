@@ -8,14 +8,14 @@
         </el-form-item>
         <el-form-item label="活动日期">
           <!--<el-date-picker-->
-            <!--v-model="value7"-->
-            <!--type="daterange"-->
-            <!--align="right"-->
-            <!--unlink-panels-->
-            <!--range-separator="至"-->
-            <!--start-placeholder="开始日期"-->
-            <!--end-placeholder="结束日期"-->
-            <!--:picker-options="pickerOptions2">-->
+          <!--v-model="value7"-->
+          <!--type="daterange"-->
+          <!--align="right"-->
+          <!--unlink-panels-->
+          <!--range-separator="至"-->
+          <!--start-placeholder="开始日期"-->
+          <!--end-placeholder="结束日期"-->
+          <!--:picker-options="pickerOptions2">-->
 
           <!--</el-date-picker>-->
           <el-date-picker
@@ -28,8 +28,8 @@
         </el-form-item>
         <el-form-item label="参与人数">
           <el-radio-group v-model="radio1">
-            <el-radio label="1" >显示</el-radio>
-            <el-radio label="2">隐藏</el-radio>
+            <el-radio label="1" >隐藏</el-radio>
+            <el-radio label="2">显示</el-radio>
             <div class="label_text">在实际参与人数基础上增加
               <input class="people" style="display: inline-block;width: 50px;height: 20px;text-align: center"/>{{setting_data.addNum}}
               倍
@@ -43,23 +43,15 @@
 
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="活动说明">
-          <el-input style="height:6rem;" type="textarea" v-model="form.desc.explain"></el-input>
+        <el-form-item label="活动规则">
+          <el-input style="height:6rem;" type="textarea" placeholder="请输入活动规则0/500字" v-model="form.desc.explain" ></el-input>
         </el-form-item>
-        <el-form-item label="商家简介">
-          <el-input style="height:6rem;" type="textarea" v-model="form.desc.intro"></el-input>
-        </el-form-item>
-        <el-form-item label="商家地址">
-          <el-input style="height:3rem;" type="textarea" v-model="form.desc.address"></el-input>
-        </el-form-item>
-        <el-form-item label="商家电话">
-          <el-input style="height:3rem;" type="textarea" v-model="form.desc.phone"></el-input>
-        </el-form-item>
+
         <el-form-item>
 
           <div class="btn_click">
-          <el-button type="primary" @click="onSave()">保存</el-button>
-          <el-button type='primary' @click="name()">返回</el-button>
+            <el-button type="primary" @click="onSave()">保存</el-button>
+            <el-button type='primary' @click="name()">返回</el-button>
           </div>
         </el-form-item>
       </el-form>
@@ -262,7 +254,7 @@
   }
   .btn_click{
     position: absolute;
-    bottom: -70px;
+    bottom: -50px;
     margin-left: -60px;
   }
 </style>

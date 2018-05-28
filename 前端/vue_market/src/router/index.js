@@ -15,6 +15,16 @@ import bargainlist from '@/page/bargainlist'
 import bargainset from '@/page/bargainset'
 import barsettingbase from '@/page/barsettingbase'
 import barreword from '@/page/barreword'
+import baraward from '@/page/baraward'
+import baradvanced from '@/page/baradvanced'
+
+//答题活动
+import answerlist from '@/page/answerlist'
+import answerset from '@/page/answerset'
+import answsettingbase from '@/page/answsettingbase'
+import ansreword from '@/page/ansreword'
+
+
 
 
 // 运营端
@@ -139,38 +149,59 @@ export default new Router({
           path: "/bargainset/barreword",//商品设置
           component: barreword
         },
+
         {
-          path: "/setting/advanced",
-          component: advanced
+          path: "/bargainset/baraward ",
+          component: baraward
+        },
+
+        {
+          path: "/bargainset/baradvanced",
+          component: baradvanced
+        },
+
+      ]
+    },
+
+
+    //答题活动
+    {
+      path: "/activeslide",
+      component: activeslide,
+      children: [{
+        path: "/activeslide/activeFirst",
+        component: activeFirst,
+      },
+        {
+          path: "/activeslide/answerlist",
+          component:answerlist,
+        }]
+    },
+    //答题右侧商户设置
+
+    {
+      path: "/answerset",
+      component: resolve => void(require(['@/page/answerset'],resolve)),
+      children: [
+        {
+          path: "/answerset/answsettingbase",//基础设置
+          component: answsettingbase
         },
         {
-          path: "/setting/award ",
-          component: award
+          path: "/answerset/ansreword",//奖品设置
+          component: ansreword
         },
+
         {
-          path: "/setting/activepage",
-          component: activepage
+          path: "/bargainset/baraward ",
+          component: baraward
         },
+
         {
-          path: "/setting/explainpage",
-          component: explainpage
+          path: "/bargainset/baradvanced",
+          component: baradvanced
         },
-        {
-          path: "/setting/draw",
-          component: draw
-        },
-        {
-          path: "/setting/detailpage",
-          component: detailpage
-        },
-        {
-          path: "/setting/losing",
-          component: losing
-        },
-        {
-          path: "/setting/winning",
-          component: winning
-        }
+
       ]
     },
 
