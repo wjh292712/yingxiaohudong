@@ -7,17 +7,6 @@
           <!-- <div>{{setting_data}}</div> -->
         </el-form-item>
         <el-form-item label="活动日期">
-          <!--<el-date-picker-->
-            <!--v-model="value7"-->
-            <!--type="daterange"-->
-            <!--align="right"-->
-            <!--unlink-panels-->
-            <!--range-separator="至"-->
-            <!--start-placeholder="开始日期"-->
-            <!--end-placeholder="结束日期"-->
-            <!--:picker-options="pickerOptions2">-->
-
-          <!--</el-date-picker>-->
           <el-date-picker
             v-model="value4"
             type="datetimerange"
@@ -125,7 +114,7 @@
             }
           }]
         },
-        value4: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
+        value4: [new Date(2018, 10, 10, 10, 20,30), new Date(2018, 10, 11, 10, 10,26)],
         value5: ''
       };
 
@@ -228,7 +217,7 @@
 <style>
   .base_wrap{
     background: #fbfbfb;
-    padding: 30px;
+    padding: 20px;
     height: 100%;
     position: relative;
   }
@@ -262,7 +251,7 @@
   }
   .btn_click{
     position: absolute;
-    bottom: -70px;
+    bottom: -50px;
     margin-left: -60px;
   }
 </style>

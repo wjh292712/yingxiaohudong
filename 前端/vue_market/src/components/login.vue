@@ -72,6 +72,7 @@ export default ({
                     }
                 }).then(res => {
         console.log(res);
+
         console.log(res.data);
         if(res.data.status===true){
 
@@ -80,9 +81,11 @@ export default ({
           this.$store.dispatch('undisappear')
           // this.$store.commit('show'),
           if(res.data.code===200){
-             this.$router.push({path:"/mainPage"})//跳转主页
+
+            this.$router.push({path:"/mainPage"})//跳转主页
           }else if(res.data.code===201){
-            this.$router.push({path:'/company'})
+
+            this.$router.push({path:'/company'})//跳转企业
           }
 
 }else{

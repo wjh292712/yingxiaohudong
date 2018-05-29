@@ -26,6 +26,7 @@
               </el-form-item>
               <el-form-item label="奖品名称:">
                 <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                <div class="picc_in">
                 <el-upload
                   action="https://jsonplaceholder.typicode.com/posts/"
                   list-type="picture-card"
@@ -33,6 +34,7 @@
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
                 </el-upload>
+                </div>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
                 <el-dialog :visible.sync="dialogVisible">
                   <img width="100%" :src="dialogImageUrl" alt="">
@@ -45,25 +47,25 @@
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio2">
                   <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">手动导入</el-radio>
+                  <el-radio label="2">手工导入</el-radio>
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="">
                 <el-input type="textarea" v-model="form.desc1"></el-input>
               </el-form-item>
-              <el-form-item label="奖品类型">
-                <el-select v-model="form.region" placeholder="请选择活动区域">
-                  <el-option v-for="(items,index) in reword_type1"  :label="items.name" :value="index+1" :key="index"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="活动时间">
-                <el-col :span="11">
-                  <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
-                </el-col>
-                <el-col class="line" :span="2">-</el-col>
-                <el-col :span="11">
-                  <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
-                </el-col>
+              <!--<el-form-item label="奖品类型">-->
+                <!--<el-select v-model="form.region" placeholder="请选择活动区域">-->
+                  <!--<el-option v-for="(items,index) in reword_type1"  :label="items.name" :value="index+1" :key="index"></el-option>-->
+                <!--</el-select>-->
+              <!--</el-form-item>-->
+              <el-form-item label="兑奖时间">
+                <el-date-picker
+                  v-model="value4"
+                  type="datetimerange"
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期">
+                </el-date-picker>
               </el-form-item>
               <el-form-item label="兑奖方式"  style="width:26rem;">
                 <el-radio-group v-model="radio3">
@@ -121,6 +123,36 @@
           label: '北京烤鸭'
         }],
         value: '',
+
+        pickerOptions2: {
+          shortcuts: [{
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit('pick', [start, end]);
+            }
+          }]
+        },
+        value4: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
+        value5: '',
 
         form: {
           //奖品一
@@ -476,7 +508,8 @@
       }
     }
   }
-  .el-upload--picture-card{
+
+  .picc_in{
     margin-top: 20px;
   }
 </style>

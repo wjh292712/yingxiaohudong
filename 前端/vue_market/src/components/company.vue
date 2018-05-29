@@ -16,7 +16,7 @@
                 <div class="company">
                 <ul class="company_con">
 
-                    <li v-for="(item,index) in list" :key="index" @click="loginHome()">
+                    <li v-for="(item,index) in list" :key="index" @click="loginHome()" class="active_com">
                       <i></i>
                       {{item.companyName}}
                     </li>
@@ -206,6 +206,10 @@ function (){
 }
   .company_con li{
     border-bottom: 1px solid #f0f2f5;
+  }
+  .active_com:hover{
+    background: #f0f2f5;
+    cursor: pointer;
   }
 
 </style>

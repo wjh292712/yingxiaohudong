@@ -21,7 +21,7 @@
                             <el-upload
                                 action="https://jsonplaceholder.typicode.com/posts/"
                                 list-type="picture-card"
-                                
+
                                 :on-remove="handleRemove">
                                 <i class="el-icon-plus"></i>
                                 </el-upload>
@@ -29,7 +29,7 @@
                                 <el-dialog :visible.sync="dialogVisible">
                                 <img width="100%" :src="dialogImageUrl" alt="">
                                 </el-dialog>
-                                
+
                             </el-form-item>
                              <el-form-item label="奖品数量">
                                 <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
@@ -49,13 +49,13 @@
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="活动时间">
-                                <el-col :span="11">
-                                <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
-                                </el-col>
-                                <el-col class="line" :span="2">-</el-col>
-                                <el-col :span="11">
-                                <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
-                                </el-col>
+                              <el-date-picker
+                                v-model="value4"
+                                type="datetimerange"
+                                range-separator="至"
+                                start-placeholder="开始日期"
+                                end-placeholder="结束日期">
+                              </el-date-picker>
                             </el-form-item>
                              <el-form-item label="兑奖方式"  style="width:26rem;">
                                 <el-radio-group v-model="radio3">
@@ -70,7 +70,7 @@
                             <el-form-item label="公众号名称" >
                                 <el-input  v-model="form.name3" placeholder="不超过15个字"></el-input>
                             </el-form-item>
-            
+
                             <el-form-item label="兑奖说明">
                                 <el-input type="textarea" v-model="form.desc2"></el-input>
                             </el-form-item>
@@ -94,7 +94,7 @@
                             <el-upload
                                 action="https://jsonplaceholder.typicode.com/posts/"
                                 list-type="picture-card"
-                                
+
                                 :on-remove="handleRemove">
                                 <i class="el-icon-plus"></i>
                                 </el-upload>
@@ -102,7 +102,7 @@
                                 <el-dialog :visible.sync="dialogVisible">
                                 <img width="100%" :src="dialogImageUrl" alt="">
                                 </el-dialog>
-                                
+
                             </el-form-item>
                              <el-form-item label="奖品数量">
                                 <el-input v-model="form.name2_2" placeholder="不超过15个字"></el-input>
@@ -122,13 +122,13 @@
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="活动时间">
-                                <el-col :span="11">
-                                <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
-                                </el-col>
-                                <el-col class="line" :span="2">-</el-col>
-                                <el-col :span="11">
-                                <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
-                                </el-col>
+                              <el-date-picker
+                                v-model="value4"
+                                type="datetimerange"
+                                range-separator="至"
+                                start-placeholder="开始日期"
+                                end-placeholder="结束日期">
+                              </el-date-picker>
                             </el-form-item>
                              <el-form-item label="兑奖方式"  style="width:26rem;">
                                 <el-radio-group v-model="radio2_3">
@@ -143,7 +143,7 @@
                             <el-form-item label="公众号名称" >
                                 <el-input  v-model="form.name2_3" placeholder="不超过15个字"></el-input>
                             </el-form-item>
-            
+
                             <el-form-item label="兑奖说明">
                                 <el-input type="textarea" v-model="form.desc2_2"></el-input>
                             </el-form-item>
@@ -167,7 +167,7 @@
                             <el-upload
                                 action="https://jsonplaceholder.typicode.com/posts/"
                                 list-type="picture-card"
-                                
+
                                 :on-remove="handleRemove">
                                 <i class="el-icon-plus"></i>
                                 </el-upload>
@@ -175,7 +175,7 @@
                                 <el-dialog :visible.sync="dialogVisible">
                                 <img width="100%" :src="dialogImageUrl" alt="">
                                 </el-dialog>
-                                
+
                             </el-form-item>
                              <el-form-item label="奖品数量">
                                 <el-input v-model="form.name3_2" placeholder="不超过15个字"></el-input>
@@ -195,13 +195,13 @@
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="活动时间">
-                                <el-col :span="11">
-                                <el-date-picker type="date" placeholder="选择日期" v-model="form.date3_1" style="width: 100%;"></el-date-picker>
-                                </el-col>
-                                <el-col class="line" :span="2">-</el-col>
-                                <el-col :span="11">
-                                <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date3_2" style="width: 100%;"></el-time-picker>
-                                </el-col>
+                              <el-date-picker
+                                v-model="value4"
+                                type="datetimerange"
+                                range-separator="至"
+                                start-placeholder="开始日期"
+                                end-placeholder="结束日期">
+                              </el-date-picker>
                             </el-form-item>
                              <el-form-item label="兑奖方式"  style="width:26rem;">
                                 <el-radio-group v-model="radio3_3">
@@ -216,7 +216,7 @@
                             <el-form-item label="公众号名称" >
                                 <el-input  v-model="form.name3_3" placeholder="不超过15个字"></el-input>
                             </el-form-item>
-            
+
                             <el-form-item label="兑奖说明">
                                 <el-input type="textarea" v-model="form.desc3_2"></el-input>
                             </el-form-item>
@@ -242,7 +242,7 @@
                             <el-upload
                                 action="https://jsonplaceholder.typicode.com/posts/"
                                 list-type="picture-card"
-                                
+
                                 :on-remove="handleRemove">
                                 <i class="el-icon-plus"></i>
                                 </el-upload>
@@ -250,7 +250,7 @@
                                 <el-dialog :visible.sync="dialogVisible">
                                 <img width="100%" :src="dialogImageUrl" alt="">
                                 </el-dialog>
-                                
+
                             </el-form-item>
                              <el-form-item label="奖品数量">
                                 <el-input v-model="form.name4_2" placeholder="不超过15个字"></el-input>
@@ -270,13 +270,13 @@
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="活动时间">
-                                <el-col :span="11">
-                                <el-date-picker type="date" placeholder="选择日期" v-model="form.date4_1" style="width: 100%;"></el-date-picker>
-                                </el-col>
-                                <el-col class="line" :span="2">-</el-col>
-                                <el-col :span="11">
-                                <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date4_2" style="width: 100%;"></el-time-picker>
-                                </el-col>
+                              <el-date-picker
+                                v-model="value4"
+                                type="datetimerange"
+                                range-separator="至"
+                                start-placeholder="开始日期"
+                                end-placeholder="结束日期">
+                              </el-date-picker>
                             </el-form-item>
                              <el-form-item label="兑奖方式"  style="width:26rem;">
                                 <el-radio-group v-model="radio4_3">
@@ -291,7 +291,7 @@
                             <el-form-item label="公众号名称" >
                                 <el-input  v-model="form.name4_3" placeholder="不超过15个字"></el-input>
                             </el-form-item>
-            
+
                             <el-form-item label="兑奖说明">
                                 <el-input type="textarea" v-model="form.desc4_2"></el-input>
                             </el-form-item>
@@ -316,7 +316,7 @@
                             <el-upload
                                 action="https://jsonplaceholder.typicode.com/posts/"
                                 list-type="picture-card"
-                                
+
                                 :on-remove="handleRemove">
                                 <i class="el-icon-plus"></i>
                                 </el-upload>
@@ -324,7 +324,7 @@
                                 <el-dialog :visible.sync="dialogVisible">
                                 <img width="100%" :src="dialogImageUrl" alt="">
                                 </el-dialog>
-                                
+
                             </el-form-item>
                              <el-form-item label="奖品数量">
                                 <el-input v-model="form.name5_2" placeholder="不超过15个字"></el-input>
@@ -344,13 +344,13 @@
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="活动时间">
-                                <el-col :span="11">
-                                <el-date-picker type="date" placeholder="选择日期" v-model="form.date5_1" style="width: 100%;"></el-date-picker>
-                                </el-col>
-                                <el-col class="line" :span="2">-</el-col>
-                                <el-col :span="11">
-                                <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date5_2" style="width: 100%;"></el-time-picker>
-                                </el-col>
+                              <el-date-picker
+                                v-model="value4"
+                                type="datetimerange"
+                                range-separator="至"
+                                start-placeholder="开始日期"
+                                end-placeholder="结束日期">
+                              </el-date-picker>
                             </el-form-item>
                              <el-form-item label="兑奖方式"  style="width:26rem;">
                                 <el-radio-group v-model="radio5_3">
@@ -365,7 +365,7 @@
                             <el-form-item label="公众号名称" >
                                 <el-input  v-model="form.name5_3" placeholder="不超过15个字"></el-input>
                             </el-form-item>
-            
+
                             <el-form-item label="兑奖说明">
                                 <el-input type="textarea" v-model="form.desc5_2"></el-input>
                             </el-form-item>
@@ -390,7 +390,7 @@
                             <el-upload
                                 action="https://jsonplaceholder.typicode.com/posts/"
                                 list-type="picture-card"
-                                
+
                                 :on-remove="handleRemove">
                                 <i class="el-icon-plus"></i>
                                 </el-upload>
@@ -398,7 +398,7 @@
                                 <el-dialog :visible.sync="dialogVisible">
                                 <img width="100%" :src="dialogImageUrl" alt="">
                                 </el-dialog>
-                                
+
                             </el-form-item>
                              <el-form-item label="奖品数量">
                                 <el-input v-model="form.name6_2" placeholder="不超过15个字"></el-input>
@@ -418,13 +418,13 @@
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="活动时间">
-                                <el-col :span="11">
-                                <el-date-picker type="date" placeholder="选择日期" v-model="form.date6_1" style="width: 100%;"></el-date-picker>
-                                </el-col>
-                                <el-col class="line" :span="2">-</el-col>
-                                <el-col :span="11">
-                                <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date6_2" style="width: 100%;"></el-time-picker>
-                                </el-col>
+                              <el-date-picker
+                                v-model="value4"
+                                type="datetimerange"
+                                range-separator="至"
+                                start-placeholder="开始日期"
+                                end-placeholder="结束日期">
+                              </el-date-picker>
                             </el-form-item>
                              <el-form-item label="兑奖方式"  style="width:26rem;">
                                 <el-radio-group v-model="radio3">
@@ -439,7 +439,7 @@
                             <el-form-item label="公众号名称" >
                                 <el-input  v-model="form.name6_3" placeholder="不超过15个字"></el-input>
                             </el-form-item>
-            
+
                             <el-form-item label="兑奖说明">
                                 <el-input type="textarea" v-model="form.desc6"></el-input>
                             </el-form-item>
@@ -464,7 +464,7 @@
                             <el-upload
                                 action="https://jsonplaceholder.typicode.com/posts/"
                                 list-type="picture-card"
-                                
+
                                 :on-remove="handleRemove">
                                 <i class="el-icon-plus"></i>
                                 </el-upload>
@@ -472,7 +472,7 @@
                                 <el-dialog :visible.sync="dialogVisible">
                                 <img width="100%" :src="dialogImageUrl" alt="">
                                 </el-dialog>
-                                
+
                             </el-form-item>
                              <el-form-item label="奖品数量">
                                 <el-input v-model="form.name7_2" placeholder="不超过15个字"></el-input>
@@ -492,13 +492,13 @@
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="活动时间">
-                                <el-col :span="11">
-                                <el-date-picker type="date" placeholder="选择日期" v-model="form.date7_1" style="width: 100%;"></el-date-picker>
-                                </el-col>
-                                <el-col class="line" :span="2">-</el-col>
-                                <el-col :span="11">
-                                <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date7_2" style="width: 100%;"></el-time-picker>
-                                </el-col>
+                              <el-date-picker
+                                v-model="value4"
+                                type="datetimerange"
+                                range-separator="至"
+                                start-placeholder="开始日期"
+                                end-placeholder="结束日期">
+                              </el-date-picker>
                             </el-form-item>
                              <el-form-item label="兑奖方式"  style="width:26rem;">
                                 <el-radio-group v-model="radio7_3">
@@ -513,7 +513,7 @@
                             <el-form-item label="公众号名称" >
                                 <el-input  v-model="form.name7_3" placeholder="不超过15个字"></el-input>
                             </el-form-item>
-            
+
                             <el-form-item label="兑奖说明">
                                 <el-input type="textarea" v-model="form.desc7_2"></el-input>
                             </el-form-item>
@@ -538,7 +538,7 @@
                             <el-upload
                                 action="https://jsonplaceholder.typicode.com/posts/"
                                 list-type="picture-card"
-                                
+
                                 :on-remove="handleRemove">
                                 <i class="el-icon-plus"></i>
                                 </el-upload>
@@ -546,7 +546,7 @@
                                 <el-dialog :visible.sync="dialogVisible">
                                 <img width="100%" :src="dialogImageUrl" alt="">
                                 </el-dialog>
-                                
+
                             </el-form-item>
                              <el-form-item label="奖品数量">
                                 <el-input v-model="form.name8_2" placeholder="不超过15个字"></el-input>
@@ -566,13 +566,13 @@
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="活动时间">
-                                <el-col :span="11">
-                                <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
-                                </el-col>
-                                <el-col class="line" :span="2">-</el-col>
-                                <el-col :span="11">
-                                <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
-                                </el-col>
+                              <el-date-picker
+                                v-model="value4"
+                                type="datetimerange"
+                                range-separator="至"
+                                start-placeholder="开始日期"
+                                end-placeholder="结束日期">
+                              </el-date-picker>
                             </el-form-item>
                              <el-form-item label="兑奖方式"  style="width:26rem;">
                                 <el-radio-group v-model="radio8_3">
@@ -587,7 +587,7 @@
                             <el-form-item label="公众号名称" >
                                 <el-input  v-model="form.name8_3" placeholder="不超过15个字"></el-input>
                             </el-form-item>
-            
+
                             <el-form-item label="兑奖说明">
                                 <el-input type="textarea" v-model="form.desc8_2"></el-input>
                             </el-form-item>
@@ -609,10 +609,41 @@
     export default({
         data(){
             return {
+              list:[],
                 dialogImageUrl: '',
                 dialogVisible: false,
                 reword:"",
-                
+              start_date:"",
+              end_date:"",
+              pickerOptions2: {
+                shortcuts: [{
+                  text: '最近一周',
+                  onClick(picker) {
+                    const end = new Date();
+                    const start = new Date();
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                    picker.$emit('pick', [start, end]);
+                  }
+                }, {
+                  text: '最近一个月',
+                  onClick(picker) {
+                    const end = new Date();
+                    const start = new Date();
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                    picker.$emit('pick', [start, end]);
+                  }
+                }, {
+                  text: '最近三个月',
+                  onClick(picker) {
+                    const end = new Date();
+                    const start = new Date();
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                    picker.$emit('pick', [start, end]);
+                  }
+                }]
+              },
+              value4: [new Date(2018, 10, 29, 10, 10), new Date(2018, 10, 11, 10, 10)],
+              value5: '',
                 form: {
                         //奖品一
                         name1: '',//奖品名称
@@ -722,12 +753,13 @@
                     }
             },
             created(){
-                
+
                 // this.saveReword()
             },
             mounted(){
                 // this.$store.dispatch("saveData")
                 this.partReword()
+              this.timestampToTime()
             },
             computed:{
                 ...mapState(['setting_data']),
@@ -737,7 +769,7 @@
                 }
             },
              methods: {
-               
+
                  handlePictureCardPreview(file) {
                         this.dialogImageUrl = file.url;
                         this.dialogVisible = true;
@@ -745,12 +777,43 @@
                     handleClick(tab, event) {
                     console.log(tab, event);
                 },
+               //日期时间设置
+
+               timestampToTime(timestamp) {
+                 var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                 var Y = date.getFullYear() + '-';
+                 var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+                 var D = date.getDate() + ' ';
+                 var h = date.getHours() + ':';
+                 var m = date.getMinutes() + ':';
+                 var s = date.getSeconds();
+                 return Y+M+D+h+m+s;
+               },
 
                 //奖金设置部分的数据
                 partReword(){
+
                     let Data = sessionStorage.getItem('Data')
                     this.reword_data = JSON.parse(Data).jggAwardSetupExtendList
+                  this.list=this.reword_data
+
                     console.log(this.reword_data)
+                  //  日期时间转换设置
+
+                  this.start_date =this.reword_data[0].exchangeStartDate
+//日期开始时间
+                  console.log(this.start_data);
+                  this.end_date=this.reword_data[0].exchangeEndDate//结束时间
+                  let str = this.start_date
+                  console.log(str);
+                  let strend=this.end_date
+                  console.log(strend);
+                  //时间戳转换日期
+                  let newStr= this.timestampToTime(str)
+                  strend=this.timestampToTime(strend)
+                  this.value4=[newStr,strend]
+
+
                     //奖品一
                     this.form.name1 = this.reword_data[0].prizeName
                     this.form.name2 = this.reword_data[0].prizeNum
@@ -832,7 +895,7 @@
                     this.reword_send[0].prizeName = this.form.name1
                     this.reword_send[0].prizeNum = this.form.name2
                     this.reword_send[0].wxPublicAccountName = this.form.name3
-                    this.reword_send[0].prizeType = Number(this.radio1) 
+                    this.reword_send[0].prizeType = Number(this.radio1)
                     this.reword_send[0].prizeSource = Number(this.radio2)
                     this.reword_send[0].prizeExchangeTypeId = Number(this.radio3)
                     this.reword_type1 = this.reword_data.jggAwardTypeList
@@ -841,52 +904,52 @@
                     this.reword_send[1].prizeName = this.form.name2_1
                     this.reword_send[1].prizeNum = this.form.name2_2
                     this.reword_send[1].wxPublicAccountName = this.form.name2_3
-                    this.reword_send[1].prizeType = Number(this.radio2_1) 
+                    this.reword_send[1].prizeType = Number(this.radio2_1)
                     this.reword_send[1].prizeSource = Number(this.radio2_2)
                     this.reword_send[1].prizeExchangeTypeId = Number(this.radio2_3)
                     this.reword_type2 = this.reword_data.jggAwardTypeList
-                    
+
                     //奖品三
                     this.reword_send[2].prizeName = this.form.name3_1
                     this.reword_send[2].prizeNum = this.form.name3_2
                     this.reword_send[2].wxPublicAccountName = this.form.name3_3
-                    this.reword_send[2].prizeType = Number(this.radio3_1) 
+                    this.reword_send[2].prizeType = Number(this.radio3_1)
                     this.reword_send[2].prizeSource = Number(this.radio3_2)
                     this.reword_send[2].prizeExchangeTypeId = Number(this.radio3_3)
                     this.reword_type3 = this.reword_data.jggAwardTypeList
-                    
+
                     //奖品四
                     this.reword_send[3].prizeName = this.form.name4_1
                     this.reword_send[3].prizeNum = this.form.name4_2
                     this.reword_send[3].wxPublicAccountName = this.form.name4_3
-                    this.reword_send[3].prizeType = Number(this.radio4_1) 
+                    this.reword_send[3].prizeType = Number(this.radio4_1)
                     this.reword_send[3].prizeSource = Number(this.radio4_2)
                     this.reword_send[3].prizeExchangeTypeId = Number(this.radio4_3)
                     this.reword_type4 = this.reword_data.jggAwardTypeList
-                    
+
                     //奖品五
                     this.reword_send[4].prizeName = this.form.name5_1
                     this.reword_send[4].prizeNum = this.form.name5_2
                     this.reword_send[4].wxPublicAccountName = this.form.name5_3
-                    this.reword_send[4].prizeType = Number(this.radio5_1) 
+                    this.reword_send[4].prizeType = Number(this.radio5_1)
                     this.reword_send[4].prizeSource = Number(this.radio5_2)
                     this.reword_send[4].prizeExchangeTypeId = Number(this.radio5_3)
                     this.reword_type5 = this.reword_data.jggAwardTypeList
-                    
+
                     //奖品六
                     this.reword_send[5].prizeName = this.form.name6_1
                     this.reword_send[5].prizeNum = this.form.name6_2
                     this.reword_send[5].wxPublicAccountName = this.form.name6_3
-                    this.reword_send[5].prizeType = Number(this.radio6_1) 
+                    this.reword_send[5].prizeType = Number(this.radio6_1)
                     this.reword_send[5].prizeSource = Number(this.radio6_2)
                     this.reword_send[5].prizeExchangeTypeId = Number(this.radio6_3)
                     this.reword_type6 = this.reword_data.jggAwardTypeList
-                    
+
                     //奖品七
                     this.reword_send[6].prizeName = this.form.name6_1
                     this.reword_send[6].prizeNum = this.form.name6_2
                     this.reword_send[6].wxPublicAccountName = this.form.name6_3
-                    this.reword_send[6].prizeType = Number(this.radio6_1) 
+                    this.reword_send[6].prizeType = Number(this.radio6_1)
                     this.reword_send[6].prizeSource = Number(this.radio6_2)
                     this.reword_send[6].prizeExchangeTypeId = Number(this.radio6_3)
                     this.reword_type7 = this.reword_data.jggAwardTypeList
@@ -895,12 +958,12 @@
                     this.reword_send[7].prizeName = this.form.name7_1
                     this.reword_send[7].prizeNum = this.form.name7_2
                     this.reword_send[7].wxPublicAccountName = this.form.name7_3
-                    this.reword_send[7].prizeType = Number(this.radio7_1) 
+                    this.reword_send[7].prizeType = Number(this.radio7_1)
                     this.reword_send[7].prizeSource = Number(this.radio7_2)
                     this.reword_send[7].prizeExchangeTypeId = Number(this.radio7_3)
                     this.reword_type8 = this.reword_data.jggAwardTypeList
 
-                    this.$store.state.setting_data.jggAwardSetupExtendList = this.reword_send 
+                    this.$store.state.setting_data.jggAwardSetupExtendList = this.reword_send
                     this.$bus.emit("send_reword",this.reword_send)
                     console.log(this.reword_data)
                 },
@@ -911,7 +974,7 @@
                     }else{
                         alert("最多添加8个奖品")
                     }
-                    
+
                 },
                 //删除奖品
                 reducegift(){
@@ -928,7 +991,7 @@
                         console.log(file, fileList);
                     },
         }
-        
+
     })
 </script>
 
@@ -936,7 +999,7 @@
     .reword_wrap {
         width:100%;
         .reword_con {
-            
+
             /* .el-upload--picture-card{
                 float:left;
             } */

@@ -695,7 +695,8 @@
   export default({
     data(){
       return {
-        dialogImageUrl: '',
+        //dialogImageUrl: '',
+        imageUrl: '',
         dialogVisible: false,
         reword:"",
         options: [{
@@ -842,10 +843,23 @@
     },
     methods: {
 
-      handlePictureCardPreview(file) {
-        this.dialogImageUrl = file.url;
-        this.dialogVisible = true;
+      handleAvatarSuccess(res, file) {
+        this.imageUrl = URL.createObjectURL(file.raw);
       },
+      beforeAvatarUpload(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+
+        if (!isJPG) {
+          this.$message.error('上传头像图片只能是 JPG 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M;
+      },
+
+
       handleClick(tab, event) {
         console.log(tab, event);
       },
@@ -854,7 +868,7 @@
       partReword(){
         let Data = sessionStorage.getItem('Data')
         this.reword_data = JSON.parse(Data).jggAwardSetupExtendList
-        console.log(this.reword_data)
+        console.log(this.reword_data)//奖品数据
         //奖品一
         this.form.name1 = this.reword_data[0].prizeName
         this.form.name2 = this.reword_data[0].prizeNum

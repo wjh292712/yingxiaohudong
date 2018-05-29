@@ -21,15 +21,14 @@
                     <el-tab-pane label="高级设置" name="ffifth"><advanced></advanced></el-tab-pane>
 
                   </el-tabs>
-                  
+
             </div>
         </div>
-            <el-button type="primary" @click="onSave()">保存</el-button>
-            <el-button>返回</el-button>
+
     </div>
 </template>
 <script>
-    
+
     import settingBase from '@/page/settingbase'
     import reword from '@/page/reword'
     import share from '@/page/share'
@@ -66,19 +65,19 @@
                 //分享部分返回的数据
                 this.$bus.on("send_share",function(data){
                     data == '' ?_this.sendData.jggShareSetup = _this.sendData.jggShareSetup : _this.sendData.jggShareSetup = data
-                    
+
                     // console.log(data)
                 })
                 //奖金设置返回的数据
                 this.$bus.on("send_reword",function(data){
                     data == ''?_this.sendData.jggAwardSetupExtendList = _this.sendData.jggAwardSetupExtendList : _this.sendData.jggAwardSetupExtendList = data
-                    
+
                     // console.log(data)
                 })
                 //派奖设置返回的数据
                 this.$bus.on("send_award",function(data){
                     data == '' ?_this.sendData.jggAwardSendSetup = _this.sendData.jggAwardSendSetup :  _this.sendData.jggAwardSendSetup = data
-                   
+
                     // console.log(data)
                 })
                 //高级设置返回的数据
@@ -92,7 +91,7 @@
                         _this.sendData.jggHighSecuritySetup = data[1]
                         _this.sendData.jggHighOtherSetup = data[2]
                     }
-                    
+
                     // console.log(data)
                 })
                 //基础设置返回的数据
@@ -139,15 +138,15 @@
                 // }).catch( res => {
 
                 // })
-                
-                
+
+
             },
-            
+
 
             changeActive(index){
                 this.classActive = index
                 this.target()
-            }, 
+            },
 
             target(){
                 // this.$router.push({path:'/setting/settingbase'})
@@ -168,14 +167,14 @@
 </script>
 <style lang="scss" scoped>
     .setting_wrap {
-        width:60%;
+        width:100%;
         .setting_con {
             width:100%;
             min-width:22.8rem;
             .setting_header {
                 box-sizing: border-box;
                 position:relative;
-                
+
                 .setting_button {
                     float:left;
                     width: 4rem;

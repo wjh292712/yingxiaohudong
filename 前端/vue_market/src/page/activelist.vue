@@ -8,26 +8,26 @@
             <el-tab-pane label="活动首页" name="first">
               <div class="active_down">
                 <div class="active_downCon">
-                 
+
                 </div>
               </div>
             </el-tab-pane>
             <el-tab-pane label="活动说明" name="second">
 
-            
+
             </el-tab-pane>
             <el-tab-pane label="我的奖品" name="third">
-             
+
             </el-tab-pane>
             <el-tab-pane label="奖品详情" name="fourth">
-            
+
 
             </el-tab-pane>
             <el-tab-pane label="中奖页" name="five">
-            
+
             </el-tab-pane>
             <el-tab-pane label="未中奖页" name="six">
-             
+
             </el-tab-pane>
           </el-tabs> -->
           <div class="pic_view">
@@ -35,12 +35,12 @@
                 <span v-for="(item,index) in tabs"
                       :key="index"
                       :class="num==index?'dora':''"
-                      @click="tab(index)">{{item}}</span> 
+                      @click="tab(index)">{{item}}</span>
             </div>
             <el-tabs v-model="activeName" >
-              
-                
-                 
+
+
+
             <div class="pic_ture">
                   <div class="sett">
                       <setting/>
@@ -59,18 +59,18 @@
                     <div class="active_down">
                         <div class="active_downCon">
                           <explainpage/>
-        
+
                           <!-- 设置栏 -->
                           <!-- <setting/> -->
                         </div>
                       </div>
-                   
+
                 </div>
                 <div v-show="num==2">
                     <div class="active_down">
                         <div class="active_downCon">
                           <draw/>
-        
+
                           <!-- 设置栏 -->
                           <!-- <setting></setting> -->
                         </div>
@@ -84,7 +84,7 @@
                           <!-- <setting/> -->
                         </div>
                       </div>
-                    
+
                 </div>
                 <div v-show="num==4">
                    <div class="active_down">
@@ -94,7 +94,7 @@
                         <!-- <setting/> -->
                       </div>
                     </div>
-              
+
                 </div>
                 <div v-show="num==5">
                     <div class="active_down">
@@ -106,7 +106,7 @@
                       </div>
                 </div>
             </div>
-         
+
           </el-tabs>
             <div class="view_vie"></div>
 
@@ -192,21 +192,24 @@ export default ({
   background: #fff;
 }
 .pic_view {
-  width: 100%;
+  width: 112%;
   height: auto;
   position: relative;
 }
 .nav_pic {
   width: 100%;
-  height: 1.5rem;
-  line-height: 1.5rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
   /* box-shadow: 0 2px 9px 0 #eeeeee; */
-  border: 1px solid #ccc;
+  border-bottom: 2px solid #f0f0f0;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 0 10px;
   font-size: 14px;
   color: #000;
+}
+.nav_pic>span{
+  margin-left: 4%;
 }
 .active_wrap {
   width: 85%;
@@ -236,13 +239,18 @@ export default ({
           border-bottom: #FC7132 2px solid;
         }
         .el-button--primary {
-          width: 4rem;
+          width: 6rem;
           height: 1.5rem;
           line-height: 1.5rem;
           text-align: center;
-          background: greenyellow;
+          background: #fc7132;
           padding: 0;
-          border: 1px solid greenyellow;
+          border: 1px solid #fc7132;
+        }
+        .el-button--primary:hover{
+          background: #fbfbfb;
+          color: #4a4a4a;
+          border: 1px solid #9b9b9b;
         }
         .active_down {
           width: 100%;

@@ -14,7 +14,7 @@
         <div class="phone_body">
           <div class="phone_title">
             <i class="el-icon-arrow-left"></i>
-            <span class="phone_text">参与赢大奖</span>
+            <span class="phone_text">{{activeName}}</span>
           </div>
           <div class="nine_blog">
             <div class="title_image"></div>
@@ -56,8 +56,9 @@ export default ({
     return {
       //侧边数据
       //筛选条件数据
-      activeName: 'first',
+      activeName: 'nn',
       centerDialogVisible: false,
+
 
       url: [
         require('../assets/images/111.jpg'),
@@ -78,24 +79,37 @@ export default ({
   },
   mounted() {
     // this.updataImg()
+     this.activeN()
+
+  },
+  updated(){
+    //this.activeN()
   },
   methods: {
     handleClick(tab, event) {
       console.log(tab, event);
     },
-    updataImg() {
-      this.$http({
-        method: "post",
-        url: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8d8bbbd5fcf10745&redirect_uri=http://center.marketing.yunpaas.cn/jgg/activity/startDrawAward?id=1&response_type=code&scope=snsapi_userinfo&state=STATE&component_appid=wx73b4adc05b76ee6a#wechat_redirect",
-        data: {
-
-        },
-      }).then(res => {
-        console.log(res)
-      }).catch(res => {
-        console.log(res)
-      })
+    activeN(){
+      let _this = this
+      let Data = sessionStorage.getItem('Data')
+      console.log(66672);
+      _this.base_data = JSON.parse(Data).jggBaseSetup
+      console.log(_this.base_data);
+      _this.activeName =_this.formName= _this.base_data.activityName
     }
+    // updataImg() {
+    //   this.$http({
+    //     method: "post",
+    //     url: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8d8bbbd5fcf10745&redirect_uri=http://center.marketing.yunpaas.cn/jgg/activity/startDrawAward?id=1&response_type=code&scope=snsapi_userinfo&state=STATE&component_appid=wx73b4adc05b76ee6a#wechat_redirect",
+    //     data: {
+    //
+    //     },
+    //   }).then(res => {
+    //     console.log(res)
+    //   }).catch(res => {
+    //     console.log(res)
+    //   })
+    // }
   },
 
   // created() {

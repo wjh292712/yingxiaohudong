@@ -1,79 +1,87 @@
 <template>
-    <div class="base_wrap">
-        <div class="base_con">
-            <el-form ref="form" :model="form" label-width="80px">
-                <el-form-item label="活动名称">
-                    <el-input v-model="formName"  @input='inputData'></el-input>
-                    <!-- <div>{{setting_data}}</div> -->
-                </el-form-item>
-                <el-form-item label="活动日期">
-                    <el-date-picker
-                      v-model="value7"
-                      type="daterange"
-                      align="right"
-                      unlink-panels
-                      range-separator="至"
-                      start-placeholder="开始日期"
-                      end-placeholder="结束日期"
-                      :picker-options="pickerOptions2">
-                    </el-date-picker>
-                </el-form-item>
-                <el-form-item label="参与人数">
-                    <el-radio-group v-model="radio1">
-                        <el-radio label="1" >隐藏</el-radio>
-                        <el-radio label="2">显示</el-radio>
-                        <div class="label_text">在实际参与人数基础上增加
-                            <span class="people">{{setting_data.addNum}}</span>人</div>
-                    </el-radio-group>
-                </el-form-item>
-                <el-form-item label="是否关注" >
-                    <el-radio-group v-model="radio2">
-                        <el-radio label="1" checked>是</el-radio>
-                        <el-radio label="2">否</el-radio>
+  <div class="base_wrap">
+    <div class="base_con">
+      <el-form ref="form" :model="form" label-width="80px">
+        <el-form-item label="活动名称">
+          <el-input v-model="formName" @input='inputData'></el-input>
+          {{formName}}
+          <!-- <div>{{setting_data}}</div> -->
+        </el-form-item>
+        <el-form-item label="活动日期">
+          <el-date-picker
+            v-model="value4"
+            type="datetimerange"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="参与人数">
+          <el-radio-group v-model="radio1">
+            <el-radio label="1">隐藏</el-radio>
+            <el-radio label="2">显示</el-radio>
+            <div class="label_text">在实际参与人数基础上增加
+              <input class="people" style="display: inline-block;width: 50px;height: 20px;text-align: center"/>{{setting_data.addNum}}
+              倍
+              <span>(该数据只用于显示，不计入统计)</span>
+            </div>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="是否关注">
+          <el-radio-group v-model="radio2">
+            <el-radio label="1" checked>是</el-radio>
+            <el-radio label="2">否</el-radio>
 
-                    </el-radio-group>
-                </el-form-item>
-                <el-form-item label="活动规则">
-                    <el-input style="height:6rem;" type="textarea" v-model="form.desc"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="saveBase()" :class='checkBtn==true?"newactive":""'>保存</el-button>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="活动规则">
+          <el-input style="height:6rem;" type="textarea" v-model="form.desc"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <!--<el-button type="primary" @click="saveBase()" :class='checkBtn==true?"newactive":""'>保存</el-button>-->
+          <div class="btn_click">
+            <el-button type="primary" @click="onSave()">保存</el-button>
+            <el-button type='primary' @click="name()">返回</el-button>
+          </div>
 
-                </el-form-item>
-            </el-form>
-        </div>
+        </el-form-item>
+      </el-form>
     </div>
+  </div>
 </template>
 <script>
-    import {mapState, mapMutations, mapActions} from 'vuex';
-    export default ({
-        props: {
-            child: ""
-        },
-        data() {
-            return {
-                form: {
-                    name: '',
-                    region: '',
-                    date1: '',
-                    date2: '',
-                    delivery: false,
-                    type: [],
-                    resource: '',
-                    resource1: '',
-                    desc: ''
-                },
-                checkBtn: false,//��ť��ʽ
-                formName:"" ,//������
-                isApperant: false,//�Ƿ���ʾ
-                radio1: '',//��ѡ��һ
-                radio2: '',//��ѡ���
-                oneRadio: null,//��ѡ��һֵ
-                twoRadio: null,//��ѡ��һֵ
-                base_data:'',//基础设置数据
-                base_send:"",
+  import {mapState, mapMutations, mapActions,timestampToTime} from 'vuex';
 
-                 pickerOptions2: {
+  export default ({
+    props: {
+      child: ""
+    },
+    data() {
+      return {
+        form: {
+          name: '',
+          region: '',
+          date1: '',
+          date2: '',
+          delivery: false,
+          type: [],
+          resource: '',
+          resource1: '',
+          desc: ''
+        },
+        checkBtn: false,//��ť��ʽ
+        formName: "",//������//活动名称
+        isApperant: false,//�Ƿ���ʾ
+        radio1: '',//��ѡ��һ
+        radio2: '',//��ѡ���
+        oneRadio: null,//��ѡ��һֵ
+        twoRadio: null,//��ѡ��һֵ
+        base_data: '',//基础设置数据
+        base_send: "",
+        start_date: '',
+        end_date: "",
+
+        pickerOptions2: {
           shortcuts: [{
             text: '最近一周',
             onClick(picker) {
@@ -100,102 +108,162 @@
             }
           }]
         },
-        value6: '',
-        value7: ''
-      };    
+        value4: [new Date(2018, 10, 29, 10, 10), new Date(2018, 10, 11, 10, 10)],
+        value5: ''
+      };
 
 
-           
-        },
-        created(){
-        },
-        mounted(){
-            //  alert(123)
-            var _this = this
-            // _this.$store.dispatch('saveData')
-            _this.partBase()
-            
-            
-        },
-        computed:{
-            ...mapState(['setting_data']),
-            ...mapActions(['saveData']),
-        },
-        methods: {
-            
-                // 基础设置模块
-                partBase(){
-                    let _this = this
-                    // _this.$store.dispatch('saveData')
-                    let Data = sessionStorage.getItem('Data')
-                    _this.base_data = JSON.parse(Data).jggBaseSetup
-                    // console.log(_this.base_data.activityName)
-                    _this.formName = _this.base_data.activityName
-                    _this.value7 = _this.base_data.endDate
-                    _this.radio1 = Number(_this.base_data.shows).toString(),
-                    _this.radio2 = Number(_this.base_data.subscribe).toString()
-                },
-                saveBase(){
-                    let _this = this
-                    // _this.$store.dispatch('saveData')
-                    let Data = sessionStorage.getItem('Data')
-                    _this.base_send = JSON.parse(Data).jggBaseSetup
-                    _this.base_send.activityName = _this.formName
-                    // this.base_data.endDate = this.value7 
-                    _this.base_send.shows = _this.radio1 == 1 ? true : false;
-                    _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
-                    // this.$store.state.setting_data.jggBaseSetup = this.base_send
-                    _this.$bus.emit("send_base",_this.base_send)
-                },
+    },
+    created() {
+    },
+    mounted() {
+      //alert(123)
+      var _this = this
+      // _this.$store.dispatch('saveData')
 
-            onSubmit() {
-                alert(this.activeTime.getTime());
-                // this.activeTime = this.activeTime.getTime();
-                // this.activeHour = this.activeHour.getTime();
-                this.oneRadio = this.radio1;
-                this.twoRadio = this.radio2;
-              
-                alert(this.oneRadio)
-                alert(this.twoRadio)
-                if (this.formName != '') {
-                    //   if(){
+      _this.partBase()
+      _this.timestampToTime()
 
-                    //   }
-                } else {
-                    alert('活动名称，不能为空哦！')
 
-                }
-            },
-            inputData() {
-                // console.log(this.formName);
-                if (!this.formName) {
-                    this.checkBtn = false;
-                } else {
-                    this.checkBtn = true;
-                }
-            }
+    },
+    computed: {
+      ...mapState(['setting_data']),
+      ...mapActions(['saveData']),
+    },
+    methods: {
+
+      // 基础设置模块
+      partBase() {
+        let _this = this
+        console.log(33);
+        // _this.$store.dispatch('saveData')
+        // let Data = sessionStorage.getItem('Data')
+        let Data = sessionStorage.getItem('Data')
+        console.log(Data);
+        _this.base_data = JSON.parse(Data).jggBaseSetup
+        console.log(_this.base_data);
+        _this.formName = _this.base_data.activityName
+
+        _this.start_date = _this.base_data.startDate//日期开始时间
+        _this.end_date=_this.base_data.endDate//结束时间
+        let str = _this.start_date
+        let strend=_this.end_date
+
+
+        //时间戳转换日期
+      let newStr= _this.timestampToTime(str)
+         strend=_this.timestampToTime(strend)
+        _this.value4=[newStr,strend]
+
+        // console.log(_this.value4);
+
+        _this.radio1 = Number(_this.base_data.shows).toString(),
+          _this.radio2 = Number(_this.base_data.subscribe).toString()
+      },
+
+      timestampToTime(timestamp) {
+        var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = date.getDate() + ' ';
+        var h = date.getHours() + ':';
+        var m = date.getMinutes() + ':';
+        var s = date.getSeconds();
+        return Y+M+D+h+m+s;
+      },
+      timestampToDay(){
+
+      },
+      saveBase() {
+        let _this = this
+        // _this.$store.dispatch('saveData')
+        let Data = sessionStorage.getItem('Data')
+        _this.base_send = JSON.parse(Data).jggBaseSetup
+        _this.base_send.activityName = _this.formName
+        // this.base_data.endDate = this.value7
+        _this.base_send.shows = _this.radio1 == 1 ? true : false;
+        _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
+        // this.$store.state.setting_data.jggBaseSetup = this.base_send
+        _this.$bus.emit("send_base", _this.base_send)
+      },
+
+      onSubmit() {
+        alert(this.activeTime.getTime());
+        // this.activeTime = this.activeTime.getTime();
+        // this.activeHour = this.activeHour.getTime();
+        this.oneRadio = this.radio1;
+        this.twoRadio = this.radio2;
+
+        alert(this.oneRadio)
+        alert(this.twoRadio)
+        if (this.formName != '') {
+          //   if(){
+
+          //   }
+        } else {
+          alert('活动名称，不能为空哦！')
+
         }
-    })
+      },
+      inputData() {
+        // console.log(this.formName);
+        if (!this.formName) {
+          this.checkBtn = false;
+        } else {
+          this.checkBtn = true;
+        }
+      }
+    }
+  })
+
+
 </script>
 <style lang="scss">
-    .base_wrap {
-        width: 100%;
-        margin: 1rem 0;
-        .label_text {
-            font-size: .7rem;
-            .people {
-                display: inline-block;
-                border: 1px solid #000;
-                background: #fff;
-                color: #000;
-                width: 2rem;
-                text-align: center;
-                margin: 0 .5rem;
-            }
-        }
+  .base_wrap {
+    width: 100%;
+    margin: 1rem 0;
+    background: #fbfbfb;
+    padding: 30px;
+    .label_text {
+      font-size: .7rem;
+      .people {
+        display: inline-block;
+        border: 1px solid #000;
+        background: #fff;
+        color: #000;
+        width: 2rem;
+        text-align: center;
+        margin: 0 .5rem;
+      }
     }
-    .newactive {
-        background-color: blue!important;
-        z-index: 999;
-    }
+  }
+
+  .newactive {
+    background-color: blue !important;
+    z-index: 999;
+  }
+
+  .el-radio__input.is-checked .el-radio__inner {
+    border-color: #fc7132;
+    background: #fc7132;
+  }
+
+  .el-radio__input.is-checked + .el-radio__label {
+    color: #fc7132;
+  }
+
+  .el-input__inner {
+    width: 80%;
+  }
+
+  .el-textarea__inner {
+    width: 80%;
+    /*height: 130px;*/
+  }
+
+  .btn_click {
+    position: absolute;
+    bottom: -70px;
+    margin-left: -60px;
+  }
 </style>

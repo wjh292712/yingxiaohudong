@@ -55,13 +55,13 @@ const store =new Vuex.Store({
 
                 }
             }).then(res =>{
-                // console.log(res.data.data)
+                 console.log(res.data.data)
                 this.state.banner = res.data.data
             }).catch(res =>{
                 console.log(res)
             })
         },
-        
+
         // 登录部分
         userName(context){
             axios({
@@ -85,14 +85,14 @@ const store =new Vuex.Store({
                 method: "post",
                 url: "http://center.marketing.yunpaas.cn/jgg/activitySetup/init",
                 params: {
-                  
+
                 },
                 // cancelToken: source.token
             }).then(res => {
-                this.state.setting_data = res.data.data
-                let strData = JSON.stringify(this.state.setting_data)
-                sessionStorage.setItem("Data",strData)
-                
+              this.state.setting_data = res.data.data
+                let strData = JSON.stringify(this.state.setting_data)//所有九宫格数据
+                sessionStorage.setItem("Data",strData)//存储数据
+
             }).catch(res => {
                 console.log(res)
             })
@@ -113,8 +113,22 @@ const store =new Vuex.Store({
             //     }
             // })
         }
-    }
-}) 
-    
+
+
+    },
+  //时间转换
+  timestampToTime(timestamp) {
+    var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+    var Y = date.getFullYear() + '-';
+    var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+    var D = date.getDate() + ' ';
+    var h = date.getHours() + ':';
+    var m = date.getMinutes() + ':';
+    var s = date.getSeconds();
+    return Y+M+D+h+m+s;
+  },
+})
+
+
 
 export default store

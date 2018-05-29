@@ -210,7 +210,7 @@
     color: #000;
   }
   .nav_pic>span{
-    margin-left: 50px;
+    margin-left: 4%;
   }
   .active_wrap {
     width: 85%;
