@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import HellofWorld from '@/components/HelloWorld'
 import navleft from '@/views/navleft'
 import mainPage from '@/page/mainPage'
 
@@ -69,8 +69,6 @@ export default new Router({
     // 活动端
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld,
       redirect: "/login"
       // children:[{
       //   path:"/activeslide",

@@ -10,6 +10,8 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
+//引入jQuery
+import 'jquery/dist/jquery.js'
 //引入iview
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'

@@ -28,13 +28,13 @@
                 <div class="up">
                     <h3>推荐活动</h3>
                     <div class="main_list">
-                        <div class="main_list_box" v-for="(item,index) in mainmsg" :key="index">
+                        <div class="main_list_box" v-for="(item,index) in mainmsg" :key="index" @click="targetActive(item)">
                             <div class="body_img">
                                 <img src="../../static/mainPage/Group 17 Copy 3.png" alt="">
                             </div>
                             <div class="body_text">
                                 <h5>{{item.title}}</h5>
-                                <span class="body_text_btn" @click="">创建活动</span>
+                                <span class="body_text_btn" >创建活动</span>
                             </div>
                         </div>
                     </div>
@@ -85,6 +85,21 @@
             // })
         },
         methods: {
+//跳转活动页面
+          targetActive(e){
+
+            if(e.id===1){
+              this.$router.push({ path: "/activeslide/activelist" })
+            }
+            //id=2暂无活动
+            else if (e.id===3){
+              this.$router.push({path:'/activeslide/bargainlist'})
+            }
+            else if (e.id===4){
+              this.$router.push({path:'/activeslide/answerlist'})
+            }
+          },
+
             inform() {
                 // 商品列表
                 this.$axios({

@@ -126,6 +126,9 @@
 
 
     },
+    updated(){
+
+    },
     computed: {
       ...mapState(['setting_data']),
       ...mapActions(['saveData']),
@@ -135,7 +138,7 @@
       // 基础设置模块
       partBase() {
         let _this = this
-        console.log(33);
+        let formName=""
         // _this.$store.dispatch('saveData')
         // let Data = sessionStorage.getItem('Data')
         let Data = sessionStorage.getItem('Data')
@@ -143,6 +146,7 @@
         _this.base_data = JSON.parse(Data).jggBaseSetup
         console.log(_this.base_data);
         _this.formName = _this.base_data.activityName
+        formName = _this.base_data.activityName
 
         _this.start_date = _this.base_data.startDate//日期开始时间
         _this.end_date=_this.base_data.endDate//结束时间
@@ -159,6 +163,8 @@
 
         _this.radio1 = Number(_this.base_data.shows).toString(),
           _this.radio2 = Number(_this.base_data.subscribe).toString()
+
+         return formName;
       },
 
       timestampToTime(timestamp) {
@@ -206,12 +212,12 @@
         }
       },
       inputData() {
-        // console.log(this.formName);
-        if (!this.formName) {
-          this.checkBtn = false;
-        } else {
-          this.checkBtn = true;
-        }
+        console.log(this.formName);
+        // if (!this.formName) {
+        //   this.checkBtn = false;
+        // } else {
+        //   this.checkBtn = true;
+
       }
     }
   })

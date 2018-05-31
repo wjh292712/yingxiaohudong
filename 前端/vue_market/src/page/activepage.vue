@@ -50,6 +50,7 @@ import '../plugins/sudoku/index.css'
 import '../plugins/sudoku/index.js'
 import setting from '@/page/setting'
 import activepage from '@/page/activepage'
+import settingbase from '@/page/settingbase'
 // import raffle from '@/page/raffle'
 export default ({
   data() {
@@ -75,28 +76,47 @@ export default ({
 
   },
   created() {
+    // console.log(222);
+    // console.log(this);
+    // this.$bus.$on('inputDate',(val)=>{
+    //   console.log(333);
+    //   console.log(val);
+    //   this.activeName=val
+    // })
 
   },
   mounted() {
     // this.updataImg()
-     this.activeN()
+
+    let curname='';
+    // let cua='';
+    // this.activeN()
+    this.$nextTick(function () {
+      curname = settingbase.methods.partBase()
+      // cua=settingbase.methods.inputData()
+      console.log(curname);
+      // console.log(cua);
+      this.activeName=curname
+    })
 
   },
   updated(){
-    //this.activeN()
+    // this.activeN()
+
+
   },
   methods: {
     handleClick(tab, event) {
       console.log(tab, event);
     },
-    activeN(){
-      let _this = this
-      let Data = sessionStorage.getItem('Data')
-      console.log(66672);
-      _this.base_data = JSON.parse(Data).jggBaseSetup
-      console.log(_this.base_data);
-      _this.activeName =_this.formName= _this.base_data.activityName
-    }
+    // activeN(){
+    //   let _this = this
+    //   let Data = sessionStorage.getItem('Data')
+    //   console.log(66672);
+    //   _this.base_data = JSON.parse(Data).jggBaseSetup
+    //   console.log(_this.base_data);
+    //   _this.activeName =_this.formName= _this.base_data.activityName
+    // }
     // updataImg() {
     //   this.$http({
     //     method: "post",
@@ -257,7 +277,7 @@ export default ({
                       width: 85%;
                       margin: 0rem auto;
                       height: 1.17rem;
-                      background: url(../../static\active\通知.png) no-repeat;
+                      background: url(../../static/active/通知.png) no-repeat;
                       background-size: 100%;
                       font-size: .6rem;
                       text-indent: 2rem;
@@ -267,7 +287,7 @@ export default ({
                     .title_image {
                       width: 100%;
                       height: 6.25rem;
-                      background: url(../../static\active\banner.jpg) no-repeat;
+                      background: url(../../static/active/banner.jpg) no-repeat;
                       background-size: 100%;
                     }
                   }
