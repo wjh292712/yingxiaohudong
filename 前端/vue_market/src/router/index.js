@@ -10,6 +10,9 @@ import activelist from '@/page/activelist'
 import activeslide from '@/page/activeslide'
 import company from '@/components/company'
 
+//我的活动详情页
+import myactive from '@/page/myactive'
+
 //砍价活动
 import bargainlist from '@/page/bargainlist'
 import bargainset from '@/page/bargainset'
@@ -273,6 +276,23 @@ export default new Router({
     //   path: "/raffle",
     //   component: raffle
     // },
+
+    //我的活动页面
+    {
+      path: "/activeslide",
+      component: activeslide,
+      children: [{
+        path: "/activeslide/activeFirst",
+        component: activeFirst,
+      },
+        {
+          path: "/activeslide/myactive",
+          component: myactive,
+        }]
+    },
+
+
+
     // 运营端
     {
       path: '/login',

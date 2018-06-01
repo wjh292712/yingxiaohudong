@@ -14,7 +14,8 @@ const store =new Vuex.Store({
         header:false,
         nav:false,
         user_name:"",  //用户姓名
-        setting_data:[] //设置模块数据
+        setting_data:[],//设置模块数据
+      title_data:[],
     },
     mutations:{
         show(state){
@@ -47,6 +48,7 @@ const store =new Vuex.Store({
         disappear(context){
             context.commit('hide')
         },
+      //获取保存设置数据的
         saveForm(context){
             axios({
                 method:"post",
@@ -77,7 +79,10 @@ const store =new Vuex.Store({
                 console.log(res)
             })
         },
-        //设置保存模块
+
+
+
+        //设置保存模块给后台发送保存数据
         saveData(context){
             // var CancelToken = axios.CancelToken;
             // var source = CancelToken.source()
@@ -104,7 +109,7 @@ const store =new Vuex.Store({
             //     // contentType:"application/json",
             //     // datatype:"json",
             //     data:{
-
+            //
             //     },
             //     dataType:"json",
             //     success(data){

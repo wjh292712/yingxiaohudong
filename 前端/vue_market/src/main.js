@@ -23,7 +23,8 @@ axios.defaults.baseURL = apiConfig.baseUrl
 //
 import apiConfig from '../config/api.config'
 Vue.use(apiConfig)
-
+// 引入bootstrap
+//  import 'bootstrap/dist/css/bootstrap.css'
 // 引入vue-bus
 import vueBus from 'vue-bus'
 Vue.use(vueBus)

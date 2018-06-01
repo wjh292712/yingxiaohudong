@@ -5,7 +5,7 @@
     width: 200px;
     height: 200px;
     background-color: red;
-    position: absolute;
+    /*position: absolute;*/
     top:0;
 }
 
@@ -15,7 +15,7 @@
 
 .ten img {
     float: left;
-    width: 50px;
+    width: 53px;
     margin-right: 10px;
     margin-bottom: 10px;
     border-radius: 5px;

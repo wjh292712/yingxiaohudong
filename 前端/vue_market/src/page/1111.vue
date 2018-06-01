@@ -615,3 +615,28 @@
     padding: 0px 15px;
   }
 </style>
+
+
+//
+
+//登录后首页标题栏
+this.$axios({
+method: "post",
+url: "http://center.marketing.yunpaas.cn/center/activityDataModel/activityType",
+data: {},
+
+}).then(res => {
+let _this=this
+console.log(_this.titlemsg);
+console.log(res.data.data);
+console.log(res.data.data.ActivityCategory);
+
+// _this.titlemsg.con = res.data.data.ActivityScene
+// _this.titlemsg.con = res.data.data.ActivityTopic
+
+console.log(con);
+console.log(_this.titlemsg.con);
+// let titleData = JSON.stringify(this.state.title_data)
+// sessionStorage.setItem('Data', titleData)//存储数据
+// console.log(titleData);
+})

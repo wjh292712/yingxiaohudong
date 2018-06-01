@@ -115,7 +115,7 @@
             //     // console.log(tab,event)
             // },
             //保存设置
-            onSave(){
+            onSave(){//所有的数据设置保存大保存
                 var sendNew =JSON.stringify(this.sendData)
                 console.log(sendNew)
                 $.ajax({
