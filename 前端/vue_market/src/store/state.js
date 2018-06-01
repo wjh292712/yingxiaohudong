@@ -88,7 +88,7 @@ const store =new Vuex.Store({
             // var source = CancelToken.source()
             axios({
                 method: "post",
-                url: "http://center.marketing.yunpaas.cn/jgg/activitySetup/init",
+                url: "http://center.marketing.yunpaas.cn/jgg/activitySetup/init",//数据初始化接口
                 params: {
 
                 },

@@ -4,7 +4,6 @@
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="活动名称">
           <el-input v-model="formName" @input='inputData'></el-input>
-          {{formName}}
           <!-- <div>{{setting_data}}</div> -->
         </el-form-item>
         <el-form-item label="活动日期">
@@ -36,11 +35,12 @@
         </el-form-item>
         <el-form-item label="活动规则">
           <el-input style="height:6rem;" type="textarea" v-model="form.desc"></el-input>
+          {{form.desc}}
         </el-form-item>
         <el-form-item>
           <!--<el-button type="primary" @click="saveBase()" :class='checkBtn==true?"newactive":""'>保存</el-button>-->
           <div class="btn_click">
-            <el-button type="primary" @click="onSave()">保存</el-button>
+            <el-button type="primary" @click="saveBase()">保存</el-button>
             <el-button type='primary' @click="name()">返回</el-button>
           </div>
 
@@ -147,6 +147,8 @@
         console.log(_this.base_data);
         _this.formName = _this.base_data.activityName
         formName = _this.base_data.activityName
+        _this.form.desc=_this.base_data.rule
+        console.log(_this.form.desc);
 
         _this.start_date = _this.base_data.startDate//日期开始时间
         _this.end_date=_this.base_data.endDate//结束时间
@@ -186,11 +188,13 @@
         let Data = sessionStorage.getItem('Data')
         _this.base_send = JSON.parse(Data).jggBaseSetup
         _this.base_send.activityName = _this.formName
+        _this.base_send.rule=_this.form.desc
         // this.base_data.endDate = this.value7
         _this.base_send.shows = _this.radio1 == 1 ? true : false;
         _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
         // this.$store.state.setting_data.jggBaseSetup = this.base_send
         _this.$bus.emit("send_base", _this.base_send)
+
       },
 
       onSubmit() {
@@ -269,7 +273,7 @@
 
   .btn_click {
     position: absolute;
-    bottom: -70px;
+    bottom: -50px;
     margin-left: -60px;
   }
 </style>

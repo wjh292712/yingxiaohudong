@@ -58,10 +58,11 @@
                         <el-form-item >
                                 <el-input height="6rem" type="textarea" v-model="form.desc"></el-input>
                         </el-form-item>
-                       
+
 
                         <el-form-item>
                           <el-button type="primary" @click="savedShare()">保存</el-button>
+                          <el-button type='primary' >返回</el-button>
                         </el-form-item>
                       </el-form>
         </div>
@@ -93,7 +94,7 @@
             }
         },
         created(){
-            
+
             // this.savedShare()
         },
         computed:{
@@ -127,10 +128,10 @@
                     },
                     //分享保存部分
                     savedShare(){
-                        // this.$store.dispatch('saveData') 
+                        // this.$store.dispatch('saveData')
                         let Data = sessionStorage.getItem('Data')
                         this.share_send = JSON.parse(Data).jggShareSetup
-                        this.share_send.share = this.form.resource1 == 1 ? true : false 
+                        this.share_send.share = this.form.resource1 == 1 ? true : false
                         this.share_send.wxShareLogoType = this.form.resource2 == 1 ? true : false
                         this.share_send.wxShareTitleType = this.form.resource3 == 1 ? true : false
                         this.share_send.wxShareContentType = this.form.resource4 == 1 ? true : false
@@ -141,7 +142,7 @@
                         this.sendShare()
                     }
                 }
-               
+
     })
 </script>
 

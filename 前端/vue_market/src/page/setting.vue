@@ -40,7 +40,7 @@
     export default  ({
         data(){
             return {
-                settingmsg:["基础设置","奖品设置","派奖设置","分享设置","高级设置"],
+                settingmsg:["基础设置","奖品设置","派奖设置","分享设置","高级设置"],            flag:true,
                 classActive:0,
                 activeName2: 'first',
                 msg:"this is parent data",
@@ -58,6 +58,7 @@
             ...mapActions(['saveData'])
         },
         mounted(){
+          let th_is=this;
             this.$store.dispatch('saveData')
             let Data = sessionStorage.getItem('Data')
             this.sendData = JSON.parse(Data)
@@ -65,7 +66,7 @@
                 //分享部分返回的数据
                 this.$bus.on("send_share",function(data){
                     data == '' ?_this.sendData.jggShareSetup = _this.sendData.jggShareSetup : _this.sendData.jggShareSetup = data
-
+                  // this.onSave();
                     // console.log(data)
                 })
                 //奖金设置返回的数据
@@ -99,6 +100,10 @@
                         data == ''?_this.sendData.jggBaseSetup = _this.sendData.jggBaseSetup : _this.sendData.jggBaseSetup = data
                     // _this.save.high = data
                     console.log(data)
+                  // thi_s.flag=false;
+                  th_is.onSave()
+                  console.log(232323232);
+
                 })
 
 
@@ -106,6 +111,21 @@
             // this.setting()
             // this.$store.dispatch('setting_msg')
         },
+      watch:{
+        flag:function (a,b) {
+          // _this.flag=true
+          this.onSave()
+
+
+        },
+          deep:true
+
+
+      },
+      updated(){
+
+
+      },
         methods:{
             // ...mapMutations([setting])
             //tab切换
@@ -116,19 +136,20 @@
             // },
             //保存设置
             onSave(){//所有的数据设置保存大保存
-                var sendNew =JSON.stringify(this.sendData)
+              console.log('发送保存数据');
+              var sendNew =JSON.stringify(this.sendData)
                 console.log(sendNew)
                 $.ajax({
                     type:"POST",
-                    url:"http://center.marketing.yunpaas.cn/jgg/activitySetup/save",
+                    url:"http://192.168.3.70:8080/jgg/activitySetup/save",
                     data:sendNew,
                     contentType:"application/json",
-                    datatype:"json",
+                    // datatype:"json",
                     success(data){
                         console.log(data)
                     }
                 })
-                // this.$axios({
+              // this.$axios({
                 //     method:'post',
                 //     url:"http://192.168.2.170:8080/jgg/activitySetup/save",
                 //     headers: {'Content-Type': 'application/json'},
@@ -136,7 +157,7 @@
                 // }).then(res => {
                 //     console.log(res)
                 // }).catch( res => {
-
+                //
                 // })
 
 

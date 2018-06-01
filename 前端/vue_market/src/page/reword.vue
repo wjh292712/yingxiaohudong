@@ -962,6 +962,8 @@
         reword:"",
         start_date:"",
         end_date:"",
+
+
         pickerOptions2: {
           shortcuts: [{
             text: '最近一周',
@@ -1345,6 +1347,7 @@
         }else{
           alert("最多添加8个奖品")
         }
+
 
       },
       //删除奖品
