@@ -92,7 +92,8 @@
                         _this.sendData.jggHighSecuritySetup = data[1]
                         _this.sendData.jggHighOtherSetup = data[2]
                     }
-
+                  th_is.onSave()
+                  console.log(232323232);
                     // console.log(data)
                 })
                 //基础设置返回的数据
@@ -101,8 +102,7 @@
                     // _this.save.high = data
                     console.log(data)
                   // thi_s.flag=false;
-                  th_is.onSave()
-                  console.log(232323232);
+                  
 
                 })
 
@@ -141,7 +141,7 @@
                 console.log(sendNew)
                 $.ajax({
                     type:"POST",
-                    url:"http://192.168.3.70:8080/jgg/activitySetup/save",
+                    url:"http://center.marketing.yunpaas.cn/jgg/activitySetup/save",
                     data:sendNew,
                     contentType:"application/json",
                     // datatype:"json",

@@ -56,9 +56,26 @@
       prop="handle"
       label="操作"
       width="255">
-      <el-tab>发布</el-tab>
-      <a href="#">编辑</a>
-      <a href="#">删除</a>
+      <template slot-scope="scope">
+        <el-button
+          @click.native.prevent="deleteRow(scope.$index, tableData4)"
+          type="text"
+          size="small">
+          删除
+        </el-button>
+        <el-button
+          @click.native.prevent="deleteRow(scope.$index, tableData4)"
+          type="text"
+          size="small">
+          编辑
+        </el-button>
+        <el-button
+          @click.native.prevent="deleteRow(scope.$index, tableData4)"
+          type="text"
+          size="small">
+          发布
+        </el-button>
+      </template>
     </el-table-column>
 
   </el-table>
@@ -75,7 +92,7 @@
                 name: '九宫格',
                 data: '2018／05／31',
                 state: '未发布',
-                handle:['发布','编辑']
+                // handle:['发布','编辑']
               },],
               restaurants: [],
               state1: '',
