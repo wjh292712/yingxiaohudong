@@ -1106,6 +1106,8 @@
       // this.saveReword()
     },
     mounted(){
+
+      console.log(22299999000);
       // this.$store.dispatch("saveData")
       this.partReword()
       this.timestampToTime()
@@ -1113,6 +1115,7 @@
       $('.ser_info').hide();
       $(".public").hide();
       $('.nnn').click(function () {
+        console.log(333333344443333);
         $('.shop_info').show()
         $('.ser_info').hide()
         $(".public").hide()
@@ -1128,6 +1131,7 @@
         $('.ser_info').hide();
       })
       $('.bbc').click(function () {
+        console.log(222);
         $('.shop_info').hide();
         $('.ser_info').hide();
         $(".public").hide();

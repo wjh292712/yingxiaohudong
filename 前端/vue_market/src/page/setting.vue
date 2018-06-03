@@ -102,7 +102,7 @@
                     // _this.save.high = data
                     console.log(data)
                   // thi_s.flag=false;
-                  
+
 
                 })
 

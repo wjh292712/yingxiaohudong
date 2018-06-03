@@ -67,7 +67,7 @@
           type: [],
           resource: '',
           resource1: '',
-          desc: ''
+          desc: '',
         },
         checkBtn: false,//��ť��ʽ
         formName: "",//������//活动名称
