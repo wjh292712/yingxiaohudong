@@ -146,19 +146,19 @@
               </el-input>
             </span>
           </p>
-          <p>
-            <span>奖项8</span>
-            <span>10元话费券
-              <el-input class="every" v-model="input18">
-              </el-input>
-              <span>%</span>
-            </span>
-            <span style="margin-left:2rem">每天最多派发</span>
-            <span>
-              <el-input class="every" v-model="input19">
-              </el-input>
-            </span>
-          </p>
+          <!--<p>-->
+            <!--<span>奖项8</span>-->
+            <!--<span>10元话费券-->
+              <!--<el-input class="every" v-model="input18">-->
+              <!--</el-input>-->
+              <!--<span>%</span>-->
+            <!--</span>-->
+            <!--<span style="margin-left:2rem">每天最多派发</span>-->
+            <!--<span>-->
+              <!--<el-input class="every" v-model="input19">-->
+              <!--</el-input>-->
+            <!--</span>-->
+          <!--</p>-->
 
         </div>
       </el-form>

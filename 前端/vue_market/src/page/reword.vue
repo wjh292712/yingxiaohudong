@@ -824,121 +824,121 @@
             </el-tab-pane>
 
             <!-- 奖品八 -->
-            <el-tab-pane label="奖品八" name="eighth">
-              <el-form-item label="奖品来源">
-                <el-radio-group v-model="radio8_1">
-                  <el-radio label="1">自家商品</el-radio>
-                  <el-radio label="2">平台奖品库</el-radio>
-                </el-radio-group>
-                <a href="javascript:;">去奖平商城购买</a>
-              </el-form-item>
-              <el-form-item label="奖品名称">
-                <el-input v-model="form.name8_1" placeholder="不超过15个字"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  list-type="picture-card"
+            <!--<el-tab-pane label="奖品八" name="eighth">-->
+              <!--<el-form-item label="奖品来源">-->
+                <!--<el-radio-group v-model="radio8_1">-->
+                  <!--<el-radio label="1">自家商品</el-radio>-->
+                  <!--<el-radio label="2">平台奖品库</el-radio>-->
+                <!--</el-radio-group>-->
+                <!--<a href="javascript:;">去奖平商城购买</a>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="奖品名称">-->
+                <!--<el-input v-model="form.name8_1" placeholder="不超过15个字"></el-input>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item>-->
+                <!--<el-upload-->
+                  <!--action="https://jsonplaceholder.typicode.com/posts/"-->
+                  <!--list-type="picture-card"-->
 
-                  :on-remove="handleRemove">
-                  <i class="el-icon-plus"></i>
-                </el-upload>
-                <span class="load_text">奖品图片将在九宫格中显示</span>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
-                </el-dialog>
+                  <!--:on-remove="handleRemove">-->
+                  <!--<i class="el-icon-plus"></i>-->
+                <!--</el-upload>-->
+                <!--<span class="load_text">奖品图片将在九宫格中显示</span>-->
+                <!--<el-dialog :visible.sync="dialogVisible">-->
+                  <!--<img width="100%" :src="dialogImageUrl" alt="">-->
+                <!--</el-dialog>-->
 
-              </el-form-item>
-              <el-form-item label="奖品数量">
-                <el-input v-model="form.name8_2" placeholder="不超过15个字"></el-input>
-              </el-form-item>
-              <el-form-item label="导入券码">
-                <el-radio-group v-model="radio8_2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">手动导入</el-radio>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="">
-                <el-input type="textarea" v-model="form.desc8_1"></el-input>
-              </el-form-item>
-              <el-form-item label="奖品类型">
-                <el-select v-model="form.region8">
-                  <el-option v-for="(items,index) in reword_type8"  :label="items.name" :value="index+1" :key="index"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="活动时间">
-                <el-date-picker
-                  v-model="value4"
-                  type="datetimerange"
-                  range-separator="至"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期">
-                </el-date-picker>
-              </el-form-item>
-              <el-form-item label="兑奖方式"  style="width:26rem;">
-                <el-radio-group v-model="radio8_3">
-                  <el-radio label="1">
-                    <span class="ppp">公众号兑奖</span>
-                  </el-radio>
-                  <el-radio label="2">
+              <!--</el-form-item>-->
+              <!--<el-form-item label="奖品数量">-->
+                <!--<el-input v-model="form.name8_2" placeholder="不超过15个字"></el-input>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="导入券码">-->
+                <!--<el-radio-group v-model="radio8_2">-->
+                  <!--<el-radio label="1">系统生成</el-radio>-->
+                  <!--<el-radio label="2">手动导入</el-radio>-->
+                <!--</el-radio-group>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="">-->
+                <!--<el-input type="textarea" v-model="form.desc8_1"></el-input>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="奖品类型">-->
+                <!--<el-select v-model="form.region8">-->
+                  <!--<el-option v-for="(items,index) in reword_type8"  :label="items.name" :value="index+1" :key="index"></el-option>-->
+                <!--</el-select>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="活动时间">-->
+                <!--<el-date-picker-->
+                  <!--v-model="value4"-->
+                  <!--type="datetimerange"-->
+                  <!--range-separator="至"-->
+                  <!--start-placeholder="开始日期"-->
+                  <!--end-placeholder="结束日期">-->
+                <!--</el-date-picker>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="兑奖方式"  style="width:26rem;">-->
+                <!--<el-radio-group v-model="radio8_3">-->
+                  <!--<el-radio label="1">-->
+                    <!--<span class="ppp">公众号兑奖</span>-->
+                  <!--</el-radio>-->
+                  <!--<el-radio label="2">-->
 
-                    <span class="nnn">线下门店兑奖</span>
-                  </el-radio>
+                    <!--<span class="nnn">线下门店兑奖</span>-->
+                  <!--</el-radio>-->
 
-                  <div class="second">
-                    <el-radio label="3">
-                      <span class="ccc">联系客服兑奖</span>
-                    </el-radio>
-                    <el-radio label="4">
-                      <span class="bbc">平台提供兑奖说明</span>
-                    </el-radio>
+                  <!--<div class="second">-->
+                    <!--<el-radio label="3">-->
+                      <!--<span class="ccc">联系客服兑奖</span>-->
+                    <!--</el-radio>-->
+                    <!--<el-radio label="4">-->
+                      <!--<span class="bbc">平台提供兑奖说明</span>-->
+                    <!--</el-radio>-->
 
-                  </div>
+                  <!--</div>-->
 
-                </el-radio-group>
-              </el-form-item>
-              <div class="public">
-                <el-form-item label="公众号名称">
-                  <el-input v-model="form.name3" placeholder="不超过15个字"></el-input>
-                  <el-upload
-                    action="https://jsonplaceholder.typicode.com/posts/"
-                    list-type="picture-card_pic"
-                    :on-preview="handlePictureCardPreview"
-                    :on-remove="handleRemove"
-                  >
-                    <span>上传公众号二维码</span>
-                  </el-upload>
-                </el-form-item>
-                <el-form-item label="兑奖说明">
-                  <el-input type="textarea" v-model="form.desc2"></el-input>
-                </el-form-item>
-              </div>
+                <!--</el-radio-group>-->
+              <!--</el-form-item>-->
+              <!--<div class="public">-->
+                <!--<el-form-item label="公众号名称">-->
+                  <!--<el-input v-model="form.name3" placeholder="不超过15个字"></el-input>-->
+                  <!--<el-upload-->
+                    <!--action="https://jsonplaceholder.typicode.com/posts/"-->
+                    <!--list-type="picture-card_pic"-->
+                    <!--:on-preview="handlePictureCardPreview"-->
+                    <!--:on-remove="handleRemove"-->
+                  <!--&gt;-->
+                    <!--<span>上传公众号二维码</span>-->
+                  <!--</el-upload>-->
+                <!--</el-form-item>-->
+                <!--<el-form-item label="兑奖说明">-->
+                  <!--<el-input type="textarea" v-model="form.desc2"></el-input>-->
+                <!--</el-form-item>-->
+              <!--</div>-->
 
-              <div class="shop_info">
-                <el-form-item label="门店地址">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
-                </el-form-item>
-                <el-form-item label="客服电话">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
-                </el-form-item>
-                <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
-                </el-form-item>
-              </div>
-              <div class="ser_info">
-                <el-form-item label="客服电话">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
-                </el-form-item>
-                <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
-                </el-form-item>
-              </div>
+              <!--<div class="shop_info">-->
+                <!--<el-form-item label="门店地址">-->
+                  <!--<el-input v-model="form.name2" placeholder="不超过15个字"></el-input>-->
+                <!--</el-form-item>-->
+                <!--<el-form-item label="客服电话">-->
+                  <!--<el-input v-model="form.name2" placeholder="不超过15个字"></el-input>-->
+                <!--</el-form-item>-->
+                <!--<el-form-item label="兑奖说明">-->
+                  <!--<el-input v-model="form.name2" placeholder="不超过15个字"></el-input>-->
+                <!--</el-form-item>-->
+              <!--</div>-->
+              <!--<div class="ser_info">-->
+                <!--<el-form-item label="客服电话">-->
+                  <!--<el-input v-model="form.name2" placeholder="不超过15个字"></el-input>-->
+                <!--</el-form-item>-->
+                <!--<el-form-item label="兑奖说明">-->
+                  <!--<el-input v-model="form.name2" placeholder="不超过15个字"></el-input>-->
+                <!--</el-form-item>-->
+              <!--</div>-->
 
-              <el-form-item>
-                <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="">返回</el-button>
-              </el-form-item>
-            </el-tab-pane>
+              <!--<el-form-item>-->
+                <!--<el-button type="primary" @click="saveReword()">保存</el-button>-->
+                <!--<el-button type="primary" @click="">返回</el-button>-->
+              <!--</el-form-item>-->
+            <!--</el-tab-pane>-->
           </el-tabs>
           <div class="cddd">
             <span class="reword_num" @click="addgift()">+</span>
@@ -1254,13 +1254,13 @@
         this.reword_type7 = this.reword_data[6].jggAwardTypeList
 
         //奖品八
-        this.form.name8_1 = this.reword_data[7].prizeName
-        this.form.name8_2 = this.reword_data[7].prizeNum
-        this.form.name8_3 = this.reword_data[7].wxPublicAccountName
-        this.radio8_1 = this.reword_data[7].prizeType.toString()
-        this.radio8_2 = this.reword_data[7].prizeSource.toString()
-        this.radio8_3 = this.reword_data[7].prizeExchangeTypeId.toString()
-        this.reword_type8 = this.reword_data[7].jggAwardTypeList
+        // this.form.name8_1 = this.reword_data[7].prizeName
+        // this.form.name8_2 = this.reword_data[7].prizeNum
+        // this.form.name8_3 = this.reword_data[7].wxPublicAccountName
+        // this.radio8_1 = this.reword_data[7].prizeType.toString()
+        // this.radio8_2 = this.reword_data[7].prizeSource.toString()
+        // this.radio8_3 = this.reword_data[7].prizeExchangeTypeId.toString()
+        // this.reword_type8 = this.reword_data[7].jggAwardTypeList
       },
       //保存奖品数据
       saveReword(){

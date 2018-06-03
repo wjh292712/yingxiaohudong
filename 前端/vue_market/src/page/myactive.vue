@@ -100,10 +100,12 @@
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item class="clearfix">
                   详情
-
                 </el-dropdown-item>
                 <el-dropdown-item class="clearfix">
                   删除
+                </el-dropdown-item>
+                <el-dropdown-item class="clearfix" >
+                  <i @click="chain()">链接</i>
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -123,7 +125,7 @@
       <div class="publish">
         <div class="nav_fa">
           <h3>发布活动</h3>
-        <button class="shut" @click="show()">X</button>
+          <button class="shut" @click="show()">X</button>
         </div>
         <div class="text_content">
           <p class="text_info">请认真核对一下信息，活动发布后<i>派奖方式、奖品、生成奖品券及
@@ -135,7 +137,7 @@
           <p class="text_c">活动派奖方式：抽奖派发</p>
         </div>
 
-    <div class="formContent">
+        <div class="formContent">
           <el-table
             :data="rewdata"
             border
@@ -159,16 +161,40 @@
               label="生成券码">
             </el-table-column>
           </el-table>
-    </div>
+        </div>
         <div class="btn_all">
           <el-button type="primary" class="btn_aa">取消</el-button>
           <el-button type="primary" class="btn_aa">确认发布</el-button>
+        </div>
+      </div>
+      <div class="linkActive">
+        <div class="nav_fa">
+          <h3>活动链接</h3>
+          <button class="shut" @click="activeShow()">X</button>
+        </div>
+        <div class="active_img">
+          <img
+            src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528001475282&di=4777660e63fa7dafcaec3fb6090bcada&imgtype=0&src=http%3A%2F%2Fimg1.cache.netease.com%2Fcatchpic%2F7%2F77%2F774655E55C6AE847650C9295100541B3.jpg"
+            alt="">
+
+        </div>
+        <div>
+          <button class="btn_down" @click="download()">下载二维码</button>
+        </div>
+        <div class="active_input">
+          <el-input v-model="input3" value=input3 id="inp">
+          <el-button slot="append" @click="copy()">复制</el-button>
+        </el-input>
+          <p>复制链接，用于自定义活动菜单、自定义回复、
+            社交群推广、线下活动等各种推广场景。</p>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+
+  import Button from "iview/src/components/button/button";
 
   export default {
     data() {
@@ -238,27 +264,28 @@
             activeSate: '正常',
             // operate:['发布','编辑',]
           },],
-        rewdata:[
-          {typedata:'流量券',named:'100M流量充值券',count:'100',creat:'系统生成'},
-          {typedata:'流量券',named:'100M流量充值券',count:'100',creat:'系统生成'},
+        rewdata: [
+          {typedata: '流量券', named: '100M流量充值券', count: '100', creat: '系统生成'},
+          {typedata: '流量券', named: '100M流量充值券', count: '100', creat: '系统生成'},
         ],
         options: [
           {
-          value: '选项1',
-          label: '活动名称'
-        }, {
-          value: '选项2',
-          label: '活动开始时间'
-        }, {
-          value: '选项3',
-          label: '活动结束时间'
-        }, {
-          value: '选项4',
-          label: '活动状态'
-        }],
+            value: '选项1',
+            label: '活动名称'
+          }, {
+            value: '选项2',
+            label: '活动开始时间'
+          }, {
+            value: '选项3',
+            label: '活动结束时间'
+          }, {
+            value: '选项4',
+            label: '活动状态'
+          }],
         value4: '',
-
-      }
+        input3: 'http://ninini//',
+          url:'http://imgcdn.yy.365huaer.com/2018/4/qrcode/47a2af77-2d41-4a82-b86d-3b60622734ee.png'
+        }
     },
     created() {
 
@@ -277,15 +304,31 @@
         const property = column['property'];
         return row[property] === value;
       },
-      handleEdit(){
-        $('.publish').css({"display":"block"})
+      handleEdit() {
+        $('.publish').css({"display": "block"})
       },
-      show(){
-        $('.publish').css({"display":"none"})
+      show() {
+        alert('ssss')
+        $('.publish').css({"display": "none"})
+      },
+      chain(){
+        $('.linkActive').css({"display":"block"})
+      },
+      activeShow(){
+        $('.linkActive').css({"display":"none"})
+      },
+      download() {
+        console.log(this);
+        window.open(this.url);//下载二维码
+      },
+      copy(){
+var inp =document.getElementById("inp");
+        inp.select();
+        document.execCommand("Copy","false",null);
+        alert("复制成功")
       }
-
     },
-    components: {},
+    components: {Button},
     computed: {}
   }
 </script>
@@ -341,14 +384,27 @@
     width: 529px;
     height: 485px;
     background: #FFFFFF;
-    box-shadow: 0 6px 12px 0 rgba(0,35,85,0.17);
+    box-shadow: 0 6px 12px 0 rgba(0, 35, 85, 0.17);
     border-radius: 2px;
-    position:absolute;
+    position: absolute;
     top: 10%;
     left: 20%;
     display: none;
   }
-  .publish .nav_fa {
+
+  .linkActive {
+    width: 529px;
+    height: 379px;
+    background: #FFFFFF;
+    box-shadow: 0 6px 12px 0 rgba(0, 35, 85, 0.17);
+    border-radius: 2px;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    display: none;
+  }
+
+  .nav_fa {
     width: 100%;
     height: 45px;
     line-height: 45px;
@@ -356,14 +412,15 @@
     background: #F2F2F2;
     position: relative;
   }
-  .nav_fa .shut{
+
+  .nav_fa .shut {
     width: 24px;
     height: 24px;
     line-height: 24px;
     font-size: 16px;
     text-align: center;
     border: none;
-    color: #4A4A4A ;
+    color: #4A4A4A;
     position: absolute;
     top: 10px;
     right: 10px;
@@ -396,31 +453,38 @@
     font-size: 12px;
     text-align: left;
   }
-.actie_explain>p{
-  margin-left: 30px;
-}
-.actie_explain .text_c{
-  font-size: 14px;
-  margin-top: 20px;
-}
-.actie_explain>a{
-  padding-left: 160px;
-}
-  .actie_explain >p>i,span{
+
+  .actie_explain > p {
+    margin-left: 30px;
+  }
+
+  .actie_explain .text_c {
+    font-size: 14px;
+    margin-top: 20px;
+  }
+
+  .actie_explain > a {
+    padding-left: 160px;
+  }
+
+  .actie_explain > p > i, span {
     font-family: MicrosoftYaHei;
     color: red;
     letter-spacing: 0;
     line-height: 31px;
   }
-  .formContent{
+
+  .formContent {
     margin-top: 20px;
     padding: 0 30px;
   }
-  .btn_all{
+
+  .btn_all {
     margin-top: 30px;
   }
-  .btn_aa{
-    float:right;
+
+  .btn_aa {
+    float: right;
     width: 96px;
     height: 34px;
     background: #fe4d1e;
@@ -429,8 +493,56 @@
     margin-right: 30px;
   }
 
-  .btn_aa:hover{
-    background:  #F2F2F2;
+  .btn_aa:hover {
+    background: #F2F2F2;
     color: #9B9B9B;
+  }
+
+  .active_img {
+    margin-top: 27px;
+    margin-left: 34px;
+    width: 192px;
+    height: 192px;
+    line-height: 192px;
+    background: #FFFFFF;
+    border: 1px solid #E8E8E8;
+  }
+
+  .active_img img {
+    width: 176px;
+    height: 176px;
+    margin-top: 8px;
+  }
+
+  .btn_down {
+    width: 190px;
+    height: 34px;
+    line-height: 34px;
+    background: #FC7132;
+    border-radius: 3px;
+    color: #fff;
+    margin-top: 20px;
+    float: left;
+    margin-left: 34px;
+  }
+
+  .active_input {
+    width: 249px;
+    height: 38px;
+    float: right;
+    margin-right: 34px;
+    margin-top: -190px;
+  }
+
+  .active_input > p {
+    margin-top: 20px;
+  }
+
+</style>
+<style>
+  .el-input-group__append{
+    border-left: 0;
+    background: #FC7132;
+    color: #fff;
   }
 </style>

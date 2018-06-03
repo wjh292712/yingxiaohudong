@@ -38,6 +38,9 @@
         methods:{
             changeClick(index){
                 this.classActive = index
+              if(index===1){
+                  this.$router.push({path:'/activeslide/myactive'})
+              }
             //    this.time = parseInt(this.num,16)
             //     console.log(this.time)
             //     this.time++
@@ -76,7 +79,7 @@
                                 color:#FC7132;
                             }
                     }
-                    
+
             }
         }
     }
