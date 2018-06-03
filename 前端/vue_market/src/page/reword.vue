@@ -118,7 +118,7 @@
 
               <el-form-item>
                 <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="saveReword()">返回</el-button>
+                <el-button type="primary" @click="back()">返回</el-button>
               </el-form-item>
             </el-tab-pane>
             <!-- 奖品二 -->
@@ -234,7 +234,7 @@
 
               <el-form-item>
                 <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="saveReword()">返回</el-button>
+                <el-button type="primary" @click="back()">返回</el-button>
               </el-form-item>
             </el-tab-pane>
             <!-- 奖品三 -->
@@ -350,7 +350,7 @@
 
               <el-form-item>
                 <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="saveReword()">返回</el-button>
+                <el-button type="primary" @click="back()">返回</el-button>
               </el-form-item>
             </el-tab-pane>
 
@@ -468,7 +468,7 @@
 
               <el-form-item>
                 <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="saveReword()">返回</el-button>
+                <el-button type="primary" @click="back()">返回</el-button>
               </el-form-item>
             </el-tab-pane>
 
@@ -585,7 +585,7 @@
 
               <el-form-item>
                 <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="saveReword()">返回</el-button>
+                <el-button type="primary" @click="back()">返回</el-button>
               </el-form-item>
             </el-tab-pane>
 
@@ -702,7 +702,7 @@
 
               <el-form-item>
                 <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="saveReword()">返回</el-button>
+                  <el-button type="primary" @click="back()">返回</el-button>
               </el-form-item>
             </el-tab-pane>
 
@@ -819,7 +819,7 @@
 
               <el-form-item>
                 <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="saveReword()">返回</el-button>
+                <el-button type="primary" @click="back()">返回</el-button>
               </el-form-item>
             </el-tab-pane>
 
@@ -1178,7 +1178,7 @@
 
         this.start_date =this.reword_data[0].exchangeStartDate
 //日期开始时间
-        console.log(this.start_data);
+//         console.log(this.start_data);
         this.end_date=this.reword_data[0].exchangeEndDate//结束时间
         let str = this.start_date
         console.log(str);
@@ -1368,6 +1368,9 @@
       handleRemove(file, fileList) {
         console.log(file, fileList);
       },
+      back(){
+        this.$router.go(-1)
+      }
     }
 
   })

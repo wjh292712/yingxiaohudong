@@ -57,7 +57,7 @@ export default ({
     return {
       //侧边数据
       //筛选条件数据
-      activeName: 'nn',
+      activeName: '',
       centerDialogVisible: false,
 
 
@@ -88,9 +88,9 @@ export default ({
   mounted() {
     this.updataImg()
 
-    // let curname='';
-    // // let cua='';
-    // // this.activeN()
+    //let curname='';
+    // let cua='';
+     this.activeN()
     // this.$nextTick(function () {
     //   curname = settingbase.methods.partBase()
     //   // cua=settingbase.methods.inputData()
@@ -115,7 +115,7 @@ export default ({
       console.log(66672);
       _this.base_data = JSON.parse(Data).jggBaseSetup
       console.log(_this.base_data);
-      _this.activeName =_this.formName= _this.base_data.activityName
+      _this.activeName = _this.formName=_this.base_data.activityName
     },
     updataImg() {
       this.$http({

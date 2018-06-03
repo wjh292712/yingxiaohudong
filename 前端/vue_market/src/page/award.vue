@@ -163,7 +163,7 @@
         </div>
       </el-form>
       <el-button type="primary" @click="saveAward()">保存</el-button>
-      <el-button type='primary'>返回</el-button>
+      <el-button type='primary'@click="back()">返回</el-button>
       <!--<button @click="saveAward()">保存</button>-->
       <!-- <button @click="partAward()">开始</button> -->
     </div>
@@ -251,6 +251,9 @@
         this.$store.state.setting_data.jggAwardSendSetup = this.award_send
         this.$bus.emit("send_award", this.award_send)
         // console.log(this.$store.state.setting_data.jggAwardSendSetup)
+      },
+      back(){
+        this.$router.go(-1)
       }
     }
   }

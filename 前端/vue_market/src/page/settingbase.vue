@@ -41,7 +41,7 @@
           <!--<el-button type="primary" @click="saveBase()" :class='checkBtn==true?"newactive":""'>保存</el-button>-->
           <div class="btn_click">
             <el-button type="primary" @click="saveBase()">保存</el-button>
-            <el-button type='primary' @click="name()">返回</el-button>
+            <el-button type='primary' @click="back()">返回</el-button>
           </div>
 
         </el-form-item>
@@ -148,7 +148,7 @@
         _this.formName = _this.base_data.activityName
         formName = _this.base_data.activityName
         _this.form.desc=_this.base_data.rule
-        console.log(_this.form.desc);
+       console.log(_this.form.desc);
 
         _this.start_date = _this.base_data.startDate//日期开始时间
         _this.end_date=_this.base_data.endDate//结束时间
@@ -216,12 +216,15 @@
         }
       },
       inputData() {
-        console.log(this.formName);
+        // console.log(this.formName);
         // if (!this.formName) {
         //   this.checkBtn = false;
         // } else {
         //   this.checkBtn = true;
 
+      },
+      back(){
+        this.$router.go(-1)
       }
     }
   })

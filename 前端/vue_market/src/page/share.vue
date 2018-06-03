@@ -62,7 +62,7 @@
 
                         <el-form-item>
                           <el-button type="primary" @click="savedShare()">保存</el-button>
-                          <el-button type='primary' >返回</el-button>
+                          <el-button type='primary' @click="back()" >返回</el-button>
                         </el-form-item>
                       </el-form>
         </div>
@@ -140,7 +140,10 @@
                     },
                     change(){
                         this.sendShare()
-                    }
+                    },
+          back(){
+              this.$router.go(-1)
+          }
                 }
 
     })

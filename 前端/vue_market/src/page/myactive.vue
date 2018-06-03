@@ -308,7 +308,6 @@
         $('.publish').css({"display": "block"})
       },
       show() {
-        alert('ssss')
         $('.publish').css({"display": "none"})
       },
       chain(){

@@ -79,7 +79,7 @@
         }]
       }
     },
-    beforeCreate() {
+    created() {
       this.$axios({
         method: "post",
         url: "http://center.marketing.yunpaas.cn/center/activityDataModel/activityType",
@@ -91,10 +91,6 @@
         _this.listdata1 = res.data.data.ActivityCategory
         _this.listdata2 = res.data.data.ActivityScene
         _this.listdata3 = res.data.data.ActivityTopic
-
-
-
-
 
 
       })
