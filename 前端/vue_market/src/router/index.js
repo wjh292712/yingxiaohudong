@@ -282,11 +282,11 @@ export default new Router({
       path: "/activeslide",
       component: activeslide,
       children: [{
-        path: "/activeslide/activeFirst",
+        path: "activeFirst",
         component: activeFirst,
       },
         {
-          path: "/activeslide/myactive",
+          path: "myactive",
           component: myactive,
         }]
     },
