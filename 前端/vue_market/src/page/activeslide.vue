@@ -40,6 +40,16 @@
                 this.classActive = index
               if(index===1){
                   this.$router.push({path:'/activeslide/myactive'})
+                this.$axios({
+                  method:'post',
+                  url:'http://192.168.1.167:8080/center/activity/findMyActivity',//我的活动
+                  parm:{
+
+                  }
+                }).then(res=>{
+
+                })
+
               }
             //    this.time = parseInt(this.num,16)
             //     console.log(this.time)

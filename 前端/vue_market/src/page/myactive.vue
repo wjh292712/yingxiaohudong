@@ -104,7 +104,7 @@
                 <el-dropdown-item class="clearfix">
                   删除
                 </el-dropdown-item>
-                <el-dropdown-item class="clearfix" >
+                <el-dropdown-item class="clearfix">
                   <i @click="chain()">链接</i>
                 </el-dropdown-item>
               </el-dropdown-menu>
@@ -174,17 +174,17 @@
         </div>
         <div class="active_img">
           <img
-            src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528001475282&di=4777660e63fa7dafcaec3fb6090bcada&imgtype=0&src=http%3A%2F%2Fimg1.cache.netease.com%2Fcatchpic%2F7%2F77%2F774655E55C6AE847650C9295100541B3.jpg"
+            :src=imgUrl
             alt="">
 
         </div>
         <div>
-          <button class="btn_down" @click="download()">下载二维码</button>
+          <button class="btn_down" @click="download">下载二维码</button>
         </div>
         <div class="active_input">
           <el-input v-model="input3" value=input3 id="inp">
-          <el-button slot="append" @click="copy()">复制</el-button>
-        </el-input>
+            <el-button slot="append" @click="copy()">复制</el-button>
+          </el-input>
           <p>复制链接，用于自定义活动菜单、自定义回复、
             社交群推广、线下活动等各种推广场景。</p>
         </div>
@@ -283,9 +283,10 @@
             label: '活动状态'
           }],
         value4: '',
+        imgUrl: '',
         input3: 'http://ninini//',
-          url:'http://imgcdn.yy.365huaer.com/2018/4/qrcode/47a2af77-2d41-4a82-b86d-3b60622734ee.png'
-        }
+
+      }
     },
     created() {
 
@@ -310,20 +311,35 @@
       show() {
         $('.publish').css({"display": "none"})
       },
-      chain(){
-        $('.linkActive').css({"display":"block"})
+      chain() {
+        $('.linkActive').css({"display": "block"})//弹框显示
+         this.imgUrl='http://192.168.1.167:8080/center/enterprisewx/getImg?url=https://www.baidu.com'
+        alert(this.imgUrl)
+//         this.$axios({
+//           method:'post',
+//           url:'http://192.168.1.167:8080/center/enterprisewx/getImg',
+//           params: {
+// url:"https://www.baidu.com"
+//           },
+//         }).then(res=>{
+//           console.log(res);
+//           // console.log(res.data);
+//           this.imgUrl=JSON.stringify(res.data)
+//           alert(res+"12")
+//  })
+
       },
-      activeShow(){
-        $('.linkActive').css({"display":"none"})
+      activeShow() {
+        $('.linkActive').css({"display": "none"})
       },
       download() {
         console.log(this);
-        window.open(this.url);//下载二维码
+        window.open(this.imgUrl);//下载二维码
       },
-      copy(){
-var inp =document.getElementById("inp");
+      copy() {
+        var inp = document.getElementById("inp");
         inp.select();
-        document.execCommand("Copy","false",null);
+        document.execCommand("Copy", "false", null);
         alert("复制成功")
       }
     },
@@ -539,7 +555,7 @@ var inp =document.getElementById("inp");
 
 </style>
 <style>
-  .el-input-group__append{
+  .el-input-group__append {
     border-left: 0;
     background: #FC7132;
     color: #fff;

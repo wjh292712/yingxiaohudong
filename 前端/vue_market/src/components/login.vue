@@ -70,9 +70,16 @@
           params: {
             userName: this.userName,
             password: this.userPwd
+
           }
         }).then(res => {
           console.log(res);
+const token =res.data.data.token
+          const id= res.data.data.id
+        sessionStorage.setItem('token',token);//存储token
+sessionStorage.setItem('id', id);//存储id
+
+          console.log(token);
 
           console.log(res.data);
           if (res.data.status === true) {
@@ -87,6 +94,7 @@
             } else if (res.data.code === 201) {
 
               this.$router.push({path: '/company'})//跳转企业
+
             }
 
           } else {

@@ -103,6 +103,8 @@
     }
   })
 </script>
+<style>
+</style>
 <style lang="scss" scoped>
   .active_wrap {
     width: 85%;
