@@ -78,10 +78,9 @@ const token =res.data.data.token
           const id= res.data.data.id
         sessionStorage.setItem('token',token);//存储token
 sessionStorage.setItem('id', id);//存储id
-
           console.log(token);
-
           console.log(res.data);
+          console.log(res.data.status);
           if (res.data.status === true) {
 
             // this.username = res.data.data.name
@@ -94,16 +93,15 @@ sessionStorage.setItem('id', id);//存储id
             } else if (res.data.code === 201) {
 
               this.$router.push({path: '/company'})//跳转企业
-
             }
 
-          } else {
-
-            alert("用户名或密码错误")
+          } else if(res.data.status===false){
+            alert(res.data.msg)
           }
           //商户选择
         }).catch(res => {
           console.log(res)
+          alert('用户名密码错误')
         })
 
       }

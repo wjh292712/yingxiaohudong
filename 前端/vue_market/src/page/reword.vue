@@ -4,9 +4,9 @@
       <el-form ref="form" :model="form" label-width="82px" >
         <div class="reword_type">
           <!-- <span class="reword_num" v-for="(item,index) in reword" :key="index">{{item}}</span> -->
-          <el-tabs v-model="activeName" @tab-click="handleClick">
+          <el-tabs tag= "ul" v-model="activeName" @tab-click="handleClick" >
             <!--奖品一 -->
-            <el-tab-pane label="奖品一" name="first">
+            <el-tab-pane tag='li'label="奖品一" name="first" data-idx="0">
               <el-form-item label="奖品来源">
                 <el-radio-group v-model="radio1">
                   <el-radio label="1">自家商品</el-radio>
@@ -122,7 +122,7 @@
               </el-form-item>
             </el-tab-pane>
             <!-- 奖品二 -->
-            <el-tab-pane label="奖品二" name="second">
+            <el-tab-pane label="奖品二" name="second" data-idx="1">
               <el-form-item label="奖品来源">
                 <el-radio-group v-model="radio2_1">
                   <el-radio label="1">自家商品</el-radio>
@@ -238,7 +238,7 @@
               </el-form-item>
             </el-tab-pane>
             <!-- 奖品三 -->
-            <el-tab-pane label="奖品三" name="third">
+            <el-tab-pane label="奖品三" name="third" data-idx="2">
               <el-form-item label="奖品来源">
                 <el-radio-group v-model="radio3_1">
                   <el-radio label="1">自家商品</el-radio>
@@ -356,7 +356,7 @@
 
 
             <!-- 奖品四 -->
-            <el-tab-pane label="奖品四" name="fourth">
+            <el-tab-pane label="奖品四" name="fourth" data-idx="3">
               <el-form-item label="奖品来源">
                 <el-radio-group v-model="radio4_1">
                   <el-radio label="1">自家商品</el-radio>
@@ -473,7 +473,7 @@
             </el-tab-pane>
 
             <!-- 奖品五 -->
-            <el-tab-pane label="奖品五" name="fifth">
+            <el-tab-pane label="奖品五" name="fifth" data-idx="4">
               <el-form-item label="奖品来源">
                 <el-radio-group v-model="radio5_1">
                   <el-radio label="1">自家商品</el-radio>
@@ -590,7 +590,7 @@
             </el-tab-pane>
 
             <!-- 奖品六 -->
-            <el-tab-pane label="奖品六" name="sixth">
+            <el-tab-pane label="奖品六" name="sixth" data-idx="5">
               <el-form-item label="奖品来源">
                 <el-radio-group v-model="radio6_1">
                   <el-radio label="1">自家商品</el-radio>
@@ -707,7 +707,7 @@
             </el-tab-pane>
 
             <!-- 奖品七 -->
-            <el-tab-pane label="奖品七" name="seventh">
+            <el-tab-pane label="奖品七" name="seventh" data-idx="6">
               <el-form-item label="奖品来源">
                 <el-radio-group v-model="radio7_1">
                   <el-radio label="1">自家商品</el-radio>
@@ -824,7 +824,7 @@
             </el-tab-pane>
 
             <!-- 奖品八 -->
-            <!--<el-tab-pane label="奖品八" name="eighth">-->
+            <!--<el-tab-pane label="奖品八" name="eighth" data-idx="7">-->
               <!--<el-form-item label="奖品来源">-->
                 <!--<el-radio-group v-model="radio8_1">-->
                   <!--<el-radio label="1">自家商品</el-radio>-->
@@ -1346,8 +1346,14 @@
       },
       //添加奖品
       addgift(){
+$("#tab-first").css({"display":"none"})
         if(this.reword.length==7){
           this.reword.push('奖金八')
+
+
+
+
+
         }else{
           alert("最多添加8个奖品")
         }

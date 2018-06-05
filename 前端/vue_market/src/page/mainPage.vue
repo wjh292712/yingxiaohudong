@@ -161,6 +161,7 @@
 <style lang="scss">
     .main_wrap {
         width: 100%;
+      /*cursor: pointer;*/
         .main_con {
             width: 97%;
             margin: 1.5% auto 0;
@@ -219,6 +220,7 @@
                     width: 80%;
                     margin: .5rem auto 0;
                     padding: .5rem 0 0;
+                  cursor: pointer;
                     h3 {
                         margin-bottom: .5rem;
                         border-left: 0.5rem solid #FC7132;

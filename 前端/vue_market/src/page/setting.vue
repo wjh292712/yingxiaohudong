@@ -139,9 +139,11 @@
               console.log('发送保存数据');
               var sendNew =JSON.stringify(this.sendData)
                 console.log(sendNew)
-                $.ajax({
+              var token=sessionStorage.getItem('token')
+              console.log(token);
+              $.ajax({
                     type:"POST",
-                    url:"http://center.marketing.yunpaas.cn/jgg/activitySetup/save",
+                    url:"http://center.marketing.yunpaas.cn/jgg/activitySetup/save?token="+token,
                     data:sendNew,
                     contentType:"application/json",
                     // datatype:"json",

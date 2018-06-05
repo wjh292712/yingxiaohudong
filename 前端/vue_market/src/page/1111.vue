@@ -1,572 +1,1240 @@
 <template>
-  <div class="reword_wrap">
-    <div class="reword_con">
-      <el-form ref="form" :model="form" label-width="82px">
-        <div class="reword_type">
-          <!-- <span class="reword_num" v-for="(item,index) in reword" :key="index">{{item}}</span> -->
-          <el-tabs v-model="activeName" @tab-click="handleClick">
-            <!--奖品一 -->
-
-            <el-tab-pane label='奖品一' name="first" >
-              <el-form-item label="奖品来源">
-                <el-radio-group v-model="radio1">
-                  <el-radio label="1">自家商品</el-radio>
-                  <el-radio label="2">平台奖品库</el-radio>
-                </el-radio-group>
-                <a href="javascript:;">去奖平商城购买</a>
-              </el-form-item>
-              <el-form-item label="奖品名称">
-                <el-input v-model="form.name1" placeholder="不超过15个字"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  list-type="picture-card"
-
-                  :on-remove="handleRemove">
-                  <i class="el-icon-plus"></i>
-                </el-upload>
-                <span class="load_text">奖品图片将在九宫格中显示</span>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
-                </el-dialog>
-
-              </el-form-item>
-              <el-form-item label="奖品数量">
-                <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
-              </el-form-item>
-              <el-form-item label="导入券码">
-                <el-radio-group v-model="radio2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">手动导入</el-radio>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="">
-                <el-input type="textarea" v-model="form.desc1"></el-input>
-              </el-form-item>
-              <el-form-item label="奖品类型">
-                <el-select v-model="form.region" placeholder="请选择活动区域">
-                  <el-option v-for="(items,index) in reword_type1" :label="items.name" :value="index+1"
-                             :key="index"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="活动时间">
-                <el-date-picker
-                  v-model="value4"
-                  type="datetimerange"
-                  range-separator="至"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期">
-                </el-date-picker>
-              </el-form-item>
-              <el-form-item label="兑奖方式" style="width:26rem;">
-                <el-radio-group v-model="radio3">
-                  <el-radio label="1">
-                    <span id="ppp">公众号兑奖</span>
-                  </el-radio>
-                  <el-radio label="2">
-
-                    <span id="nnn">线下门店兑奖</span>
-                  </el-radio>
-
-                  <div class="second">
-                    <el-radio label="3">
-                      <span id="ccc">联系客服兑奖</span>
-                    </el-radio>
-                    <el-radio label="4">
-                      <span id="bbc">平台提供兑奖说明</span>
-                    </el-radio>
-
-                  </div>
-
-                </el-radio-group>
-              </el-form-item>
-              <div id="public">
-                <el-form-item label="公众号名称">
-                  <el-input v-model="form.name3" placeholder="不超过15个字"></el-input>
-                  <el-upload
-                    action="https://jsonplaceholder.typicode.com/posts/"
-                    list-type="picture-card_pic"
-                    :on-preview="handlePictureCardPreview"
-                    :on-remove="handleRemove"
-                  >
-                    <span>上传公众号二维码</span>
-                  </el-upload>
-                </el-form-item>
-                <el-form-item label="兑奖说明">
-                  <el-input type="textarea" v-model="form.desc2"></el-input>
-                </el-form-item>
-              </div>
-
-              <div class="shop_info">
-                <el-form-item label="门店地址">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
-                </el-form-item>
-                <el-form-item label="客服电话">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
-                </el-form-item>
-                <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
-                </el-form-item>
-              </div>
-              <div class="ser_info">
-                <el-form-item label="客服电话">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
-                </el-form-item>
-                <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
-                </el-form-item>
-              </div>
-
-              <el-form-item>
-                <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="saveReword()">返回</el-button>
-              </el-form-item>
-            </el-tab-pane>
-            <!--奖品二 -->
-
-          </el-tabs>
-
-          <div class="cddd">
-            <span class="reword_num" @click="addgift()">+</span>
-            <span class="reword_num" @click="reducegift()">-</span>
-          </div>
-        </div>
-      </el-form>
-    </div>
-  </div>
+  <el-form-item label="选择地区：">
+    <el-select size="small" style="width: 100px"
+               v-model="selectProv"
+               placeholder="请选择省份"
+               v-on:change="getProv($event)">
+      <el-option
+        v-for="item in provs"
+        :label="item.label"
+        :value="item.value">
+      </el-option>
+    </el-select>
+    <el-select size="small" style="width: 100px"
+               v-if="selectProv!=''"
+               v-model="selectCity"
+               placeholder="请选择城市"
+               v-on:change="getCity($event)">
+      <el-option
+        v-for="item in citys"
+        :label="item.label"
+        :value="item.value">
+      </el-option>
+    </el-select>
+  </el-form-item>
 </template>
 
 <script>
   import {mapState, mapMutations, mapActions} from 'vuex';
   import "../plugins/sudoku/jquery-1.11.0"
 
-  export default ({
+  export default {
     data() {
       return {
-        list:[],
-        dialogImageUrl: '',
-        dialogVisible: false,
-        reword: "",
-        start_date: "",
-        end_date: "",
-        pickerOptions2: {
-          shortcuts: [{
-            text: '最近一周',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近一个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近三个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit('pick', [start, end]);
-            }
-          }]
-        },
-        value4: [new Date(2018, 10, 29, 10, 10), new Date(2018, 10, 11, 10, 10)],
-        value5: '',
-        form: {
-          //奖品一
-          name1: '',//奖品名称
-          name2: '',//奖品数量
-          name3: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: '',
-          //奖品二
-          name2_1: '',//奖品名称
-          name2_2: '',//奖品数量
-          name2_3: '',
-          region2: '',
-          date2_1: '',
-          date2_2: '',
-
-          //奖品三
-          name3_1: '',//奖品名称
-          name3_2: '',//奖品数量
-          name3_3: '',
-          region3: '',
-          date3_1: '',
-          date3_2: '',
-
-          //奖品四
-          name4_1: '',//奖品名称
-          name4_2: '',//奖品数量
-          name4_3: '',
-          region4: '',
-          date4_1: '',
-          date4_2: '',
-
-          //奖品五
-          name5_1: '',//奖品名称
-          name5_2: '',//奖品数量
-          name5_3: '',
-          region5: '',
-          date5_1: '',
-          date5_2: '',
-
-          //奖品六
-          name6_1: '',//奖品名称
-          name6_2: '',//奖品数量
-          name6_3: '',
-          region6: '',
-          date6_1: '',
-          date6_2: '',
-
-          //奖品七
-          name7_1: '',//奖品名称
-          name7_2: '',//奖品数量
-          name7_3: '',
-          region7: '',
-          date7_1: '',
-          date7_2: '',
-
-        },
-        activeName: 'first',
-        radio1: '',//单选框1
-        radio2: '',//单选框2
-        radio3: '',//单选框3
-        //奖品二
-        radio2_1: '',//单选框1
-        radio2_2: '',//单选框2
-        radio2_3: '',//单选框3
-        //奖品三
-        radio3_1: '',//单选框1
-        radio3_2: '',//单选框2
-        radio3_3: '',//单选框3
-        //奖品四
-        radio4_1: '',//单选框1
-        radio4_2: '',//单选框2
-        radio4_3: '',//单选框3
-        //奖品五
-        radio5_1: '',//单选框1
-        radio5_2: '',//单选框2
-        radio5_3: '',//单选框3
-        //奖品六
-        radio6_1: '',//单选框1
-        radio6_2: '',//单选框2
-        radio6_3: '',//单选框3
-        //奖品七
-        radio7_1: '',//单选框1
-        radio7_2: '',//单选框2
-        radio7_3: '',//单选框3
-        //奖品八
-        radio8_1: '',//单选框1
-        radio8_2: '',//单选框2
-        radio8_3: '',//单选框3
-
-
-        reword_type1: '',//奖品一类型
-        reword_type2: '',//奖品二类型
-        reword_type3: '',//奖品三类型
-        reword_type4: '',//奖品四类型
-        reword_type5: '',//奖品五类型
-        reword_type6: '',//奖品六类型
-        reword_type7: '',//奖品七类型
-        reword_type8: '',//奖品八类型
-
-        reword_data: '',//接口数据保存
-        reword_send: ''//奖品数据回调
-      }
-    },
-    created() {
-
-      // this.saveReword()
-    },
-    mounted() {
-      // this.$store.dispatch("saveData")
-      // for (var i = 0; i < this.reword.length; i++) {
-      //   console.log(3333);
-      //   this.form.name1=this.list[i].prizeName
-      //   console.log(this.form.name);
-      //
-      // }
-      this.partReword()
-      this.timestampToTime()
-      $('.shop_info').hide();
-      $('.ser_info').hide();
-      $("#public").hide();
-      $('#nnn').click(function () {
-        $('.shop_info').show()
-        $('.ser_info').hide()
-        $("#public").hide()
-      })
-      $("#ccc").click(function () {
-        $('.ser_info').show()
-        $('.shop_info').hide()
-        $(".public").hide()
-      })
-      $('.ppp').click(function () {
-        $(".public").show()
-        $('.shop_info').hide();
-        $('.ser_info').hide();
-      })
-      $('.bbc').click(function () {
-        $('.shop_info').hide();
-        $('.ser_info').hide();
-        $("#public").hide();
-      })
-
-    },
-    computed: {
-      ...mapState(['setting_data']),
-      ...mapActions(['saveData']),
-      sdata() {
-        return this.setting_data
+        provs:[{label:"北京市",value:"北京市"},
+          {label:"天津市",value:"天津市"},
+          {label:"河北省",value:"河北省"},
+          {label:"山西省",value:"山西省"},
+          {label:"内蒙古自治区",value:"内蒙古自治区"},
+          {label:"辽宁省",value:"辽宁省"},
+          {label:"吉林省",value:"吉林省"},
+          {label:"黑龙江省",value:"黑龙江省"},
+          {label:"上海市",value:"上海市"},
+          {label:"江苏省",value:"江苏省"},
+          {label:"浙江省",value:"浙江省"},
+          {label:"安徽省",value:"安徽省"},
+          {label:"福建省",value:"福建省"},
+          {label:"江西省",value:"江西省"},
+          {label:"山东省",value:"山东省"},
+          {label:"河南省",value:"河南省"},
+          {label:"湖北省",value:"湖北省"},
+          {label:"湖南省",value:"湖南省"},
+          {label:"广东省",value:"广东省"},
+          {label:"广西壮族自治区",value:"广西壮族自治区"},
+          {label:"海南省",value:"海南省"},
+          {label:"重庆市",value:"重庆市"},
+          {label:"四川省",value:"四川省"},
+          {label:"贵州省",value:"贵州省"},
+          {label:"云南省",value:"云南省"},
+          {label:"西藏自治区",value:"西藏自治区"},
+          {label:"陕西省",value:"陕西省"},
+          {label:"甘肃省",value:"甘肃省"},
+          {label:"青海省",value:"青海省"},
+          {label:"宁夏回族自治区",value:"宁夏回族自治区"},
+          {label:"新疆维吾尔自治区",value:"新疆维吾尔自治区"},
+          {label:"台湾省",value:"台湾省"},
+          {label:"香港特别行政区",value:"香港特别行政区"},
+          {label:"澳门特别行政区",value:"澳门特别行政区"}] ,
+        citys: [],
+        selectProv: '',
+        selectCity: ''
       }
     },
     methods: {
-
-      handlePictureCardPreview(file) {
-        this.dialogImageUrl = file.url;
-        this.dialogVisible = true;
-      },
-      handleClick(tab, event) {
-        console.log(tab, event);
-      },
-      //日期时间设置
-
-      timestampToTime(timestamp) {
-        var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-        var Y = date.getFullYear() + '-';
-        var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-        var D = date.getDate() + ' ';
-        var h = date.getHours() + ':';
-        var m = date.getMinutes() + ':';
-        var s = date.getSeconds();
-        return Y + M + D + h + m + s;
-      },
-
-      //奖金设置部分的数据
-      partReword() {
-
-        let Data = sessionStorage.getItem('Data')
-        this.reword_data = JSON.parse(Data).jggAwardSetupExtendList
-        this.list = this.reword_data
-
-        console.log(this.reword_data)
-        //  日期时间转换设置
-
-        this.start_date = this.reword_data[0].exchangeStartDate
-//日期开始时间
-        console.log(this.start_data);
-        this.end_date = this.reword_data[0].exchangeEndDate//结束时间
-        let str = this.start_date
-        console.log(str);
-        let strend = this.end_date
-        console.log(strend);
-        //时间戳转换日期
-        let newStr = this.timestampToTime(str)
-        strend = this.timestampToTime(strend)
-        this.value4 = [newStr, strend]
-
-
-        //奖品一
-
-        this.form.name = this.reword_data[index].prizeName
-        this.form.name2 = this.reword_data[index].prizeNum
-        this.form.name3 = this.reword_data[index].wxPublicAccountName
-        this.radio1 = this.reword_data[index].prizeType.toString()
-        this.radio2 = this.reword_data[index].prizeSource.toString()
-        this.radio3 = this.reword_data[index].prizeExchangeTypeId.toString()
-        this.reword_type1 = this.reword_data[index].jggAwardTypeList
-
-        //奖品二
-        this.form.name2_1 = this.reword_data[1].prizeName
-        this.form.name2_2 = this.reword_data[1].prizeNum
-        this.form.name2_3 = this.reword_data[1].wxPublicAccountName
-        this.radio2_1 = this.reword_data[1].prizeType.toString()
-        this.radio2_2 = this.reword_data[1].prizeSource.toString()
-        this.radio2_3 = this.reword_data[1].prizeExchangeTypeId.toString()
-        this.reword_type2 = this.reword_data[1].jggAwardTypeList
-
-        //奖品三
-        this.form.name3_1 = this.reword_data[2].prizeName
-        this.form.name3_2 = this.reword_data[2].prizeNum
-        this.form.name3_3 = this.reword_data[2].wxPublicAccountName
-        this.radio3_1 = this.reword_data[2].prizeType.toString()
-        this.radio3_2 = this.reword_data[2].prizeSource.toString()
-        this.radio3_3 = this.reword_data[2].prizeExchangeTypeId.toString()
-        this.reword_type3 = this.reword_data[2].jggAwardTypeList
-
-        //奖品四
-        this.form.name4_1 = this.reword_data[3].prizeName
-        this.form.name4_2 = this.reword_data[3].prizeNum
-        this.form.name4_3 = this.reword_data[3].wxPublicAccountName
-        this.radio4_1 = this.reword_data[3].prizeType.toString()
-        this.radio4_2 = this.reword_data[3].prizeSource.toString()
-        this.radio4_3 = this.reword_data[3].prizeExchangeTypeId.toString()
-        this.reword_type4 = this.reword_data[3].jggAwardTypeList
-
-        //奖品五
-        this.form.name5_1 = this.reword_data[4].prizeName
-        this.form.name5_2 = this.reword_data[4].prizeNum
-        this.form.name5_3 = this.reword_data[4].wxPublicAccountName
-        this.radio5_1 = this.reword_data[4].prizeType.toString()
-        this.radio5_2 = this.reword_data[4].prizeSource.toString()
-        this.radio5_3 = this.reword_data[4].prizeExchangeTypeId.toString()
-        this.reword_type5 = this.reword_data[4].jggAwardTypeList
-
-        //奖品六
-        this.form.name6_1 = this.reword_data[5].prizeName
-        this.form.name6_2 = this.reword_data[5].prizeNum
-        this.form.name6_3 = this.reword_data[5].wxPublicAccountName
-        this.radio6_1 = this.reword_data[5].prizeType.toString()
-        this.radio6_2 = this.reword_data[5].prizeSource.toString()
-        this.radio6_3 = this.reword_data[5].prizeExchangeTypeId.toString()
-        this.reword_type6 = this.reword_data[5].jggAwardTypeList
-
-        //奖品七
-        this.form.name7_1 = this.reword_data[6].prizeName
-        this.form.name7_2 = this.reword_data[6].prizeNum
-        this.form.name7_3 = this.reword_data[6].wxPublicAccountName
-        this.radio7_1 = this.reword_data[6].prizeType.toString()
-        this.radio7_2 = this.reword_data[6].prizeSource.toString()
-        this.radio7_3 = this.reword_data[6].prizeExchangeTypeId.toString()
-        this.reword_type7 = this.reword_data[6].jggAwardTypeList
-
-        //奖品八
-        this.form.name8_1 = this.reword_data[7].prizeName
-        this.form.name8_2 = this.reword_data[7].prizeNum
-        this.form.name8_3 = this.reword_data[7].wxPublicAccountName
-        this.radio8_1 = this.reword_data[7].prizeType.toString()
-        this.radio8_2 = this.reword_data[7].prizeSource.toString()
-        this.radio8_3 = this.reword_data[7].prizeExchangeTypeId.toString()
-        this.reword_type8 = this.reword_data[7].jggAwardTypeList
-      },
-      //保存奖品数据
-      saveReword() {
-        // this.$store.dispatch("saveData")
-        let Data = sessionStorage.getItem('Data')
-        this.reword_send = JSON.parse(Data).jggAwardSetupExtendList
-        //奖品一
-        this.reword_send[0].prizeName = this.form.name1
-        this.reword_send[0].prizeNum = this.form.name2
-        this.reword_send[0].wxPublicAccountName = this.form.name3
-        this.reword_send[0].prizeType = Number(this.radio1)
-        this.reword_send[0].prizeSource = Number(this.radio2)
-        this.reword_send[0].prizeExchangeTypeId = Number(this.radio3)
-        this.reword_type1 = this.reword_data.jggAwardTypeList
-
-        //奖品二
-        this.reword_send[1].prizeName = this.form.name2_1
-        this.reword_send[1].prizeNum = this.form.name2_2
-        this.reword_send[1].wxPublicAccountName = this.form.name2_3
-        this.reword_send[1].prizeType = Number(this.radio2_1)
-        this.reword_send[1].prizeSource = Number(this.radio2_2)
-        this.reword_send[1].prizeExchangeTypeId = Number(this.radio2_3)
-        this.reword_type2 = this.reword_data.jggAwardTypeList
-
-        //奖品三
-        this.reword_send[2].prizeName = this.form.name3_1
-        this.reword_send[2].prizeNum = this.form.name3_2
-        this.reword_send[2].wxPublicAccountName = this.form.name3_3
-        this.reword_send[2].prizeType = Number(this.radio3_1)
-        this.reword_send[2].prizeSource = Number(this.radio3_2)
-        this.reword_send[2].prizeExchangeTypeId = Number(this.radio3_3)
-        this.reword_type3 = this.reword_data.jggAwardTypeList
-
-        //奖品四
-        this.reword_send[3].prizeName = this.form.name4_1
-        this.reword_send[3].prizeNum = this.form.name4_2
-        this.reword_send[3].wxPublicAccountName = this.form.name4_3
-        this.reword_send[3].prizeType = Number(this.radio4_1)
-        this.reword_send[3].prizeSource = Number(this.radio4_2)
-        this.reword_send[3].prizeExchangeTypeId = Number(this.radio4_3)
-        this.reword_type4 = this.reword_data.jggAwardTypeList
-
-        //奖品五
-        this.reword_send[4].prizeName = this.form.name5_1
-        this.reword_send[4].prizeNum = this.form.name5_2
-        this.reword_send[4].wxPublicAccountName = this.form.name5_3
-        this.reword_send[4].prizeType = Number(this.radio5_1)
-        this.reword_send[4].prizeSource = Number(this.radio5_2)
-        this.reword_send[4].prizeExchangeTypeId = Number(this.radio5_3)
-        this.reword_type5 = this.reword_data.jggAwardTypeList
-
-        //奖品六
-        this.reword_send[5].prizeName = this.form.name6_1
-        this.reword_send[5].prizeNum = this.form.name6_2
-        this.reword_send[5].wxPublicAccountName = this.form.name6_3
-        this.reword_send[5].prizeType = Number(this.radio6_1)
-        this.reword_send[5].prizeSource = Number(this.radio6_2)
-        this.reword_send[5].prizeExchangeTypeId = Number(this.radio6_3)
-        this.reword_type6 = this.reword_data.jggAwardTypeList
-
-        //奖品七
-        this.reword_send[6].prizeName = this.form.name6_1
-        this.reword_send[6].prizeNum = this.form.name6_2
-        this.reword_send[6].wxPublicAccountName = this.form.name6_3
-        this.reword_send[6].prizeType = Number(this.radio6_1)
-        this.reword_send[6].prizeSource = Number(this.radio6_2)
-        this.reword_send[6].prizeExchangeTypeId = Number(this.radio6_3)
-        this.reword_type7 = this.reword_data.jggAwardTypeList
-
-        // 奖品八
-        this.reword_send[7].prizeName = this.form.name7_1
-        this.reword_send[7].prizeNum = this.form.name7_2
-        this.reword_send[7].wxPublicAccountName = this.form.name7_3
-        this.reword_send[7].prizeType = Number(this.radio7_1)
-        this.reword_send[7].prizeSource = Number(this.radio7_2)
-        this.reword_send[7].prizeExchangeTypeId = Number(this.radio7_3)
-        this.reword_type8 = this.reword_data.jggAwardTypeList
-
-        this.$store.state.setting_data.jggAwardSetupExtendList = this.reword_send
-        this.$bus.emit("send_reword", this.reword_send)
-        console.log(this.reword_data)
-      },
-      //添加奖品
-      addgift() {
-        if (this.reword.length == 7) {
-          this.reword.push('奖金八')
-        } else {
-          alert("最多添加8个奖品")
+      /*二级联动选择地区*/
+      getProv: function (prov) {
+        let tempCity=[];
+        this.citys=[];
+        this.selectCity='';
+        let allCity=[{
+          prov: "北京市",
+          label: "北京市"
+        }, {
+          prov: "天津市",
+          label: "天津市"
+        }, {
+          prov: "河北省",
+          label: "石家庄市"
+        }, {
+          prov: "河北省",
+          label: "唐山市"
+        }, {
+          prov: "河北省",
+          label: "秦皇岛市"
+        }, {
+          prov: "河北省",
+          label: "邯郸市"
+        }, {
+          prov: "河北省",
+          label: "邢台市"
+        }, {
+          prov: "河北省",
+          label: "保定市"
+        }, {
+          prov: "河北省",
+          label: "张家口市"
+        }, {
+          prov: "河北省",
+          label: "承德市"
+        }, {
+          prov: "河北省",
+          label: "沧州市"
+        }, {
+          prov: "河北省",
+          label: "廊坊市"
+        }, {
+          prov: "河北省",
+          label: "衡水市"
+        }, {
+          prov: "山西省",
+          label: "太原市"
+        }, {
+          prov: "山西省",
+          label: "大同市"
+        }, {
+          prov: "山西省",
+          label: "阳泉市"
+        }, {
+          prov: "山西省",
+          label: "长治市"
+        }, {
+          prov: "山西省",
+          label: "晋城市"
+        }, {
+          prov: "山西省",
+          label: "朔州市"
+        }, {
+          prov: "山西省",
+          label: "晋中市"
+        }, {
+          prov: "山西省",
+          label: "运城市"
+        }, {
+          prov: "山西省",
+          label: "忻州市"
+        }, {
+          prov: "山西省",
+          label: "临汾市"
+        }, {
+          prov: "山西省",
+          label: "吕梁市"
+        }, {
+          prov: "内蒙古自治区",
+          label: "呼和浩特市"
+        }, {
+          prov: "内蒙古自治区",
+          label: "包头市"
+        }, {
+          prov: "内蒙古自治区",
+          label: "乌海市"
+        }, {
+          prov: "内蒙古自治区",
+          label: "赤峰市"
+        }, {
+          prov: "内蒙古自治区",
+          label: "通辽市"
+        }, {
+          prov: "内蒙古自治区",
+          label: "鄂尔多斯市"
+        }, {
+          prov: "内蒙古自治区",
+          label: "呼伦贝尔市"
+        }, {
+          prov: "内蒙古自治区",
+          label: "巴彦淖尔市"
+        }, {
+          prov: "内蒙古自治区",
+          label: "乌兰察布市"
+        }, {
+          prov: "内蒙古自治区",
+          label: "兴安盟"
+        }, {
+          prov: "内蒙古自治区",
+          label: "锡林郭勒盟"
+        }, {
+          prov: "内蒙古自治区",
+          label: "阿拉善盟"
+        }, {
+          prov: "辽宁省",
+          label: "沈阳市"
+        }, {
+          prov: "辽宁省",
+          label: "大连市"
+        }, {
+          prov: "辽宁省",
+          label: "鞍山市"
+        }, {
+          prov: "辽宁省",
+          label: "抚顺市"
+        }, {
+          prov: "辽宁省",
+          label: "本溪市"
+        }, {
+          prov: "辽宁省",
+          label: "丹东市"
+        }, {
+          prov: "辽宁省",
+          label: "锦州市"
+        }, {
+          prov: "辽宁省",
+          label: "营口市"
+        }, {
+          prov: "辽宁省",
+          label: "阜新市"
+        }, {
+          prov: "辽宁省",
+          label: "辽阳市"
+        }, {
+          prov: "辽宁省",
+          label: "盘锦市"
+        }, {
+          prov: "辽宁省",
+          label: "铁岭市"
+        }, {
+          prov: "辽宁省",
+          label: "朝阳市"
+        }, {
+          prov: "辽宁省",
+          label: "葫芦岛市"
+        }, {
+          prov: "吉林省",
+          label: "长春市"
+        }, {
+          prov: "吉林省",
+          label: "吉林市"
+        }, {
+          prov: "吉林省",
+          label: "四平市"
+        }, {
+          prov: "吉林省",
+          label: "辽源市"
+        }, {
+          prov: "吉林省",
+          label: "通化市"
+        }, {
+          prov: "吉林省",
+          label: "白山市"
+        }, {
+          prov: "吉林省",
+          label: "松原市"
+        }, {
+          prov: "吉林省",
+          label: "白城市"
+        }, {
+          prov: "吉林省",
+          label: "延边朝鲜族自治州"
+        }, {
+          prov: "黑龙江省",
+          label: "哈尔滨市"
+        }, {
+          prov: "黑龙江省",
+          label: "齐齐哈尔市"
+        }, {
+          prov: "黑龙江省",
+          label: "鸡西市"
+        }, {
+          prov: "黑龙江省",
+          label: "鹤岗市"
+        }, {
+          prov: "黑龙江省",
+          label: "双鸭山市"
+        }, {
+          prov: "黑龙江省",
+          label: "大庆市"
+        }, {
+          prov: "黑龙江省",
+          label: "伊春市"
+        }, {
+          prov: "黑龙江省",
+          label: "佳木斯市"
+        }, {
+          prov: "黑龙江省",
+          label: "七台河市"
+        }, {
+          prov: "黑龙江省",
+          label: "牡丹江市"
+        }, {
+          prov: "黑龙江省",
+          label: "黑河市"
+        }, {
+          prov: "黑龙江省",
+          label: "绥化市"
+        }, {
+          prov: "黑龙江省",
+          label: "大兴安岭地区"
+        }, {
+          prov: "上海市",
+          label: "上海市"
+        }, {
+          prov: "江苏省",
+          label: "南京市"
+        }, {
+          prov: "江苏省",
+          label: "无锡市"
+        }, {
+          prov: "江苏省",
+          label: "徐州市"
+        }, {
+          prov: "江苏省",
+          label: "常州市"
+        }, {
+          prov: "江苏省",
+          label: "苏州市"
+        }, {
+          prov: "江苏省",
+          label: "南通市"
+        }, {
+          prov: "江苏省",
+          label: "连云港市"
+        }, {
+          prov: "江苏省",
+          label: "淮安市"
+        }, {
+          prov: "江苏省",
+          label: "盐城市"
+        }, {
+          prov: "江苏省",
+          label: "扬州市"
+        }, {
+          prov: "江苏省",
+          label: "镇江市"
+        }, {
+          prov: "江苏省",
+          label: "泰州市"
+        }, {
+          prov: "江苏省",
+          label: "宿迁市"
+        }, {
+          prov: "浙江省",
+          label: "杭州市"
+        }, {
+          prov: "浙江省",
+          label: "宁波市"
+        }, {
+          prov: "浙江省",
+          label: "温州市"
+        }, {
+          prov: "浙江省",
+          label: "嘉兴市"
+        }, {
+          prov: "浙江省",
+          label: "湖州市"
+        }, {
+          prov: "浙江省",
+          label: "绍兴市"
+        }, {
+          prov: "浙江省",
+          label: "金华市"
+        }, {
+          prov: "浙江省",
+          label: "衢州市"
+        }, {
+          prov: "浙江省",
+          label: "舟山市"
+        }, {
+          prov: "浙江省",
+          label: "台州市"
+        }, {
+          prov: "浙江省",
+          label: "丽水市"
+        }, {
+          prov: "安徽省",
+          label: "合肥市"
+        }, {
+          prov: "安徽省",
+          label: "芜湖市"
+        }, {
+          prov: "安徽省",
+          label: "蚌埠市"
+        }, {
+          prov: "安徽省",
+          label: "淮南市"
+        }, {
+          prov: "安徽省",
+          label: "马鞍山市"
+        }, {
+          prov: "安徽省",
+          label: "淮北市"
+        }, {
+          prov: "安徽省",
+          label: "铜陵市"
+        }, {
+          prov: "安徽省",
+          label: "安庆市"
+        }, {
+          prov: "安徽省",
+          label: "黄山市"
+        }, {
+          prov: "安徽省",
+          label: "滁州市"
+        }, {
+          prov: "安徽省",
+          label: "阜阳市"
+        }, {
+          prov: "安徽省",
+          label: "宿州市"
+        }, {
+          prov: "安徽省",
+          label: "六安市"
+        }, {
+          prov: "安徽省",
+          label: "亳州市"
+        }, {
+          prov: "安徽省",
+          label: "池州市"
+        }, {
+          prov: "安徽省",
+          label: "宣城市"
+        }, {
+          prov: "福建省",
+          label: "福州市"
+        }, {
+          prov: "福建省",
+          label: "厦门市"
+        }, {
+          prov: "福建省",
+          label: "莆田市"
+        }, {
+          prov: "福建省",
+          label: "三明市"
+        }, {
+          prov: "福建省",
+          label: "泉州市"
+        }, {
+          prov: "福建省",
+          label: "漳州市"
+        }, {
+          prov: "福建省",
+          label: "南平市"
+        }, {
+          prov: "福建省",
+          label: "龙岩市"
+        }, {
+          prov: "福建省",
+          label: "宁德市"
+        }, {
+          prov: "江西省",
+          label: "南昌市"
+        }, {
+          prov: "江西省",
+          label: "景德镇市"
+        }, {
+          prov: "江西省",
+          label: "萍乡市"
+        }, {
+          prov: "江西省",
+          label: "九江市"
+        }, {
+          prov: "江西省",
+          label: "新余市"
+        }, {
+          prov: "江西省",
+          label: "鹰潭市"
+        }, {
+          prov: "江西省",
+          label: "赣州市"
+        }, {
+          prov: "江西省",
+          label: "吉安市"
+        }, {
+          prov: "江西省",
+          label: "宜春市"
+        }, {
+          prov: "江西省",
+          label: "抚州市"
+        }, {
+          prov: "江西省",
+          label: "上饶市"
+        }, {
+          prov: "山东省",
+          label: "济南市"
+        }, {
+          prov: "山东省",
+          label: "青岛市"
+        }, {
+          prov: "山东省",
+          label: "淄博市"
+        }, {
+          prov: "山东省",
+          label: "枣庄市"
+        }, {
+          prov: "山东省",
+          label: "东营市"
+        }, {
+          prov: "山东省",
+          label: "烟台市"
+        }, {
+          prov: "山东省",
+          label: "潍坊市"
+        }, {
+          prov: "山东省",
+          label: "济宁市"
+        }, {
+          prov: "山东省",
+          label: "泰安市"
+        }, {
+          prov: "山东省",
+          label: "威海市"
+        }, {
+          prov: "山东省",
+          label: "日照市"
+        }, {
+          prov: "山东省",
+          label: "莱芜市"
+        }, {
+          prov: "山东省",
+          label: "临沂市"
+        }, {
+          prov: "山东省",
+          label: "德州市"
+        }, {
+          prov: "山东省",
+          label: "聊城市"
+        }, {
+          prov: "山东省",
+          label: "滨州市"
+        }, {
+          prov: "山东省",
+          label: "菏泽市"
+        }, {
+          prov: "河南省",
+          label: "郑州市"
+        }, {
+          prov: "河南省",
+          label: "开封市"
+        }, {
+          prov: "河南省",
+          label: "洛阳市"
+        }, {
+          prov: "河南省",
+          label: "平顶山市"
+        }, {
+          prov: "河南省",
+          label: "安阳市"
+        }, {
+          prov: "河南省",
+          label: "鹤壁市"
+        }, {
+          prov: "河南省",
+          label: "新乡市"
+        }, {
+          prov: "河南省",
+          label: "焦作市"
+        }, {
+          prov: "河南省",
+          label: "濮阳市"
+        }, {
+          prov: "河南省",
+          label: "许昌市"
+        }, {
+          prov: "河南省",
+          label: "漯河市"
+        }, {
+          prov: "河南省",
+          label: "三门峡市"
+        }, {
+          prov: "河南省",
+          label: "南阳市"
+        }, {
+          prov: "河南省",
+          label: "商丘市"
+        }, {
+          prov: "河南省",
+          label: "信阳市"
+        }, {
+          prov: "河南省",
+          label: "周口市"
+        }, {
+          prov: "河南省",
+          label: "驻马店市"
+        }, {
+          prov: "河南省",
+          label: "省直辖县级行政区划"
+        }, {
+          prov: "湖北省",
+          label: "武汉市"
+        }, {
+          prov: "湖北省",
+          label: "黄石市"
+        }, {
+          prov: "湖北省",
+          label: "十堰市"
+        }, {
+          prov: "湖北省",
+          label: "宜昌市"
+        }, {
+          prov: "湖北省",
+          label: "襄阳市"
+        }, {
+          prov: "湖北省",
+          label: "鄂州市"
+        }, {
+          prov: "湖北省",
+          label: "荆门市"
+        }, {
+          prov: "湖北省",
+          label: "孝感市"
+        }, {
+          prov: "湖北省",
+          label: "荆州市"
+        }, {
+          prov: "湖北省",
+          label: "黄冈市"
+        }, {
+          prov: "湖北省",
+          label: "咸宁市"
+        }, {
+          prov: "湖北省",
+          label: "随州市"
+        }, {
+          prov: "湖北省",
+          label: "恩施土家族苗族自治州"
+        }, {
+          prov: "湖北省",
+          label: "省直辖县级行政区划"
+        }, {
+          prov: "湖北省",
+          label: "仙桃市"
+        }, {
+          prov: "湖北省",
+          label: "潜江市"
+        }, {
+          prov: "湖北省",
+          label: "天门市"
+        }, {
+          prov: "湖北省",
+          label: "神农架林区"
+        }, {
+          prov: "湖南省",
+          label: "长沙市"
+        }, {
+          prov: "湖南省",
+          label: "株洲市"
+        }, {
+          prov: "湖南省",
+          label: "湘潭市"
+        }, {
+          prov: "湖南省",
+          label: "衡阳市"
+        }, {
+          prov: "湖南省",
+          label: "邵阳市"
+        }, {
+          prov: "湖南省",
+          label: "岳阳市"
+        }, {
+          prov: "湖南省",
+          label: "常德市"
+        }, {
+          prov: "湖南省",
+          label: "张家界市"
+        }, {
+          prov: "湖南省",
+          label: "益阳市"
+        }, {
+          prov: "湖南省",
+          label: "郴州市"
+        }, {
+          prov: "湖南省",
+          label: "永州市"
+        }, {
+          prov: "湖南省",
+          label: "怀化市"
+        }, {
+          prov: "湖南省",
+          label: "娄底市"
+        }, {
+          prov: "湖南省",
+          label: "湘西土家族苗族自治州"
+        }, {
+          prov: "广东省",
+          label: "广州市"
+        }, {
+          prov: "广东省",
+          label: "韶关市"
+        }, {
+          prov: "广东省",
+          label: "深圳市"
+        }, {
+          prov: "广东省",
+          label: "珠海市"
+        }, {
+          prov: "广东省",
+          label: "汕头市"
+        }, {
+          prov: "广东省",
+          label: "佛山市"
+        }, {
+          prov: "广东省",
+          label: "江门市"
+        }, {
+          prov: "广东省",
+          label: "湛江市"
+        }, {
+          prov: "广东省",
+          label: "茂名市"
+        }, {
+          prov: "广东省",
+          label: "肇庆市"
+        }, {
+          prov: "广东省",
+          label: "惠州市"
+        }, {
+          prov: "广东省",
+          label: "梅州市"
+        }, {
+          prov: "广东省",
+          label: "汕尾市"
+        }, {
+          prov: "广东省",
+          label: "河源市"
+        }, {
+          prov: "广东省",
+          label: "阳江市"
+        }, {
+          prov: "广东省",
+          label: "清远市"
+        }, {
+          prov: "广东省",
+          label: "东莞市"
+        }, {
+          prov: "广东省",
+          label: "中山市"
+        }, {
+          prov: "广东省",
+          label: "潮州市"
+        }, {
+          prov: "广东省",
+          label: "揭阳市"
+        }, {
+          prov: "广东省",
+          label: "云浮市"
+        }, {
+          prov: "广西壮族自治区",
+          label: "南宁市"
+        }, {
+          prov: "广西壮族自治区",
+          label: "柳州市"
+        }, {
+          prov: "广西壮族自治区",
+          label: "桂林市"
+        }, {
+          prov: "广西壮族自治区",
+          label: "梧州市"
+        }, {
+          prov: "广西壮族自治区",
+          label: "北海市"
+        }, {
+          prov: "广西壮族自治区",
+          label: "防城港市"
+        }, {
+          prov: "广西壮族自治区",
+          label: "钦州市"
+        }, {
+          prov: "广西壮族自治区",
+          label: "贵港市"
+        }, {
+          prov: "广西壮族自治区",
+          label: "玉林市"
+        }, {
+          prov: "广西壮族自治区",
+          label: "百色市"
+        }, {
+          prov: "广西壮族自治区",
+          label: "贺州市"
+        }, {
+          prov: "广西壮族自治区",
+          label: "河池市"
+        }, {
+          prov: "广西壮族自治区",
+          label: "来宾市"
+        }, {
+          prov: "广西壮族自治区",
+          label: "崇左市"
+        }, {
+          prov: "海南省",
+          label: "海口市"
+        }, {
+          prov: "海南省",
+          label: "三亚市"
+        }, {
+          prov: "海南省",
+          label: "三沙市"
+        }, {
+          prov: "海南省",
+          label: "省直辖县级行政区划"
+        }, {
+          prov: "海南省",
+          label: "五指山市"
+        }, {
+          prov: "海南省",
+          label: "琼海市"
+        }, {
+          prov: "海南省",
+          label: "儋州市"
+        }, {
+          prov: "海南省",
+          label: "文昌市"
+        }, {
+          prov: "海南省",
+          label: "万宁市"
+        }, {
+          prov: "海南省",
+          label: "东方市"
+        }, {
+          prov: "海南省",
+          label: "定安县"
+        }, {
+          prov: "海南省",
+          label: "屯昌县"
+        }, {
+          prov: "海南省",
+          label: "澄迈县"
+        }, {
+          prov: "海南省",
+          label: "临高县"
+        }, {
+          prov: "海南省",
+          label: "白沙黎族自治县"
+        }, {
+          prov: "海南省",
+          label: "昌江黎族自治县"
+        }, {
+          prov: "海南省",
+          label: "乐东黎族自治县"
+        }, {
+          prov: "海南省",
+          label: "陵水黎族自治县"
+        }, {
+          prov: "海南省",
+          label: "保亭黎族苗族自治县"
+        }, {
+          prov: "海南省",
+          label: "琼中黎族苗族自治县"
+        }, {
+          prov: "重庆市",
+          label: "重庆市"
+        }, {
+          prov: "四川省",
+          label: "成都市"
+        }, {
+          prov: "四川省",
+          label: "自贡市"
+        }, {
+          prov: "四川省",
+          label: "攀枝花市"
+        }, {
+          prov: "四川省",
+          label: "泸州市"
+        }, {
+          prov: "四川省",
+          label: "德阳市"
+        }, {
+          prov: "四川省",
+          label: "绵阳市"
+        }, {
+          prov: "四川省",
+          label: "广元市"
+        }, {
+          prov: "四川省",
+          label: "遂宁市"
+        }, {
+          prov: "四川省",
+          label: "内江市"
+        }, {
+          prov: "四川省",
+          label: "乐山市"
+        }, {
+          prov: "四川省",
+          label: "南充市"
+        }, {
+          prov: "四川省",
+          label: "眉山市"
+        }, {
+          prov: "四川省",
+          label: "宜宾市"
+        }, {
+          prov: "四川省",
+          label: "广安市"
+        }, {
+          prov: "四川省",
+          label: "达州市"
+        }, {
+          prov: "四川省",
+          label: "雅安市"
+        }, {
+          prov: "四川省",
+          label: "巴中市"
+        }, {
+          prov: "四川省",
+          label: "资阳市"
+        }, {
+          prov: "四川省",
+          label: "阿坝藏族羌族自治州"
+        }, {
+          prov: "四川省",
+          label: "甘孜藏族自治州"
+        }, {
+          prov: "四川省",
+          label: "凉山彝族自治州"
+        }, {
+          prov: "贵州省",
+          label: "贵阳市"
+        }, {
+          prov: "贵州省",
+          label: "六盘水市"
+        }, {
+          prov: "贵州省",
+          label: "遵义市"
+        }, {
+          prov: "贵州省",
+          label: "安顺市"
+        }, {
+          prov: "贵州省",
+          label: "毕节市"
+        }, {
+          prov: "贵州省",
+          label: "铜仁市"
+        }, {
+          prov: "贵州省",
+          label: "黔西南布依族苗族自治州"
+        }, {
+          prov: "贵州省",
+          label: "黔东南苗族侗族自治州"
+        }, {
+          prov: "贵州省",
+          label: "黔南布依族苗族自治州"
+        }, {
+          prov: "云南省",
+          label: "昆明市"
+        }, {
+          prov: "云南省",
+          label: "曲靖市"
+        }, {
+          prov: "云南省",
+          label: "玉溪市"
+        }, {
+          prov: "云南省",
+          label: "保山市"
+        }, {
+          prov: "云南省",
+          label: "昭通市"
+        }, {
+          prov: "云南省",
+          label: "丽江市"
+        }, {
+          prov: "云南省",
+          label: "普洱市"
+        }, {
+          prov: "云南省",
+          label: "临沧市"
+        }, {
+          prov: "云南省",
+          label: "楚雄彝族自治州"
+        }, {
+          prov: "云南省",
+          label: "红河哈尼族彝族自治州"
+        }, {
+          prov: "云南省",
+          label: "文山壮族苗族自治州"
+        }, {
+          prov: "云南省",
+          label: "西双版纳傣族自治州"
+        }, {
+          prov: "云南省",
+          label: "大理白族自治州"
+        }, {
+          prov: "云南省",
+          label: "德宏傣族景颇族自治州"
+        }, {
+          prov: "云南省",
+          label: "怒江傈僳族自治州"
+        }, {
+          prov: "云南省",
+          label: "迪庆藏族自治州"
+        }, {
+          prov: "西藏自治区",
+          label: "拉萨市"
+        }, {
+          prov: "西藏自治区",
+          label: "昌都地区"
+        }, {
+          prov: "西藏自治区",
+          label: "山南地区"
+        }, {
+          prov: "西藏自治区",
+          label: "日喀则地区"
+        }, {
+          prov: "西藏自治区",
+          label: "那曲地区"
+        }, {
+          prov: "西藏自治区",
+          label: "阿里地区"
+        }, {
+          prov: "西藏自治区",
+          label: "林芝地区"
+        }, {
+          prov: "陕西省",
+          label: "西安市"
+        }, {
+          prov: "陕西省",
+          label: "铜川市"
+        }, {
+          prov: "陕西省",
+          label: "宝鸡市"
+        }, {
+          prov: "陕西省",
+          label: "咸阳市"
+        }, {
+          prov: "陕西省",
+          label: "渭南市"
+        }, {
+          prov: "陕西省",
+          label: "延安市"
+        }, {
+          prov: "陕西省",
+          label: "汉中市"
+        }, {
+          prov: "陕西省",
+          label: "榆林市"
+        }, {
+          prov: "陕西省",
+          label: "安康市"
+        }, {
+          prov: "陕西省",
+          label: "商洛市"
+        }, {
+          prov: "甘肃省",
+          label: "兰州市"
+        }, {
+          prov: "甘肃省",
+          label: "嘉峪关市"
+        }, {
+          prov: "甘肃省",
+          label: "金昌市"
+        }, {
+          prov: "甘肃省",
+          label: "白银市"
+        }, {
+          prov: "甘肃省",
+          label: "天水市"
+        }, {
+          prov: "甘肃省",
+          label: "武威市"
+        }, {
+          prov: "甘肃省",
+          label: "张掖市"
+        }, {
+          prov: "甘肃省",
+          label: "平凉市"
+        }, {
+          prov: "甘肃省",
+          label: "酒泉市"
+        }, {
+          prov: "甘肃省",
+          label: "庆阳市"
+        }, {
+          prov: "甘肃省",
+          label: "定西市"
+        }, {
+          prov: "甘肃省",
+          label: "陇南市"
+        }, {
+          prov: "甘肃省",
+          label: "临夏回族自治州"
+        }, {
+          prov: "甘肃省",
+          label: "甘南藏族自治州"
+        }, {
+          prov: "青海省",
+          label: "西宁市"
+        }, {
+          prov: "青海省",
+          label: "海东市"
+        }, {
+          prov: "青海省",
+          label: "海北藏族自治州"
+        }, {
+          prov: "青海省",
+          label: "黄南藏族自治州"
+        }, {
+          prov: "青海省",
+          label: "海南藏族自治州"
+        }, {
+          prov: "青海省",
+          label: "果洛藏族自治州"
+        }, {
+          prov: "青海省",
+          label: "玉树藏族自治州"
+        }, {
+          prov: "青海省",
+          label: "海西蒙古族藏族自治州"
+        }, {
+          prov: "宁夏回族自治区",
+          label: "银川市"
+        }, {
+          prov: "宁夏回族自治区",
+          label: "石嘴山市"
+        }, {
+          prov: "宁夏回族自治区",
+          label: "吴忠市"
+        }, {
+          prov: "宁夏回族自治区",
+          label: "固原市"
+        }, {
+          prov: "宁夏回族自治区",
+          label: "中卫市"
+        }, {
+          prov: "新疆维吾尔自治区",
+          label: "乌鲁木齐市"
+        }, {
+          prov: "新疆维吾尔自治区",
+          label: "克拉玛依市"
+        }, {
+          prov: "新疆维吾尔自治区",
+          label: "吐鲁番地区"
+        }, {
+          prov: "新疆维吾尔自治区",
+          label: "哈密地区"
+        }, {
+          prov: "新疆维吾尔自治区",
+          label: "昌吉回族自治州"
+        }, {
+          prov: "新疆维吾尔自治区",
+          label: "博尔塔拉蒙古自治州"
+        }, {
+          prov: "新疆维吾尔自治区",
+          label: "巴音郭楞蒙古自治州"
+        }, {
+          prov: "新疆维吾尔自治区",
+          label: "阿克苏地区"
+        }, {
+          prov: "新疆维吾尔自治区",
+          label: "克孜勒苏柯尔克孜自治州"
+        }, {
+          prov: "新疆维吾尔自治区",
+          label: "喀什地区"
+        }, {
+          prov: "新疆维吾尔自治区",
+          label: "和田地区"
+        }, {
+          prov: "新疆维吾尔自治区",
+          label: "伊犁哈萨克自治州"
+        }, {
+          prov: "新疆维吾尔自治区",
+          label: "塔城地区"
+        }, {
+          prov: "新疆维吾尔自治区",
+          label: "阿勒泰地区"
+        }, {
+          prov: "新疆维吾尔自治区",
+          label: "自治区直辖县级行政区划"
+        }, {
+          prov: "新疆维吾尔自治区",
+          label: "石河子市"
+        }, {
+          prov: "新疆维吾尔自治区",
+          label: "阿拉尔市"
+        }, {
+          prov: "新疆维吾尔自治区",
+          label: "图木舒克市"
+        }, {
+          prov: "新疆维吾尔自治区",
+          label: "五家渠市"
+        }, {
+          prov: "台湾省",
+          label: "台北市"
+        }, {
+          prov: "台湾省",
+          label: "高雄市"
+        }, {
+          prov: "台湾省",
+          label: "基隆市"
+        }, {
+          prov: "台湾省",
+          label: "台中市"
+        }, {
+          prov: "台湾省",
+          label: "台南市"
+        }, {
+          prov: "台湾省",
+          label: "新竹市"
+        }, {
+          prov: "台湾省",
+          label: "嘉义市"
+        }, {
+          prov: "台湾省",
+          label: "省直辖"
+        }, {
+          prov: "香港特别行政区",
+          label: "香港岛"
+        }, {
+          prov: "香港特别行政区",
+          label: "九龙"
+        }, {
+          prov: "香港特别行政区",
+          label: "新界"
+        }, {
+          prov: "澳门特别行政区",
+          label: "澳门半岛"
+        }, {
+          prov: "澳门特别行政区",
+          label: "澳门离岛"
+        }, {
+          prov: "澳门特别行政区",
+          label: "无堂区划分区域"
+        }];
+        for (var val of allCity){
+          if (prov == val.prov){
+            console.log(val);
+            tempCity.push({label: val.label, value: val.label})
+          }
         }
+        this.citys = tempCity;
+      },
+      getCity: function (city) {
+        console.log(city);
+        console.log(this.selectCity)
+      }
+    },
+    mounted: function () {
 
-      },
-      //删除奖品
-      reducegift() {
-        if (this.reword.length == 8) {
-          this.reword.splice(7, 1)
-        } else {
-          alert("至少添加7个奖品")
-        }
-      },
-      onSubmit() {
-        console.log('submit!');
-      },
-      handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-      // shop(){
-      //   console.log(77);
-      //   $(".shop_info").css({"dispaly":"block"})
-      //
-      // },
-      // ser_show(){
-      //   console.log(999);
-      // }
+    },
+    updated: function () {
+
     }
+  }
 
-  })
 </script>
 
 <style lang="scss" scoped>

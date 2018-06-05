@@ -109,6 +109,7 @@
   .active_wrap {
     width: 85%;
     background: #fff;
+    cursor: pointer;
     .active_con {
       width: 95%;
       display: flex;

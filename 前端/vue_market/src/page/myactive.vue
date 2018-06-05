@@ -4,7 +4,8 @@
       <h3>我创建的活动</h3>
     </div>
     <div class="active_inp">
-      <el-select v-model="value4" clearable placeholder="请选择">
+
+      <el-select v-model="value4" clearable placeholder="请选择" :change="fn()" name="province" id="province">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -15,7 +16,7 @@
 
       <el-select v-model="value4" filterable placeholder="请输入要查询的内容">
         <el-option
-          v-for="item in options"
+          v-for="item in options2"
           :key="item.value"
           :label="item.label"
           :value="item.value">
@@ -29,27 +30,40 @@
         :data="tableData"
         style="width: 100%;font-size:inherit;text-align: center">
         <el-table-column
-          prop="name"
+          prop="activityName"
           label="活动名称"
         >
         </el-table-column>
         <el-table-column
-          prop="data"
-          label="活动时间"
-          width="255">
+          label="活动开始时间"
+           width="130">
+          <template slot-scope="scope">
+          {{timestampToTime(scope.row.startDate)}}
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="活动结束时间"
+          width="140">
+        <template slot-scope="scope">
+          {{timestampToTime(scope.row.endDate)}}
+        </template>
         </el-table-column>
 
         <el-table-column
-          prop="state"
+          prop="stateForMyActivity"
           label="活动状态"
           :filters="[{text: '全选', value: '全选'},{text: '未发布', value: '未发布'}, {text: '未开始', value: '未开始'}, {text: '进行中', value: '进行中'}, {text: '已结束', value: '已结束'}]"
           :filter-method="filterHandler">
+          <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.stateForMyActivity === '未发布' ? 'primary' : 'success'"
+              disable-transitions> {{state(scope.row.stateForMyActivity)}}</el-tag>
 
+          </template>
         </el-table-column>
         <el-table-column
-          prop="people"
-          label="参与/最大参与人数"
-          width="125">
+          prop="takeNumber"
+          label="参与">
           <!--:filters="[{ text: '家', value: '家' }, { text: '公司', value: '公司' }]"-->
           <!--:filter-method="filterTag"-->
           <!--filter-placement="bottom-end">-->
@@ -60,38 +74,45 @@
           <!--</template>-->
         </el-table-column>
         <el-table-column
-          prop="count"
-          label="已发放/剩余奖品数量"
-          width="135">
+          prop="maxNumber"
+          label="最大参与人数">
         </el-table-column>
         <el-table-column
-          prop="difpeople"
-          label="传播人数"
-        >
+          prop="sendGoods"
+          label="已发放">
         </el-table-column>
         <el-table-column
-          prop="activeSate"
-          label="活动状况告警"
-          width="110">
+          prop="goods"
+          label="剩余奖品数量">
         </el-table-column>
+        <!--<el-table-column-->
+          <!--prop="transferNumber"-->
+          <!--label="传播人数"-->
+        <!--&gt;-->
+        <!--</el-table-column>-->
+        <!--<el-table-column-->
+          <!--prop="state"-->
+          <!--label="活动状况告警"-->
+          <!--width="110">-->
+        <!--</el-table-column>-->
         <el-table-column
           prop="operate"
           label="操作"
-          width="200"
+          width="180"
           font-size="14px">
           <template slot-scope="scope">
-            <el-span
+            <span
               class="acc"
               size="mini"
-              @click="handleEdit()">发布
-            </el-span>
-            \
-            <el-span
+              @click="handleEdit($event)">
+           发布／
+            </span>
+            <span
               class="abb"
               size="mini"
-              @click="handleDelete(scope.$index, scope.row)">编辑
-            </el-span>
-            \
+            >
+            编辑／
+            </span>
             <el-dropdown trigger="click">
   <span class="el-dropdown-link">
     更多
@@ -117,9 +138,9 @@
       <div class="block">
         <el-pagination
           background
-          :page-size="10"
+          :page-size="2"
           layout="prev, pager, next"
-          :total="100">
+          :total="10">
         </el-pagination>
       </div>
       <div class="publish">
@@ -164,7 +185,7 @@
         </div>
         <div class="btn_all">
           <el-button type="primary" class="btn_aa">取消</el-button>
-          <el-button type="primary" class="btn_aa">确认发布</el-button>
+          <el-button type="primary" class="btn_aa" @click="publish()">确认发布</el-button>
         </div>
       </div>
       <div class="linkActive">
@@ -201,63 +222,10 @@
       return {
         tableData: [
           {
-            name: '信用大转盘',
+            activityName: '信用大转盘',
             data: '2018/05/03/00:00:03--2018/05/25/01:00:00',
-            state: ['未发布',],
-            people: '26／1000',
-            count: '26/1000',
-            difpeople: '65',
-            activeSate: '正常',
-            // operate:['发布','编辑',]
-          }, {
-            name: '信用大转盘',
-            data: '2018/05/03/00:00:03--2018/05/25/01:00:00',
-            state: ['未发布',],
-            people: '26／1000',
-            count: '26/1000',
-            difpeople: '65',
-            activeSate: '正常',
-            // operate:['发布','编辑',]
-          }, {
-            name: '信用大转盘',
-            data: '2018/05/03/00:00:03--2018/05/25/01:00:00',
-            state: ['未发布',],
-            people: '26／1000',
-            count: '26/1000',
-            difpeople: '65',
-            activeSate: '正常',
-            // operate:['发布','编辑',]
-          }, {
-            name: '信用大转盘',
-            data: '2018/05/03/00:00:03--2018/05/25/01:00:00',
-            state: ['未开始',],
-            people: '26／1000',
-            count: '26/1000',
-            difpeople: '65',
-            activeSate: '正常',
-            // operate:['发布','编辑',]
-          }, {
-            name: '信用大转盘',
-            data: '2018/05/03/00:00:03--2018/05/25/01:00:00',
-            state: ['已结束',],
-            people: '26／1000',
-            count: '26/1000',
-            difpeople: '65',
-            activeSate: '正常',
-            // operate:['发布','编辑',]
-          }, {
-            name: '信用大转盘',
-            data: '2018/05/03/00:00:03--2018/05/25/01:00:00',
-            state: ['未发布',],
-            people: '26／1000',
-            count: '26/1000',
-            difpeople: '65',
-            activeSate: '正常',
-            // operate:['发布','编辑',]
-          }, {
-            name: '信用大转盘',
-            data: '2018/05/03/00:00:03--2018/05/25/01:00:00',
-            state: ['未发布',],
+            startData:'',
+            endData:'',
             people: '26／1000',
             count: '26/1000',
             difpeople: '65',
@@ -282,7 +250,22 @@
             value: '选项4',
             label: '活动状态'
           }],
-        value4: '',
+        options2: [
+          {
+            value: '选项1',
+            label: '九宫格'
+          },
+          {
+            value: '选项2',
+            label: '2222'
+          }, {
+            value: '选项3',
+            label: '3333'
+          }, {
+            value: '选项4',
+            label: '正常'
+          }],
+        value4: [],
         imgUrl: '',
         input3: 'http://ninini//',
 
@@ -292,9 +275,78 @@
 
     },
     mounted() {
+      this.pagedata()
 
     },
     methods: {
+      //数据渲染
+      pagedata(){
+        let Data=sessionStorage.getItem('Datalist')
+        this.tableData=JSON.parse(Data)
+        console.log(this.tableData);
+
+
+      },
+//状态转换
+      state(a){
+        if(a===1){
+           return a="未发布"
+        }
+        if(a===2){
+          return a="未开始"
+        }
+        if(a===3){
+          return a="进行中"
+        }
+        if(a===4){
+          return a="已结束"
+        }
+        if(a===5){
+          return a="活动关闭"
+        }
+      },
+      //日期转换
+      timestampToTime(timestamp) {
+        var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = date.getDate() + ' ';
+        var h = date.getHours() + ':';
+        var m = date.getMinutes() + ':';
+        var s = date.getSeconds();
+        return Y+M+D+h+m+s;
+      },
+      //头部选择框
+      fn() {
+        var _this=this
+
+
+
+//         for (var i = 0; i < this.options.length; i++) {
+//           cur=this.options[i].label
+//             if (cur =='活动名称') {
+//               alert("1")
+//               _this.val = this.tableData[i].name
+//               return
+//             } else if (cur =='活动开始时间') {
+//               alert("2")
+//               _this.val = this.tableData[i].data
+//               return
+//             } else if (cur=='活动结束') {
+//               alert("3")
+//               _this.val = this.tableData[i].data
+//               return
+//             } else if (cur=='活动状态') {
+//               alert("4")
+//               _this.val = this.tableData[i].activeSate
+//               return
+//
+//             }
+//
+// return
+//         }
+      },
+
       formatter(row, column) {
         return row.address;
       },
@@ -305,16 +357,23 @@
         const property = column['property'];
         return row[property] === value;
       },
-      handleEdit() {
+      handleEdit(e) {
+
+        console.log(e);
         $('.publish').css({"display": "block"})
       },
       show() {
         $('.publish').css({"display": "none"})
       },
-      chain() {
+      chain(e) {
+        for (var i = 0; i < this.tableData.length; i++) {
+          this.input3=this.tableData[i].publishUrl;
+          this.imgUrl = 'http://192.168.1.167:8080/center/enterprisewx/getImg?url='+this.input3
+          alert(this.imgUrl)
+        }
         $('.linkActive').css({"display": "block"})//弹框显示
-         this.imgUrl='http://192.168.1.167:8080/center/enterprisewx/getImg?url=https://www.baidu.com'
-        alert(this.imgUrl)
+
+
 //         this.$axios({
 //           method:'post',
 //           url:'http://192.168.1.167:8080/center/enterprisewx/getImg',
@@ -332,6 +391,23 @@
       activeShow() {
         $('.linkActive').css({"display": "none"})
       },
+      publish(){//发布活动
+
+        var a=''
+        for (var i = 0; i < this.tableData.length; i++) {
+          a = this.tableData[i].activityId;
+        }
+        alert(a)
+        this.$axios({
+          method:'post',
+          url:'http://center.marketing.yunpaas.cn/jgg/activitySetup/publish',
+          params:{
+            activityId:a
+          },
+        }).then(res=>{
+          console.log(res);
+        })
+      },
       download() {
         console.log(this);
         window.open(this.imgUrl);//下载二维码
@@ -341,7 +417,8 @@
         inp.select();
         document.execCommand("Copy", "false", null);
         alert("复制成功")
-      }
+      },
+
     },
     components: {Button},
     computed: {}
@@ -355,6 +432,7 @@
     /*padding: 30px;*/
     padding-left: 30px;
     position: relative;
+    cursor: pointer;
 
   }
 
@@ -405,6 +483,7 @@
     top: 10%;
     left: 20%;
     display: none;
+    z-index: 888;
   }
 
   .linkActive {
@@ -417,6 +496,7 @@
     top: 10%;
     left: 10%;
     display: none;
+    z-index: 888;
   }
 
   .nav_fa {
