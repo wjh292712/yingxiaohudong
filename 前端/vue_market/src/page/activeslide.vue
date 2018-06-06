@@ -18,7 +18,7 @@
 <script>
     import activeList from '@/page/activelist'
     import activeFirst from '@/page/activeFirst'
-    import {mapState,mapMutations,mapActions} from 'vuex'
+    import {mapState,mapMutations,mapActions,activePull} from 'vuex'
 
     export default({
         data(){
@@ -27,10 +27,14 @@
                 classActive:0
             }
         },
+
         computed:{
             ...mapState(['setting_data']),
-            ...mapActions(['saveData']),
+            ...mapActions(['saveData','activePull']),
         },
+      mounted(){
+        this.$store.dispatch('activePull')
+      },
         components:{
             activeList,
             activeFirst
@@ -39,21 +43,24 @@
             changeClick(index){
                 this.classActive = index
               var token=sessionStorage.getItem('token')
-              if(index===1){
-                  this.$router.push({path:'/activeslide/myactive'})
                 this.$axios({
                   method:'post',
-                  url:'http://192.168.1.167:8080/center/activity/findMyActivity?token='+token,//我的活动
+                  url:'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token='+token,//我的活动
                   params:{
 
                   }
                 }).then(res=>{
-                let Datalist  =JSON.stringify(res.data.data.list)//我的活动数据
+                  console.log(JSON.stringify(res.data.data));
+                  let activData=JSON.stringify(res.data.data)
+                  let Datalist  =JSON.stringify(res.data.data.list)//我的活动数据
                   sessionStorage.setItem('Datalist',Datalist)
-
+                  sessionStorage.setItem('activDara',activData)
+                  console.log(res);
+                  if(index===1){
+                    this.$router.push({path:'/activeslide/myactive'})
+                  }
                 })
 
-              }
             //    this.time = parseInt(this.num,16)
             //     console.log(this.time)
             //     this.time++

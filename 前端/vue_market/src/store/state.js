@@ -16,6 +16,8 @@ const store =new Vuex.Store({
         user_name:"",  //用户姓名
         setting_data:[],//设置模块数据
       title_data:[],
+      Datalist:[],//我的活动列表数据
+      activData:[]//我的活动全部数据
     },
     mutations:{
         show(state){
@@ -80,7 +82,25 @@ const store =new Vuex.Store({
             })
         },
 
+activePull(context){//我的活动请求数据
+  var token=sessionStorage.getItem('token')
+  axios({
+    method:'post',
+    url:'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token='+token,//我的活动
+    params:{
 
+    }
+  }).then(res=>{
+    this.state.activData=JSON.stringify(res.data.data)
+    this.state.Datalist  =JSON.stringify(res.data.data.list)//我的活动数据
+    let Dlist=this.state.Datalist
+    let actD= this.state.activData
+    sessionStorage.setItem('Datalist',Dlist)
+    sessionStorage.setItem('activData',actD)
+  }).catch(res => {
+    console.log(res)
+  })
+},
 
         //设置保存模块给后台发送保存数据
         saveData(context){
@@ -118,7 +138,7 @@ const store =new Vuex.Store({
             //     }
             // })
         }
-
+//
 
     },
   //时间转换

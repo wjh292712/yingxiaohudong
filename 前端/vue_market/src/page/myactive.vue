@@ -16,9 +16,9 @@
 
       <el-select v-model="value4" filterable placeholder="请输入要查询的内容">
         <el-option
-          v-for="item in options2"
+          v-for="item in tableData"
           :key="item.value"
-          :label="item.label"
+          :label="item.activityName"
           :value="item.value">
         </el-option>
       </el-select>
@@ -36,17 +36,17 @@
         </el-table-column>
         <el-table-column
           label="活动开始时间"
-           width="130">
+          width="130">
           <template slot-scope="scope">
-          {{timestampToTime(scope.row.startDate)}}
+            {{timestampToTime(scope.row.startDate)}}
           </template>
         </el-table-column>
         <el-table-column
           label="活动结束时间"
           width="140">
-        <template slot-scope="scope">
-          {{timestampToTime(scope.row.endDate)}}
-        </template>
+          <template slot-scope="scope">
+            {{timestampToTime(scope.row.endDate)}}
+          </template>
         </el-table-column>
 
         <el-table-column
@@ -55,10 +55,7 @@
           :filters="[{text: '全选', value: '全选'},{text: '未发布', value: '未发布'}, {text: '未开始', value: '未开始'}, {text: '进行中', value: '进行中'}, {text: '已结束', value: '已结束'}]"
           :filter-method="filterHandler">
           <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.stateForMyActivity === '未发布' ? 'primary' : 'success'"
-              disable-transitions> {{state(scope.row.stateForMyActivity)}}</el-tag>
-
+            {{state(scope.row.stateForMyActivity)}}
           </template>
         </el-table-column>
         <el-table-column
@@ -86,17 +83,16 @@
           label="剩余奖品数量">
         </el-table-column>
         <!--<el-table-column-->
-          <!--prop="transferNumber"-->
-          <!--label="传播人数"-->
+        <!--prop="transferNumber"-->
+        <!--label="传播人数"-->
         <!--&gt;-->
         <!--</el-table-column>-->
         <!--<el-table-column-->
-          <!--prop="state"-->
-          <!--label="活动状况告警"-->
-          <!--width="110">-->
+        <!--prop="state"-->
+        <!--label="活动状况告警"-->
+        <!--width="110">-->
         <!--</el-table-column>-->
         <el-table-column
-          prop="operate"
           label="操作"
           width="180"
           font-size="14px">
@@ -104,7 +100,7 @@
             <span
               class="acc"
               size="mini"
-              @click="handleEdit($event)">
+              @click="handleEdit($event,scope.row.activityId)">
            发布／
             </span>
             <span
@@ -126,7 +122,7 @@
                   删除
                 </el-dropdown-item>
                 <el-dropdown-item class="clearfix">
-                  <i @click="chain()">链接</i>
+                  <i @click="chain(scope.row.publishUrl)">链接</i>
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -139,8 +135,9 @@
         <el-pagination
           background
           :page-size="2"
-          layout="prev, pager, next"
-          :total="10">
+          layout="prev, pager,jumper ,next"
+          :total="total"
+          @current-change="current_change">
         </el-pagination>
       </div>
       <div class="publish">
@@ -184,8 +181,10 @@
           </el-table>
         </div>
         <div class="btn_all">
-          <el-button type="primary" class="btn_aa">取消</el-button>
+          <el-button type="primary" class="btn_aa" @click="goOut()">取消</el-button>
+
           <el-button type="primary" class="btn_aa" @click="publish()">确认发布</el-button>
+
         </div>
       </div>
       <div class="linkActive">
@@ -216,16 +215,18 @@
 <script>
 
   import Button from "iview/src/components/button/button";
+  import {mapState,mapMutations,mapActions} from 'vuex'
 
   export default {
     data() {
       return {
+        statuss:0,
         tableData: [
           {
             activityName: '信用大转盘',
             data: '2018/05/03/00:00:03--2018/05/25/01:00:00',
-            startData:'',
-            endData:'',
+            startData: '',
+            endData: '',
             people: '26／1000',
             count: '26/1000',
             difpeople: '65',
@@ -253,7 +254,7 @@
         options2: [
           {
             value: '选项1',
-            label: '九宫格'
+            label: "12"
           },
           {
             value: '选项2',
@@ -265,63 +266,87 @@
             value: '选项4',
             label: '正常'
           }],
+        operates: ["发布", "编辑"],
         value4: [],
         imgUrl: '',
+        activeId: '',
+        total: 0,//默认数据总数
+        pagesize: 7,//每页的数据条数
+        currentPage: 1,//默认开始页面
         input3: 'http://ninini//',
 
       }
     },
     created() {
-
+      this.pagedata()
+    },
+    computed:{
+      ...mapState(['setting_data']),
+      ...mapActions(['saveData','activePull']),
     },
     mounted() {
+let _this=this
+      let activeData = sessionStorage.getItem('activData')
+      console.log(activeData);
+      // this.$store.dispatch('activePull')
+      this.state()
       this.pagedata()
-
     },
     methods: {
       //数据渲染
-      pagedata(){
-        let Data=sessionStorage.getItem('Datalist')
-        this.tableData=JSON.parse(Data)
+      created: function () {
+        //加载班级的数据
+        var url = '';
+        //向后台获取数据
+        var vm = this;
+        $.getJSON(url, function (data) {
+          vm.clazzInfo = data;
+          vm.total = data.length;//设置数据总数目！！！
+        });
+      },
+      current_change: function (currentPage) {
+        this.currentPage = currentPage;
+      },
+
+      pagedata() {
+        //输出数据
+        let Data = sessionStorage.getItem('Datalist')
+        let d = this.tableData = JSON.parse(Data)
         console.log(this.tableData);
-
-
+        this.options2
       },
 //状态转换
-      state(a){
-        if(a===1){
-           return a="未发布"
+      state(a) {
+        if (a === 1) {
+          return a = "未发布"
         }
-        if(a===2){
-          return a="未开始"
+        if (a === 2) {
+          return a = "未开始"
         }
-        if(a===3){
-          return a="进行中"
+        if (a === 3) {
+          return a = "进行中"
         }
-        if(a===4){
-          return a="已结束"
+        if (a === 4) {
+          return a = "已结束"
         }
-        if(a===5){
-          return a="活动关闭"
+        if (a === 5) {
+          return a = "活动关闭"
         }
       },
+
       //日期转换
       timestampToTime(timestamp) {
         var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
         var Y = date.getFullYear() + '-';
-        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
         var D = date.getDate() + ' ';
         var h = date.getHours() + ':';
         var m = date.getMinutes() + ':';
         var s = date.getSeconds();
-        return Y+M+D+h+m+s;
+        return Y + M + D + h + m + s;
       },
       //头部选择框
       fn() {
-        var _this=this
-
-
-
 //         for (var i = 0; i < this.options.length; i++) {
 //           cur=this.options[i].label
 //             if (cur =='活动名称') {
@@ -357,60 +382,69 @@
         const property = column['property'];
         return row[property] === value;
       },
-      handleEdit(e) {
+      handleEdit(e, index) {
 
-        console.log(e);
         $('.publish').css({"display": "block"})
+        this.activeId = index
+
       },
       show() {
         $('.publish').css({"display": "none"})
       },
-      chain(e) {
-        for (var i = 0; i < this.tableData.length; i++) {
-          this.input3=this.tableData[i].publishUrl;
-          this.imgUrl = 'http://192.168.1.167:8080/center/enterprisewx/getImg?url='+this.input3
-          alert(this.imgUrl)
-        }
+      chain(url) {
+        //链接活动发送
+        this.input3 = url
+        this.imgUrl = 'http://center.marketing.yunpaas.cn/center/enterprisewx/getImg?url=' + this.input3
+        console.log(this.imgUrl);
+
         $('.linkActive').css({"display": "block"})//弹框显示
-
-
-//         this.$axios({
-//           method:'post',
-//           url:'http://192.168.1.167:8080/center/enterprisewx/getImg',
-//           params: {
-// url:"https://www.baidu.com"
-//           },
-//         }).then(res=>{
-//           console.log(res);
-//           // console.log(res.data);
-//           this.imgUrl=JSON.stringify(res.data)
-//           alert(res+"12")
-//  })
 
       },
       activeShow() {
         $('.linkActive').css({"display": "none"})
       },
-      publish(){//发布活动
-
-        var a=''
-        for (var i = 0; i < this.tableData.length; i++) {
-          a = this.tableData[i].activityId;
-        }
-        alert(a)
-        this.$axios({
-          method:'post',
-          url:'http://center.marketing.yunpaas.cn/jgg/activitySetup/publish',
-          params:{
-            activityId:a
-          },
-        }).then(res=>{
+      publish() {//发布活动
+            let _this=this
+            this.$axios({
+              method: 'post',
+              url: 'http://center.marketing.yunpaas.cn/jgg/activitySetup/publish',
+              params: {
+                activityId: this.activeId
+              },
+            }).then(res => {
           console.log(res);
+          var token=sessionStorage.getItem('token')
+          this.$axios({
+            method:'post',
+            url:'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token='+token,//我的活动
+            params:{
+
+            }
+          }).then(res=>{
+            this.state.activData=JSON.stringify(res.data.data)
+            this.state.Datalist  =JSON.stringify(res.data.data.list)//我的活动数据
+            let Dlist=this.state.Datalist
+            let actD= this.state.activData
+            sessionStorage.setItem('Datalist',Dlist)
+            sessionStorage.setItem('activData',actD)
+
+            $('.publish').css({"display": "none"})
+            this.pagedata()
+          }).catch(res => {
+            console.log(res)
+          })
         })
+      },
+      goOut() {
+        // this.$router.go(0)
+        $('.publish').css({"display": "none"})
       },
       download() {
         console.log(this);
         window.open(this.imgUrl);//下载二维码
+      },
+      listdata(){
+
       },
       copy() {
         var inp = document.getElementById("inp");
@@ -420,7 +454,8 @@
       },
 
     },
-    components: {Button},
+
+    components: {Button,},
     computed: {}
   }
 </script>

@@ -12,6 +12,7 @@ import company from '@/components/company'
 
 //我的活动详情页
 import myactive from '@/page/myactive'
+import myActiveDatail from '@/page/myActiveDatail'
 
 //砍价活动
 import bargainlist from '@/page/bargainlist'
@@ -288,6 +289,9 @@ export default new Router({
         {
           path: "myactive",
           component: myactive,
+        },{
+        path:'myActiveDatail',
+          component:myActiveDatail,
         }]
     },
 
