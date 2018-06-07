@@ -3,7 +3,7 @@
         <div class="setting_con">
             <div class="setting_header clearfloat">
                     <!-- <div class="setting_button" @click="target()">基础设置</div> -->
-                <!-- <div class="setting_button" @click="changeActive(index)" :class="{active_button:classActive == index}"  v-for="(item,index) in settingmsg" :key = "index" type="primary" plain>{{item}}</div> -->
+                 <!--<div class="setting_button" @click="changeActive(index)" :class="{active_button:classActive == index}"  v-for="(item,index) in settingmsg" :key = "index" type="primary" plain>{{item}}</div> -->
             </div>
             <div class="setting_title">
                 <el-tabs v-model="activeName2" >
@@ -24,7 +24,10 @@
 
             </div>
         </div>
-
+      <div id="active_AllBtn">
+        <el-button @click="goBack()">返回</el-button>
+        <el-button @click="onSave()">保存</el-button>
+      </div>
     </div>
 </template>
 <script>
@@ -40,7 +43,7 @@
     export default  ({
         data(){
             return {
-                settingmsg:["基础设置","奖品设置","派奖设置","分享设置","高级设置"],            flag:true,
+                settingmsg:["基础设置","奖品设置","派奖设置","分享设置","高级设置"],            //flag:true,
                 classActive:0,
                 activeName2: 'first',
                 msg:"this is parent data",
@@ -92,9 +95,9 @@
                         _this.sendData.jggHighSecuritySetup = data[1]
                         _this.sendData.jggHighOtherSetup = data[2]
                     }
-                  th_is.onSave()
-                  console.log(232323232);
-                    // console.log(data)
+                  // th_is.onSave()
+                  console.log(JSON.stringify(data)+"2111");
+                  //console.log(data+"2323232222")
                 })
                 //基础设置返回的数据
                 this.$bus.on("send_base",function(data){
@@ -111,19 +114,19 @@
             // this.setting()
             // this.$store.dispatch('setting_msg')
         },
-      watch:{
-        flag:function (a,b) {
-          // _this.flag=true
-          this.onSave()
-
-
-        },
-          deep:true
-
-
-      },
+      // watch:{//  监听是否执行保存
+      //   flag:function (a,b) {
+      //     // _this.flag=true
+      //     this.onSave()
+      //
+      //
+      //   },
+      //     deep:true
+      //
+      //
+      // },
       updated(){
-
+        // this.onSave()
 
       },
         methods:{
@@ -136,6 +139,7 @@
             // },
             //保存设置
             onSave(){//所有的数据设置保存大保存
+
               console.log('发送保存数据');
               var sendNew =JSON.stringify(this.sendData)
                 console.log(sendNew)
@@ -149,8 +153,10 @@
                     // datatype:"json",
                     success(data){
                         console.log(data)
+                      alert(data.msg)
                     }
                 })
+
               // this.$axios({
                 //     method:'post',
                 //     url:"http://192.168.2.170:8080/jgg/activitySetup/save",
@@ -162,13 +168,16 @@
                 //
                 // })
 
-
             },
-
+          goBack(){
+           if( confirm('返回后所编辑的内容不能被保存，是否需要返回？')){
+             this.$router.push({path:'/activeslide/activeFirst'})
+           }
+          },
 
             changeActive(index){
                 this.classActive = index
-                this.target()
+
             },
 
             target(){
@@ -217,6 +226,19 @@
                 }
             }
         }
+    }
+    #active_AllBtn{
+      position: fixed;
+      bottom: 0px;
+      width: 100%;
+      background: #929292;
+      opacity: 0.8;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      z-index: 99999;
+      left: 0;
+
     }
 </style>
 

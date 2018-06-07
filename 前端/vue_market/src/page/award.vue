@@ -162,10 +162,8 @@
 
         </div>
       </el-form>
-      <el-button type="primary" @click="saveAward()">保存</el-button>
-      <el-button type='primary'@click="back()">返回</el-button>
-      <!--<button @click="saveAward()">保存</button>-->
-      <!-- <button @click="partAward()">开始</button> -->
+      <!--<el-button type="primary" @click="saveAward()">保存</el-button>-->
+      <!--<el-button type='primary'@click="back()">返回</el-button>-->
     </div>
   </div>
 </template>
@@ -225,6 +223,9 @@
       ...mapState(['setting_data']),
       ...mapActions(['saveData']),
     },
+    updated(){
+      this.saveAward()
+    },
     methods: {
 
       //派奖设置
@@ -247,7 +248,7 @@
         this.award_send.singleTotalDrawLimit = this.radio1 == 1 ? true : false
         this.award_send.singleDayDrawCount = this.input2
         this.award_send.singleWinCount = this.input3
-        this.award_send.sendRule = this.radio2 == 1 ? true : false
+        this.award_send.sendRule = this.radio2
         this.$store.state.setting_data.jggAwardSendSetup = this.award_send
         this.$bus.emit("send_award", this.award_send)
         // console.log(this.$store.state.setting_data.jggAwardSendSetup)

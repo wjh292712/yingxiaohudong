@@ -42,7 +42,7 @@ import add from '@/components/add'
 import compile from '@/components/compile'
 import activity from '@/components/activity'
 // 客户端
-// import setting from '@/page/setting'
+ import setting from '@/page/setting'
 import settingbase from '@/page/settingbase'
 import reword from '@/page/reword'
 import share from '@/page/share'
@@ -208,7 +208,6 @@ export default new Router({
     },
 
 
-
 //九宫格商户设置
     {
       path: "/setting",
@@ -291,7 +290,7 @@ export default new Router({
           component: myactive,
         },{
         path:'myActiveDatail',
-          component:myActiveDatail,
+          component:myActiveDatail
         }]
     },
 

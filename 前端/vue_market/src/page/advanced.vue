@@ -51,7 +51,7 @@
                     </span>
                     <span>  <el-button plain>返回</el-button>
                     </span>
-      
+
                   </p> -->
                 </div>
               </el-tab-pane>
@@ -121,7 +121,7 @@
                         <span @click="centerDialogVisible = true">部分</span>
                       </el-radio>
                       <el-dialog title="表单字段" :visible.sync="centerDialogVisible" width="30%" center>
-      
+
                         <!-- <h4>666</h4> -->
                         <!-- <span>需要注意的是内容是默认不居中的</span>
                                                           <span slot="footer" class="dialog-footer">
@@ -129,25 +129,25 @@
                                                             <el-button plain class="saves" @click="centerDialogVisible = false">确 定</el-button>
                                                           </span> -->
                       </el-dialog>
-      
+
                     </span>
                   </p>
-                  <p>
-                    <span class="conserve">
-                      <el-button plain class="saves" @click="saveHight()">保存</el-button>
-                    </span>
-                  </p>
+                  <!--<p>-->
+                    <!--<span class="conserve">-->
+                      <!--<el-button plain class="saves" @click="saveHight()">保存</el-button>-->
+                    <!--</span>-->
+                  <!--</p>-->
                 </div>
                 <div>
                   <!-- <el-button type="button" >点击打开 Dialog</el-button> -->
-      
+
                 </div>
               </el-tab-pane>
             </el-tabs>
           </div>
         </div>
       </template>
-      
+
       <script>
           import {mapState, mapMutations, mapActions} from 'vuex';
       export default {
@@ -177,15 +177,19 @@
           };
         },
         created(){
-         
+          this.saveHight()
+          this.partHight()
         },
         mounted(){
-          this.partHight()
+          //this.partHight()
         },
         computed:{
           ...mapState(['setting_data']),
             ...mapActions(['saveData']),
-            
+
+        },
+        updated(){
+          this.saveHight()
         },
         methods: {
 
@@ -199,20 +203,19 @@
             if(!this.company.loadImgType){
               this.radio3 = "1"
             }
-          
+
           // 安全设置
-          
-            
+
+
             this.safety = JSON.parse(Data).jggHighSecuritySetup
             this.radio5 = this.safety.redSecurityLevel.toString()
             this.radio6 = this.safety.smsCheckType.toString()
             if(!this.safety.blackUser){
               this.radio4 = "2"
             }
-         
+
           // 其它设置
-          
-            
+
             this.other = JSON.parse(Data).jggHighOtherSetup
             if(this.other.ad){
               this.radio7 = "1"
@@ -235,29 +238,30 @@
             this.company_send = JSON.parse(Data).jggHighCompanySetup
             this.company_send.companyLogoType = Number(this.radio2)
             this.company_send.loadImgType = this.radio3 == 1 ? 0 : ''
-            this.$store.state.setting_data.jggHighCompanySetup = this.company_send 
+            this.$store.state.setting_data.jggHighCompanySetup = this.company_send
 
           // 安全设置
-          
-            
-            this.safety_send = JSON.parse(Data).jggHighSecuritySetup  
+
+
+            this.safety_send = JSON.parse(Data).jggHighSecuritySetup
             this.safety_send.redSecurityLevel = Number(this.radio5)
             this.safety_send.smsCheckType = Number(this.radio6)
             this.safety_send.blackUser = this.radio4 == 1 ? ture :false
             this.$store.state.setting_data.jggHighSecuritySetup = this.safety_send
 
           // 其它设置
-          
-            
+
+
             this.other_send = JSON.parse(Data).jggHighOtherSetup
             this.other_send.ad = this.radio7 == 1 ? true : false
-            this.other_send.carousel = this.radio8 == 1 ? true : false 
+            this.other_send.carousel = this.radio8 == 1 ? true : false
             this.other_send.form = this.radio9 == 1 ? false : true
-            this.other_send.area = this.radio10 == 1 ? false : true 
+            this.other_send.area = this.radio10 == 1 ? false : true
             this.other_send = this.$store.state.setting_data.jggHighOtherSetup
-            
             this.$bus.emit("send_high",[this.company_send,this.safety_send,this.other_send])
             // console.log(this.company_send,this.safety_send,this.other_send)
+            alert(this.other_send+"advanced的264")
+            console.log(this.other_send);
           },
 
           handleClick(tab, event) {
@@ -269,7 +273,7 @@
           beforeAvatarUpload(file) {
             const isJPG = file.type === 'image/jpeg';
             const isLt2M = file.size / 1024 / 1024 < 2;
-      
+
             if (!isJPG) {
               this.$message.error('上传头像图片只能是 JPG 格式!');
             }
@@ -281,7 +285,7 @@
         }
       };
       </script>
-      
+
       <style lang="scss" scoped>
       .setup_wrap {
         width: 100%;
@@ -299,7 +303,7 @@
       .message p .keep .save {
         margin-top: 4rem;
       }
-      
+
       .message p .avatar-uploader-icon[data-v-67a687b9] {
         font-size: .4rem;
         color: #8c939d;
@@ -309,16 +313,16 @@
         text-align: center;
         border: 1px solid #d9d9d9;
       }
-      
+
       .message p .avatar-uploader {
         margin-left: 6rem;
       }
-      
+
       .message p .save {
         color: #fff;
         background: #409EFF;
       }
-      
+
        /* .message p .avatar-uploader .el-upload {
          border: 1px dashed #d9d9d9;
         border-radius: 6px;
@@ -329,7 +333,7 @@
       .message p .avatar-uploader .el-upload:hover {
         border-color: #409EFF;
       }
-      
+
       .message p .avatar-uploader-icon {
         font-size: 28px;
         color: #8c939d;
@@ -338,45 +342,44 @@
         line-height: 178px;
         text-align: center;
       }
-      
+
       .avatar {
         width: 178px;
         height: 178px;
         display: block;
       }
-      
+
       .safety p {
         margin-top: 1rem;
         font-size: 0.5rem;
       }
-      
-     
+
+
       .safety p .hold {
         color: #fff;
         background: #409EFF;
       }
-      
+
       .safety p .open {
         font-size: 0.4rem;
       }
-      
+
       .safety p .preserve .hold {
         margin-top: 5rem;
       }
-      
+
       .rests p {
-          
+
         margin-top: 1rem;
         font-size: 0.5rem;
       }
-      
+
       .rests p .saves {
         color: #fff;
         background: #409EFF;
       }
-      
+
       .rests p .conserve .saves {
         margin-top: 4rem;
       }
       </style>
- 

@@ -60,10 +60,10 @@
                         </el-form-item>
 
 
-                        <el-form-item>
-                          <el-button type="primary" @click="savedShare()">保存</el-button>
-                          <el-button type='primary' @click="back()" >返回</el-button>
-                        </el-form-item>
+                        <!--<el-form-item>-->
+                          <!--<el-button type="primary" @click="savedShare()">保存</el-button>-->
+                          <!--<el-button type='primary' @click="back()" >返回</el-button>-->
+                        <!--</el-form-item>-->
                       </el-form>
         </div>
     </div>
@@ -104,6 +104,9 @@
         mounted(){
             this.partShare()
         },
+      updated(){
+          this.savedShare()
+      },
         methods:{
             onSubmit() {
                     console.log('submit!');
@@ -132,18 +135,18 @@
                         let Data = sessionStorage.getItem('Data')
                         this.share_send = JSON.parse(Data).jggShareSetup
                         this.share_send.share = this.form.resource1 == 1 ? true : false
-                        this.share_send.wxShareLogoType = this.form.resource2 == 1 ? true : false
-                        this.share_send.wxShareTitleType = this.form.resource3 == 1 ? true : false
-                        this.share_send.wxShareContentType = this.form.resource4 == 1 ? true : false
+                        this.share_send.wxShareLogoType = this.form.resource2
+                        this.share_send.wxShareTitleType = this.form.resource3
+                        this.share_send.wxShareContentType = this.form.resource4
                         this.$store.state.setting_data.jggShareSetup = this.share_send
                         this.$bus.emit("send_share",this.share_send)
                     },
                     change(){
                         this.sendShare()
                     },
-          back(){
-              this.$router.go(-1)
-          }
+          // back(){
+          //     this.$router.go(-1)
+          // }
                 }
 
     })

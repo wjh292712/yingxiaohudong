@@ -39,12 +39,11 @@
             </div>
             <el-tabs v-model="activeName" >
 
-
-
             <div class="pic_ture">
                   <div class="sett">
                       <setting/>
                   </div>
+
                 <div v-show="num==0">
                   <div class="active_down">
                       <div class="active_downCon">
@@ -334,14 +333,14 @@ export default ({
                       width: 90%;
                       margin: .5rem auto;
                       height: 13rem;
-                      background: url(../../static\active\九宫格1.jpg) no-repeat;
+                      background: url(../../static/active/九宫格1.jpg) no-repeat;
                       background-size: 100%;
                     }
                     .inform {
                       width: 85%;
                       margin: 0rem auto;
                       height: 1.17rem;
-                      background: url(../../static\active\通知.png) no-repeat;
+                      background: url(../../static/active/通知.png) no-repeat;
                       background-size: 100%;
                       font-size: .6rem;
                       text-indent: 2rem;
@@ -351,7 +350,7 @@ export default ({
                     .title_image {
                       width: 100%;
                       height: 6.25rem;
-                      background: url(../../static\active\banner.jpg) no-repeat;
+                      background: url(../../static/active/banner.jpg) no-repeat;
                       background-size: 100%;
                     }
                   }
@@ -466,5 +465,6 @@ export default ({
     }
   }
 }
+
 </style>
 

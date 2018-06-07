@@ -116,10 +116,10 @@
                 </el-form-item>
               </div>
 
-              <el-form-item>
-                <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="back()">返回</el-button>
-              </el-form-item>
+              <!--<el-form-item>-->
+                <!--<el-button type="primary" @click="saveReword()">保存</el-button>-->
+                <!--<el-button type="primary" @click="back()">返回</el-button>-->
+              <!--</el-form-item>-->
             </el-tab-pane>
             <!-- 奖品二 -->
             <el-tab-pane label="奖品二" name="second" data-idx="1">
@@ -232,10 +232,10 @@
                 </el-form-item>
               </div>
 
-              <el-form-item>
-                <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="back()">返回</el-button>
-              </el-form-item>
+              <!--<el-form-item>-->
+                <!--<el-button type="primary" @click="saveReword()">保存</el-button>-->
+                <!--<el-button type="primary" @click="back()">返回</el-button>-->
+              <!--</el-form-item>-->
             </el-tab-pane>
             <!-- 奖品三 -->
             <el-tab-pane label="奖品三" name="third" data-idx="2">
@@ -348,10 +348,10 @@
                 </el-form-item>
               </div>
 
-              <el-form-item>
-                <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="back()">返回</el-button>
-              </el-form-item>
+              <!--<el-form-item>-->
+                <!--<el-button type="primary" @click="saveReword()">保存</el-button>-->
+                <!--<el-button type="primary" @click="back()">返回</el-button>-->
+              <!--</el-form-item>-->
             </el-tab-pane>
 
 
@@ -466,10 +466,10 @@
                 </el-form-item>
               </div>
 
-              <el-form-item>
-                <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="back()">返回</el-button>
-              </el-form-item>
+              <!--<el-form-item>-->
+                <!--<el-button type="primary" @click="saveReword()">保存</el-button>-->
+                <!--<el-button type="primary" @click="back()">返回</el-button>-->
+              <!--</el-form-item>-->
             </el-tab-pane>
 
             <!-- 奖品五 -->
@@ -583,10 +583,10 @@
                 </el-form-item>
               </div>
 
-              <el-form-item>
-                <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="back()">返回</el-button>
-              </el-form-item>
+              <!--<el-form-item>-->
+                <!--<el-button type="primary" @click="saveReword()">保存</el-button>-->
+                <!--<el-button type="primary" @click="back()">返回</el-button>-->
+              <!--</el-form-item>-->
             </el-tab-pane>
 
             <!-- 奖品六 -->
@@ -700,10 +700,10 @@
                 </el-form-item>
               </div>
 
-              <el-form-item>
-                <el-button type="primary" @click="saveReword()">保存</el-button>
-                  <el-button type="primary" @click="back()">返回</el-button>
-              </el-form-item>
+              <!--<el-form-item>-->
+                <!--<el-button type="primary" @click="saveReword()">保存</el-button>-->
+                  <!--<el-button type="primary" @click="back()">返回</el-button>-->
+              <!--</el-form-item>-->
             </el-tab-pane>
 
             <!-- 奖品七 -->
@@ -817,10 +817,10 @@
                 </el-form-item>
               </div>
 
-              <el-form-item>
-                <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="back()">返回</el-button>
-              </el-form-item>
+              <!--<el-form-item>-->
+                <!--<el-button type="primary" @click="saveReword()">保存</el-button>-->
+                <!--<el-button type="primary" @click="back()">返回</el-button>-->
+              <!--</el-form-item>-->
             </el-tab-pane>
 
             <!-- 奖品八 -->
@@ -1144,6 +1144,9 @@
         return this.setting_data
       }
     },
+    updated(){
+      this.saveReword()
+    },
     methods: {
 
       handlePictureCardPreview(file) {
@@ -1343,6 +1346,7 @@
         this.$store.state.setting_data.jggAwardSetupExtendList = this.reword_send
         this.$bus.emit("send_reword",this.reword_send)
         console.log(this.reword_data)
+        alert(this.reword_data)
       },
       //添加奖品
       addgift(){

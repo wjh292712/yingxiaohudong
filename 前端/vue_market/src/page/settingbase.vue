@@ -38,11 +38,10 @@
           {{form.desc}}
         </el-form-item>
         <el-form-item>
-          <!--<el-button type="primary" @click="saveBase()" :class='checkBtn==true?"newactive":""'>保存</el-button>-->
-          <div class="btn_click">
-            <el-button type="primary" @click="saveBase()">保存</el-button>
-            <el-button type='primary' @click="back()">返回</el-button>
-          </div>
+          <!--<div class="btn_click">-->
+            <!--<el-button type="primary" @click="saveBase()">保存</el-button>-->
+            <!--<el-button type='primary' @click="back()">返回</el-button>-->
+          <!--</div>-->
 
         </el-form-item>
       </el-form>
@@ -127,7 +126,7 @@
 
     },
     updated(){
-
+      this.saveBase()
     },
     computed: {
       ...mapState(['setting_data']),

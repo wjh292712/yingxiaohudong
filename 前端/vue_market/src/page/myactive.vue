@@ -100,7 +100,7 @@
             <span
               class="acc"
               size="mini"
-              @click="handleEdit($event,scope.row.activityId)">
+              @click="handleEdit($event,scope.row.activityId,scope.row.templateUuid)">
            发布／
             </span>
             <span
@@ -270,6 +270,7 @@
         value4: [],
         imgUrl: '',
         activeId: '',
+        templateUuid:'',
         total: 0,//默认数据总数
         pagesize: 7,//每页的数据条数
         currentPage: 1,//默认开始页面
@@ -382,10 +383,12 @@ let _this=this
         const property = column['property'];
         return row[property] === value;
       },
-      handleEdit(e, index) {
+      handleEdit(e, index,templ) {
 
         $('.publish').css({"display": "block"})
         this.activeId = index
+        this.templateUuid=templ
+        alert(this.templateUuid)
 
       },
       show() {
@@ -407,9 +410,10 @@ let _this=this
             let _this=this
             this.$axios({
               method: 'post',
-              url: 'http://center.marketing.yunpaas.cn/jgg/activitySetup/publish',
+              url: 'http://center.marketing.yunpaas.cn/center/activity/publish',
               params: {
-                activityId: this.activeId
+                activityId: this.activeId,
+                templateUuid:this.templateUuid
               },
             }).then(res => {
           console.log(res);
