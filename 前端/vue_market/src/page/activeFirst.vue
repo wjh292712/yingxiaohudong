@@ -9,7 +9,7 @@
             <div class="active_body" v-for="(item,index) in  titlemsg">
               <h5 class="active_title">{{item.title}}</h5>
 <button class="btn_all">全部</button>
-              <ul class="body_list">
+              <ul class="body_list" id="contented">
                 <li class="body_list_con" v-for="lll in listdata1" v-if="index==0">
                   {{lll.name}}
                  </li>
@@ -104,7 +104,10 @@
   })
 </script>
 <style>
-
+#contented{
+  display: flex !important;
+  justify-content: normal;
+}
 </style>
 <style lang="scss" scoped>
   .active_wrap {

@@ -3,6 +3,7 @@
     <div class="active_nav">
       <h3>活动详情</h3>
     </div>
+    <selected></selected>
     <!--<div class="active_inp">-->
       <!--<el-select v-model="value4" clearable placeholder="请选择" :change="fn()" name="province" id="province">-->
         <!--<el-option-->
@@ -205,7 +206,7 @@
 
   import Button from "iview/src/components/button/button";
   import {mapState,mapMutations,mapActions} from 'vuex'
-
+import selected from '@/page/selected'
   export default {
     data() {
       return {
@@ -267,7 +268,7 @@
       }
     },
     created() {
-      this.pagedata()
+      // this.pagedata()
     },
     computed:{
       ...mapState(['setting_data']),
@@ -418,7 +419,7 @@
 
     },
 
-    components: {Button,},
+    components: {Button,selected},
     computed: {}
   }
 </script>

@@ -44,7 +44,7 @@
                 <el-input type="textarea" v-model="form.desc1"></el-input>
               </el-form-item>
               <el-form-item label="奖品类型">
-                <el-select v-model="form.region" placeholder="请选择活动区域">
+                <el-select v-model="form.region" placeholder="请选择奖品类型">
                   <el-option v-for="(items,index) in reword_type1"  :label="items.name" :value="index+1" :key="index"></el-option>
                 </el-select>
               </el-form-item>
@@ -79,7 +79,7 @@
 
                 </el-radio-group>
               </el-form-item>
-              <div class="public">
+              <div class="public">//公众号的下啦菜单
                 <el-form-item label="公众号名称">
                   <el-input v-model="form.name3" placeholder="不超过15个字"></el-input>
                   <el-upload
@@ -92,27 +92,27 @@
                   </el-upload>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input type="textarea" v-model="form.desc2"></el-input>
+                  <el-input type="textarea" v-model="form.name5"></el-input>
                 </el-form-item>
               </div>
 
               <div class="shop_info">
                 <el-form-item label="门店地址">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.address" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone1" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name6" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone2" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name7" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
 
@@ -962,8 +962,6 @@
         reword:"",
         start_date:"",
         end_date:"",
-
-
         pickerOptions2: {
           shortcuts: [{
             text: '最近一周',
@@ -998,6 +996,14 @@
           name1: '',//奖品名称
           name2: '',//奖品数量
           name3: '',
+          name4:'',//公众号名称
+          name5:'',//公众号兑奖说明
+          address:'',//门店地址
+          phone1:'',//门店客服电话
+          name6:'',//门店兑奖说明
+          phone2:'',//联系客服电话
+          name7:'',//客服兑奖说明
+
           region: '',
           date1: '',
           date2: '',
@@ -1145,7 +1151,8 @@
       }
     },
     updated(){
-      this.saveReword()
+      //this.partReword()//
+      this.saveReword()//保存数据
     },
     methods: {
 
@@ -1171,7 +1178,7 @@
 
       //奖金设置部分的数据
       partReword(){
-
+alert("1185奖品")
         let Data = sessionStorage.getItem('Data')
         this.reword_data = JSON.parse(Data).jggAwardSetupExtendList
         this.list=this.reword_data
@@ -1269,6 +1276,7 @@
       saveReword(){
         // this.$store.dispatch("saveData")
         let Data = sessionStorage.getItem('Data')
+        console.log(Data+"555");
         // let Data1=sessionStorage.setItem('Data')
         this.reword_send = JSON.parse(Data).jggAwardSetupExtendList
         //奖品一
@@ -1278,6 +1286,7 @@
         this.reword_send[0].prizeType = Number(this.radio1)
         this.reword_send[0].prizeSource = Number(this.radio2)
         this.reword_send[0].prizeExchangeTypeId = Number(this.radio3)
+        this.reword_send[0].exchangeAddress=
         this.reword_type1 = this.reword_data.jggAwardTypeList
 
         //奖品二
@@ -1335,13 +1344,13 @@
         this.reword_type7 = this.reword_data.jggAwardTypeList
 
         // 奖品八
-        this.reword_send[7].prizeName = this.form.name7_1
-        this.reword_send[7].prizeNum = this.form.name7_2
-        this.reword_send[7].wxPublicAccountName = this.form.name7_3
-        this.reword_send[7].prizeType = Number(this.radio7_1)
-        this.reword_send[7].prizeSource = Number(this.radio7_2)
-        this.reword_send[7].prizeExchangeTypeId = Number(this.radio7_3)
-        this.reword_type8 = this.reword_data.jggAwardTypeList
+        // this.reword_send[7].prizeName = this.form.name7_1
+        // this.reword_send[7].prizeNum = this.form.name7_2
+        // this.reword_send[7].wxPublicAccountName = this.form.name7_3
+        // this.reword_send[7].prizeType = Number(this.radio7_1)
+        // this.reword_send[7].prizeSource = Number(this.radio7_2)
+        // this.reword_send[7].prizeExchangeTypeId = Number(this.radio7_3)
+        // this.reword_type8 = this.reword_data.jggAwardTypeList
 
         this.$store.state.setting_data.jggAwardSetupExtendList = this.reword_send
         this.$bus.emit("send_reword",this.reword_send)

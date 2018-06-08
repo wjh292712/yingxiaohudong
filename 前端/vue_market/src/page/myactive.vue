@@ -3,27 +3,45 @@
     <div class="active_nav">
       <h3>我创建的活动</h3>
     </div>
+
     <div class="active_inp">
+    <el-select v-model="value4" clearable placeholder="请选择" name="province" id="province" v-on:change="choosegroup($event)" >
+      <el-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value">
+      </el-option>
+    </el-select>
 
-      <el-select v-model="value4" clearable placeholder="请选择" :change="fn()" name="province" id="province">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-
-      <el-select v-model="value4" filterable placeholder="请输入要查询的内容">
-        <el-option
-          v-for="item in tableData"
-          :key="item.value"
-          :label="item.activityName"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      <el-button class="btn_s">查询</el-button>
-    </div>
+    <el-select v-model="value4" filterable placeholder="请输入要查询的内容" id="select_id">
+      <el-option
+        v-for="item in tableData"
+        :key="item.value"
+        :label="item.activityName"
+        :value="item.value">
+      </el-option>
+      <el-option
+        v-for="item in tableData"
+        :key="item.value"
+        :label="timestampToTime(item.startDate)"
+        :value="item.value">
+      </el-option>
+      <el-option
+        v-for="item in tableData"
+        :key="item.value"
+        :label="timestampToTime(item.endDate)"
+        :value="item.value">
+      </el-option>
+      <el-option
+        v-for="item in tableData"
+        :key="item.value"
+        :label="state(item.stateForMyActivity)"
+        :value="item.value">
+      </el-option>
+    </el-select>
+    <el-button class="btn_s">查询</el-button>
+  </div>
 
     <div class="ddd" style="text-align: center">
       <el-table
@@ -221,6 +239,7 @@
     data() {
       return {
         statuss:0,
+        grouplist:['活动名称','活动开始时间','活动结束时间','活动状态'],
         tableData: [
           {
             activityName: '信用大转盘',
@@ -294,6 +313,14 @@ let _this=this
       this.pagedata()
     },
     methods: {
+
+      //头部选择框
+      choosegroup(e) {
+        if (e==="选项1"){
+
+
+        }
+      },
       //数据渲染
       created: function () {
         //加载班级的数据
@@ -312,9 +339,8 @@ let _this=this
       pagedata() {
         //输出数据
         let Data = sessionStorage.getItem('Datalist')
-        let d = this.tableData = JSON.parse(Data)
+        this.tableData = JSON.parse(Data)
         console.log(this.tableData);
-        this.options2
       },
 //状态转换
       state(a) {
@@ -346,32 +372,7 @@ let _this=this
         var s = date.getSeconds();
         return Y + M + D + h + m + s;
       },
-      //头部选择框
-      fn() {
-//         for (var i = 0; i < this.options.length; i++) {
-//           cur=this.options[i].label
-//             if (cur =='活动名称') {
-//               alert("1")
-//               _this.val = this.tableData[i].name
-//               return
-//             } else if (cur =='活动开始时间') {
-//               alert("2")
-//               _this.val = this.tableData[i].data
-//               return
-//             } else if (cur=='活动结束') {
-//               alert("3")
-//               _this.val = this.tableData[i].data
-//               return
-//             } else if (cur=='活动状态') {
-//               alert("4")
-//               _this.val = this.tableData[i].activeSate
-//               return
-//
-//             }
-//
-// return
-//         }
-      },
+
 
       formatter(row, column) {
         return row.address;
@@ -383,11 +384,11 @@ let _this=this
         const property = column['property'];
         return row[property] === value;
       },
-      handleEdit(e, index,templ) {
+      handleEdit(e, index, templ) {
 
         $('.publish').css({"display": "block"})
         this.activeId = index
-        this.templateUuid=templ
+        this.templateUuid = templ
         alert(this.templateUuid)
 
       },
@@ -407,30 +408,28 @@ let _this=this
         $('.linkActive').css({"display": "none"})
       },
       publish() {//发布活动
-            let _this=this
-            this.$axios({
-              method: 'post',
-              url: 'http://center.marketing.yunpaas.cn/center/activity/publish',
-              params: {
-                activityId: this.activeId,
-                templateUuid:this.templateUuid
-              },
-            }).then(res => {
+        let _this = this
+        this.$axios({
+          method: 'post',
+          url: 'http://center.marketing.yunpaas.cn/center/activity/publish',
+          params: {
+            activityId: this.activeId,
+            templateUuid: this.templateUuid
+          },
+        }).then(res => {
           console.log(res);
-          var token=sessionStorage.getItem('token')
+          var token = sessionStorage.getItem('token')
           this.$axios({
-            method:'post',
-            url:'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token='+token,//我的活动
-            params:{
-
-            }
-          }).then(res=>{
-            this.state.activData=JSON.stringify(res.data.data)
-            this.state.Datalist  =JSON.stringify(res.data.data.list)//我的活动数据
-            let Dlist=this.state.Datalist
-            let actD= this.state.activData
-            sessionStorage.setItem('Datalist',Dlist)
-            sessionStorage.setItem('activData',actD)
+            method: 'post',
+            url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,//我的活动
+            params: {}
+          }).then(res => {
+            this.state.activData = JSON.stringify(res.data.data)
+            this.state.Datalist = JSON.stringify(res.data.data.list)//我的活动数据
+            let Dlist = this.state.Datalist
+            let actD = this.state.activData
+            sessionStorage.setItem('Datalist', Dlist)
+            sessionStorage.setItem('activData', actD)
 
             $('.publish').css({"display": "none"})
             this.pagedata()
@@ -447,7 +446,7 @@ let _this=this
         console.log(this);
         window.open(this.imgUrl);//下载二维码
       },
-      listdata(){
+      listdata() {
 
       },
       copy() {
@@ -457,7 +456,11 @@ let _this=this
         alert("复制成功")
       },
 
+
+
     },
+
+
 
     components: {Button,},
     computed: {}
