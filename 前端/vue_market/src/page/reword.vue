@@ -79,7 +79,7 @@
 
                 </el-radio-group>
               </el-form-item>
-              <div class="public">//公众号的下啦菜单
+              <div class="public">
                 <el-form-item label="公众号名称">
                   <el-input v-model="form.name3" placeholder="不超过15个字"></el-input>
                   <el-upload
@@ -1112,8 +1112,7 @@
       // this.saveReword()
     },
     mounted(){
-
-      console.log(22299999000);
+      this.saveReword()//保存数据
       // this.$store.dispatch("saveData")
       this.partReword()
       this.timestampToTime()
@@ -1152,7 +1151,7 @@
     },
     updated(){
       //this.partReword()//
-      this.saveReword()//保存数据
+      this.saveReword()
     },
     methods: {
 
@@ -1178,7 +1177,6 @@
 
       //奖金设置部分的数据
       partReword(){
-alert("1185奖品")
         let Data = sessionStorage.getItem('Data')
         this.reword_data = JSON.parse(Data).jggAwardSetupExtendList
         this.list=this.reword_data
@@ -1208,6 +1206,7 @@ alert("1185奖品")
         this.radio2 = this.reword_data[0].prizeSource.toString()
         this.radio3 = this.reword_data[0].prizeExchangeTypeId.toString()
         this.reword_type1 = this.reword_data[0].jggAwardTypeList
+        console.log(this.reword_type1);
 
         //奖品二
         this.form.name2_1 = this.reword_data[1].prizeName
@@ -1275,6 +1274,7 @@ alert("1185奖品")
       //保存奖品数据
       saveReword(){
         // this.$store.dispatch("saveData")
+
         let Data = sessionStorage.getItem('Data')
         console.log(Data+"555");
         // let Data1=sessionStorage.setItem('Data')
@@ -1286,7 +1286,7 @@ alert("1185奖品")
         this.reword_send[0].prizeType = Number(this.radio1)
         this.reword_send[0].prizeSource = Number(this.radio2)
         this.reword_send[0].prizeExchangeTypeId = Number(this.radio3)
-        this.reword_send[0].exchangeAddress=
+        this.reword_send[0].exchangeAddress=this.form.address
         this.reword_type1 = this.reword_data.jggAwardTypeList
 
         //奖品二
@@ -1355,7 +1355,6 @@ alert("1185奖品")
         this.$store.state.setting_data.jggAwardSetupExtendList = this.reword_send
         this.$bus.emit("send_reword",this.reword_send)
         console.log(this.reword_data)
-        alert(this.reword_data)
       },
       //添加奖品
       addgift(){

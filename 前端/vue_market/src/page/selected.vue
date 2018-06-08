@@ -48,14 +48,14 @@
         this.$options.methods.choosepid(this.groupid);*/
         //this.$options.methods.choosepid(this.groupid);
         //console.log(this.pidlist);
-
-        var sendData = {};
-        var jsonData = {};
-        sendData.url ="www.baidu.com";
-        jsonData.token = "1111111111111111";
-        jsonData.phone = "111111111111";
-        jsonData.group_id=this.groupid;
-        sendData.data = jsonData;
+        //
+        // var sendData = {};
+        // var jsonData = {};
+        // sendData.url ="www.baidu.com";
+        // jsonData.token = "1111111111111111";
+        // jsonData.phone = "111111111111";
+        // jsonData.group_id=this.groupid;
+        // sendData.data = jsonData;
         $.ajax({
           url:"http://www.baidu.com/abc.php",
           data:sendData,

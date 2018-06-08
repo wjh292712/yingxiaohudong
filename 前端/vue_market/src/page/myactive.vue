@@ -3,9 +3,39 @@
     <div class="active_nav">
       <h3>我创建的活动</h3>
     </div>
-
+    <!--<template>-->
+      <!--<ul class="h45">-->
+        <!--<li class="left" >-->
+          <!--<p class="row-box">-->
+            <!--<select id="workergroupid" v-on:change="choosegroup($event.target)" class="form-control w200">-->
+              <!--<option value="">请选择字段</option>-->
+              <!--<option v-for="item in grouplist" v-bind:value="item.group_id">{{ item }}</option>-->
+            <!--</select>-->
+          <!--</p>-->
+        <!--</li>-->
+        <!--<li class="left">-->
+          <!--<p class="row-box">-->
+            <!--<select id="workerroleid" name="workerroleida"  class="form-control w200" >-->
+              <!--<option>请选择要查询的内容</option>-->
+              <!--<option v-for="roleitem in tableData" v-bind:value="roleitem.role_id">{{roleitem.activityName}}-->
+                <!--{{roleitem.endData}}-->
+              <!--</option>-->
+              <!--<option v-for="roleitem in tableData" v-bind:value="roleitem.role_id">-->
+                <!--{{timestampToTime(roleitem.startDate)}}-->
+              <!--</option>-->
+              <!--<option v-for="roleitem in tableData" v-bind:value="roleitem.role_id">-->
+                <!--{{timestampToTime(roleitem.endDate)}}-->
+              <!--</option>-->
+              <!--<option v-for="roleitem in tableData" v-bind:value="roleitem.role_id">-->
+                <!--{{state(roleitem.stateForMyActivity)}}-->
+              <!--</option>-->
+            <!--</select>-->
+          <!--</p>-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</template>-->
     <div class="active_inp">
-    <el-select v-model="value4" clearable placeholder="请选择" name="province" id="province" v-on:change="choosegroup($event)" >
+    <el-select v-model="value4" clearable="true" placeholder="请选择" name="province" id="province" v-on:change="choosegroup($event)" >
       <el-option
         v-for="item in options"
         :key="item.value"
@@ -14,7 +44,7 @@
       </el-option>
     </el-select>
 
-    <el-select v-model="value4" filterable placeholder="请输入要查询的内容" id="select_id">
+    <el-select v-model='value5' clearable="true" placeholder="请输入要查询的内容" id="select_id">
       <el-option
         v-for="item in tableData"
         :key="item.value"
@@ -152,9 +182,9 @@
       <div class="block">
         <el-pagination
           background
-          :page-size="2"
+          :page-size="10"
           layout="prev, pager,jumper ,next"
-          :total="total"
+          :total="100"
           @current-change="current_change">
         </el-pagination>
       </div>
@@ -273,7 +303,7 @@
         options2: [
           {
             value: '选项1',
-            label: "12"
+            label: 'ww'
           },
           {
             value: '选项2',
@@ -287,6 +317,7 @@
           }],
         operates: ["发布", "编辑"],
         value4: [],
+        value5:[],
         imgUrl: '',
         activeId: '',
         templateUuid:'',
@@ -316,6 +347,8 @@ let _this=this
 
       //头部选择框
       choosegroup(e) {
+        alert(e)
+        console.log(e);
         if (e==="选项1"){
 
 
@@ -389,7 +422,6 @@ let _this=this
         $('.publish').css({"display": "block"})
         this.activeId = index
         this.templateUuid = templ
-        alert(this.templateUuid)
 
       },
       show() {

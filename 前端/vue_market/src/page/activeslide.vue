@@ -58,7 +58,10 @@
                   console.log(res);
                   if(index===1){
                     this.$router.push({path:'/activeslide/myactive'})
+                  }else if(index===0){
+                    this.$router.push({path:'/activeslide/activeFirst'})
                   }
+
                 })
 
             //    this.time = parseInt(this.num,16)
