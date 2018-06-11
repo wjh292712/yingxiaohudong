@@ -58,7 +58,6 @@
         sessionStorage.setItem('userPwd', this.userPwd)
         sessionStorage.setItem('companyId', this.companyId)
         sessionStorage.setItem('userId', this.userId)
-
         sessionStorage.getItem('userName', this.userName)
         console.log(this.userName)
         console.log(this.userPwd)

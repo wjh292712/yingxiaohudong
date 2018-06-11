@@ -135,8 +135,8 @@
         var sendNew =JSON.stringify(this.sendData)
         console.log(sendNew)
         $.ajax({
-          type:"POST",
-          url:"http://center.marketing.yunpaas.cn/jgg/activitySetup/save",
+          type:"POST",//砍价保存数据
+          url:"http://center.marketing.yunpaas.cn/kj/activitySetup/save",
           data:sendNew,
           contentType:"application/json",
           datatype:"json",

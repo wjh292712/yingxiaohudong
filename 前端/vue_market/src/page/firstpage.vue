@@ -67,7 +67,7 @@ export default {
 <style lange="sass" scoped>
 container {
   width: 100%;
-  height: 100;
+  height: 100%;
   background: #DEC;
 }
 

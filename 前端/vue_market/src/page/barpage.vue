@@ -1,116 +1,50 @@
-
 <template>
-  <div class="active_wrap">
-    <div class="active_con">
-      <div class="active_rightCon">
-        <div class="active_container">
-          <!-- <el-tabs v-model="activeName" >
-            <el-tab-pane label="活动首页" name="first">
-              <div class="active_down">
-                <div class="active_downCon">
-
-                </div>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="活动说明" name="second">
-
-
-            </el-tab-pane>
-            <el-tab-pane label="我的奖品" name="third">
-
-            </el-tab-pane>
-            <el-tab-pane label="奖品详情" name="fourth">
-
-
-            </el-tab-pane>
-            <el-tab-pane label="中奖页" name="five">
-
-            </el-tab-pane>
-            <el-tab-pane label="未中奖页" name="six">
-
-            </el-tab-pane>
-          </el-tabs> -->
-          <div class="pic_view">
-            <div class="nav_pic">
-                <span v-for="(item,index) in tabs"
-                      :key="index"
-                      :class="num==index?'dora':''"
-                      @click="tab(index)">{{item}}</span>
-            </div>
-            <el-tabs v-model="activeName" >
-
-
-
-              <div class="pic_ture">
-                <div class="sett">
-                  <bargainset></bargainset>
-                </div>
-                <div v-show="num==0">
-                  <div class="active_down">
-                    <div class="active_downCon">
-                      <barpage></barpage>
-                      <!-- 设置栏 -->
-                      <!-- <setting/> -->
-                    </div>
-                  </div>
-                </div>
-                <div v-show="num==1">
-                  <div class="active_down">
-                    <div class="active_downCon">
-                      <explainpage/>
-
-                      <!-- 设置栏 -->
-                      <!-- <setting/> -->
-                    </div>
-                  </div>
-
-                </div>
-                <div v-show="num==2">
-                  <div class="active_down">
-                    <div class="active_downCon">
-                      <draw/>
-
-                      <!-- 设置栏 -->
-                      <!-- <setting></setting> -->
-                    </div>
-                  </div>
-                </div>
-                <div v-show="num==3">
-                  <div class="active_down">
-                    <div class="active_downCon">
-                      <detailpage/>
-                      <!-- 设置栏 -->
-                      <!-- <setting/> -->
-                    </div>
-                  </div>
-
-                </div>
-                <div v-show="num==4">
-                  <div class="active_down">
-                    <div class="active_downCon">
-                      <winning/>
-                      <!-- 设置栏 -->
-                      <!-- <setting/> -->
-                    </div>
-                  </div>
-
-                </div>
-                <div v-show="num==5">
-                  <div class="active_down">
-                    <div class="active_downCon">
-                      <losing/>
-                      <!-- 设置栏 -->
-                      <!-- <setting/> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </el-tabs>
-            <div class="view_vie"></div>
-
+  <div class="container">
+    <div class="active_phoneWrap">
+      <div class="active_phoneCon">
+        <div class="phone_head">
+          <div class="circle1">
+            <span class="point3"></span>
           </div>
+          <div class="circle2">
+            <span class="point1"></span>
+            <span class="point2"></span>
+          </div>
+        </div>
+        <div class="phone_body">
+          <div class="phone_title">
+            <i class="el-icon-arrow-left"></i>
+            <span class="phone_text">{{activeName}}</span>
+          </div>
+          <div class="nine_blog">
+            <div class="title_image">
+              <ul>
+                <li><span class="peopleLeft"></span></li>
+                <li> <span class="peopleRight"></span></li>
+                <div class="kj_image"></div>
+              </ul>
 
+            </div>
+            <div class="inform">轮播通知</div>
+
+            <div class="ten">
+              <div class="box">
+                <img style="opacity:1" v-for="(item,index) in url" :src="item" alt="111" name="pic" :key="index"
+                     @click="updataImg()">
+              </div>
+            </div>
+            <div class="confirm_text">
+              <h5>您今天还有xxxx次抽奖机会</h5>
+              <h5>已经中奖人数xxx</h5>
+            </div>
+            <div class="btn">
+              <el-row>
+
+                <el-button size="mini" round @click="centerDialogVisible = true">活动规则</el-button>
+                <el-button size="mini" round>我的奖品</el-button>
+              </el-row>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -118,100 +52,108 @@
 </template>
 
 <script>
-
-  // import setting from '@/page/setting'
-  import bargainset from '@/page/bargainset'
-  //import activepage from '@/page/activepage'
-  import barpage from  '@/page/barpage'
-  import explainpage from '@/page/explainpage'
-  import draw from '@/page/draw'
-  import detailpage from '@/page/detailpage'
-  import losing from '@/page/losing'
-  import winning from '@/page/winning'
+  import axios from 'axios';
+  import qs from 'qs';
+  import '../plugins/sudoku/index.css'
+  import '../plugins/sudoku/index.js'
+  import setting from '@/page/setting'
+  import activepage from '@/page/activepage'
+  import settingbase from '@/page/settingbase'
   // import raffle from '@/page/raffle'
-
-  // import {mapState, mapMutations, mapActions} from 'vuex';
-
   export default ({
     data() {
       return {
         //侧边数据
         //筛选条件数据
-        activeName: 'first',
+        activeName: '',
         centerDialogVisible: false,
-        //tabs
-        tabs: ["活动首页", "活动说明","商家简介"],
-        num: 0
+
+
+        url: [
+          require('../assets/images/111.jpg'),
+          require('../assets/images/111.jpg'),
+          require('../assets/images/111.jpg'),
+          require('../assets/images/111.jpg'),
+          require('../assets/images/prize.jpg'),
+          require('../assets/images/111.jpg'),
+          require('../assets/images/111.jpg'),
+          require('../assets/images/111.jpg'),
+          require('../assets/images/111.jpg')
+        ]
       }
+
     },
-    computed:{
-      // ...mapState(['setting_data','banner']),
-      // ...mapActions(['saveData','saveForm']),
+    created() {
+      // console.log(222);
+      // console.log(this);
+      // this.$bus.$on('inputDate',(val)=>{
+      //   console.log(333);
+      //   console.log(val);
+      //   this.activeName=val
+      // })
+
     },
-    mounted(){
-      // this.$store.dispatch('saveForm')
-      // console.log(this.banner)
+    mounted() {
+      this.updataImg()
+
+      //let curname='';
+      // let cua='';
+      this.activeN()
+      // this.$nextTick(function () {
+      //   curname = settingbase.methods.partBase()
+      //   // cua=settingbase.methods.inputData()
+      //   console.log(curname);
+      //   // console.log(cua);
+      //   this.activeName=curname
+      // })
+
+    },
+    updated() {
+      // this.activeN()
+
+
     },
     methods: {
-      tab(index) {
-        this.num = index;
+      handleClick(tab, event) {
+        console.log(tab, event);
+      },
+      activeN() {
+        let _this = this
+        let Data = sessionStorage.getItem('Data')
+        console.log(66672);
+        _this.base_data = JSON.parse(Data).jggBaseSetup
+        console.log(_this.base_data);
+        _this.activeName = _this.formName = _this.base_data.activityName
+      },
+      updataImg() {
+        this.$http({
+          method: "post",
+          url: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8d8bbbd5fcf10745&redirect_uri=http://center.marketing.yunpaas.cn/jgg/activity/startDrawAward?id=1&response_type=code&scope=snsapi_userinfo&state=STATE&component_appid=wx73b4adc05b76ee6a#wechat_redirect",
+          data: {},
+        }).then(res => {
+          console.log(res)
+        }).catch(res => {
+          console.log(res)
+        })
       }
     },
+
+    // created() {
+    //   const _this = this;
+    //   this.$axios.post("student/my/base").then(res => {
+    //     _this.info = res.data.value;
+    //     console.log(_this.info);
+    //     userInfo.saveInfo(_this.info);
+    //   });
+    // },
     components: {
-      // setting,
-      bargainset,
-      barpage,
-      explainpage,
-      draw,
-      detailpage,
-      losing,
-      winning
+      // prizedraw,
+      setting,
+      activepage
     }
   })
 </script>
-
-
-<style lang="scss">
-  .pic_ture{
-    position: relative;
-  }
-  .sett{
-    width: 60%;
-    height: 100%;
-    position: absolute;
-    right: 0;
-    margin-bottom: 4rem;
-    margin-left: 40%;
-    overflow: auto;
-  }
-  .dora {
-    border-bottom: 2px solid #fd4689;
-  }
-  .container {
-    width: 100%;
-    height: auto;
-    background: #fff;
-  }
-  .pic_view {
-    width: 112%;
-    height: auto;
-    position: relative;
-  }
-  .nav_pic {
-    width: 100%;
-    height: 2.5rem;
-    line-height: 2.5rem;
-    /* box-shadow: 0 2px 9px 0 #eeeeee; */
-    border-bottom: 2px solid #f0f0f0;
-    display: flex;
-    justify-content: flex-start;
-    padding: 0 10px;
-    font-size: 14px;
-    color: #000;
-  }
-  .nav_pic>span{
-    margin-left: 4%;
-  }
+<style lang="scss" scoped>
   .active_wrap {
     width: 85%;
     background: #fff;
@@ -233,25 +175,20 @@
             position: absolute;
             right: 0;
           }
-          .el-menu--horizontal>.el-menu-item {
+          .el-menu--horizontal > .el-menu-item {
             color: #FC7132;
           }
-          .el-menu--horizontal>.el-menu-item.is-active {
+          .el-menu--horizontal > .el-menu-item.is-active {
             border-bottom: #FC7132 2px solid;
           }
           .el-button--primary {
-            width: 6rem;
+            width: 4rem;
             height: 1.5rem;
             line-height: 1.5rem;
             text-align: center;
-            background: #fc7132;
+            background: greenyellow;
             padding: 0;
-            border: 1px solid #fc7132;
-          }
-          .el-button--primary:hover{
-            background: #fbfbfb;
-            color: #4a4a4a;
-            border: 1px solid #9b9b9b;
+            border: 1px solid greenyellow;
           }
           .active_down {
             width: 100%;
@@ -264,13 +201,14 @@
               .active_phoneWrap {
                 width: 34%;
                 min-width: 13rem;
-                min-height: 31rem;
+                max-height: 26rem;
                 border-radius: 1.2rem;
                 border: 1px solid #e8e8e8;
                 .active_phoneCon {
                   width: 95%;
                   margin: 0rem auto;
                   .phone_head {
+
                     text-align: center;
                     .circle1 {
                       .point3 {
@@ -304,11 +242,17 @@
                   }
                   .phone_body {
                     border: 1px solid #E8E8E8;
+                    position: relative;
+                    overflow: hidden;
                     .nine_blog {
                       /*background: #Ffd800;*/
                       width: 100%;
                       .btn {
                         padding: 0rem 0 .5rem 0;
+                        position: relative;
+                        .el-dialog__wrapper {
+                          position: absolute;
+                        }
                         .el-row {
                           text-align: center;
                           .el-button {
@@ -331,12 +275,12 @@
                         font-weight: normal;
                         color: #cf3b1e;
                       }
-                      .nine {
+                      .ten {
                         width: 90%;
                         margin: .5rem auto;
-                        height: 13rem;
-                        background: url(../../static/active/九宫格1.jpg) no-repeat;
+                        height: 10.5rem;
                         background-size: 100%;
+                        position: relative;
                       }
                       .inform {
                         width: 85%;
@@ -346,17 +290,55 @@
                         background-size: 100%;
                         font-size: .6rem;
                         text-indent: 2rem;
-                        line-height: 1.17rem;
+                        line-height: .8rem;
                         color: #cf3b1e;
                       }
-                      .title_image {
+                      .title_image ul {
                         width: 100%;
-                        height: 6.25rem;
-                        background: url(../../static/active/banner.jpg) no-repeat;
-                        background-size: 100%;
+                        position: relative;
+                          li{
+                            width: 50%;
+                            float: left;
+                            .peopleLeft {
+                              position: absolute;
+                              display: inline-block;
+                              left: 0;
+                              width: 100%;
+                              height: 6.25rem;
+                              background: url("../../static/active/人物左.jpg") no-repeat;
+                              background-size: 100%;
+
+                            }
+                            .peopleRight {
+                              /*position: absolute;*/
+                              display: inline-block;
+                              right: 0;
+                              width: 100%;
+                              height: 6.25rem;
+                              background: url("../../static/active/人物右.jpg") no-repeat;
+                              background-size: 100%;
+
+                            }
+                          }
+                        .kj_image{
+                          position: absolute;
+                          width: 100%;
+                          height: 184px;
+                          left: 0;
+                          top: 0;
+                          background: url("../../static/active/kanjia.jpg") no-repeat;
+                          background-size: 100%;
+
+                          z-index: 888;
+                          opacity: 0.9;
+                        }
+
+
+
                       }
                     }
-                    .el-icon-arrow-left {}
+                    .el-icon-arrow-left {
+                    }
                     .phone_title {
                       position: relative;
                       margin: .5rem 0;
@@ -412,13 +394,12 @@
                 font-size: 0.7rem;
                 font-weight: normal;
                 color: #000000;
+                cursor: pointer;
               }
             }
           }
         }
       }
-
-
       .active_footer {
         padding: 1rem 1rem 0;
         border-top: 1px solid #ccc;

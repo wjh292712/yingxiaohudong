@@ -51,6 +51,9 @@ import award from '@/page/award'
 
 //shouye
 import activepage from '@/page/activepage'
+import barpage from  '@/page/barpage'
+
+
 import explainpage from '@/page/explainpage'
 import draw from '@/page/draw'
 import detailpage from '@/page/detailpage'
@@ -203,6 +206,10 @@ export default new Router({
           path: "/bargainset/baradvanced",
           component: baradvanced
         },
+        {
+          path:'/bargainset/barpage',
+          component:barpage
+        }
 
       ]
     },

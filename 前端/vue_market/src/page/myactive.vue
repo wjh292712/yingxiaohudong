@@ -35,7 +35,7 @@
       <!--</ul>-->
     <!--</template>-->
     <div class="active_inp">
-    <el-select v-model="value4" clearable="true" placeholder="请选择" name="province" id="province" v-on:change="choosegroup($event)" >
+    <el-select v-model="value4" clearable placeholder="请选择" name="province" id="province" v-on:change="choosegroup($event)" >
       <el-option
         v-for="item in options"
         :key="item.value"
@@ -44,7 +44,7 @@
       </el-option>
     </el-select>
 
-    <el-select v-model='value5' clearable="true" placeholder="请输入要查询的内容" id="select_id">
+    <el-select v-model='value5' clearable placeholder="请输入要查询的内容" id="select_id">
       <el-option
         v-for="item in tableData"
         :key="item.value"
@@ -164,10 +164,10 @@
   </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item class="clearfix">
-                  详情
+                  <i>详情</i>
                 </el-dropdown-item>
-                <el-dropdown-item class="clearfix">
-                  删除
+                <el-dropdown-item class="clearfix" >
+                  <i @click="del(scope.row.activityId,scope.row.templateUuid)">删除</i>
                 </el-dropdown-item>
                 <el-dropdown-item class="clearfix">
                   <i @click="chain(scope.row.publishUrl)">链接</i>
@@ -478,9 +478,38 @@ let _this=this
         console.log(this);
         window.open(this.imgUrl);//下载二维码
       },
-      listdata() {
-
+      del(ac,te){//删除活动
+       this.activeId=ac
+        this.templateUuid=te
+        this.$axios({
+          method: 'post',
+          url: 'http://center.marketing.yunpaas.cn/center/activity/delete',
+          params: {
+            activityId: this.activeId,
+            templateUuid: this.templateUuid
+          },
+        }).then(res => {
+          console.log(res);
+          var token = sessionStorage.getItem('token')
+          this.$axios({
+            method: 'post',
+            url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,//我的活动
+            params: {}
+          }).then(res => {
+            this.state.activData = JSON.stringify(res.data.data)
+            this.state.Datalist = JSON.stringify(res.data.data.list)//我的活动数据
+            let Dlist = this.state.Datalist
+            let actD = this.state.activData
+            sessionStorage.setItem('Datalist', Dlist)
+            sessionStorage.setItem('activData', actD)
+            alert("删除成功")
+            this.pagedata()
+          }).catch(res => {
+            console.log(res)
+          })
+        })
       },
+
       copy() {
         var inp = document.getElementById("inp");
         inp.select();
