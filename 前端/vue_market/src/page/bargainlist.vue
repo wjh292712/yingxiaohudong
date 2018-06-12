@@ -57,7 +57,7 @@
                 <div v-show="num==1">
                   <div class="active_down">
                     <div class="active_downCon">
-                      <explainpage/>
+                      <barplainpage/>
 
                       <!-- 设置栏 -->
                       <!-- <setting/> -->
@@ -68,7 +68,7 @@
                 <div v-show="num==2">
                   <div class="active_down">
                     <div class="active_downCon">
-                      <draw/>
+                      <bardraw/>
 
                       <!-- 设置栏 -->
                       <!-- <setting></setting> -->
@@ -123,8 +123,9 @@
   import bargainset from '@/page/bargainset'
   //import activepage from '@/page/activepage'
   import barpage from  '@/page/barpage'
-  import explainpage from '@/page/explainpage'
-  import draw from '@/page/draw'
+  import barplainpage from '@/page/barplainpage'
+  import bardraw from '@/page/bardraw'
+
   import detailpage from '@/page/detailpage'
   import losing from '@/page/losing'
   import winning from '@/page/winning'
@@ -161,8 +162,8 @@
       // setting,
       bargainset,
       barpage,
-      explainpage,
-      draw,
+      barplainpage,
+      bardraw,
       detailpage,
       losing,
       winning

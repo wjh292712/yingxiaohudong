@@ -36,7 +36,10 @@
 
       </div>
     </div>
-
+    <div id="active_AllBtn">
+      <el-button @click="goBack()">返回</el-button>
+      <el-button @click="onSave()">保存</el-button>
+    </div>
   </div>
 </template>
 <script>
@@ -157,7 +160,11 @@
 
 
       },
-
+      goBack(){
+        if( confirm('返回后所编辑的内容不能被保存，是否需要返回？')){
+          this.$router.push({path:'/activeslide/activeFirst'})
+        }
+      },
 
       changeActive(index){
         this.classActive = index
@@ -210,6 +217,19 @@
         }
       }
     }
+  }
+  #active_AllBtn{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background: #929292;
+    opacity: 0.8;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    z-index: 99999;
+    left: 0;
+
   }
 </style>
 

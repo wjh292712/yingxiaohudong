@@ -12,6 +12,23 @@
           </div>
         </div>
         <div class="phone_body">
+          <div class="mask">
+            <div class="center">
+<div class="cet_title">
+  <span>活动说明</span>
+  <span>商家简介</span>
+</div>
+            <div class="cet_plain">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.
+              </p>
+            </div>
+              <div>
+
+              </div>
+            </div>
+
+          </div>
           <div class="phone_title">
             <i class="el-icon-arrow-left"></i>
             <span class="phone_text">{{activeName}}</span>
@@ -248,6 +265,7 @@
                     position: relative;
                     overflow: hidden;
                     .nine_blog {
+                      /*background: #Ffd800;*/
                       width: 100%;
                       .btn {
                         padding: 0rem 0 .5rem 0;
@@ -282,7 +300,7 @@
                         margin: 6rem auto;
                         height: 6.5rem;
                         background-size: 100%;
-                        .box1{
+                        .box1 {
                           span {
                             display: inline-block;
                             width: 49.5%;
@@ -290,33 +308,33 @@
                             text-align: center;
                             border-bottom: 2px solid #cf2c44;
                           }
-                          span:nth-child(2){
+                          span:nth-child(2) {
                             border-bottom: 2px solid #eeeeee;
                           }
                         }
-                        .box2{
+                        .box2 {
                           width: 100%;
                           margin-top: 1rem;
-.list{
-  width: 100%;
-  li{
-    width: 98%;
-    height: 3rem;
-    line-height: 3rem;
-    padding: 0 0.5rem;
-    img{
-      width: 100%;
-      height: 100%;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid #eeeeee;
-    }
-    }
-  li:nth-child(3){
-    img{
-      border-bottom: none;
-    }
-  }
-}
+                          .list {
+                            width: 100%;
+                            li {
+                              width: 98%;
+                              height: 3rem;
+                              line-height: 3rem;
+                              padding: 0 0.5rem;
+                              img {
+                                width: 100%;
+                                height: 100%;
+                                padding-bottom: 0.5rem;
+                                border-bottom: 1px solid #eeeeee;
+                              }
+                            }
+                            li:nth-child(3) {
+                              img {
+                                border-bottom: none;
+                              }
+                            }
+                          }
                         }
                       }
                       .inform {
@@ -504,5 +522,46 @@
       }
     }
   }
+
+  .mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 90
+  }
+  .mask .center {
+    width: 80%;
+    height: 60%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    background: #Fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    .cet_title{
+      width: 100%;
+      span{
+        display: inline-block;
+        text-align: center;
+        height: 2rem;
+        line-height: 2rem;
+        width: 49%;
+        border-bottom: 1px solid #cf2c44;
+      }
+      span:nth-child(2){
+        border-bottom: 1px solid #eeeeee;
+      }
+    }
+    .cet_plain{
+      width: 100%;
+      padding: 1rem 0.5rem;
+      text-align: center;
+    }
+  }
+
 </style>
 

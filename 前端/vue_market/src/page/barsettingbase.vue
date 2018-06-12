@@ -44,13 +44,13 @@
         <el-form-item label="商家电话">
           <el-input style="height:3rem;" type="textarea" v-model="form.desc.phone"></el-input>
         </el-form-item>
-        <el-form-item>
+        <!--<el-form-item>-->
 
-          <div class="btn_click">
-          <el-button type="primary" @click="onSave()">保存</el-button>
-          <el-button type='primary' @click="name()">返回</el-button>
-          </div>
-        </el-form-item>
+          <!--<div class="btn_click">-->
+          <!--<el-button type="primary" @click="onSave()">保存</el-button>-->
+          <!--<el-button type='primary' @click="name()">返回</el-button>-->
+          <!--</div>-->
+        <!--</el-form-item>-->
       </el-form>
     </div>
   </div>
@@ -128,26 +128,68 @@
       var _this = this
       // _this.$store.dispatch('saveData')
       _this.partBase()
-
+      _this.timestampToTime()
 
     },
     computed:{
       ...mapState(['setting_data']),
       ...mapActions(['saveData']),
     },
+    updated(){
+      this.onSave()
+    },
     methods: {
 
       // 基础设置模块
       partBase(){
         let _this = this
+        let formName=""
         // _this.$store.dispatch('saveData')
+        // let Data = sessionStorage.getItem('Data')
         let Data = sessionStorage.getItem('Data')
+        console.log(Data);
         _this.base_data = JSON.parse(Data).jggBaseSetup
-        // console.log(_this.base_data.activityName)
+        console.log(_this.base_data);
         _this.formName = _this.base_data.activityName
-        _this.value7 = _this.base_data.endDate
+        formName = _this.base_data.activityName
+        _this.form.desc=_this.base_data.rule
+        console.log(_this.form.desc);
+
+        _this.start_date = _this.base_data.startDate//日期开始时间
+        _this.end_date=_this.base_data.endDate//结束时间
+        let str = _this.start_date
+        let strend=_this.end_date
+
+
+        //时间戳转换日期
+        let newStr= _this.timestampToTime(str)
+        strend=_this.timestampToTime(strend)
+        _this.value4=[newStr,strend]
+
+        // console.log(_this.value4);
+
         _this.radio1 = Number(_this.base_data.shows).toString(),
           _this.radio2 = Number(_this.base_data.subscribe).toString()
+
+        return formName;
+
+
+
+
+
+      },
+      timestampToTime(timestamp) {
+        var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = date.getDate() + ' ';
+        var h = date.getHours() + ':';
+        var m = date.getMinutes() + ':';
+        var s = date.getSeconds();
+        return Y+M+D+h+m+s;
+      },
+      timestampToDay(){
+
       },
       saveBase(){
         let _this = this

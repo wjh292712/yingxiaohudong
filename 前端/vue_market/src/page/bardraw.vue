@@ -12,6 +12,32 @@
           </div>
         </div>
         <div class="phone_body">
+          <div class="mask">
+            <div class="center">
+              <div class="cet_title">
+                <span>活动说明</span>
+                <span>商家简介</span>
+              </div>
+              <div class="cet_plain">
+                <div>
+                  <h3>商家简介</h3>
+                  <textarea type="text" placeholder="商家介绍" v-model="plain" class="inp1"></textarea>
+                </div>
+                <div>
+                  <h3>商家地址</h3>
+                  <textarea type="text" placeholder="商家地址" v-model="adress" class="inp2"></textarea>
+                </div>
+                <div>
+                  <h3>商家电话</h3>
+                  <textarea type="text" placeholder="商家电话" v-model="phone" class="inp3"></textarea>
+                </div>
+              </div>
+              <div>
+
+              </div>
+            </div>
+
+          </div>
           <div class="phone_title">
             <i class="el-icon-arrow-left"></i>
             <span class="phone_text">{{activeName}}</span>
@@ -70,7 +96,9 @@
         //筛选条件数据
         activeName: '',
         centerDialogVisible: false,
-
+        plain: '商家简介商家简介具体内容具体内容商家简介商家简介具体内容具体内容商家简介商家简介',
+        adress: '商家地址商家地址',
+        phone: '400-1234-098',
 
         url: [
           require('../assets/images/111.jpg'),
@@ -248,6 +276,7 @@
                     position: relative;
                     overflow: hidden;
                     .nine_blog {
+                      /*background: #Ffd800;*/
                       width: 100%;
                       .btn {
                         padding: 0rem 0 .5rem 0;
@@ -282,7 +311,7 @@
                         margin: 6rem auto;
                         height: 6.5rem;
                         background-size: 100%;
-                        .box1{
+                        .box1 {
                           span {
                             display: inline-block;
                             width: 49.5%;
@@ -290,33 +319,33 @@
                             text-align: center;
                             border-bottom: 2px solid #cf2c44;
                           }
-                          span:nth-child(2){
+                          span:nth-child(2) {
                             border-bottom: 2px solid #eeeeee;
                           }
                         }
-                        .box2{
+                        .box2 {
                           width: 100%;
                           margin-top: 1rem;
-.list{
-  width: 100%;
-  li{
-    width: 98%;
-    height: 3rem;
-    line-height: 3rem;
-    padding: 0 0.5rem;
-    img{
-      width: 100%;
-      height: 100%;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid #eeeeee;
-    }
-    }
-  li:nth-child(3){
-    img{
-      border-bottom: none;
-    }
-  }
-}
+                          .list {
+                            width: 100%;
+                            li {
+                              width: 98%;
+                              height: 3rem;
+                              line-height: 3rem;
+                              padding: 0 0.5rem;
+                              img {
+                                width: 100%;
+                                height: 100%;
+                                padding-bottom: 0.5rem;
+                                border-bottom: 1px solid #eeeeee;
+                              }
+                            }
+                            li:nth-child(3) {
+                              img {
+                                border-bottom: none;
+                              }
+                            }
+                          }
                         }
                       }
                       .inform {
@@ -504,5 +533,63 @@
       }
     }
   }
+
+  .mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 90
+  }
+
+  .mask .center {
+    width: 80%;
+    height: 60%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    background: #Fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    .cet_title {
+      width: 100%;
+      span {
+        display: inline-block;
+        text-align: center;
+        height: 2rem;
+        line-height: 2rem;
+        width: 49%;
+        border-bottom: 1px solid #eeeeee;
+      }
+      span:nth-child(2) {
+        border-bottom: 1px solid #cf2c44;
+      }
+    }
+    .cet_plain {
+      width: 100%;
+      padding: 1rem 0.5rem;
+
+      .inp1 {
+        width: 100%;
+        height: 3rem;
+        white-space: pre-wrap;
+        color: #929292;
+      }
+      .inp2 {
+        width: 100%;
+        height: 3rem;
+        color: #929292;
+      }
+      .inp3 {
+        width: 100%;
+        height: 2rem;
+        color: #929292;
+      }
+    }
+  }
+
 </style>
 
