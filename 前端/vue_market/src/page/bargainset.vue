@@ -7,7 +7,7 @@
         <!-- <div class="setting_button" @click="changeActive(index)" :class="{active_button:classActive == index}"  v-for="(item,index) in settingmsg" :key = "index" type="primary" plain>{{item}}</div> -->
       </div>
       <div class="setting_title">
-        <el-tabs v-model="activeName2" @tab-click="tabChange(name,label)">
+        <el-tabs v-model="activeName2" @tab-click="tabChange(name)">
           <!-- <el-tab-pane label="基础设置" name="first"><router-view></router-view></el-tab-pane>
           <el-tab-pane label="奖品设置" name="second"><router-view></router-view></el-tab-pane>
           <el-tab-pane label="派奖设置" name="third"><router-view></router-view></el-tab-pane>
@@ -73,49 +73,49 @@
       }
     },
     computed:{
-      ...mapState(['setting_data']),
-      ...mapActions(['saveData'])
+      ...mapState(['setting_kjData']),
+      ...mapActions(['saveDatakj'])
     },
     mounted(){
-      this.$store.dispatch('saveData')
-      let Data = sessionStorage.getItem('Data')
+      this.$store.dispatch('saveDatakj')
+      let Data = sessionStorage.getItem('Datakj')
       this.sendData = JSON.parse(Data)
       var _this = this
       //分享部分返回的数据
       this.$bus.on("send_share",function(data){
-        data == '' ?_this.sendData.jggShareSetup = _this.sendData.jggShareSetup : _this.sendData.jggShareSetup = data
+        data == '' ?_this.sendData.kjShareSetup = _this.sendData.kjShareSetup : _this.sendData.kjShareSetup = data
 
         // console.log(data)
       })
       //奖金设置返回的数据
       this.$bus.on("send_reword",function(data){
-        data == ''?_this.sendData.jggAwardSetupExtendList = _this.sendData.jggAwardSetupExtendList : _this.sendData.jggAwardSetupExtendList = data
+        data == ''?_this.sendData.kjAwardSetupExtendList = _this.sendData.kjAwardSetupExtendList : _this.sendData.kjAwardSetupExtendList = data
 
         // console.log(data)
       })
       //派奖设置返回的数据
       this.$bus.on("send_award",function(data){
-        data == '' ?_this.sendData.jggAwardSendSetup = _this.sendData.jggAwardSendSetup :  _this.sendData.jggAwardSendSetup = data
+        data == '' ?_this.sendData.kjAwardSendSetup = _this.sendData.kjAwardSendSetup :  _this.sendData.kjAwardSendSetup = data
 
         // console.log(data)
       })
       //高级设置返回的数据
       this.$bus.on("send_high",function(data){
         if(data == ''){
-          _this.sendData.jggHighCompanySetup = _this.sendData.jggHighCompanySetup
-          _this.sendData.jggHighSecuritySetup = _this.sendData.jggHighSecuritySetup
-          _this.sendData.jggHighOtherSetup = _this.sendData.jggHighOtherSetup
+          _this.sendData.kjHighCompanySetup = _this.sendData.kjHighCompanySetup
+          _this.sendData.kjHighSecuritySetup = _this.sendData.kjHighSecuritySetup
+          _this.sendData.kjHighOtherSetup = _this.sendData.kjHighOtherSetup
         }else{
-          _this.sendData.jggHighCompanySetup = data[0]
-          _this.sendData.jggHighSecuritySetup = data[1]
-          _this.sendData.jggHighOtherSetup = data[2]
+          _this.sendData.kjHighCompanySetup = data[0]
+          _this.sendData.kjHighSecuritySetup = data[1]
+          _this.sendData.kjHighOtherSetup = data[2]
         }
 
         // console.log(data)
       })
       //基础设置返回的数据
       this.$bus.on("send_base",function(data){
-        data == ''?_this.sendData.jggBaseSetup = _this.sendData.jggBaseSetup : _this.sendData.jggBaseSetup = data
+        data == ''?_this.sendData.kjBaseSetup = _this.sendData.kjBaseSetup : _this.sendData.kjBaseSetup = data
         // _this.save.high = data
         console.log(data)
       })
@@ -147,17 +147,6 @@
             console.log(data)
           }
         })
-        // this.$axios({
-        //     method:'post',
-        //     url:"http://192.168.2.170:8080/jgg/activitySetup/save",
-        //     headers: {'Content-Type': 'application/json'},
-        //     params:sendNew
-        // }).then(res => {
-        //     console.log(res)
-        // }).catch( res => {
-
-        // })
-
 
       },
       goBack(){
@@ -184,7 +173,7 @@
       barreword,
       baraward,
       baradvanced,
-      share,
+
     }
   })
 </script>

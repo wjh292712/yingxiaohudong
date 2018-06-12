@@ -71,18 +71,6 @@
         activeName: '',
         centerDialogVisible: false,
 
-
-        url: [
-          require('../assets/images/111.jpg'),
-          require('../assets/images/111.jpg'),
-          require('../assets/images/111.jpg'),
-          require('../assets/images/111.jpg'),
-          require('../assets/images/prize.jpg'),
-          require('../assets/images/111.jpg'),
-          require('../assets/images/111.jpg'),
-          require('../assets/images/111.jpg'),
-          require('../assets/images/111.jpg')
-        ]
       }
 
     },
@@ -249,6 +237,7 @@
                     overflow: hidden;
                     .nine_blog {
                       width: 100%;
+                      background: none;
                       .btn {
                         padding: 0rem 0 .5rem 0;
                         position: relative;
@@ -325,6 +314,7 @@
                         height: 1.17rem;
                         /*background: url(../../static/active/daojishi.jpg) no-repeat;*/
                         background: none;
+                        cursor: pointer;
 
                         p {
                           position: absolute;
@@ -387,6 +377,7 @@
                             margin-right: 10px;
                             border-bottom: 2px solid #cf2c44;
                             color: #cf2c44;
+                            cursor: pointer;
                           }
                         }
 

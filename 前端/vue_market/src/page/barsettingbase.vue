@@ -4,7 +4,7 @@
       <el-form ref="form" :model="form" label-width="100px">
         <el-form-item label="活动名称">
           <el-input v-model="formName"  @input='inputData'></el-input>
-          <!-- <div>{{setting_data}}</div> -->
+
         </el-form-item>
         <el-form-item label="活动日期">
           <el-date-picker
@@ -20,7 +20,7 @@
             <el-radio label="1" >显示</el-radio>
             <el-radio label="2">隐藏</el-radio>
             <div class="label_text">在实际参与人数基础上增加
-              <input class="people" style="display: inline-block;width: 50px;height: 20px;text-align: center"/>{{setting_data.addNum}}
+              <input class="people" style="display: inline-block;width: 50px;height: 20px;text-align: center"/>{{setting_kjData.addNum}}
               倍
             </div>
           </el-radio-group>
@@ -78,7 +78,7 @@
 
         },
         checkBtn: false,//��ť��ʽ
-        formName:"砍价活动" ,//������
+        formName:"" ,//������
         isApperant: false,//�Ƿ���ʾ
         radio1: '',//��ѡ��һ
         radio2: '',//��ѡ���
@@ -118,8 +118,6 @@
         value5: ''
       };
 
-
-
     },
     created(){
     },
@@ -132,11 +130,11 @@
 
     },
     computed:{
-      ...mapState(['setting_data']),
-      ...mapActions(['saveData']),
+      ...mapState(['setting_kjData']),
+      ...mapActions(['saveDatakj'])
     },
     updated(){
-      this.onSave()
+      this.saveBase()
     },
     methods: {
 
@@ -146,14 +144,13 @@
         let formName=""
         // _this.$store.dispatch('saveData')
         // let Data = sessionStorage.getItem('Data')
-        let Data = sessionStorage.getItem('Data')
+        let Data = sessionStorage.getItem('Datakj')
         console.log(Data);
-        _this.base_data = JSON.parse(Data).jggBaseSetup
+        _this.base_data = JSON.parse(Data).kjBaseSetup
         console.log(_this.base_data);
         _this.formName = _this.base_data.activityName
         formName = _this.base_data.activityName
-        _this.form.desc=_this.base_data.rule
-        console.log(_this.form.desc);
+        _this.form.desc.explain=_this.base_data.rule//活动说明
 
         _this.start_date = _this.base_data.startDate//日期开始时间
         _this.end_date=_this.base_data.endDate//结束时间
@@ -168,14 +165,10 @@
 
         // console.log(_this.value4);
 
-        _this.radio1 = Number(_this.base_data.shows).toString(),
+        _this.radio1 = Number(_this.base_data.isShow).toString(),
           _this.radio2 = Number(_this.base_data.subscribe).toString()
 
         return formName;
-
-
-
-
 
       },
       timestampToTime(timestamp) {
@@ -194,13 +187,13 @@
       saveBase(){
         let _this = this
         // _this.$store.dispatch('saveData')
-        let Data = sessionStorage.getItem('Data')
-        _this.base_send = JSON.parse(Data).jggBaseSetup
+        let Data = sessionStorage.getItem('Datakj')
+        _this.base_send = JSON.parse(Data).kjBaseSetup
         _this.base_send.activityName = _this.formName
         // this.base_data.endDate = this.value7
-        _this.base_send.shows = _this.radio1 == 1 ? true : false;
+        _this.base_send.isShow = _this.radio1 == 1 ? true : false;
         _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
-        // this.$store.state.setting_data.jggBaseSetup = this.base_send
+        // this.$store.state.setting_data.kjBaseSetup = this.base_send
         _this.$bus.emit("send_base",_this.base_send)
       },
 

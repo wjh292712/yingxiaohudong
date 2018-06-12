@@ -5,28 +5,28 @@
       <el-form ref="form" :model="form" label-width="100px">
         <p>
           <span>砍价金额范围(元)：</span>
-          <el-input v-model="input" placeholder="请输入内容" class="nns" />
+          <el-input v-model="input1" placeholder="请输入内容" class="nns" />
          ——
-          <el-input v-model="input" placeholder="请输入内容"  class="nns"/>
+          <el-input v-model="input2" placeholder="请输入内容"  class="nns"/>
         </p>
         <p>
           <span>砍到底价成功概率：</span>
-          <el-input v-model="input" placeholder="请输入内容" class="nns" />
+          <el-input v-model="input3" placeholder="请输入内容" class="nns" />
           <span>%</span>
         </p>
         <p>
           <span>底价保留时长：</span>
-          <el-input v-model="input" placeholder="请输入内容" class="nns" />
+          <el-input v-model="input4" placeholder="请输入内容" class="nns" />
           <span>小时</span>
         </p>
         <p>
           <span>不同商品，每人最多参与砍价数量：</span>
-          <el-input v-model="input" placeholder="请输入内容" class="nns" />
+          <el-input v-model="input5" placeholder="请输入内容" class="nns" />
           <span>件</span>
         </p>
         <p>
           <span>一人能为多少玩家助力：</span>
-          <el-input v-model="input" placeholder="请输入内容" class="nns" />
+          <el-input v-model="input6" placeholder="请输入内容" class="nns" />
           <span>件</span>
         </p>
         <p>
@@ -43,13 +43,6 @@
         <!--<button @click="saveAward()">保存</button>-->
       <el-button type="primary" >保存</el-button>
       <el-button type='primary' >返回</el-button>
-      <!--<el-form-item>-->
-        <!--<div class="btn_click">-->
-          <!--<el-button type="primary" >保存</el-button>-->
-          <!--<el-button type='primary' >返回</el-button>-->
-        <!--</div>-->
-
-      <!--</el-form-item>-->
 
     </div>
   </div>
@@ -59,8 +52,15 @@
   export default {
     data() {
       return {
-radio1:'',
-
+        radio1:'',
+        form:'',
+        input1:'',
+        input2:'',
+        input3:'',
+        input4:'',
+        input5:'',
+        input6:'',
+        input7:'',
       }
     },
     created(){
@@ -71,12 +71,13 @@ radio1:'',
       this.partAward()
     },
     computed:{
-      ...mapState(['setting_data']),
-      ...mapActions(['saveData']),
+      ...mapState(['setting_kjData']),
+      ...mapActions(['saveDatakj'])
     },
     methods: {
+      partAward(){
 
-
+      }
     }
   }
 </script>

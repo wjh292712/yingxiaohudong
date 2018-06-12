@@ -15,6 +15,7 @@ const store =new Vuex.Store({
         nav:false,
         user_name:"",  //用户姓名
         setting_data:[],//设置模块数据
+      setting_kjData:[],//砍价模块数据
       title_data:[],
       Datalist:[],//我的活动列表数据
       activData:[]//我的活动全部数据
@@ -103,7 +104,7 @@ activePull(context){//我的活动请求数据
 },
 
         //设置保存模块给后台发送保存数据
-        saveData(context){
+        saveData(context){  //九宫格初始化后台请求数据存储
             // var CancelToken = axios.CancelToken;
             // var source = CancelToken.source()
             axios({
@@ -117,6 +118,42 @@ activePull(context){//我的活动请求数据
               this.state.setting_data = res.data.data
                 let strData = JSON.stringify(this.state.setting_data)//所有九宫格数据
                 sessionStorage.setItem("Data",strData)//存储数据
+
+            }).catch(res => {
+                console.log(res)
+            })
+
+            // $.ajax({
+            //     type:"POST",
+            //     url:"http://center.marketing.yunpaas.cn/jgg/activitySetup/save",
+            //     // data:sendNew,
+            //     // contentType:"application/json",
+            //     // datatype:"json",
+            //     data:{
+            //
+            //     },
+            //     dataType:"json",
+            //     success(data){
+            //         // this.state.setting_data = data.data
+            //         console.log(data)
+            //     }
+            // })
+        },
+
+        saveDatakj(context){//砍价初始化后台数据存储
+            // var CancelToken = axios.CancelToken;
+            // var source = CancelToken.source()
+            axios({
+                method: "post",
+                url: "http://center.marketing.yunpaas.cn/kj/activitySetup/init",//数据初始化接口
+                params: {
+
+                },
+                // cancelToken: source.token
+            }).then(res => {
+              this.state.setting_kjData = res.data.data
+                let strDatakj = JSON.stringify(this.state.setting_kjData)//所有九宫格数据
+                sessionStorage.setItem("Datakj",strDatakj)//存储数据
 
             }).catch(res => {
                 console.log(res)
