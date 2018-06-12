@@ -293,9 +293,11 @@
                         line-height: .8rem;
                         color: #cf3b1e;
                       }
-                      .title_image ul {
+                      .title_image  {
+
                         width: 100%;
                         position: relative;
+
                           li{
                             width: 50%;
                             float: left;
@@ -305,7 +307,7 @@
                               left: 0;
                               width: 100%;
                               height: 6.25rem;
-                              background: url("../../static/active/人物左.jpg") no-repeat;
+                              /*background: url("../../static/active/人物左.jpg") no-repeat;*/
                               background-size: 100%;
 
                             }
@@ -315,25 +317,23 @@
                               right: 0;
                               width: 100%;
                               height: 6.25rem;
-                              background: url("../../static/active/人物右.jpg") no-repeat;
+                              /*background: url("../../static/active/人物右.jpg") no-repeat;*/
                               background-size: 100%;
 
                             }
                           }
                         .kj_image{
                           position: absolute;
-                          width: 100%;
-                          height: 184px;
-                          left: 0;
+                          width: 140%;
+                          height: 260px;
+                          left: -85px;
                           top: 0;
-                          background: url("../../static/active/kanjia.jpg") no-repeat;
+                          background: url("../../static/active/kanjia1.jpg") no-repeat;
                           background-size: 100%;
 
-                          z-index: 888;
-                          opacity: 0.9;
+
+
                         }
-
-
 
                       }
                     }
@@ -342,6 +342,7 @@
                     .phone_title {
                       position: relative;
                       margin: .5rem 0;
+
                     }
                     .phone_text {
                       position: absolute;

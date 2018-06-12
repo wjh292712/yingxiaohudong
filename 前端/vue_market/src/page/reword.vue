@@ -19,9 +19,11 @@
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload"
+                  :http-request='upload'
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
                 </el-upload>
@@ -86,10 +88,15 @@
                     action="https://jsonplaceholder.typicode.com/posts/"
                     list-type="picture-card_pic"
                     :on-preview="handlePictureCardPreview"
+                    :on-success="handleAvatarSuccess"
                     :on-remove="handleRemove"
+                    :file-list="fileList"
                   >
                     <span>上传公众号二维码</span>
                   </el-upload>
+                  <el-dialog :visible.sync="dialogVisible">
+                    <img width="100%" :src="dialogImageUrl" alt="">
+                  </el-dialog>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
                   <el-input type="textarea" v-model="form.name5"></el-input>
@@ -214,21 +221,21 @@
 
               <div class="shop_info">
                 <el-form-item label="门店地址">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.address" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone1" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name6" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone2" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name7" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
 
@@ -330,21 +337,21 @@
 
               <div class="shop_info">
                 <el-form-item label="门店地址">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.address" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone1" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name6" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone2" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name7" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
 
@@ -448,21 +455,21 @@
 
               <div class="shop_info">
                 <el-form-item label="门店地址">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.address" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone1" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name6" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone2" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name7" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
 
@@ -565,21 +572,21 @@
 
               <div class="shop_info">
                 <el-form-item label="门店地址">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.address" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone1" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name6" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone2" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name7" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
 
@@ -682,21 +689,21 @@
 
               <div class="shop_info">
                 <el-form-item label="门店地址">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.address" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone1" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name6" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone2" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name7" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
 
@@ -799,21 +806,21 @@
 
               <div class="shop_info">
                 <el-form-item label="门店地址">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.address" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone1" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name6" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone2" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name7" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
 
@@ -916,21 +923,21 @@
 
               <!--<div class="shop_info">-->
                 <!--<el-form-item label="门店地址">-->
-                  <!--<el-input v-model="form.name2" placeholder="不超过15个字"></el-input>-->
+                  <!--<el-input v-model="form.address" placeholder="不超过15个字"></el-input>-->
                 <!--</el-form-item>-->
                 <!--<el-form-item label="客服电话">-->
-                  <!--<el-input v-model="form.name2" placeholder="不超过15个字"></el-input>-->
+                  <!--<el-input v-model="form.phone1" placeholder="不超过15个字"></el-input>-->
                 <!--</el-form-item>-->
                 <!--<el-form-item label="兑奖说明">-->
-                  <!--<el-input v-model="form.name2" placeholder="不超过15个字"></el-input>-->
+                  <!--<el-input v-model="form.name6" placeholder="不超过15个字"></el-input>-->
                 <!--</el-form-item>-->
               <!--</div>-->
               <!--<div class="ser_info">-->
                 <!--<el-form-item label="客服电话">-->
-                  <!--<el-input v-model="form.name2" placeholder="不超过15个字"></el-input>-->
+                  <!--<el-input v-model="form.phone2" placeholder="不超过15个字"></el-input>-->
                 <!--</el-form-item>-->
                 <!--<el-form-item label="兑奖说明">-->
-                  <!--<el-input v-model="form.name2" placeholder="不超过15个字"></el-input>-->
+                  <!--<el-input v-model="form.name7" placeholder="不超过15个字"></el-input>-->
                 <!--</el-form-item>-->
               <!--</div>-->
 
@@ -953,6 +960,9 @@
 <script>
   import {mapState, mapMutations, mapActions} from 'vuex';
   import "../plugins/sudoku/jquery-1.11.0"
+  import "../js/lrz"
+  import "../js/exif"
+  import "../js/mobileFix.mini"
   export default({
     data(){
       return {
@@ -962,6 +972,8 @@
         reword:"",
         start_date:"",
         end_date:"",
+        imgData:'',
+        fileList:[{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'},],
         pickerOptions2: {
           shortcuts: [{
             text: '最近一周',
@@ -1156,8 +1168,32 @@
     methods: {
 
       handlePictureCardPreview(file) {
-        this.dialogImageUrl = file.url;
-        this.dialogVisible = true;
+
+         this.dialogImageUrl = file.url;
+         this.dialogVisible = true;
+      },
+      handleAvatarSuccess(res, file,fileList) {
+      this.imgData=file.response.data
+        // this.imageUrl = URL.createObjectURL(file.raw);
+       this.saveReword()
+      },
+      handleRemove(file, fileList) {
+        console.log(file, fileList);
+        console.log(file.response.data);
+      },
+
+      beforeAvatarUpload(file){
+        const isJPG = file.type === 'image/jpeg';
+        const isPNG=file.type==='image/png';
+        const isLt1M = file.size / 100 < 1;
+
+        if (!isJPG&&!isPNG) {
+          this.$message.error('上传头像图片只能是 JPG 或 PNG 格式!');
+        }
+        if (!isLt1M) {
+          this.$message.error('上传头像图片大小不能超过 1MB!');
+        }
+        return isJPG|| isPNG && isLt1M;
       },
       handleClick(tab, event) {
         console.log(tab, event);
@@ -1205,6 +1241,7 @@
         this.radio1 = this.reword_data[0].prizeType.toString()
         this.radio2 = this.reword_data[0].prizeSource.toString()
         this.radio3 = this.reword_data[0].prizeExchangeTypeId.toString()
+        this.imgData=this.reword_data[0].prizeImg
         this.reword_type1 = this.reword_data[0].jggAwardTypeList
         console.log(this.reword_type1);
 
@@ -1215,6 +1252,7 @@
         this.radio2_1 = this.reword_data[1].prizeType.toString()
         this.radio2_2 = this.reword_data[1].prizeSource.toString()
         this.radio2_3 = this.reword_data[1].prizeExchangeTypeId.toString()
+        this.imgData=this.reword_data[1].prizeImg
         this.reword_type2 = this.reword_data[1].jggAwardTypeList
 
         //奖品三
@@ -1224,6 +1262,7 @@
         this.radio3_1 = this.reword_data[2].prizeType.toString()
         this.radio3_2 = this.reword_data[2].prizeSource.toString()
         this.radio3_3 = this.reword_data[2].prizeExchangeTypeId.toString()
+        this.imgData=this.reword_data[2].prizeImg
         this.reword_type3 = this.reword_data[2].jggAwardTypeList
 
         //奖品四
@@ -1233,6 +1272,7 @@
         this.radio4_1 = this.reword_data[3].prizeType.toString()
         this.radio4_2 = this.reword_data[3].prizeSource.toString()
         this.radio4_3 = this.reword_data[3].prizeExchangeTypeId.toString()
+        this.imgData=this.reword_data[3].prizeImg
         this.reword_type4 = this.reword_data[3].jggAwardTypeList
 
         //奖品五
@@ -1242,6 +1282,7 @@
         this.radio5_1 = this.reword_data[4].prizeType.toString()
         this.radio5_2 = this.reword_data[4].prizeSource.toString()
         this.radio5_3 = this.reword_data[4].prizeExchangeTypeId.toString()
+        this.imgData=this.reword_data[4].prizeImg
         this.reword_type5 = this.reword_data[4].jggAwardTypeList
 
         //奖品六
@@ -1251,6 +1292,7 @@
         this.radio6_1 = this.reword_data[5].prizeType.toString()
         this.radio6_2 = this.reword_data[5].prizeSource.toString()
         this.radio6_3 = this.reword_data[5].prizeExchangeTypeId.toString()
+        this.imgData=this.reword_data[5].prizeImg
         this.reword_type6 = this.reword_data[5].jggAwardTypeList
 
         //奖品七
@@ -1260,6 +1302,7 @@
         this.radio7_1 = this.reword_data[6].prizeType.toString()
         this.radio7_2 = this.reword_data[6].prizeSource.toString()
         this.radio7_3 = this.reword_data[6].prizeExchangeTypeId.toString()
+        this.imgData=this.reword_data[6].prizeImg
         this.reword_type7 = this.reword_data[6].jggAwardTypeList
 
         //奖品八
@@ -1287,6 +1330,8 @@
         this.reword_send[0].prizeSource = Number(this.radio2)
         this.reword_send[0].prizeExchangeTypeId = Number(this.radio3)
         this.reword_send[0].exchangeAddress=this.form.address
+        this.reword_send[0].prizeImg=this.imgData
+        console.log(this.imgData);
         this.reword_type1 = this.reword_data.jggAwardTypeList
 
         //奖品二
@@ -1296,6 +1341,8 @@
         this.reword_send[1].prizeType = Number(this.radio2_1)
         this.reword_send[1].prizeSource = Number(this.radio2_2)
         this.reword_send[1].prizeExchangeTypeId = Number(this.radio2_3)
+        this.reword_send[1].exchangeAddress=this.form.address
+        this.reword_send[1].prizeImg=this.imgData
         this.reword_type2 = this.reword_data.jggAwardTypeList
 
         //奖品三
@@ -1305,6 +1352,8 @@
         this.reword_send[2].prizeType = Number(this.radio3_1)
         this.reword_send[2].prizeSource = Number(this.radio3_2)
         this.reword_send[2].prizeExchangeTypeId = Number(this.radio3_3)
+        this.reword_send[2].exchangeAddress=this.form.address
+        this.reword_send[2].prizeImg=this.imgData
         this.reword_type3 = this.reword_data.jggAwardTypeList
 
         //奖品四
@@ -1314,6 +1363,8 @@
         this.reword_send[3].prizeType = Number(this.radio4_1)
         this.reword_send[3].prizeSource = Number(this.radio4_2)
         this.reword_send[3].prizeExchangeTypeId = Number(this.radio4_3)
+        this.reword_send[3].exchangeAddress=this.form.address
+        this.reword_send[3].prizeImg=this.imgData
         this.reword_type4 = this.reword_data.jggAwardTypeList
 
         //奖品五
@@ -1323,6 +1374,8 @@
         this.reword_send[4].prizeType = Number(this.radio5_1)
         this.reword_send[4].prizeSource = Number(this.radio5_2)
         this.reword_send[4].prizeExchangeTypeId = Number(this.radio5_3)
+        this.reword_send[4].exchangeAddress=this.form.address
+        this.reword_send[4].prizeImg=this.imgData
         this.reword_type5 = this.reword_data.jggAwardTypeList
 
         //奖品六
@@ -1332,6 +1385,8 @@
         this.reword_send[5].prizeType = Number(this.radio6_1)
         this.reword_send[5].prizeSource = Number(this.radio6_2)
         this.reword_send[5].prizeExchangeTypeId = Number(this.radio6_3)
+        this.reword_send[5].exchangeAddress=this.form.address
+        this.reword_send[5].prizeImg=this.imgData
         this.reword_type6 = this.reword_data.jggAwardTypeList
 
         //奖品七
@@ -1341,6 +1396,8 @@
         this.reword_send[6].prizeType = Number(this.radio6_1)
         this.reword_send[6].prizeSource = Number(this.radio6_2)
         this.reword_send[6].prizeExchangeTypeId = Number(this.radio6_3)
+        this.reword_send[6].exchangeAddress=this.form.address
+        this.reword_send[6].prizeImg=this.imgData
         this.reword_type7 = this.reword_data.jggAwardTypeList
 
         // 奖品八
@@ -1363,9 +1420,6 @@ $("#tab-first").css({"display":"none"})
           this.reword.push('奖金八')
 
 
-
-
-
         }else{
           alert("最多添加8个奖品")
         }
@@ -1383,9 +1437,7 @@ $("#tab-first").css({"display":"none"})
       onSubmit() {
         console.log('submit!');
       },
-      handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
+
       back(){
         this.$router.go(-1)
       }
