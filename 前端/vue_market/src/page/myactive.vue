@@ -5,7 +5,7 @@
     </div>
     <template>
       <ul class="h45">
-        <li class="left" >
+        <li class="left">
           <p class="row-box">
             <select id="workergroupid" v-on:change="choosegroup($event.target)" class="form-control w200">
               <option value="">请选择字段</option>
@@ -15,7 +15,7 @@
         </li>
         <li class="left">
           <p class="row-box">
-            <select id="workerroleid" name="workerroleida"  class="form-control w200" >
+            <select id="workerroleid" name="workerroleida" class="form-control w200">
               <option>请选择要查询的内容</option>
               <option v-for="roleitem in tableData" v-bind:value="roleitem.role_id">{{roleitem.activityName}}
                 {{roleitem.endData}}
@@ -36,45 +36,45 @@
     </template>
     <!--<div class="active_inp">-->
     <!--<el-select v-model="value4" clearable placeholder="请选择" name="province" id="province" v-on:change="choosegroup($event)" >-->
-      <!--<el-option-->
-        <!--v-for="item in options"-->
-        <!--:key="item.value"-->
-        <!--:label="item.label"-->
-        <!--:value="item.value">-->
-      <!--</el-option>-->
+    <!--<el-option-->
+    <!--v-for="item in options"-->
+    <!--:key="item.value"-->
+    <!--:label="item.label"-->
+    <!--:value="item.value">-->
+    <!--</el-option>-->
     <!--</el-select>-->
-      <!---->
+    <!---->
     <!--<el-select v-model='value5' clearable placeholder="请输入要查询的内容" id="select_id">-->
-      <!--<el-option-->
-        <!--v-for="item in tableData"-->
-        <!--:key="item.value"-->
-        <!--:label="item.activityName"-->
-        <!--:value="item.value">-->
-      <!--</el-option>-->
-      <!--<el-option-->
-        <!--v-for="item in tableData"-->
-        <!--:key="item.value"-->
-        <!--:label="timestampToTime(item.startDate)"-->
-        <!--:value="item.value">-->
-      <!--</el-option>-->
-      <!--<el-option-->
-        <!--v-for="item in tableData"-->
-        <!--:key="item.value"-->
-        <!--:label="timestampToTime(item.endDate)"-->
-        <!--:value="item.value">-->
-      <!--</el-option>-->
-      <!--<el-option-->
-        <!--v-for="item in tableData"-->
-        <!--:key="item.value"-->
-        <!--:label="state(item.stateForMyActivity)"-->
-        <!--:value="item.value">-->
-      <!--</el-option>-->
+    <!--<el-option-->
+    <!--v-for="item in tableData"-->
+    <!--:key="item.value"-->
+    <!--:label="item.activityName"-->
+    <!--:value="item.value">-->
+    <!--</el-option>-->
+    <!--<el-option-->
+    <!--v-for="item in tableData"-->
+    <!--:key="item.value"-->
+    <!--:label="timestampToTime(item.startDate)"-->
+    <!--:value="item.value">-->
+    <!--</el-option>-->
+    <!--<el-option-->
+    <!--v-for="item in tableData"-->
+    <!--:key="item.value"-->
+    <!--:label="timestampToTime(item.endDate)"-->
+    <!--:value="item.value">-->
+    <!--</el-option>-->
+    <!--<el-option-->
+    <!--v-for="item in tableData"-->
+    <!--:key="item.value"-->
+    <!--:label="state(item.stateForMyActivity)"-->
+    <!--:value="item.value">-->
+    <!--</el-option>-->
     <!--</el-select>-->
     <!--<el-button class="btn_s">查询</el-button>-->
-  <!--</div>-->
+    <!--</div>-->
     <div class="ddd" style="text-align: center">
       <el-table
-        :data="tableData"
+        :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
         style="width: 100%;font-size:inherit;text-align: center">
         <el-table-column
           prop="activityName"
@@ -165,7 +165,7 @@
                 <el-dropdown-item class="clearfix">
                   <i>详情</i>
                 </el-dropdown-item>
-                <el-dropdown-item class="clearfix" >
+                <el-dropdown-item class="clearfix">
                   <i @click="del(scope.row.activityId,scope.row.templateUuid)">删除</i>
                 </el-dropdown-item>
                 <el-dropdown-item class="clearfix">
@@ -181,10 +181,12 @@
       <div class="block">
         <el-pagination
           background
-          :page-size="10"
-          layout="prev, pager,jumper ,next"
-          :total="100"
-          @current-change="current_change">
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="this.currentPage"
+          :page-size=this.pagesize
+          layout=" prev, pager, next, jumper"
+          :total=this.total>
         </el-pagination>
       </div>
       <div class="publish">
@@ -262,13 +264,13 @@
 <script>
 
   import Button from "iview/src/components/button/button";
-  import {mapState,mapMutations,mapActions} from 'vuex'
+  import {mapState, mapMutations, mapActions} from 'vuex'
 
   export default {
     data() {
       return {
-        statuss:0,
-        grouplist:['活动名称','活动开始时间','活动结束时间','活动状态'],
+        statuss: 0,
+        grouplist: ['活动名称', '活动开始时间', '活动结束时间', '活动状态'],
         tableData: [
           {
             activityName: '信用大转盘',
@@ -316,12 +318,12 @@
           }],
         operates: ["发布", "编辑"],
         value4: [],
-        value5:[],
+        value5: [],
         imgUrl: '',
         activeId: '',
-        templateUuid:'',
-        total: 0,//默认数据总数
-        pagesize: 7,//每页的数据条数
+        templateUuid: '',
+        total: 100,//默认数据总数
+        pagesize: 10,//每页的数据条数
         currentPage: 1,//默认开始页面
         input3: 'http://ninini//',
       }
@@ -329,15 +331,20 @@
     created() {
       this.pagedata()
     },
-    computed:{
+    computed: {
       ...mapState(['setting_data']),
-      ...mapActions(['saveData','activePull']),
+      ...mapActions(['saveData', 'activePull']),
     },
     mounted() {
-let _this=this
-      let activeData = sessionStorage.getItem('activData')
+      let _this = this
+      let activeData = JSON.parse(sessionStorage.getItem('activData'))
       console.log(activeData);
+      console.log(activeData.total);
+      console.log(activeData.pageSize)
       // this.$store.dispatch('activePull')
+      // this.currentPage = activeData.pageNum
+      // this.total = activeData.total
+      // this.pagesize = activeData.pageSize
       this.state()
       this.pagedata()
     },
@@ -347,7 +354,7 @@ let _this=this
       choosegroup(e) {
         alert(e)
         console.log(e);
-        if (e==="选项1"){
+        if (e === "选项1") {
 
 
         }
@@ -476,10 +483,10 @@ let _this=this
         console.log(this);
         window.open(this.imgUrl);//下载二维码
       },
-      del(ac,te){//删除活动
+      del(ac, te) {//删除活动
         let _this = this
-       this.activeId=ac
-        this.templateUuid=te
+        this.activeId = ac
+        this.templateUuid = te
         this.$axios({
           method: 'post',
           url: 'http://center.marketing.yunpaas.cn/center/activity/delete',
@@ -516,10 +523,27 @@ let _this=this
         alert("复制成功")
       },
 
+      handleSizeChange: function (size) {
+        this.pagesize = size;
 
+      },
+      handleCurrentChange: function (currentPage) {
+        this.currentPage = currentPage;
+        var token = sessionStorage.getItem('token')
+        this.$axios({
+          method:'post',
+          url:'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,
+          params:{
+            pagesize:this.pagesize,
+            pageNum:this.currentPage
+          }
+        }).then(res=>{
+          console.log(res);
+        })
+
+      }
 
     },
-
 
 
     components: {Button,},

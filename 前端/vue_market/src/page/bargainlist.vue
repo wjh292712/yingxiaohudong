@@ -119,9 +119,7 @@
 
 <script>
 
-  // import setting from '@/page/setting'
   import bargainset from '@/page/bargainset'
-  //import activepage from '@/page/activepage'
   import barpage from  '@/page/barpage'
   import barplainpage from '@/page/barplainpage'
   import bardraw from '@/page/bardraw'
@@ -131,7 +129,7 @@
   import winning from '@/page/winning'
   // import raffle from '@/page/raffle'
 
-  // import {mapState, mapMutations, mapActions} from 'vuex';
+   import {mapState, mapMutations, mapActions} from 'vuex';
 
   export default ({
     data() {
@@ -146,12 +144,19 @@
       }
     },
     computed:{
-      // ...mapState(['setting_data','banner']),
-      // ...mapActions(['saveData','saveForm']),
+      ...mapState(['setting_kjData']),
+      ...mapActions(['saveDatakj'])
     },
     mounted(){
       // this.$store.dispatch('saveForm')
       // console.log(this.banner)
+      this.$axios({
+        method: "post",
+        url: "http://center.marketing.yunpaas.cn/kj/activitySetup/init",//数据初始化接口
+        params: {},
+      }).then(res => {
+
+      })
     },
     methods: {
       tab(index) {
@@ -159,7 +164,6 @@
       }
     },
     components: {
-      // setting,
       bargainset,
       barpage,
       barplainpage,

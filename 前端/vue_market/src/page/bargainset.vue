@@ -79,6 +79,7 @@
     mounted(){
       this.$store.dispatch('saveDatakj')
       let Data = sessionStorage.getItem('Datakj')
+      console.log(sessionStorage.getItem('Datakj'));
       this.sendData = JSON.parse(Data)
       console.log(this.sendData);
       var _this = this
