@@ -7,7 +7,7 @@
         <!-- <div class="setting_button" @click="changeActive(index)" :class="{active_button:classActive == index}"  v-for="(item,index) in settingmsg" :key = "index" type="primary" plain>{{item}}</div> -->
       </div>
       <div class="setting_title">
-        <el-tabs v-model="activeName2" @tab-click="tabChange()">
+        <el-tabs v-model="activeName2" >
           <!-- <el-tab-pane label="基础设置" name="first"><router-view></router-view></el-tab-pane>
           <el-tab-pane label="奖品设置" name="second"><router-view></router-view></el-tab-pane>
           <el-tab-pane label="派奖设置" name="third"><router-view></router-view></el-tab-pane>
@@ -80,34 +80,34 @@
       this.$store.dispatch('saveDatakj')
       let Data = sessionStorage.getItem('Datakj')
       this.sendData = JSON.parse(Data)
+      console.log(this.sendData);
       var _this = this
       //分享部分返回的数据
       this.$bus.on("send_share",function(data){
         data == '' ?_this.sendData.kjShareSetup = _this.sendData.kjShareSetup : _this.sendData.kjShareSetup = data
-
         // console.log(data)
       })
       //商品设置返回的数据
       this.$bus.on("send_reword",function(data){
+        console.log(data);
         data == ''?_this.sendData.kjGoodsSetupExtendList = _this.sendData.kjGoodsSetupExtendList : _this.sendData.kjGoodsSetupExtendList = data
-
-        console.log(data)
-      })
-      //派奖设置返回的数据
-      this.$bus.on("send_award",function(data){
-        data == '' ?_this.sendData.kjAwardSendSetup = _this.sendData.kjAwardSendSetup :  _this.sendData.kjAwardSendSetup = data
-
         // console.log(data)
+      })
+      //砍价设置返回的数据
+      this.$bus.on("send_award",function(data){
+        data == '' ?_this.sendData.kjBargainSetup = _this.sendData.kjBargainSetup :  _this.sendData.kjBargainSetup = data
+         console.log(data)
       })
       //高级设置返回的数据
       this.$bus.on("send_high",function(data){
+        console.log(data);
         if(data == ''){
           _this.sendData.kjHighCompanySetup = _this.sendData.kjHighCompanySetup
-          _this.sendData.kjHighSecuritySetup = _this.sendData.kjHighSecuritySetup
+          _this.sendData.kjShareSetup = _this.sendData.kjShareSetup
           _this.sendData.kjHighOtherSetup = _this.sendData.kjHighOtherSetup
         }else{
           _this.sendData.kjHighCompanySetup = data[0]
-          _this.sendData.kjHighSecuritySetup = data[1]
+          _this.sendData.kjShareSetup = data[1]
           _this.sendData.kjHighOtherSetup = data[2]
         }
 
@@ -129,22 +129,23 @@
       // ...mapMutations([setting])
       //tab切换
 
-      tabChange(tab,event){
-        // this.activeName2 = name
-        console.log(tab,event)
-      },
+      // tabChange(tab,event){
+      //   // this.activeName2 = name
+      //   console.log(tab,event)
+      // },
       //保存设置
       onSave(){
         var sendNew =JSON.stringify(this.sendData)
         console.log(sendNew)
+        var token=sessionStorage.getItem('token')
         $.ajax({
           type:"POST",//砍价保存数据
-          url:"http://center.marketing.yunpaas.cn/kj/activitySetup/save",
+          url:"http://center.marketing.yunpaas.cn/kj/activitySetup/save?token="+token,
           data:sendNew,
           contentType:"application/json",
           datatype:"json",
           success(data){
-            console.log(data)
+           alert(data.msg)
           }
         })
 

@@ -40,9 +40,6 @@
         <!--</el-form-item>-->
         </p>
       </el-form>
-        <!--<button @click="saveAward()">保存</button>-->
-      <el-button type="primary" >保存</el-button>
-      <el-button type='primary' >返回</el-button>
 
     </div>
   </div>
@@ -81,11 +78,20 @@
       partAward(){
         let Data = sessionStorage.getItem('Datakj')
         this.raward_data = JSON.parse(Data).kjBargainSetup
-this.input4=this.raward_data.holdTime
-        this.input5=this.raward_data.singleUserBargainNum
-        this.input6=this.raward_data.singleUserHelpNum
-        this.radio1=Number(this.raward_data.topShow).toString()
-         console.log(Number(this.raward_data.topShow).toString());
+        this.input4=this.raward_data.holdTime // 底价保留时长
+        this.input5=this.raward_data.singleUserBargainNum //每人最多参与砍价数量
+        this.input6=this.raward_data.singleUserHelpNum //一人能为多少玩家助力
+        this.radio1=Number(this.raward_data.topShow).toString()//用户端是否显示
+      },
+      saveAward(){
+        let Data = sessionStorage.getItem('Datakj')
+        this.raward_send = JSON.parse(Data).kjBargainSetup
+        this.raward_send.holdTime= this.input4
+        this.raward_send.singleUserBargainNum = this.input5
+        this.raward_send.singleUserHelpNum = this.input6
+        this.raward_send.topShow = this.radio1
+        _this.$store.state.setting_kjData.kjBargainSetup = this.raward_send
+        _this.$bus.emit("send_award", this.raward_send)
       }
     }
   }

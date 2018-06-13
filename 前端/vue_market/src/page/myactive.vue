@@ -3,76 +3,75 @@
     <div class="active_nav">
       <h3>我创建的活动</h3>
     </div>
-    <!--<template>-->
-      <!--<ul class="h45">-->
-        <!--<li class="left" >-->
-          <!--<p class="row-box">-->
-            <!--<select id="workergroupid" v-on:change="choosegroup($event.target)" class="form-control w200">-->
-              <!--<option value="">请选择字段</option>-->
-              <!--<option v-for="item in grouplist" v-bind:value="item.group_id">{{ item }}</option>-->
-            <!--</select>-->
-          <!--</p>-->
-        <!--</li>-->
-        <!--<li class="left">-->
-          <!--<p class="row-box">-->
-            <!--<select id="workerroleid" name="workerroleida"  class="form-control w200" >-->
-              <!--<option>请选择要查询的内容</option>-->
-              <!--<option v-for="roleitem in tableData" v-bind:value="roleitem.role_id">{{roleitem.activityName}}-->
-                <!--{{roleitem.endData}}-->
-              <!--</option>-->
-              <!--<option v-for="roleitem in tableData" v-bind:value="roleitem.role_id">-->
-                <!--{{timestampToTime(roleitem.startDate)}}-->
-              <!--</option>-->
-              <!--<option v-for="roleitem in tableData" v-bind:value="roleitem.role_id">-->
-                <!--{{timestampToTime(roleitem.endDate)}}-->
-              <!--</option>-->
-              <!--<option v-for="roleitem in tableData" v-bind:value="roleitem.role_id">-->
-                <!--{{state(roleitem.stateForMyActivity)}}-->
-              <!--</option>-->
-            <!--</select>-->
-          <!--</p>-->
-        <!--</li>-->
-      <!--</ul>-->
-    <!--</template>-->
-    <div class="active_inp">
-    <el-select v-model="value4" clearable placeholder="请选择" name="province" id="province" v-on:change="choosegroup($event)" >
-      <el-option
-        v-for="item in options"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value">
-      </el-option>
-    </el-select>
-
-    <el-select v-model='value5' clearable placeholder="请输入要查询的内容" id="select_id">
-      <el-option
-        v-for="item in tableData"
-        :key="item.value"
-        :label="item.activityName"
-        :value="item.value">
-      </el-option>
-      <el-option
-        v-for="item in tableData"
-        :key="item.value"
-        :label="timestampToTime(item.startDate)"
-        :value="item.value">
-      </el-option>
-      <el-option
-        v-for="item in tableData"
-        :key="item.value"
-        :label="timestampToTime(item.endDate)"
-        :value="item.value">
-      </el-option>
-      <el-option
-        v-for="item in tableData"
-        :key="item.value"
-        :label="state(item.stateForMyActivity)"
-        :value="item.value">
-      </el-option>
-    </el-select>
-    <el-button class="btn_s">查询</el-button>
-  </div>
-
+    <template>
+      <ul class="h45">
+        <li class="left" >
+          <p class="row-box">
+            <select id="workergroupid" v-on:change="choosegroup($event.target)" class="form-control w200">
+              <option value="">请选择字段</option>
+              <option v-for="item in grouplist" v-bind:value="item.group_id">{{ item }}</option>
+            </select>
+          </p>
+        </li>
+        <li class="left">
+          <p class="row-box">
+            <select id="workerroleid" name="workerroleida"  class="form-control w200" >
+              <option>请选择要查询的内容</option>
+              <option v-for="roleitem in tableData" v-bind:value="roleitem.role_id">{{roleitem.activityName}}
+                {{roleitem.endData}}
+              </option>
+              <option v-for="roleitem in tableData" v-bind:value="roleitem.role_id">
+                {{timestampToTime(roleitem.startDate)}}
+              </option>
+              <option v-for="roleitem in tableData" v-bind:value="roleitem.role_id">
+                {{timestampToTime(roleitem.endDate)}}
+              </option>
+              <option v-for="roleitem in tableData" v-bind:value="roleitem.role_id">
+                {{state(roleitem.stateForMyActivity)}}
+              </option>
+            </select>
+          </p>
+        </li>
+      </ul>
+    </template>
+    <!--<div class="active_inp">-->
+    <!--<el-select v-model="value4" clearable placeholder="请选择" name="province" id="province" v-on:change="choosegroup($event)" >-->
+      <!--<el-option-->
+        <!--v-for="item in options"-->
+        <!--:key="item.value"-->
+        <!--:label="item.label"-->
+        <!--:value="item.value">-->
+      <!--</el-option>-->
+    <!--</el-select>-->
+      <!---->
+    <!--<el-select v-model='value5' clearable placeholder="请输入要查询的内容" id="select_id">-->
+      <!--<el-option-->
+        <!--v-for="item in tableData"-->
+        <!--:key="item.value"-->
+        <!--:label="item.activityName"-->
+        <!--:value="item.value">-->
+      <!--</el-option>-->
+      <!--<el-option-->
+        <!--v-for="item in tableData"-->
+        <!--:key="item.value"-->
+        <!--:label="timestampToTime(item.startDate)"-->
+        <!--:value="item.value">-->
+      <!--</el-option>-->
+      <!--<el-option-->
+        <!--v-for="item in tableData"-->
+        <!--:key="item.value"-->
+        <!--:label="timestampToTime(item.endDate)"-->
+        <!--:value="item.value">-->
+      <!--</el-option>-->
+      <!--<el-option-->
+        <!--v-for="item in tableData"-->
+        <!--:key="item.value"-->
+        <!--:label="state(item.stateForMyActivity)"-->
+        <!--:value="item.value">-->
+      <!--</el-option>-->
+    <!--</el-select>-->
+    <!--<el-button class="btn_s">查询</el-button>-->
+  <!--</div>-->
     <div class="ddd" style="text-align: center">
       <el-table
         :data="tableData"
@@ -325,7 +324,6 @@
         pagesize: 7,//每页的数据条数
         currentPage: 1,//默认开始页面
         input3: 'http://ninini//',
-
       }
     },
     created() {
@@ -479,6 +477,7 @@ let _this=this
         window.open(this.imgUrl);//下载二维码
       },
       del(ac,te){//删除活动
+        let _this = this
        this.activeId=ac
         this.templateUuid=te
         this.$axios({

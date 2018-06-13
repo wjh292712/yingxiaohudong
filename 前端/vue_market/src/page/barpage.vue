@@ -110,9 +110,9 @@
       },
       activeN() {
         let _this = this
-        let Data = sessionStorage.getItem('Data')
+        let Data = sessionStorage.getItem('Datakj')
         console.log(66672);
-        _this.base_data = JSON.parse(Data).jggBaseSetup
+        _this.base_data = JSON.parse(Data).kjBaseSetup
         console.log(_this.base_data);
         _this.activeName = _this.formName = _this.base_data.activityName
       },

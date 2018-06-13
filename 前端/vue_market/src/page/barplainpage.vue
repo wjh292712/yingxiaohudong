@@ -114,7 +114,7 @@
 
     },
     mounted() {
-      this.updataImg()
+      // this.updataImg()
 
       //let curname='';
       // let cua='';
@@ -139,23 +139,23 @@
       },
       activeN() {
         let _this = this
-        let Data = sessionStorage.getItem('Data')
+        let Data = sessionStorage.getItem('Datakj')
         console.log(66672);
-        _this.base_data = JSON.parse(Data).jggBaseSetup
+        _this.base_data = JSON.parse(Data).kjBaseSetup
         console.log(_this.base_data);
         _this.activeName = _this.formName = _this.base_data.activityName
       },
-      updataImg() {
-        this.$http({
-          method: "post",
-          url: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8d8bbbd5fcf10745&redirect_uri=http://center.marketing.yunpaas.cn/jgg/activity/startDrawAward?id=1&response_type=code&scope=snsapi_userinfo&state=STATE&component_appid=wx73b4adc05b76ee6a#wechat_redirect",
-          data: {},
-        }).then(res => {
-          console.log(res)
-        }).catch(res => {
-          console.log(res)
-        })
-      }
+      // updataImg() {
+      //   this.$http({
+      //     method: "post",
+      //     url: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8d8bbbd5fcf10745&redirect_uri=http://center.marketing.yunpaas.cn/jgg/activity/startDrawAward?id=1&response_type=code&scope=snsapi_userinfo&state=STATE&component_appid=wx73b4adc05b76ee6a#wechat_redirect",
+      //     data: {},
+      //   }).then(res => {
+      //     console.log(res)
+      //   }).catch(res => {
+      //     console.log(res)
+      //   })
+      // }
     },
 
     // created() {

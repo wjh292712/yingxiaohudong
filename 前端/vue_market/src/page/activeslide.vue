@@ -50,6 +50,7 @@
 
                   }
                 }).then(res=>{
+
                   console.log(JSON.stringify(res.data.data));
                   let activData=JSON.stringify(res.data.data)
                   let Datalist  =JSON.stringify(res.data.data.list)//我的活动数据

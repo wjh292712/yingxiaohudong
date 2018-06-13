@@ -260,15 +260,13 @@
         this.$store.state.setting_kjData.kjShareSetup = this.share_send
 
         // 其它保存设置
-
         this.other_send = JSON.parse(Data).kjHighOtherSetup
         this.other_send.ad = this.radio8 == 1 ? true : false
         this.other_send.carousel = this.radio9 == 1 ? true : false
         this.other_send.form = this.radio10 == 1 ? false : true
         this.other_send.area = this.radio11 == 1 ? false : true
-        this.other_send = this.$store.state.setting_kjData.kjHighOtherSetup
-        this.$bus.emit("send_high",[this.company_send,this.share_send,this.other_send])
-
+        this.$store.state.setting_kjData.kjHighOtherSetup =this.other_send
+          this.$bus.emit("send_high",[this.company_send,this.share_send,this.other_send])
       },
 
       handleClick(tab, event) {
