@@ -7,7 +7,7 @@
         <!-- <div class="setting_button" @click="changeActive(index)" :class="{active_button:classActive == index}"  v-for="(item,index) in settingmsg" :key = "index" type="primary" plain>{{item}}</div> -->
       </div>
       <div class="setting_title">
-        <el-tabs v-model="activeName2" @tab-click="tabChange(name)">
+        <el-tabs v-model="activeName2" @tab-click="tabChange()">
           <!-- <el-tab-pane label="基础设置" name="first"><router-view></router-view></el-tab-pane>
           <el-tab-pane label="奖品设置" name="second"><router-view></router-view></el-tab-pane>
           <el-tab-pane label="派奖设置" name="third"><router-view></router-view></el-tab-pane>
@@ -87,11 +87,11 @@
 
         // console.log(data)
       })
-      //奖金设置返回的数据
+      //商品设置返回的数据
       this.$bus.on("send_reword",function(data){
-        data == ''?_this.sendData.kjAwardSetupExtendList = _this.sendData.kjAwardSetupExtendList : _this.sendData.kjAwardSetupExtendList = data
+        data == ''?_this.sendData.kjGoodsSetupExtendList = _this.sendData.kjGoodsSetupExtendList : _this.sendData.kjGoodsSetupExtendList = data
 
-        // console.log(data)
+        console.log(data)
       })
       //派奖设置返回的数据
       this.$bus.on("send_award",function(data){
@@ -130,7 +130,7 @@
       //tab切换
 
       tabChange(tab,event){
-        this.activeName2 = name
+        // this.activeName2 = name
         console.log(tab,event)
       },
       //保存设置

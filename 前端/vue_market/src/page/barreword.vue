@@ -99,12 +99,6 @@
               </el-form-item>
 
 
-              <el-form-item>
-                <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="backReword()">返回</el-button>
-              </el-form-item>
-
-
             </el-tab-pane>
             <!-- 商品二 -->
             <el-tab-pane label="商品二" name="second">
@@ -198,10 +192,6 @@
               </el-form-item>
 
 
-              <el-form-item>
-                <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="backReword()">返回</el-button>
-              </el-form-item>
 
             </el-tab-pane>
             <!-- 商品三 -->
@@ -296,10 +286,7 @@
               </el-form-item>
 
 
-              <el-form-item>
-                <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="backReword()">返回</el-button>
-              </el-form-item>
+
 
             </el-tab-pane>
 
@@ -395,10 +382,6 @@
               </el-form-item>
 
 
-              <el-form-item>
-                <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="backReword()">返回</el-button>
-              </el-form-item>
 
             </el-tab-pane>
 
@@ -494,11 +477,6 @@
               </el-form-item>
 
 
-              <el-form-item>
-                <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="backReword()">返回</el-button>
-              </el-form-item>
-
             </el-tab-pane>
 
             <!-- 商品六 -->
@@ -593,10 +571,6 @@
               </el-form-item>
 
 
-              <el-form-item>
-                <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="backReword()">返回</el-button>
-              </el-form-item>
 
             </el-tab-pane>
 
@@ -692,10 +666,6 @@
               </el-form-item>
 
 
-              <el-form-item>
-                <el-button type="primary" @click="saveReword()">保存</el-button>
-                <el-button type="primary" @click="backReword()">返回</el-button>
-              </el-form-item>
 
             </el-tab-pane>
 
@@ -826,42 +796,8 @@
           // deliveryType8: '',//配送方式
           // deliveryInfo8: '',//发货说明
 
-
         },
         activeName: 'first',
-        radio1: '',//单选框1
-        radio2: '',//单选框2
-        radio3: '',//单选框3
-        //奖品二
-        radio2_1: '',//单选框1
-        radio2_2: '',//单选框2
-        radio2_3: '',//单选框3
-        //奖品三
-        radio3_1: '',//单选框1
-        radio3_2: '',//单选框2
-        radio3_3: '',//单选框3
-        //奖品四
-        radio4_1: '',//单选框1
-        radio4_2: '',//单选框2
-        radio4_3: '',//单选框3
-        //奖品五
-        radio5_1: '',//单选框1
-        radio5_2: '',//单选框2
-        radio5_3: '',//单选框3
-        //奖品六
-        radio6_1: '',//单选框1
-        radio6_2: '',//单选框2
-        radio6_3: '',//单选框3
-        //奖品七
-        radio7_1: '',//单选框1
-        radio7_2: '',//单选框2
-        radio7_3: '',//单选框3
-        //奖品八
-        radio8_1: '',//单选框1
-        radio8_2: '',//单选框2
-        radio8_3: '',//单选框3
-
-
         reword_data: '',//接口数据保存
         reword_send: ''//奖品数据回调
       }
@@ -878,8 +814,11 @@
       ...mapState(['setting_kjData']),
       ...mapActions(['saveDatakj']),
       sdata() {
-        return this.setting_data
+        return this.setting_kjData
       }
+    },
+    updated(){
+      this.saveReword()
     },
     methods: {
 
@@ -1087,8 +1026,6 @@
         this.reword_data[6].goodsImg3 = this.form.imageUrl7_3
         this.reword_data[6].deliveryType = this.form.deliveryType7
         this.reword_data[6].deliveryInfo = this.form.deliveryInfo7
-
-
         this.$store.state.setting_kjData.kjGoodsSetupExtendList = this.reword_send
         this.$bus.emit("send_reword", this.reword_send)
         console.log(this.reword_data)

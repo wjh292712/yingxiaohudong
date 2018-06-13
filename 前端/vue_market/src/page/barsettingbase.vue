@@ -33,16 +33,16 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="活动说明">
-          <el-input style="height:6rem;" type="textarea" v-model="form.desc.explain"></el-input>
+          <el-input style="height:6rem;" type="textarea" v-model="form.explain"></el-input>
         </el-form-item>
         <el-form-item label="商家简介">
-          <el-input style="height:6rem;" type="textarea" v-model="form.desc.intro"></el-input>
+          <el-input style="height:6rem;" type="textarea" v-model="form.intro"></el-input>
         </el-form-item>
         <el-form-item label="商家地址">
-          <el-input style="height:3rem;" type="textarea" v-model="form.desc.address"></el-input>
+          <el-input style="height:3rem;" type="textarea" v-model="form.address"></el-input>
         </el-form-item>
         <el-form-item label="商家电话">
-          <el-input style="height:3rem;" type="textarea" v-model="form.desc.phone"></el-input>
+          <el-input style="height:3rem;" type="textarea" v-model="form.phone"></el-input>
         </el-form-item>
         <!--<el-form-item>-->
 
@@ -72,9 +72,10 @@
           type: [],
           resource: '',
           resource1: '',
-          desc:{
-            explain:"222",intro:"111",address:"nih",phone:"12233"
-          }
+          explain:"222",//活动说明
+          intro:"111",//商家简介
+          address:"nih",//商家地址
+          phone:"12233",//商家电话
 
         },
         checkBtn: false,//��ť��ʽ
@@ -150,8 +151,8 @@
         console.log(_this.base_data);
         _this.formName = _this.base_data.activityName
         formName = _this.base_data.activityName
-        _this.form.desc.explain=_this.base_data.rule//活动说明
-
+        _this.form.explain=_this.base_data.rule//活动说明
+        _this.form.intro = _this.base_data.
         _this.start_date = _this.base_data.startDate//日期开始时间
         _this.end_date=_this.base_data.endDate//结束时间
         let str = _this.start_date

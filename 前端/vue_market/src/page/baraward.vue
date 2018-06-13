@@ -2,7 +2,7 @@
 <template>
   <div class="container">
     <div class="send">
-      <el-form ref="form" :model="form" label-width="100px">
+      <el-form ref="form" label-width="100px">
         <p>
           <span>砍价金额范围(元)：</span>
           <el-input v-model="input1" placeholder="请输入内容" class="nns" />
@@ -34,7 +34,7 @@
           <span>用户端是否显示排行榜</span>
           <el-radio-group v-model="radio1">
             <el-radio label="1" checked>是</el-radio>
-            <el-radio label="2">否</el-radio>
+            <el-radio label="0">否</el-radio>
 
           </el-radio-group>
         <!--</el-form-item>-->
@@ -53,7 +53,6 @@
     data() {
       return {
         radio1:'',
-        form:'',
         input1:'',
         input2:'',
         input3:'',
@@ -61,10 +60,11 @@
         input5:'',
         input6:'',
         input7:'',
+        raward_data:'',//渲染接口数据
+        raward_send:'',//保存后接口数据
       }
     },
     created(){
-
       // this.saveAward()
     },
     mounted(){
@@ -74,9 +74,18 @@
       ...mapState(['setting_kjData']),
       ...mapActions(['saveDatakj'])
     },
+    updated(){
+
+    },
     methods: {
       partAward(){
-
+        let Data = sessionStorage.getItem('Datakj')
+        this.raward_data = JSON.parse(Data).kjBargainSetup
+this.input4=this.raward_data.holdTime
+        this.input5=this.raward_data.singleUserBargainNum
+        this.input6=this.raward_data.singleUserHelpNum
+        this.radio1=Number(this.raward_data.topShow).toString()
+         console.log(Number(this.raward_data.topShow).toString());
       }
     }
   }

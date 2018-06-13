@@ -46,21 +46,8 @@
                 <span class="pic_in">上传图片</span>
               </el-upload>
             </p>
-            <p>
-            <el-button type="primary" >保存</el-button>
-            <el-button type='primary' >返回</el-button>
-            </p>
-            <!-- <p>
-              <span class="keep">
-                <el-button plain class="save">保存</el-button>
-              </span>
-              <span>  <el-button plain>返回</el-button>
-              </span>
-
-            </p> -->
           </div>
         </el-tab-pane>
-
 
         <el-tab-pane label="分享设置" name="second">
           <div class="safety">
@@ -115,49 +102,40 @@
               </el-input>
             </p>
             <p>分享信息请遵守微信管理规定，禁止出现诱导分享等违规信息，后果由活动发布企业自担，部分敏感词系统会自动屏蔽。</p>
-  <p>
-            <el-button type="primary" @click="onSave()">保存</el-button>
-            <el-button type='primary' @click="name()">返回</el-button>
-  </p>
-            <!-- <p>
-              <span class="preserve">
-                <el-button plain class="hold">保存</el-button>
-              </span>
-              <span>  <el-button plain>返回</el-button>
-              </span>
-            </p> -->
+
           </div>
         </el-tab-pane>
+
         <el-tab-pane label="其他设置" name="third">
           <div class="rests">
             <p>
               <span>广告:</span>
               <span>
-                      <el-radio v-model="radio7" label="1">显示</el-radio>
-                      <el-radio v-model="radio7" label="2">隐藏</el-radio>
+                      <el-radio v-model="radio8" label="1">显示</el-radio>
+                      <el-radio v-model="radio8" label="2">隐藏</el-radio>
                     </span>
             </p>
             <p>
               <span>轮播中奖信息：</span>
               <span>
-                      <el-radio v-model="radio8" label="1">开启</el-radio>
-                      <el-radio v-model="radio8" label="2">关闭</el-radio>
+                      <el-radio v-model="radio9" label="1">开启</el-radio>
+                      <el-radio v-model="radio9" label="2">关闭</el-radio>
                     </span>
             </p>
             <p>
               <span>是否需要填写表单兑奖:</span>
               <span>
-                      <el-radio v-model="radio9" label="1">否</el-radio>
-                      <el-radio v-model="radio9" label="2">是</el-radio>
+                      <el-radio v-model="radio10" label="1">否</el-radio>
+                      <el-radio v-model="radio10" label="2">是</el-radio>
                     </span>
             </p>
             <p>
               <span>参与地区限制:</span>
               <span>
-                      <el-radio v-model="radio10" label="1">
+                      <el-radio v-model="radio11" label="1">
                         <span @click="centerDialogVisible = true">全部</span>
                       </el-radio>
-                      <el-radio v-model="radio10" label="2">
+                      <el-radio v-model="radio11" label="2">
                         <span @click="centerDialogVisible = true">部分</span>
                       </el-radio>
                       <el-dialog title="表单字段" :visible.sync="centerDialogVisible" width="30%" center>
@@ -166,11 +144,7 @@
 
                     </span>
             </p>
-            <p>
-                    <span class="conserve">
-                      <el-button plain class="saves" @click="saveHight()">保存</el-button>
-                    </span>
-            </p>
+
           </div>
           <div>
             <!-- <el-button type="button" >点击打开 Dialog</el-button> -->
@@ -191,22 +165,23 @@
         input3:'',
         activeName: 'first',
         radio: '1',
-        radio2: '',
-        radio3: '',
+        radio2: '',//主办单位logo
+        radio3: '',//加载页面图片
         radio4: '',
-        radio5: '',
-        radio6: '',
-        radio7: '',
+        radio5: '',//分享图标
+        radio6: '',//分享标题
+        radio7: '',//分享内容
         radio8: '',
         radio9: '',
         radio10: '',
+        radio11: '',
         imageUrl: '',
         centerDialogVisible: false,
         company:'',//企业设置
-        safety:'',//安全设置
+        share:'',//分享设置
         other:'',//其他设置
         company_send:'',//企业设置保存
-        safety_send:'',//安全设置保存
+        share_send:'',//分享设置保存
         other_send:'',//其他设置保存
         textarea: '',
       };
@@ -218,81 +193,82 @@
       this.partHight()
     },
     computed:{
-      ...mapState(['setting_data']),
-      ...mapActions(['saveData']),
-
+      ...mapState(['setting_kjData']),
+      ...mapActions(['saveDatakj'])
+    },
+    updated(){
+      this.saveHight()
     },
     methods: {
 
-      // 企业设置
+
       partHight(){
         // this.$store.dispatch('saveData')
-        let Data = sessionStorage.getItem('Data')
-        this.company = JSON.parse(Data).jggHighCompanySetup
-        this.radio2 = this.company.companyLogoType.toString()
-        // console.log(this.company.companyLogoType)
-        if(!this.company.loadImgType){
+        let Data = sessionStorage.getItem('Datakj')
+
+        // 企业设置
+        this.company = JSON.parse(Data).kjHighCompanySetup
+        this.input=this.company.company //主办单位
+        this.input3=this.company.url   //链接地址
+        this.radio2 = this.company.companyLogoType.toString()//主办单位logo
+        if(!this.company.loadImgType){ //加载页面图片
           this.radio3 = "1"
+        }else {
+          this.radio3 = "2"
         }
 
-        // 安全设置
-
-
-        this.safety = JSON.parse(Data).jggHighSecuritySetup
-        this.radio5 = this.safety.redSecurityLevel.toString()
-        this.radio6 = this.safety.smsCheckType.toString()
-        if(!this.safety.blackUser){
-          this.radio4 = "2"
-        }
+        // 分享设置
+        this.share = JSON.parse(Data).kjShareSetup
+        this.radio5 = this.share.wxShareLogoType.toString()
+        this.radio6 = this.share.wxShareTitleType.toString()
+        this.radio7 = this.share.wxShareContentType.toString()
 
         // 其它设置
-
-
-        this.other = JSON.parse(Data).jggHighOtherSetup
+        this.other = JSON.parse(Data).kjHighOtherSetup
         if(this.other.ad){
-          this.radio7 = "1"
-        }
-        if(this.other.carousel){
           this.radio8 = "1"
         }
-        if(!this.other.form){
+        if(this.other.carousel){
           this.radio9 = "1"
         }
-        if(!this.other.area){
+        if(!this.other.form){
           this.radio10 = "1"
+        }
+        if(!this.other.area){
+          this.radio11 = "1"
         }
       },
 
       //保存设置
       saveHight(){
         // this.$store.dispatch('saveData')
-        let Data = sessionStorage.getItem('Data')
-        this.company_send = JSON.parse(Data).jggHighCompanySetup
+        let Data = sessionStorage.getItem('Datakj')
+
+        //企业保存设置
+        this.company_send = JSON.parse(Data).kjHighCompanySetup
+        this.company_send.company = this.input
+        this.company_send.url = this.input3
         this.company_send.companyLogoType = Number(this.radio2)
         this.company_send.loadImgType = this.radio3 == 1 ? 0 : ''
-        this.$store.state.setting_data.jggHighCompanySetup = this.company_send
+        this.$store.state.setting_kjData.kjHighCompanySetup = this.company_send
 
-        // 安全设置
+        // 分享保存设置
+        this.share_send = JSON.parse(Data).kjShareSetup
+        this.share_send.wxShareLogoType = this.radio5
+        this.share_send.wxShareTitleType = this.radio6
+        this.share_send.wxShareContentType = this.radio7
+        this.$store.state.setting_kjData.kjShareSetup = this.share_send
 
+        // 其它保存设置
 
-        this.safety_send = JSON.parse(Data).jggHighSecuritySetup
-        this.safety_send.redSecurityLevel = Number(this.radio5)
-        this.safety_send.smsCheckType = Number(this.radio6)
-        this.safety_send.blackUser = this.radio4 == 1 ? ture :false
-        this.$store.state.setting_data.jggHighSecuritySetup = this.safety_send
+        this.other_send = JSON.parse(Data).kjHighOtherSetup
+        this.other_send.ad = this.radio8 == 1 ? true : false
+        this.other_send.carousel = this.radio9 == 1 ? true : false
+        this.other_send.form = this.radio10 == 1 ? false : true
+        this.other_send.area = this.radio11 == 1 ? false : true
+        this.other_send = this.$store.state.setting_kjData.kjHighOtherSetup
+        this.$bus.emit("send_high",[this.company_send,this.share_send,this.other_send])
 
-        // 其它设置
-
-
-        this.other_send = JSON.parse(Data).jggHighOtherSetup
-        this.other_send.ad = this.radio7 == 1 ? true : false
-        this.other_send.carousel = this.radio8 == 1 ? true : false
-        this.other_send.form = this.radio9 == 1 ? false : true
-        this.other_send.area = this.radio10 == 1 ? false : true
-        this.other_send = this.$store.state.setting_data.jggHighOtherSetup
-
-        this.$bus.emit("send_high",[this.company_send,this.safety_send,this.other_send])
-        // console.log(this.company_send,this.safety_send,this.other_send)
       },
 
       handleClick(tab, event) {
