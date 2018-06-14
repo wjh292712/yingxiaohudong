@@ -29,6 +29,44 @@
 </li>
 </ul>
 </template>
+<!--<div class="active_inp">-->
+<!--<el-select v-model="value4" clearable placeholder="请选择" name="province" id="province" v-on:change="choosegroup($event)" >-->
+<!--<el-option-->
+<!--v-for="item in options"-->
+<!--:key="item.value"-->
+<!--:label="item.label"-->
+<!--:value="item.value">-->
+<!--</el-option>-->
+<!--</el-select>-->
+<!---->
+<!--<el-select v-model='value5' clearable placeholder="请输入要查询的内容" id="select_id">-->
+<!--<el-option-->
+<!--v-for="item in tableData"-->
+<!--:key="item.value"-->
+<!--:label="item.activityName"-->
+<!--:value="item.value">-->
+<!--</el-option>-->
+<!--<el-option-->
+<!--v-for="item in tableData"-->
+<!--:key="item.value"-->
+<!--:label="timestampToTime(item.startDate)"-->
+<!--:value="item.value">-->
+<!--</el-option>-->
+<!--<el-option-->
+<!--v-for="item in tableData"-->
+<!--:key="item.value"-->
+<!--:label="timestampToTime(item.endDate)"-->
+<!--:value="item.value">-->
+<!--</el-option>-->
+<!--<el-option-->
+<!--v-for="item in tableData"-->
+<!--:key="item.value"-->
+<!--:label="state(item.stateForMyActivity)"-->
+<!--:value="item.value">-->
+<!--</el-option>-->
+<!--</el-select>-->
+<!--<el-button class="btn_s">查询</el-button>-->
+<!--</div>-->
 <script>
   export default {
     data(){

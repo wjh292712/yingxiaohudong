@@ -3,75 +3,39 @@
     <div class="active_nav">
       <h3>我创建的活动</h3>
     </div>
-    <template>
-      <ul class="h45">
-        <li class="left">
-          <p class="row-box">
-            <select id="workergroupid" v-on:change="choosegroup($event.target)" class="form-control w200">
-              <option value="">请选择字段</option>
-              <option v-for="item in grouplist" v-bind:value="item.group_id">{{ item }}</option>
-            </select>
-          </p>
-        </li>
-        <li class="left">
-          <p class="row-box">
-            <select id="workerroleid" name="workerroleida" class="form-control w200">
-              <option>请选择要查询的内容</option>
-              <option v-for="roleitem in tableData" v-bind:value="roleitem.role_id">{{roleitem.activityName}}
-                {{roleitem.endData}}
-              </option>
-              <option v-for="roleitem in tableData" v-bind:value="roleitem.role_id">
-                {{timestampToTime(roleitem.startDate)}}
-              </option>
-              <option v-for="roleitem in tableData" v-bind:value="roleitem.role_id">
-                {{timestampToTime(roleitem.endDate)}}
-              </option>
-              <option v-for="roleitem in tableData" v-bind:value="roleitem.role_id">
-                {{state(roleitem.stateForMyActivity)}}
-              </option>
-            </select>
-          </p>
-        </li>
-      </ul>
-    </template>
-    <!--<div class="active_inp">-->
-    <!--<el-select v-model="value4" clearable placeholder="请选择" name="province" id="province" v-on:change="choosegroup($event)" >-->
-    <!--<el-option-->
-    <!--v-for="item in options"-->
-    <!--:key="item.value"-->
-    <!--:label="item.label"-->
-    <!--:value="item.value">-->
-    <!--</el-option>-->
-    <!--</el-select>-->
-    <!---->
-    <!--<el-select v-model='value5' clearable placeholder="请输入要查询的内容" id="select_id">-->
-    <!--<el-option-->
-    <!--v-for="item in tableData"-->
-    <!--:key="item.value"-->
-    <!--:label="item.activityName"-->
-    <!--:value="item.value">-->
-    <!--</el-option>-->
-    <!--<el-option-->
-    <!--v-for="item in tableData"-->
-    <!--:key="item.value"-->
-    <!--:label="timestampToTime(item.startDate)"-->
-    <!--:value="item.value">-->
-    <!--</el-option>-->
-    <!--<el-option-->
-    <!--v-for="item in tableData"-->
-    <!--:key="item.value"-->
-    <!--:label="timestampToTime(item.endDate)"-->
-    <!--:value="item.value">-->
-    <!--</el-option>-->
-    <!--<el-option-->
-    <!--v-for="item in tableData"-->
-    <!--:key="item.value"-->
-    <!--:label="state(item.stateForMyActivity)"-->
-    <!--:value="item.value">-->
-    <!--</el-option>-->
-    <!--</el-select>-->
-    <!--<el-button class="btn_s">查询</el-button>-->
-    <!--</div>-->
+    <div class="active_inp">
+      <el-input
+        clearable
+        placeholder="活动名称"
+        v-model="activename" style="width:150px;margin-right: 10px">
+      </el-input>
+      <el-date-picker
+        size="large"
+        v-model="value4"
+        type="datetimerange"
+        start-placeholder="活动开始时间"
+        style="width:300px;margin-right:10px">
+      </el-date-picker>
+      <el-date-picker
+        size="large"
+        v-model="value5"
+        type="datetimerange"
+        start-placeholder="活动结束时间"
+        style="width:300px;margin-right:10px">
+      </el-date-picker>
+
+      <el-autocomplete
+        clearable
+        class="inline-input"
+        v-model="activeState"
+        :fetch-suggestions="querySearch"
+        placeholder="请输入内容"
+        @select="handleSelect"
+        style="width:150px;margin-right:10px">
+      </el-autocomplete>
+      <el-button @click="find()">查询</el-button>
+    </div>
+
     <div class="ddd" style="text-align: center">
       <el-table
         :data="tableData"
@@ -269,8 +233,41 @@
   export default {
     data() {
       return {
+        pickerOptions2: {
+          shortcuts: [{
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit('pick', [start, end]);
+            }
+          }]
+        },
+        value4: [],
+        value5: [],
         statuss: 0,
-        grouplist: ['活动名称', '活动开始时间', '活动结束时间', '活动状态'],
+        activename: '',
+        activeStartDate: '',
+        activeEndDate: '',
+        activeState: '',
+        activeFindState: '',
         tableData: [
           {
             activityName: '信用大转盘',
@@ -317,8 +314,6 @@
             label: '正常'
           }],
         operates: ["发布", "编辑"],
-        value4: [],
-        value5: [],
         imgUrl: '',
         activeId: '',
         templateUuid: '',
@@ -336,49 +331,111 @@
       ...mapActions(['saveData', 'activePull']),
     },
     mounted() {
-      let _this = this
+      this.restaurants = this.loadAll();
       let activeData = JSON.parse(sessionStorage.getItem('activData'))
-      var token = sessionStorage.getItem('token')
-      this.$axios({
-        method:'post',
-        url:'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,
-        params:{
-          pagesize:this.pagesize,
-          pageNum:this.currentPage
-        }
-      }).then(res=>{
-        let pageData=res.data.data
-        console.log(pageData);
-        let Datalist=res.data.data.list
-        this.pagesize=pageData.pagesize
-        this.currentPage=pageData.pageNum
-        this.total=pageData.total
-        this.tableData=Datalist
-      })
-       this.$store.dispatch('activePull')
+      // var token = sessionStorage.getItem('token')
+      // this.$axios({
+      //   method: 'post',
+      //   url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,
+      //   params: {
+      //     pagesize: this.pagesize,
+      //     pageNum: this.currentPage
+      //   }
+      // }).then(res => {
+      //   let pageData = res.data.data
+      //   console.log(pageData);
+      //   let Datalist = res.data.data.list
+      //   this.pagesize = pageData.pagesize
+      //   this.currentPage = pageData.pageNum
+      //   this.total = pageData.total
+      //   this.tableData = Datalist
+      // })
+      //this.$store.dispatch('activePull')
       this.currentPage = activeData.pageNum
-        this.total = activeData.total
+      this.total = activeData.total
       this.pagesize = activeData.pageSize
       this.state()
-       //this.pagedata()
+      this.pagedata()
+
     },
+    // updated(){
+    //   let date1=this.value4[0]
+    //   let date2=this.value4[1]
+    //   var time1 = date1.getTime();
+    //   var time2 = date2.valueOf();
+    //   alert(time1)
+    //   alert(time2)
+    // },
+
     methods: {
 
       //头部选择框
-      choosegroup(e) {
-        alert(e)
-        console.log(e);
-        if (e === "选项1") {
-
-        }
+      querySearch(queryString, cb) {
+        var restaurants = this.restaurants;
+        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+        // 调用 callback 返回建议列表的数据
+        cb(results);
+      },
+      createFilter(queryString) {
+        return (restaurant) => {
+          return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        };
+      },
+      loadAll() {
+        return [
+          {"value": "未发布" ,index:"1"},
+          {"value": "未开始",index:"2"},
+          {"value": "进行中",index:"3"},
+          {"value": "已结束",index:"4"},
+          {"value": "活动关闭",index:"5"}
+        ]
+      },
+      handleSelect(item) {
+        console.log(item);
+        this.activeFindState=item.index
       },
 
-      // pagedata() {
-      //   //输出数据
-      //     let Data = sessionStorage.getItem('Datalist')
-      //     this.tableData = JSON.parse(Data)
-      //   console.log(this.tableData);
-      // },
+      find() {//点击查询
+        var token = sessionStorage.getItem('token')
+        if(this.value4===null){
+          this.value4=''
+        }
+        if(this.value5===null){
+          this.value5=''
+        }
+        alert( this.value4+"val40")
+        alert( this.value4+"val41")
+
+        alert(this.value5+"val50")
+        alert(this.value5+"val51")
+        this.$axios({
+          method: 'post',
+          url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,
+          params:{
+            activityName:this.activename,
+            startTime1:this.value4[0]===undefined||null?'':this.value4[0].getTime(),
+            startTime2:this.value4[1]===undefined||null?'':this.value4[1].getTime(),
+            endTime1:this.value5[0]===undefined||null?'':this.value5[0].getTime(),
+            endTime2:this.value5[1]===undefined||null?'':this.value5[1].getTime(),
+            activityState:this.activeFindState,
+          }
+        }).then(res=>{
+          let pageData = res.data.data
+          let Datalist = res.data.data.list
+          this.pagesize = pageData.pagesize
+          this.currentPage = pageData.pageNum
+          this.total = pageData.total
+          this.tableData = Datalist
+        })
+
+
+      },
+       pagedata() {
+        //输出数据
+          let Data = sessionStorage.getItem('Datalist')
+          this.tableData = JSON.parse(Data)
+        console.log(this.tableData);
+      },
 //状态转换
       state(a) {
         if (a === 1) {
@@ -427,25 +484,25 @@
         this.activeId = index
         this.templateUuid = templ
         alert(this.templateUuid)
-        if(this.templateUuid==1){
+        if (this.templateUuid == 1) {
           this.$axios({
-            method:'post',
-            url:'http://center.marketing.yunpaas.cn/jgg/awardSetup/list',
-            params:{
+            method: 'post',
+            url: 'http://center.marketing.yunpaas.cn/jgg/awardSetup/list',
+            params: {
               activityId: this.activeId,
             }
-          }).then(res=>{
+          }).then(res => {
             console.log(res);
           })
         }
-        else if(this.templateUuid==2){
+        else if (this.templateUuid == 2) {
           this.$axios({
-            method:'post',
-            url:'http://center.marketing.yunpaas.cn/kj/goodsSetup/list',
-            params:{
+            method: 'post',
+            url: 'http://center.marketing.yunpaas.cn/kj/goodsSetup/list',
+            params: {
               activityId: this.activeId,
             }
-          }).then(res=>{
+          }).then(res => {
             console.log(res);
           })
         }
@@ -492,6 +549,7 @@
             sessionStorage.setItem('activData', actD)
 
             $('.publish').css({"display": "none"})
+
             this.handleCurrentChange()
           }).catch(res => {
             console.log(res)
@@ -518,17 +576,17 @@
             templateUuid: this.templateUuid
           },
         }).then(res => {
-            this.state.activData = JSON.stringify(res.data.data)
-            this.state.Datalist = JSON.stringify(res.data.data.list)//我的活动数据
-            let Dlist = this.state.Datalist
-            let actD = this.state.activData
-            sessionStorage.setItem('Datalist', Dlist)
-            sessionStorage.setItem('activData', actD)
-            alert("删除成功")
-            this.handleCurrentChange()
-          }).catch(res => {
-            console.log(res)
-          })
+          this.state.activData = JSON.stringify(res.data.data)
+          this.state.Datalist = JSON.stringify(res.data.data.list)//我的活动数据
+          let Dlist = this.state.Datalist
+          let actD = this.state.activData
+          sessionStorage.setItem('Datalist', Dlist)
+          sessionStorage.setItem('activData', actD)
+          alert("删除成功")
+          this.handleCurrentChange()
+        }).catch(res => {
+          console.log(res)
+        })
       },
       copy() {
         var inp = document.getElementById("inp");
@@ -545,20 +603,20 @@
 
         var token = sessionStorage.getItem('token')
         this.$axios({
-          method:'post',
-          url:'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,
-          params:{
-            pagesize:this.pagesize,
-            pageNum:this.currentPage
+          method: 'post',
+          url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,
+          params: {
+            pagesize: this.pagesize,
+            pageNum: this.currentPage
           }
-        }).then(res=>{
-          let pageData=res.data.data
+        }).then(res => {
+          let pageData = res.data.data
           console.log(pageData);
-          let Datalist=res.data.data.list
-          this.pagesize=pageData.pagesize
-          this.currentPage=pageData.pageNum
-          this.total=pageData.total
-          this.tableData=Datalist
+          let Datalist = res.data.data.list
+          this.pagesize = pageData.pagesize
+          this.currentPage = pageData.pageNum
+          this.total = pageData.total
+          this.tableData = Datalist
           console.log(this.tableData);
         })
         this.currentPage = currentPage;
