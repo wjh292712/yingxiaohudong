@@ -74,7 +74,7 @@
     <!--</div>-->
     <div class="ddd" style="text-align: center">
       <el-table
-        :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+        :data="tableData"
         style="width: 100%;font-size:inherit;text-align: center">
         <el-table-column
           prop="activityName"
@@ -183,10 +183,10 @@
           background
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="this.currentPage"
-          :page-size=this.pagesize
+          :current-page.sync="currentPage"
+          :page-size="pagesize"
           layout=" prev, pager, next, jumper"
-          :total=this.total>
+          :total="total">
         </el-pagination>
       </div>
       <div class="publish">
@@ -329,7 +329,7 @@
       }
     },
     created() {
-      this.pagedata()
+      // this.pagedata()
     },
     computed: {
       ...mapState(['setting_data']),
@@ -338,15 +338,29 @@
     mounted() {
       let _this = this
       let activeData = JSON.parse(sessionStorage.getItem('activData'))
-      console.log(activeData);
-      console.log(activeData.total);
-      console.log(activeData.pageSize)
-      // this.$store.dispatch('activePull')
-      // this.currentPage = activeData.pageNum
-      // this.total = activeData.total
-      // this.pagesize = activeData.pageSize
+      var token = sessionStorage.getItem('token')
+      this.$axios({
+        method:'post',
+        url:'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,
+        params:{
+          pagesize:this.pagesize,
+          pageNum:this.currentPage
+        }
+      }).then(res=>{
+        let pageData=res.data.data
+        console.log(pageData);
+        let Datalist=res.data.data.list
+        this.pagesize=pageData.pagesize
+        this.currentPage=pageData.pageNum
+        this.total=pageData.total
+        this.tableData=Datalist
+      })
+       this.$store.dispatch('activePull')
+      this.currentPage = activeData.pageNum
+        this.total = activeData.total
+      this.pagesize = activeData.pageSize
       this.state()
-      this.pagedata()
+       //this.pagedata()
     },
     methods: {
 
@@ -356,30 +370,15 @@
         console.log(e);
         if (e === "选项1") {
 
-
         }
       },
-      //数据渲染
-      created: function () {
-        //加载班级的数据
-        var url = '';
-        //向后台获取数据
-        var vm = this;
-        $.getJSON(url, function (data) {
-          vm.clazzInfo = data;
-          vm.total = data.length;//设置数据总数目！！！
-        });
-      },
-      current_change: function (currentPage) {
-        this.currentPage = currentPage;
-      },
 
-      pagedata() {
-        //输出数据
-        let Data = sessionStorage.getItem('Datalist')
-        this.tableData = JSON.parse(Data)
-        console.log(this.tableData);
-      },
+      // pagedata() {
+      //   //输出数据
+      //     let Data = sessionStorage.getItem('Datalist')
+      //     this.tableData = JSON.parse(Data)
+      //   console.log(this.tableData);
+      // },
 //状态转换
       state(a) {
         if (a === 1) {
@@ -427,6 +426,29 @@
         $('.publish').css({"display": "block"})
         this.activeId = index
         this.templateUuid = templ
+        alert(this.templateUuid)
+        if(this.templateUuid==1){
+          this.$axios({
+            method:'post',
+            url:'http://center.marketing.yunpaas.cn/jgg/awardSetup/list',
+            params:{
+              activityId: this.activeId,
+            }
+          }).then(res=>{
+            console.log(res);
+          })
+        }
+        else if(this.templateUuid==2){
+          this.$axios({
+            method:'post',
+            url:'http://center.marketing.yunpaas.cn/kj/goodsSetup/list',
+            params:{
+              activityId: this.activeId,
+            }
+          }).then(res=>{
+            console.log(res);
+          })
+        }
 
       },
       show() {
@@ -435,6 +457,7 @@
       chain(url) {
         //链接活动发送
         this.input3 = url
+        alert(this.input3)
         this.imgUrl = 'http://center.marketing.yunpaas.cn/center/enterprisewx/getImg?url=' + this.input3
         console.log(this.imgUrl);
 
@@ -469,7 +492,7 @@
             sessionStorage.setItem('activData', actD)
 
             $('.publish').css({"display": "none"})
-            this.pagedata()
+            this.handleCurrentChange()
           }).catch(res => {
             console.log(res)
           })
@@ -495,13 +518,6 @@
             templateUuid: this.templateUuid
           },
         }).then(res => {
-          console.log(res);
-          var token = sessionStorage.getItem('token')
-          this.$axios({
-            method: 'post',
-            url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,//我的活动
-            params: {}
-          }).then(res => {
             this.state.activData = JSON.stringify(res.data.data)
             this.state.Datalist = JSON.stringify(res.data.data.list)//我的活动数据
             let Dlist = this.state.Datalist
@@ -509,13 +525,11 @@
             sessionStorage.setItem('Datalist', Dlist)
             sessionStorage.setItem('activData', actD)
             alert("删除成功")
-            this.pagedata()
+            this.handleCurrentChange()
           }).catch(res => {
             console.log(res)
           })
-        })
       },
-
       copy() {
         var inp = document.getElementById("inp");
         inp.select();
@@ -528,7 +542,7 @@
 
       },
       handleCurrentChange: function (currentPage) {
-        this.currentPage = currentPage;
+
         var token = sessionStorage.getItem('token')
         this.$axios({
           method:'post',
@@ -538,11 +552,17 @@
             pageNum:this.currentPage
           }
         }).then(res=>{
-          console.log(res);
+          let pageData=res.data.data
+          console.log(pageData);
+          let Datalist=res.data.data.list
+          this.pagesize=pageData.pagesize
+          this.currentPage=pageData.pageNum
+          this.total=pageData.total
+          this.tableData=Datalist
+          console.log(this.tableData);
         })
-
+        this.currentPage = currentPage;
       }
-
     },
 
 

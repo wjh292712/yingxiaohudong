@@ -47,7 +47,8 @@
                   method:'post',
                   url:'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token='+token,//我的活动
                   params:{
-
+                    pagesize:this.pagesize,
+                    pageNum:this.currentPage
                   }
                 }).then(res=>{
 
