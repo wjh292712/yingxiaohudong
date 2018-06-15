@@ -14,11 +14,22 @@
                     <el-tab-pane label="高级设置" name="ffifth"><router-view></router-view></el-tab-pane> -->
 
 
-                    <el-tab-pane label="基础设置" name="first"><setting-base></setting-base></el-tab-pane>
-                    <el-tab-pane label="奖品设置" name="second"><reword></reword></el-tab-pane>
-                    <el-tab-pane label="派奖设置" name="third"><award></award></el-tab-pane>
-                    <el-tab-pane label="分享设置" name="fourth"><share></share></el-tab-pane>
-                    <el-tab-pane label="高级设置" name="ffifth"><advanced></advanced></el-tab-pane>
+                    <el-tab-pane label="基础设置" name="first">
+                      <!--<setting-base></setting-base>-->
+                      <settingbaseEdit></settingbaseEdit>
+                    </el-tab-pane>
+                    <el-tab-pane label="奖品设置" name="second">
+                      <reword></reword>
+                    </el-tab-pane>
+                    <el-tab-pane label="派奖设置" name="third">
+                      <award></award>
+                    </el-tab-pane>
+                    <el-tab-pane label="分享设置" name="fourth">
+                      <share></share>
+                    </el-tab-pane>
+                    <el-tab-pane label="高级设置" name="ffifth">
+                      <advanced></advanced>
+                    </el-tab-pane>
 
                   </el-tabs>
 
@@ -33,6 +44,7 @@
 <script>
 
     import settingBase from '@/page/settingbase'
+    import settingbaseEdit from '@/page/settingbaseEdit'
     import reword from '@/page/reword'
     import share from '@/page/share'
     import advanced from '@/page/advanced'
@@ -190,6 +202,7 @@
         },
         components:{
             settingBase,
+          settingbaseEdit,
             reword,
             share,
             advanced,

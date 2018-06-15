@@ -42,7 +42,8 @@
           <el-input style="height:3rem;" type="textarea" v-model="form.address"></el-input>
         </el-form-item>
         <el-form-item label="商家电话">
-          <el-input style="height:3rem;" type="textarea" v-model="form.phone"></el-input>
+          <el-input style="height:3rem;" type="textarea" v-model="form.phone" maxlength="11" onkeyup="value=value.replace(/[^\d]/g,'')">
+          </el-input>
         </el-form-item>
 
       </el-form>

@@ -25,9 +25,10 @@ import baradvanced from '@/page/baradvanced'
 //答题活动
 import answerlist from '@/page/answerlist'
 import answerset from '@/page/answerset'
-import answsettingbase from '@/page/answsettingbase'
-import ansreword from '@/page/ansreword'
-
+import answsettingbase from '@/page/answsettingbase'//基础设置
+import anstitle from '@/page/anstitle' //题目设置
+import ansaward from '@/page/ansaward' //派奖设置
+import ansreword from '@/page/ansreword'//奖品设置
 
 
 
@@ -44,6 +45,7 @@ import activity from '@/components/activity'
 // 客户端
  import setting from '@/page/setting'
 import settingbase from '@/page/settingbase'
+import settingbaseEdit from '@/page/settingbaseEdit'
 import reword from '@/page/reword'
 import share from '@/page/share'
 import advanced from '@/page/advanced'
@@ -195,18 +197,18 @@ export default new Router({
           component: answsettingbase
         },
         {
-          path: "/answerset/ansreword",//奖品设置
+          path: "/answerset/anstitle",//题目设置
+          component: anstitle
+        },
+
+        {
+          path: "/answerset/ansaward ",//派奖设置
+          component: ansaward
+        },
+
+        {
+          path: "/answerset/ansreword",
           component: ansreword
-        },
-
-        {
-          path: "/bargainset/baraward ",
-          component: baraward
-        },
-
-        {
-          path: "/bargainset/baradvanced",
-          component: baradvanced
         },
         {
           path:'/bargainset/barpage',
@@ -230,9 +232,13 @@ export default new Router({
       path: "/setting",
       component: resolve => void(require(['@/page/setting'],resolve)),
       children: [
+        // {
+        //   path: "/setting/settingbase",
+        //   component: settingbase
+        // },
         {
-          path: "/setting/settingbase",
-          component: settingbase
+          path: "/setting/settingbaseEdit",
+          component: settingbaseEdit
         },
         {
           path: "/setting/share",

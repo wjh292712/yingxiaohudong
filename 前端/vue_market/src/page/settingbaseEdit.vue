@@ -8,12 +8,26 @@
         </el-form-item>
         <el-form-item label="活动日期">
           <el-date-picker
-            v-model="value4"
-            type="datetimerange"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期" style="width:300px">
-          </el-date-picker >
+            v-model="value1"
+            :disabled="true"
+            type="datetime"
+            placeholder="选择开始时间" style="width: 250px">
+          </el-date-picker>
+          <el-date-picker
+            v-model="value2"
+            :disabled="false"
+            type="datetime"
+            placeholder="选择结束时间" style="width: 250px">
+          </el-date-picker>
+
+          <!--<el-date-picker-->
+            <!--v-model="value4"-->
+            <!--disabled="true"-->
+            <!--type="datetimerange"-->
+            <!--range-separator="至"-->
+            <!--start-placeholder="开始日期"-->
+            <!--end-placeholder="结束日期">-->
+          <!--</el-date-picker>-->
         </el-form-item>
         <el-form-item label="参与人数">
           <el-radio-group v-model="radio1">
@@ -39,8 +53,8 @@
         </el-form-item>
         <el-form-item>
           <!--<div class="btn_click">-->
-            <!--<el-button type="primary" @click="saveBase()">保存</el-button>-->
-            <!--<el-button type='primary' @click="back()">返回</el-button>-->
+          <!--<el-button type="primary" @click="saveBase()">保存</el-button>-->
+          <!--<el-button type='primary' @click="back()">返回</el-button>-->
           <!--</div>-->
 
         </el-form-item>
@@ -108,7 +122,9 @@
           }]
         },
         value4: [new Date(2018, 10, 29, 10, 10), new Date(2018, 10, 11, 10, 10)],
-        value5: ''
+        value5: '',
+        value1:'',
+        value2:'',
       };
 
 
@@ -147,7 +163,7 @@
         _this.formName = _this.base_data.activityName
         formName = _this.base_data.activityName
         _this.form.desc=_this.base_data.rule
-       console.log(_this.form.desc);
+        console.log(_this.form.desc);
 
         _this.start_date = _this.base_data.startDate//日期开始时间
         _this.end_date=_this.base_data.endDate//结束时间
@@ -156,16 +172,18 @@
 
 
         //时间戳转换日期
-      let newStr= _this.timestampToTime(str)
-         strend=_this.timestampToTime(strend)
+        let newStr= _this.timestampToTime(str)
+        strend=_this.timestampToTime(strend)
         _this.value4=[newStr,strend]
+        _this.value1=newStr
+        _this.value2=strend
 
         // console.log(_this.value4);
 
         _this.radio1 = Number(_this.base_data.shows).toString(),
           _this.radio2 = Number(_this.base_data.subscribe).toString()
 
-         return formName;
+        return formName;
       },
 
       timestampToTime(timestamp) {

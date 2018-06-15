@@ -175,22 +175,24 @@
             stripe
             style="width: 100%;font-size: xx-small; ">
             <el-table-column
-              prop="typedata"
-
+              prop="awardType.name"
               label="奖品类型">
             </el-table-column>
             <el-table-column
-              prop="named"
+              prop="prizeName"
               label="奖品名称">
             </el-table-column>
             <el-table-column
-              prop="count"
+              prop="prizeNum"
               label="奖品数量">
             </el-table-column>
-            <el-table-column
-              prop="creat"
-              label="生成券码">
-            </el-table-column>
+            <!--<el-table-column-->
+              <!--prop="prizeCouponCodeType"-->
+              <!--label="生成券码">-->
+              <!--<template slot-scope="scope">-->
+                <!--{{state1(scope.row.prizeCouponCodeType)}}-->
+              <!--</template>-->
+            <!--</el-table-column>-->
           </el-table>
         </div>
         <div class="btn_all">
@@ -403,11 +405,6 @@
         if(this.value5===null){
           this.value5=''
         }
-        alert( this.value4+"val40")
-        alert( this.value4+"val41")
-
-        alert(this.value5+"val50")
-        alert(this.value5+"val51")
         this.$axios({
           method: 'post',
           url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,
@@ -454,6 +451,15 @@
           return a = "活动关闭"
         }
       },
+      state1(a) {  //奖品发布券码生成判断
+        if (a === 1) {
+          return a = "系统生成"
+        }
+        if (a === 2) {
+          return a = "手动生成"
+        }
+
+      },
 
       //日期转换
       timestampToTime(timestamp) {
@@ -483,8 +489,7 @@
         $('.publish').css({"display": "block"})
         this.activeId = index
         this.templateUuid = templ
-        alert(this.templateUuid)
-        if (this.templateUuid == 1) {
+        if (this.templateUuid == 1) {//九宫格发布奖品
           this.$axios({
             method: 'post',
             url: 'http://center.marketing.yunpaas.cn/jgg/awardSetup/list',
@@ -493,9 +498,13 @@
             }
           }).then(res => {
             console.log(res);
+            let jggDataList=res.data.data.list
+            console.log(jggDataList);
+            // this.rewdata.typedata= jggDataList.jggAwardType.name
+            this.rewdata=jggDataList
           })
         }
-        else if (this.templateUuid == 2) {
+        else if (this.templateUuid == 2) {//砍价发布奖品
           this.$axios({
             method: 'post',
             url: 'http://center.marketing.yunpaas.cn/kj/goodsSetup/list',
@@ -503,7 +512,9 @@
               activityId: this.activeId,
             }
           }).then(res => {
-            console.log(res);
+            let kjDataList=res.data.data.list
+            console.log(kjDataList);
+            this.rewdata = kjDataList
           })
         }
 
@@ -776,6 +787,8 @@
   .formContent {
     margin-top: 20px;
     padding: 0 30px;
+    height: 150px;
+    overflow-x: auto;
   }
 
   .btn_all {

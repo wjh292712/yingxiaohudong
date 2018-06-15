@@ -97,6 +97,11 @@
   }
 </script>
 <style lang="scss" scoped>
+  .send{
+    margin-top: 20px;
+    p{
+      margin-top: 10px;
+    }}
  .nns{
    width: 150px;
    height: 30px;

@@ -36,10 +36,10 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price1" placeholder="必须是大于0的数，支持小数点后两位"></el-input>
+                <el-input v-model="form.price1" placeholder="必须是大于0的数，支持小数点后两位" ></el-input>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow1" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改"></el-input>
+                <el-input v-model="form.priceLow1" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" onkeyup="value=value.replace(/[^\d]/g,'')"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>

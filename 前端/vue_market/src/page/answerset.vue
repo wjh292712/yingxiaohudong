@@ -14,16 +14,15 @@
        <answsettingbase></answsettingbase>
           </el-tab-pane>
           <el-tab-pane label="题目设置" name="second">
+            <anstitle></anstitle>
 
-            <ansreword></ansreword>
           </el-tab-pane>
           <el-tab-pane label="派奖设置" name="third">
 
-            <baraward></baraward>
+            <ansaward></ansaward>
           </el-tab-pane>
-          <el-tab-pane label="分享设置" name="fourth">
-
-            <baraward></baraward>
+          <el-tab-pane label="奖品设置" name="fourth">
+            <ansreword></ansreword>
           </el-tab-pane>
           <el-tab-pane label="高级设置" name="fifth">
             <baradvanced></baradvanced>
@@ -42,8 +41,10 @@
   // import settingBase from '@/page/settingbase'
 
   import answsettingbase from '@/page/answsettingbase'
+  import anstitle from '@/page/anstitle'
   import ansreword from '@/page/ansreword'
-  import baraward from '@/page/baraward'
+  import ansaward from '@/page/ansaward'
+
   import baradvanced from '@/page/baradvanced'
   // import reword from '@/page/reword'
   import share from '@/page/share'
@@ -173,8 +174,9 @@
     },
     components:{
       answsettingbase,
+      anstitle,
       ansreword,
-      baraward,
+      ansaward,
       baradvanced,
       share,
     }
