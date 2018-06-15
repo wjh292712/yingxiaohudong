@@ -13,7 +13,7 @@
           <el-tab-pane label="基础设置" name="first">
        <answsettingbase></answsettingbase>
           </el-tab-pane>
-          <el-tab-pane label="奖品设置" name="second">
+          <el-tab-pane label="题目设置" name="second">
 
             <ansreword></ansreword>
           </el-tab-pane>
@@ -21,12 +21,11 @@
 
             <baraward></baraward>
           </el-tab-pane>
-          <el-tab-pane label="分享设置" name="third">
+          <el-tab-pane label="分享设置" name="fourth">
 
             <baraward></baraward>
           </el-tab-pane>
-          <!--<el-tab-pane label="分享设置" name="fourth"><share></share></el-tab-pane>-->
-          <el-tab-pane label="高级设置" name="ffifth">
+          <el-tab-pane label="高级设置" name="fifth">
             <baradvanced></baradvanced>
 
           </el-tab-pane>

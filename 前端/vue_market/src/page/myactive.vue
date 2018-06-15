@@ -25,7 +25,7 @@
       </el-date-picker>
 
       <el-autocomplete
-        clearable
+        clearable="true"
         class="inline-input"
         v-model="activeState"
         :fetch-suggestions="querySearch"
