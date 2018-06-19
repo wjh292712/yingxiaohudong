@@ -6,7 +6,7 @@
 
       </div>
       <div class="setting_title">
-        <el-tabs v-model="activeName2" @tab-click="tabChange(name,label)">
+        <el-tabs v-model="activeName2" >
 
 
 
@@ -25,7 +25,7 @@
             <ansreword></ansreword>
           </el-tab-pane>
           <el-tab-pane label="高级设置" name="fifth">
-            <baradvanced></baradvanced>
+                      <ansadvanced></ansadvanced>
 
           </el-tab-pane>
 
@@ -44,8 +44,8 @@
   import anstitle from '@/page/anstitle'
   import ansreword from '@/page/ansreword'
   import ansaward from '@/page/ansaward'
+import ansadvanced from '@/page/ansadvanced'
 
-  import baradvanced from '@/page/baradvanced'
   // import reword from '@/page/reword'
   import share from '@/page/share'
   import advanced from '@/page/advanced'
@@ -70,8 +70,8 @@
       }
     },
     computed:{
-      ...mapState(['setting_data']),
-      ...mapActions(['saveData'])
+      ...mapState(['setting_dtData']),
+      ...mapActions(['saveDatadt'])
     },
     mounted(){
       this.$store.dispatch('saveData')
@@ -126,10 +126,6 @@
       // ...mapMutations([setting])
       //tab切换
 
-      tabChange(tab,event){
-        this.activeName2 = name
-        console.log(tab,event)
-      },
       //保存设置
       onSave(){
         var sendNew =JSON.stringify(this.sendData)
@@ -177,7 +173,7 @@
       anstitle,
       ansreword,
       ansaward,
-      baradvanced,
+      ansadvanced,
       share,
     }
   })

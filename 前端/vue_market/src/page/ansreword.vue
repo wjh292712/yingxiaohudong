@@ -1,3 +1,4 @@
+//奖品设置
 <template>
   <div class="reword_wrap">
     <div class="reword_con">
@@ -1154,8 +1155,8 @@
       })
     },
     computed:{
-      ...mapState(['setting_data']),
-      ...mapActions(['saveData']),
+      ...mapState(['setting_dtData']),
+      ...mapActions(['saveDatadt']),
       sdata(){
         return this.setting_data
       }
@@ -1212,8 +1213,8 @@
 
       //奖金设置部分的数据
       partReword(){
-        let Data = sessionStorage.getItem('Data')
-        this.reword_data = JSON.parse(Data).jggAwardSetupExtendList
+        let Data = sessionStorage.getItem('Datadt')
+        this.reword_data = JSON.parse(Data).dtAwardSetupExtendList
         this.list=this.reword_data
 
         console.log(this.reword_data)
@@ -1239,8 +1240,8 @@
         this.radio2 = this.reword_data[0].prizeSource.toString()
         this.radio3 = this.reword_data[0].prizeExchangeTypeId.toString()
         this.imgData=this.reword_data[0].prizeImg
-        this.reword_type1 = this.reword_data[0].jggAwardTypeList
-        console.log(this.reword_data[0].jggAwardTypeList);
+        this.reword_type1 = this.reword_data[0].dtAwardTypeList
+        console.log(this.reword_data[0].dtAwardTypeList);
 
         //奖品二
         this.form.name2_1 = this.reword_data[1].prizeName
@@ -1250,7 +1251,7 @@
         this.radio2_2 = this.reword_data[1].prizeSource.toString()
         this.radio2_3 = this.reword_data[1].prizeExchangeTypeId.toString()
         this.imgData=this.reword_data[1].prizeImg
-        this.reword_type2 = this.reword_data[1].jggAwardTypeList
+        this.reword_type2 = this.reword_data[1].dtAwardTypeList
 
         //奖品三
         this.form.name3_1 = this.reword_data[2].prizeName
@@ -1260,7 +1261,7 @@
         this.radio3_2 = this.reword_data[2].prizeSource.toString()
         this.radio3_3 = this.reword_data[2].prizeExchangeTypeId.toString()
         this.imgData=this.reword_data[2].prizeImg
-        this.reword_type3 = this.reword_data[2].jggAwardTypeList
+        this.reword_type3 = this.reword_data[2].dtAwardTypeList
 
         //奖品四
         this.form.name4_1 = this.reword_data[3].prizeName
@@ -1270,7 +1271,7 @@
         this.radio4_2 = this.reword_data[3].prizeSource.toString()
         this.radio4_3 = this.reword_data[3].prizeExchangeTypeId.toString()
         this.imgData=this.reword_data[3].prizeImg
-        this.reword_type4 = this.reword_data[3].jggAwardTypeList
+        this.reword_type4 = this.reword_data[3].dtAwardTypeList
 
         //奖品五
         this.form.name5_1 = this.reword_data[4].prizeName
@@ -1280,7 +1281,7 @@
         this.radio5_2 = this.reword_data[4].prizeSource.toString()
         this.radio5_3 = this.reword_data[4].prizeExchangeTypeId.toString()
         this.imgData=this.reword_data[4].prizeImg
-        this.reword_type5 = this.reword_data[4].jggAwardTypeList
+        this.reword_type5 = this.reword_data[4].dtAwardTypeList
 
         //奖品六
         this.form.name6_1 = this.reword_data[5].prizeName
@@ -1290,7 +1291,7 @@
         this.radio6_2 = this.reword_data[5].prizeSource.toString()
         this.radio6_3 = this.reword_data[5].prizeExchangeTypeId.toString()
         this.imgData=this.reword_data[5].prizeImg
-        this.reword_type6 = this.reword_data[5].jggAwardTypeList
+        this.reword_type6 = this.reword_data[5].dtAwardTypeList
 
         //奖品七
         this.form.name7_1 = this.reword_data[6].prizeName
@@ -1300,7 +1301,7 @@
         this.radio7_2 = this.reword_data[6].prizeSource.toString()
         this.radio7_3 = this.reword_data[6].prizeExchangeTypeId.toString()
         this.imgData=this.reword_data[6].prizeImg
-        this.reword_type7 = this.reword_data[6].jggAwardTypeList
+        this.reword_type7 = this.reword_data[6].dtAwardTypeList
 
         //奖品八
         // this.form.name8_1 = this.reword_data[7].prizeName
@@ -1309,7 +1310,7 @@
         // this.radio8_1 = this.reword_data[7].prizeType.toString()
         // this.radio8_2 = this.reword_data[7].prizeSource.toString()
         // this.radio8_3 = this.reword_data[7].prizeExchangeTypeId.toString()
-        // this.reword_type8 = this.reword_data[7].jggAwardTypeList
+        // this.reword_type8 = this.reword_data[7].dtAwardTypeList
       },
       //保存奖品数据
       saveReword(){
@@ -1328,7 +1329,7 @@
         this.reword_send[0].prizeExchangeTypeId = Number(this.radio3)
         this.reword_send[0].exchangeAddress=this.form.address
         this.reword_send[0].prizeImg=this.imgData
-        this.reword_send[0].jggAwardTypeList=this.reword_type1
+        this.reword_send[0].dtAwardTypeList=this.reword_type1
 
 
         //奖品二
@@ -1340,7 +1341,7 @@
         this.reword_send[1].prizeExchangeTypeId = Number(this.radio2_3)
         this.reword_send[1].exchangeAddress=this.form.address
         this.reword_send[1].prizeImg=this.imgData
-        this.reword_send[1].jggAwardTypeList=this.reword_type2
+        this.reword_send[1].dtAwardTypeList=this.reword_type2
         //this.reword_type2 = this.reword_data.jggAwardTypeList
 
         //奖品三
@@ -1352,7 +1353,7 @@
         this.reword_send[2].prizeExchangeTypeId = Number(this.radio3_3)
         this.reword_send[2].exchangeAddress=this.form.address
         this.reword_send[2].prizeImg=this.imgData
-        this.reword_send[2].jggAwardTypeList=this.reword_type3
+        this.reword_send[2].dtAwardTypeList=this.reword_type3
         //this.reword_type3 = this.reword_data.jggAwardTypeList
 
         //奖品四
@@ -1364,7 +1365,7 @@
         this.reword_send[3].prizeExchangeTypeId = Number(this.radio4_3)
         this.reword_send[3].exchangeAddress=this.form.address
         this.reword_send[3].prizeImg=this.imgData
-        this.reword_send[3].jggAwardTypeList=this.reword_type4
+        this.reword_send[3].dtAwardTypeList=this.reword_type4
         //this.reword_type4 = this.reword_data.jggAwardTypeList
 
         //奖品五
@@ -1376,7 +1377,7 @@
         this.reword_send[4].prizeExchangeTypeId = Number(this.radio5_3)
         this.reword_send[4].exchangeAddress=this.form.address
         this.reword_send[4].prizeImg=this.imgData
-        this.reword_send[4].jggAwardTypeList=this.reword_type5
+        this.reword_send[4].dtAwardTypeList=this.reword_type5
 
 
         //奖品六
@@ -1388,7 +1389,7 @@
         this.reword_send[5].prizeExchangeTypeId = Number(this.radio6_3)
         this.reword_send[5].exchangeAddress=this.form.address
         this.reword_send[5].prizeImg=this.imgData
-        this.reword_send[5].jggAwardTypeList=this.reword_type6
+        this.reword_send[5].dtAwardTypeList=this.reword_type6
 
 
         //奖品七
@@ -1400,7 +1401,7 @@
         this.reword_send[6].prizeExchangeTypeId = Number(this.radio6_3)
         this.reword_send[6].exchangeAddress=this.form.address
         this.reword_send[6].prizeImg=this.imgData
-        this.reword_send[6].jggAwardTypeList=this.reword_type7
+        this.reword_send[6].dtAwardTypeList=this.reword_type7
 
         // 奖品八
         // this.reword_send[7].prizeName = this.form.name7_1
@@ -1409,9 +1410,9 @@
         // this.reword_send[7].prizeType = Number(this.radio7_1)
         // this.reword_send[7].prizeSource = Number(this.radio7_2)
         // this.reword_send[7].prizeExchangeTypeId = Number(this.radio7_3)
-        // this.reword_type8 = this.reword_data.jggAwardTypeList
+        // this.reword_type8 = this.reword_data.dtAwardTypeList
 
-        this.$store.state.setting_data.jggAwardSetupExtendList = this.reword_send
+        this.$store.state.setting_data.dtAwardSetupExtendList = this.reword_send
         this.$bus.emit("send_reword",this.reword_send)
         console.log(this.reword_data)
       },

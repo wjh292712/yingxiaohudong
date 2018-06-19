@@ -150,12 +150,17 @@
       }
     },
     computed: {
-      // ...mapState(['setting_data','banner']),
-      // ...mapActions(['saveData','saveForm']),
+      // ...mapState(['setting_dtData']),
+      // ...mapActions(['saveDatadt'])
     },
     mounted() {
-      // this.$store.dispatch('saveForm')
-      // console.log(this.banner)
+      this.$axios({
+        method: "post",
+        url: "http://center.marketing.yunpaas.cn/dt/activitySetup/init",//数据初始化接口
+        params: {},
+      }).then(res => {
+
+      })
     },
     methods: {
       tab(index) {

@@ -36,7 +36,7 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price1" placeholder="必须是大于0的数，支持小数点后两位" ></el-input>
+                <el-input v-model="form.price1" placeholder="必须是大于0的数，支持小数点后两位"></el-input>
               </el-form-item>
               <el-form-item label="商品底价">
                 <el-input v-model="form.priceLow1" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" onkeyup="value=value.replace(/[^\d]/g,'')"></el-input>
@@ -46,10 +46,10 @@
               </el-form-item>
 
               <el-form-item label="商品库存">
-                <el-input type="textarea" v-model="form.count1"></el-input>
+                <el-input type="textarea" v-model="form.count1" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量">
-                <el-input type="textarea" v-model="form.countsales1"></el-input>
+                <el-input type="textarea" v-model="form.countsales1" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品详情">
                 <span class="scccc">
@@ -90,12 +90,12 @@
 
 
               <el-form-item label="配送方式" style="width:26rem;">
-                <el-input type="textarea" v-model="form.deliveryType1"></el-input>
+                <el-input type="textarea" v-model="form.deliveryType1" size="mini"></el-input>
               </el-form-item>
 
 
               <el-form-item label="发货说明">
-                <el-input type="textarea" v-model="form.deliveryInfo1"></el-input>
+                <el-input type="textarea" v-model="form.deliveryInfo1" size="mini"></el-input>
               </el-form-item>
 
 
@@ -129,20 +129,20 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price2" placeholder="必须是大于0的数，支持小数点后两位"></el-input>
+                <el-input v-model="form.price2" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow2" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改"></el-input>
+                <el-input v-model="form.priceLow2" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
               </el-form-item>
 
               <el-form-item label="商品库存">
-                <el-input type="textarea" v-model="form.count2"></el-input>
+                <el-input type="textarea" v-model="form.count2" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量">
-                <el-input type="textarea" v-model="form.countsales2"></el-input>
+                <el-input type="textarea" v-model="form.countsales2" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品详情">
                 <span class="scccc">
@@ -183,12 +183,12 @@
 
 
               <el-form-item label="配送方式" style="width:26rem;">
-                <el-input type="textarea" v-model="form.deliveryType2"></el-input>
+                <el-input type="textarea" v-model="form.deliveryType2" size="mini"></el-input>
               </el-form-item>
 
 
               <el-form-item label="发货说明">
-                <el-input type="textarea" v-model="form.deliveryInfo2"></el-input>
+                <el-input type="textarea" v-model="form.deliveryInfo2" size="mini"></el-input>
               </el-form-item>
 
 
@@ -223,20 +223,20 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price3" placeholder="必须是大于0的数，支持小数点后两位"></el-input>
+                <el-input v-model="form.price3" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow3" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改"></el-input>
+                <el-input v-model="form.priceLow3" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
               </el-form-item>
 
               <el-form-item label="商品库存">
-                <el-input type="textarea" v-model="form.count3"></el-input>
+                <el-input type="textarea" v-model="form.count3" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量">
-                <el-input type="textarea" v-model="form.countsales3"></el-input>
+                <el-input type="textarea" v-model="form.countsales3" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品详情">
                 <span class="scccc">
@@ -277,12 +277,12 @@
 
 
               <el-form-item label="配送方式" style="width:26rem;">
-                <el-input type="textarea" v-model="form.deliveryType3"></el-input>
+                <el-input type="textarea" v-model="form.deliveryType3" size="mini"></el-input>
               </el-form-item>
 
 
               <el-form-item label="发货说明">
-                <el-input type="textarea" v-model="form.deliveryInfo3"></el-input>
+                <el-input type="textarea" v-model="form.deliveryInfo3" size="mini"></el-input>
               </el-form-item>
 
 
@@ -319,20 +319,20 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price4" placeholder="必须是大于0的数，支持小数点后两位"></el-input>
+                <el-input v-model="form.price4" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow4" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改"></el-input>
+                <el-input v-model="form.priceLow4" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
               </el-form-item>
 
               <el-form-item label="商品库存">
-                <el-input type="textarea" v-model="form.count4"></el-input>
+                <el-input type="textarea" v-model="form.count4" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量">
-                <el-input type="textarea" v-model="form.countsales4"></el-input>
+                <el-input type="textarea" v-model="form.countsales4" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品详情">
                 <span class="scccc">
@@ -373,12 +373,12 @@
 
 
               <el-form-item label="配送方式" style="width:26rem;">
-                <el-input type="textarea" v-model="form.deliveryType4"></el-input>
+                <el-input type="textarea" v-model="form.deliveryType4" size="mini"></el-input>
               </el-form-item>
 
 
               <el-form-item label="发货说明">
-                <el-input type="textarea" v-model="form.deliveryInfo4"></el-input>
+                <el-input type="textarea" v-model="form.deliveryInfo4" size="mini"></el-input>
               </el-form-item>
 
 
@@ -414,20 +414,20 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price5" placeholder="必须是大于0的数，支持小数点后两位"></el-input>
+                <el-input v-model="form.price5" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow5" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改"></el-input>
+                <el-input v-model="form.priceLow5" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
               </el-form-item>
 
               <el-form-item label="商品库存">
-                <el-input type="textarea" v-model="form.count5"></el-input>
+                <el-input type="textarea" v-model="form.count5" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量">
-                <el-input type="textarea" v-model="form.countsales5"></el-input>
+                <el-input type="textarea" v-model="form.countsales5" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品详情">
                 <span class="scccc">
@@ -468,12 +468,12 @@
 
 
               <el-form-item label="配送方式" style="width:26rem;">
-                <el-input type="textarea" v-model="form.deliveryType5"></el-input>
+                <el-input type="textarea" v-model="form.deliveryType5" size="mini"></el-input>
               </el-form-item>
 
 
               <el-form-item label="发货说明">
-                <el-input type="textarea" v-model="form.deliveryInfo5"></el-input>
+                <el-input type="textarea" v-model="form.deliveryInfo5" size="mini"></el-input>
               </el-form-item>
 
 
@@ -508,20 +508,20 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price6" placeholder="必须是大于0的数，支持小数点后两位"></el-input>
+                <el-input v-model="form.price6" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow6" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改"></el-input>
+                <el-input v-model="form.priceLow6" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
               </el-form-item>
 
               <el-form-item label="商品库存">
-                <el-input type="textarea" v-model="form.count6"></el-input>
+                <el-input type="textarea" v-model="form.count6" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量">
-                <el-input type="textarea" v-model="form.countsales1"></el-input>
+                <el-input type="textarea" v-model="form.countsales1" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品详情">
                 <span class="scccc">
@@ -562,12 +562,12 @@
 
 
               <el-form-item label="配送方式" style="width:26rem;">
-                <el-input type="textarea" v-model="form.deliveryType6"></el-input>
+                <el-input type="textarea" v-model="form.deliveryType6" size="mini"></el-input>
               </el-form-item>
 
 
               <el-form-item label="发货说明">
-                <el-input type="textarea" v-model="form.deliveryInfo6"></el-input>
+                <el-input type="textarea" v-model="form.deliveryInfo6" size="mini"></el-input>
               </el-form-item>
 
 
@@ -603,20 +603,20 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price7" placeholder="必须是大于0的数，支持小数点后两位"></el-input>
+                <el-input v-model="form.price7" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow7" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改"></el-input>
+                <el-input v-model="form.priceLow7" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
               </el-form-item>
 
               <el-form-item label="商品库存">
-                <el-input type="textarea" v-model="form.count7"></el-input>
+                <el-input type="textarea" v-model="form.count7" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量">
-                <el-input type="textarea" v-model="form.countsales7"></el-input>
+                <el-input type="textarea" v-model="form.countsales7" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品详情">
                 <span class="scccc">
@@ -657,12 +657,12 @@
 
 
               <el-form-item label="配送方式" style="width:26rem;">
-                <el-input type="textarea" v-model="form.deliveryType7"></el-input>
+                <el-input type="textarea" v-model="form.deliveryType7" size="mini"></el-input>
               </el-form-item>
 
 
               <el-form-item label="发货说明">
-                <el-input type="textarea" v-model="form.deliveryInfo7"></el-input>
+                <el-input type="textarea" v-model="form.deliveryInfo7" size="mini"></el-input>
               </el-form-item>
 
 

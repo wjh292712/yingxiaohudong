@@ -30,7 +30,7 @@ import answsettingbase from '@/page/answsettingbase'//基础设置
 import anstitle from '@/page/anstitle' //题目设置
 import ansaward from '@/page/ansaward' //派奖设置
 import ansreword from '@/page/ansreword'//奖品设置
-
+import ansadvanced from '@/page/ansadvanced'//高级设置
 
 
 // 运营端
@@ -221,6 +221,10 @@ export default new Router({
         {
           path: "/answerset/ansreword",
           component: ansreword
+        },
+        {
+          path: "/answerset/ansadvanced",//高级设置
+          component: ansadvanced
         },
 
         {path:'/answerset/anspage',

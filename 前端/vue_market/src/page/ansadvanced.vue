@@ -213,8 +213,8 @@
       this.partHight()
     },
     computed:{
-      ...mapState(['setting_kjData']),
-      ...mapActions(['saveDatakj'])
+      ...mapState(['setting_dtData']),
+      ...mapActions(['saveDatadt'])
     },
     updated(){
       this.saveHight()
@@ -224,10 +224,10 @@
 
       partHight(){
         // this.$store.dispatch('saveData')
-        let Data = sessionStorage.getItem('Datakj')
+        let Data = sessionStorage.getItem('Datadt')
 
         // 企业设置
-        this.company = JSON.parse(Data).kjHighCompanySetup
+        this.company = JSON.parse(Data).dtHighCompanySetup
         this.input=this.company.company //主办单位
         this.input3=this.company.url   //链接地址
         this.radio2 = this.company.companyLogoType.toString()//主办单位logo
@@ -238,13 +238,13 @@
         }
 
         // 分享设置
-        this.share = JSON.parse(Data).kjShareSetup
+        this.share = JSON.parse(Data).dtShareSetup
         this.radio5 = this.share.wxShareLogoType.toString()
         this.radio6 = this.share.wxShareTitleType.toString()
         this.radio7 = this.share.wxShareContentType.toString()
 
         // 其它设置
-        this.other = JSON.parse(Data).kjHighOtherSetup
+        this.other = JSON.parse(Data).dtHighOtherSetup
         if(this.other.ad){
           this.radio8 = "1"
         }
@@ -265,28 +265,28 @@
         let Data = sessionStorage.getItem('Datakj')
 
         //企业保存设置
-        this.company_send = JSON.parse(Data).kjHighCompanySetup
+        this.company_send = JSON.parse(Data).dtHighCompanySetup
         this.company_send.company = this.input
         this.company_send.url = this.input3
         this.company_send.companyLogoType = Number(this.radio2)
         this.company_send.loadImgType = this.radio3 == 1 ? 0 : ''
-        this.$store.state.setting_kjData.kjHighCompanySetup = this.company_send
+        this.$store.state.setting_dtData.dtHighCompanySetup = this.company_send
 
         // 分享保存设置
-        this.share_send = JSON.parse(Data).kjShareSetup
+        this.share_send = JSON.parse(Data).dtShareSetup
         this.share_send.wxShareLogoType = this.radio5
         this.share_send.wxShareTitleType = this.radio6
         this.share_send.wxShareContentType = this.radio7
-        this.$store.state.setting_kjData.kjShareSetup = this.share_send
+        this.$store.state.setting_dtData.dtShareSetup = this.share_send
 
         // 其它保存设置
-        this.other_send = JSON.parse(Data).kjHighOtherSetup
+        this.other_send = JSON.parse(Data).dtHighOtherSetup
         this.other_send.ad = this.radio8 == 1 ? true : false
         this.other_send.carousel = this.radio9 == 1 ? true : false
         this.other_send.form = this.radio10 == 1 ? false : true
         this.other_send.area = this.radio11 == 1 ? false : true
-        this.$store.state.setting_kjData.kjHighOtherSetup =this.other_send
-          this.$bus.emit("send_high",[this.company_send,this.share_send,this.other_send])
+        this.$store.state.setting_dtData.dtHighOtherSetup =this.other_send
+        this.$bus.emit("send_high",[this.company_send,this.share_send,this.other_send])
       },
 
       handleClick(tab, event) {
@@ -311,7 +311,7 @@
         this.logoShow=!this.logoShow
       },
       wxiconShow(){
-        this.wxicon=!this.wxicon
+       this.wxicon=!this.wxicon
       },
       wxTitle(){
         this.wxTil=!this.wxTil
@@ -390,7 +390,7 @@
     background: #fbfbfb;
     text-align: center;
     border: 1px solid #9b9b9b;
-color: #4a4a4a;
+    color: #4a4a4a;
     border-radius:3px;
   }
   .avatar-uploader-more:hover{
@@ -428,6 +428,10 @@ color: #4a4a4a;
     font-size: 0.4rem;
   }
 
+  .wxic{
+    display: inline-block;
+    margin-left: 20px;
+  }
   .safety p .preserve .hold {
     margin-top: 5rem;
   }

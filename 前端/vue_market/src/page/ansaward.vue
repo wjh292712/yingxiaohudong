@@ -29,11 +29,11 @@
           </span>
         </p>
         <p class="content4">
-          <span>每人每次抽奖机会：</span>
+          <span>每人每日抽奖机会：</span>
           <el-input class="counta" v-model="input3"></el-input>次
         </p>
         <p class="content4">
-          <span>每人抽奖机会：</span>
+          <span>每人中奖机会：</span>
 
           <span>每人最多中奖 <el-input class="counta" v-model="input4 "></el-input>次</span>
         </p>
@@ -51,11 +51,11 @@
   export default {
     data() {
       return {
-        radio1:'',
+        radio1:'',//派奖方式
         radio2:'',
         input1:'',//游戏成绩达到
         input2:'',//每人最多有
-        input3:'',//每人每次抽奖机会
+        input3:'',//每人每日抽奖机会
         input4:'',//每人最多中奖
         input5:'',//总中奖率
         limit:false,
@@ -70,29 +70,36 @@
       this.partAward()
     },
     computed:{
-      ...mapState(['setting_kjData']),
-      ...mapActions(['saveDatakj'])
+      ...mapState(['setting_dtData']),
+      ...mapActions(['saveDatadt'])
     },
     updated(){
-
+      this.saveAward()
     },
     methods: {
       partAward(){
-        let Data = sessionStorage.getItem('Datakj')
-        this.raward_data = JSON.parse(Data).kjBargainSetup
-        this.input4=this.raward_data.holdTime // 底价保留时长
-        this.input5=this.raward_data.singleUserBargainNum //每人最多参与砍价数量
-        this.input6=this.raward_data.singleUserHelpNum //一人能为多少玩家助力
-        this.radio1=Number(this.raward_data.topShow).toString()//用户端是否显示
+        let Data = sessionStorage.getItem('Datadt')
+        this.raward_data = JSON.parse(Data).dtAwardSendSetup
+        this.input1=this.raward_data.winScore
+        this.radio1=Number(this.raward_data.sendType).toString()
+        this.radio2=Number(this.raward_data.singleTotalDrawLimit).toString()
+        this.input2=this.raward_data.singleDrawCount
+        this.input3=this.raward_data.singleDayDrawCount
+        this.input4=this.raward_data.singleWinTotalCount
+        this.input5=this.raward_data.probability
+
       },
       saveAward(){
-        let Data = sessionStorage.getItem('Datakj')
-        this.raward_send = JSON.parse(Data).kjBargainSetup
-        this.raward_send.holdTime= this.input4
-        this.raward_send.singleUserBargainNum = this.input5
-        this.raward_send.singleUserHelpNum = this.input6
-        this.raward_send.topShow = this.radio1
-        _this.$store.state.setting_kjData.kjBargainSetup = this.raward_send
+        let Data = sessionStorage.getItem('Datadt')
+        this.raward_send = JSON.parse(Data).dtAwardSendSetup
+       this.raward_send.winScore= this.input1
+     this.raward_send.sendType= this.radio1
+      this.raward_send.singleTotalDrawLimit=this.radio2=
+        this.raward_send.singleDrawCount=this.input2
+       this.raward_send.singleDayDrawCount= this.input3
+        this.raward_send.singleWinTotalCount=this.input4
+       this.raward_send.probability= this.input5
+        _this.$store.state.setting_kjData.dtAwardSendSetup = this.raward_send
         _this.$bus.emit("send_award", this.raward_send)
       },
       Toggle(){

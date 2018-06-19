@@ -33,10 +33,10 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="活动说明">
-          <el-input style="height:6rem;" type="textarea" v-model="form.explain"></el-input>
+          <el-input style="height:3rem;" type="textarea" v-model="form.explain"></el-input>
         </el-form-item>
         <el-form-item label="商家简介">
-          <el-input style="height:6rem;" type="textarea" v-model="form.intro"></el-input>
+          <el-input style="height:3rem;" type="textarea" v-model="form.intro"></el-input>
         </el-form-item>
         <el-form-item label="商家地址">
           <el-input style="height:3rem;" type="textarea" v-model="form.address"></el-input>
@@ -68,10 +68,10 @@
           phone: "12233",//商家电话
         },
         checkBtn: false,//��ť��ʽ
-        formName: "",//������//活动名称
+        formName: "",//活动名称
         isApperant: false,//�Ƿ���ʾ
-        radio1: '',//��ѡ��һ//参与人数
-        radio2: '',//��ѡ���//是否需要关注
+        radio1: '',//参与人数
+        radio2: '',//是否需要关注
         oneRadio: null,//��ѡ��һֵ
         twoRadio: null,//��ѡ��һֵ
         base_data: '',//基础设置数据
