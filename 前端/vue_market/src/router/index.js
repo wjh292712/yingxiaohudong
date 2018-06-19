@@ -25,6 +25,7 @@ import baradvanced from '@/page/baradvanced'
 //答题活动
 import answerlist from '@/page/answerlist'
 import answerset from '@/page/answerset'
+import anspage from '@/page/anspage'
 import answsettingbase from '@/page/answsettingbase'//基础设置
 import anstitle from '@/page/anstitle' //题目设置
 import ansaward from '@/page/ansaward' //派奖设置
@@ -168,7 +169,18 @@ export default new Router({
           path: "/bargainset/baradvanced",
           component: baradvanced
         },
-
+        {
+          path:'/bargainset/barpage',
+          component:barpage
+        },
+        {
+          path:'/bargainset/barplainpage',
+          component:barplainpage
+        },
+        {
+          path:'/bargainset/bardraw',
+          component:bardraw
+        },
       ]
     },
 
@@ -210,18 +222,10 @@ export default new Router({
           path: "/answerset/ansreword",
           component: ansreword
         },
-        {
-          path:'/bargainset/barpage',
-          component:barpage
+
+        {path:'/answerset/anspage',
+        component:anspage
         },
-        {
-          path:'/bargainset/barplainpage',
-          component:barplainpage
-        },
-        {
-          path:'/bargainset/bardraw',
-          component:bardraw
-        }
 
       ]
     },

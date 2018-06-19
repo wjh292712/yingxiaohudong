@@ -1,35 +1,8 @@
-
 <template>
   <div class="active_wrap">
     <div class="active_con">
       <div class="active_rightCon">
         <div class="active_container">
-          <!-- <el-tabs v-model="activeName" >
-            <el-tab-pane label="活动首页" name="first">
-              <div class="active_down">
-                <div class="active_downCon">
-
-                </div>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="活动说明" name="second">
-
-
-            </el-tab-pane>
-            <el-tab-pane label="我的奖品" name="third">
-
-            </el-tab-pane>
-            <el-tab-pane label="奖品详情" name="fourth">
-
-
-            </el-tab-pane>
-            <el-tab-pane label="中奖页" name="five">
-
-            </el-tab-pane>
-            <el-tab-pane label="未中奖页" name="six">
-
-            </el-tab-pane>
-          </el-tabs> -->
           <div class="pic_view">
             <div class="nav_pic">
                 <span v-for="(item,index) in tabs"
@@ -37,9 +10,7 @@
                       :class="num==index?'dora':''"
                       @click="tab(index)">{{item}}</span>
             </div>
-            <el-tabs v-model="activeName" >
-
-
+            <el-tabs v-model="activeName">
 
               <div class="pic_ture">
                 <div class="sett">
@@ -48,60 +19,88 @@
                 <div v-show="num==0">
                   <div class="active_down">
                     <div class="active_downCon">
-                      <activepage>
-                      </activepage>
-                      <!-- 设置栏 -->
-                      <!-- <setting/> -->
+                      <anspage></anspage>
                     </div>
                   </div>
                 </div>
                 <div v-show="num==1">
+                  <!--游戏过程-->
                   <div class="active_down">
                     <div class="active_downCon">
-                      <explainpage/>
+                      <ansactive></ansactive>
 
-                      <!-- 设置栏 -->
-                      <!-- <setting/> -->
                     </div>
                   </div>
 
                 </div>
                 <div v-show="num==2">
+                  <!--挑战成功-->
                   <div class="active_down">
                     <div class="active_downCon">
-                      <draw/>
+                      <ansactivewin></ansactivewin>
 
-                      <!-- 设置栏 -->
-                      <!-- <setting></setting> -->
                     </div>
                   </div>
                 </div>
                 <div v-show="num==3">
+                  <!--挑战失败-->
                   <div class="active_down">
                     <div class="active_downCon">
-                      <detailpage/>
-                      <!-- 设置栏 -->
-                      <!-- <setting/> -->
+                      <ansactiveno></ansactiveno>
+
                     </div>
                   </div>
 
                 </div>
                 <div v-show="num==4">
+                  <!--游戏说明-->
                   <div class="active_down">
                     <div class="active_downCon">
-                      <winning/>
-                      <!-- 设置栏 -->
-                      <!-- <setting/> -->
+
+                      <ansplainpage></ansplainpage>
+
                     </div>
                   </div>
 
                 </div>
                 <div v-show="num==5">
+                  <!--抽奖页面-->
+                  <div class="active_down">
+                    <div class="active_downCon">
+                      <ansdraw></ansdraw>
+                    </div>
+                  </div>
+                </div>
+                <div v-show="num==6">
+                  <!--中奖页-->
+                  <div class="active_down">
+                    <div class="active_downCon">
+                      <winning/>
+                    </div>
+                  </div>
+                </div>
+                <div v-show="num==7">
+                  <!--未中奖页-->
                   <div class="active_down">
                     <div class="active_downCon">
                       <losing/>
-                      <!-- 设置栏 -->
-                      <!-- <setting/> -->
+                    </div>
+                  </div>
+                </div>
+                <div v-show="num==8">
+                  <!--我的奖品-->
+                  <div class="active_down">
+                    <div class="active_downCon">
+
+                    <ansactivedraw></ansactivedraw>
+                    </div>
+                  </div>
+                </div>
+                <div v-show="num==9">
+                  <!--奖品详情-->
+                  <div class="active_down">
+                    <div class="active_downCon">
+                      <ansdetailpage></ansdetailpage>
                     </div>
                   </div>
                 </div>
@@ -122,9 +121,15 @@
 
   // import setting from '@/page/setting'
   import answerset from '@/page/answerset'
-  import activepage from '@/page/activepage'
-  import explainpage from '@/page/explainpage'
-  import draw from '@/page/draw'
+  import anspage from '@/page/anspage'
+  import ansactive from '@/page/ansactive'
+  import ansactivewin from '@/page/ansactivewin'
+  import ansactiveno from '@/page/ansactiveno'
+  import ansplainpage from '@/page/ansplainpage'
+  import ansdraw from '@/page/ansdraw'
+  import ansactivedraw from '@/page/ansactivedraw'
+  import ansdetailpage from '@/page/ansdetailpage'
+
   import detailpage from '@/page/detailpage'
   import losing from '@/page/losing'
   import winning from '@/page/winning'
@@ -140,15 +145,15 @@
         activeName: 'first',
         centerDialogVisible: false,
         //tabs
-        tabs: ["活动首页", "游戏过程","挑战成功","挑战失败","游戏说明","抽奖页面","中奖页","未中奖页","我的奖品","奖品详情",             ],
+        tabs: ["活动首页", "游戏过程", "挑战成功", "挑战失败", "游戏说明", "抽奖页面", "中奖页", "未中奖页", "我的奖品", "奖品详情",],
         num: 0
       }
     },
-    computed:{
+    computed: {
       // ...mapState(['setting_data','banner']),
       // ...mapActions(['saveData','saveForm']),
     },
-    mounted(){
+    mounted() {
       // this.$store.dispatch('saveForm')
       // console.log(this.banner)
     },
@@ -160,10 +165,14 @@
     components: {
       // setting,
       answerset,
-      activepage,
-      explainpage,
-      draw,
-      detailpage,
+      anspage,
+      ansactive,
+      ansactivewin,
+      ansactiveno,
+      ansplainpage,
+      ansdraw,
+      ansactivedraw,
+      ansdetailpage,
       losing,
       winning
     }
@@ -172,10 +181,11 @@
 
 
 <style lang="scss">
-  .pic_ture{
+  .pic_ture {
     position: relative;
   }
-  .sett{
+
+  .sett {
     width: 60%;
     height: 100%;
     position: absolute;
@@ -184,19 +194,23 @@
     margin-left: 40%;
     overflow: auto;
   }
+
   .dora {
     border-bottom: 2px solid #fd4689;
   }
+
   .container {
     width: 100%;
     height: auto;
     background: #fff;
   }
+
   .pic_view {
     width: 112%;
     height: auto;
     position: relative;
   }
+
   .nav_pic {
     width: 100%;
     height: 2.5rem;
@@ -209,9 +223,11 @@
     font-size: 14px;
     color: #000;
   }
-  .nav_pic>span{
+
+  .nav_pic > span {
     margin-left: 30px;
   }
+
   .active_wrap {
     width: 85%;
     background: #fff;
@@ -233,10 +249,10 @@
             position: absolute;
             right: 0;
           }
-          .el-menu--horizontal>.el-menu-item {
+          .el-menu--horizontal > .el-menu-item {
             color: #FC7132;
           }
-          .el-menu--horizontal>.el-menu-item.is-active {
+          .el-menu--horizontal > .el-menu-item.is-active {
             border-bottom: #FC7132 2px solid;
           }
           .el-button--primary {
@@ -248,7 +264,7 @@
             padding: 0;
             border: 1px solid #fc7132;
           }
-          .el-button--primary:hover{
+          .el-button--primary:hover {
             background: #fbfbfb;
             color: #4a4a4a;
             border: 1px solid #9b9b9b;
@@ -356,7 +372,8 @@
                         background-size: 100%;
                       }
                     }
-                    .el-icon-arrow-left {}
+                    .el-icon-arrow-left {
+                    }
                     .phone_title {
                       position: relative;
                       margin: .5rem 0;
@@ -417,7 +434,6 @@
           }
         }
       }
-
 
       .active_footer {
         padding: 1rem 1rem 0;
