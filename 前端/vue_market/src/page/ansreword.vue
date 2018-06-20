@@ -39,12 +39,16 @@
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio2">
                   <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">手动导入</el-radio>
+                  <el-radio label="2">
+                   <span @click="handlead()">手动导入</span>
+                  </el-radio>
                 </el-radio-group>
               </el-form-item>
+              <span v-show="handShow">
               <el-form-item label="">
                 <el-input type="textarea" v-model="form.desc1"></el-input>
               </el-form-item>
+                </span>
               <el-form-item label="奖品类型">
                 <el-select v-model="form.region" placeholder="请选择奖品类型">
                   <el-option v-for="(items,index) in reword_type1"  :label="items.name" :value="index+1" :key="index"></el-option>
@@ -123,10 +127,7 @@
                 </el-form-item>
               </div>
 
-              <!--<el-form-item>-->
-              <!--<el-button type="primary" @click="saveReword()">保存</el-button>-->
-              <!--<el-button type="primary" @click="back()">返回</el-button>-->
-              <!--</el-form-item>-->
+
             </el-tab-pane>
             <!-- 奖品二 -->
             <el-tab-pane label="奖品二" name="second" data-idx="1">
@@ -160,14 +161,18 @@
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio2_2">
                   <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">手动导入</el-radio>
+                  <el-radio label="2">
+                    <span @click="handlead()">手动导入</span>
+                  </el-radio>
                 </el-radio-group>
               </el-form-item>
+              <span v-show="handShow">
               <el-form-item label="">
                 <el-input type="textarea" v-model="form.desc2_1"></el-input>
               </el-form-item>
+              </span>
               <el-form-item label="奖品类型">
-                <el-select v-model="form.region2_2" placeholder="请选择活动区域">
+                <el-select v-model="form.region2" placeholder="请选择活动区域">
                   <el-option v-for="(items,index) in reword_type2"  :label="items.name" :value="index+1" :key="index"></el-option>
                 </el-select>
               </el-form-item>
@@ -276,12 +281,16 @@
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio3_2">
                   <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">手动导入</el-radio>
+                  <el-radio label="2">
+                    <span @click="handlead()">手动导入</span>
+                  </el-radio>
                 </el-radio-group>
               </el-form-item>
+              <span v-show="handShow">
               <el-form-item label="">
                 <el-input type="textarea" v-model="form.desc3_1"></el-input>
               </el-form-item>
+              </span>
               <el-form-item label="奖品类型">
                 <el-select v-model="form.region3" placeholder="请选择活动区域">
                   <el-option v-for="(items,index) in reword_type3"  :label="items.name" :value="index+1" :key="index"></el-option>
@@ -394,12 +403,16 @@
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio4_2">
                   <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">手动导入</el-radio>
+                  <el-radio label="2">
+                    <span @click="handlead()">手动导入</span>
+                  </el-radio>
                 </el-radio-group>
               </el-form-item>
+              <span v-show="handShow">
               <el-form-item label="">
                 <el-input type="textarea" v-model="form.desc4_1"></el-input>
               </el-form-item>
+              </span>
               <el-form-item label="奖品类型">
                 <el-select v-model="form.region4" placeholder="请选择活动区域">
                   <el-option v-for="(items,index) in reword_type4"  :label="items.name" :value="index+1" :key="index"></el-option>
@@ -511,12 +524,16 @@
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio5_2">
                   <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">手动导入</el-radio>
+                  <el-radio label="2">
+                    <span @click="handlead()">手动导入</span>
+                  </el-radio>
                 </el-radio-group>
               </el-form-item>
+              <span v-show="handShow">
               <el-form-item label="">
                 <el-input type="textarea" v-model="form.desc5_1"></el-input>
               </el-form-item>
+              </span>
               <el-form-item label="奖品类型">
                 <el-select v-model="form.region5" placeholder="请选择活动区域">
                   <el-option v-for="(items,index) in reword_type5"  :label="items.name" :value="index+1" :key="index"></el-option>
@@ -628,12 +645,16 @@
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio6_2">
                   <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">手动导入</el-radio>
+                  <el-radio label="2">
+                    <span @click="handlead()">手动导入</span>
+                  </el-radio>
                 </el-radio-group>
               </el-form-item>
+              <span v-show="handShow">
               <el-form-item label="">
                 <el-input type="textarea" v-model="form.desc6_1"></el-input>
               </el-form-item>
+              </span>
               <el-form-item label="奖品类型">
                 <el-select v-model="form.region6" placeholder="请选择活动区域">
                   <el-option v-for="(items,index) in reword_type6"  :label="items.name" :value="index+1" :key="index"></el-option>
@@ -745,12 +766,16 @@
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio7_2">
                   <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">手动导入</el-radio>
+                  <el-radio label="2">
+                    <span @click="handlead()">手动导入</span>
+                  </el-radio>
                 </el-radio-group>
               </el-form-item>
+              <span v-show="handShow">
               <el-form-item label="">
                 <el-input type="textarea" v-model="form.desc7_1"></el-input>
               </el-form-item>
+              </span>
               <el-form-item label="奖品类型">
                 <el-select v-model="form.region7" placeholder="请选择活动区域">
                   <el-option v-for="(items,index) in reword_type7"  :label="items.name" :value="index+1" :key="index"></el-option>
@@ -862,12 +887,16 @@
             <!--<el-form-item label="导入券码">-->
             <!--<el-radio-group v-model="radio8_2">-->
             <!--<el-radio label="1">系统生成</el-radio>-->
-            <!--<el-radio label="2">手动导入</el-radio>-->
+            <!--<el-radio label="2">
+           <span @click="handlead()">手动导入</span>
+            </el-radio>-->
             <!--</el-radio-group>-->
             <!--</el-form-item>-->
+            <!--<span v-show="handShow">-->
             <!--<el-form-item label="">-->
             <!--<el-input type="textarea" v-model="form.desc8_1"></el-input>-->
             <!--</el-form-item>-->
+            <!--</span>-->
             <!--<el-form-item label="奖品类型">-->
             <!--<el-select v-model="form.region8">-->
             <!--<el-option v-for="(items,index) in reword_type8"  :label="items.name" :value="index+1" :key="index"></el-option>-->
@@ -1072,6 +1101,13 @@
           date7_2: '',
 
         },
+        handShow:false,
+        // handShow1:false,
+        // handShow2:false,
+        // handShow3:false,
+        // handShow4:false,
+        // handShow5:false,
+        // handShow6:false,
         activeName: 'first',
         radio1:'',//单选框1
         radio2:'',//单选框2
@@ -1217,16 +1253,13 @@
         this.reword_data = JSON.parse(Data).dtAwardSetupExtendList
         this.list=this.reword_data
 
-        console.log(this.reword_data)
         //  日期时间转换设置
         this.start_date =this.reword_data[0].exchangeStartDate
 //日期开始时间
 //         console.log(this.start_data);
         this.end_date=this.reword_data[0].exchangeEndDate//结束时间
         let str = this.start_date
-        console.log(str);
         let strend=this.end_date
-        console.log(strend);
         //时间戳转换日期
         let newStr= this.timestampToTime(str)
         strend=this.timestampToTime(strend)
@@ -1443,6 +1476,9 @@
 
       back(){
         this.$router.go(-1)
+      },
+      handlead(){
+        this.handShow=!this.handShow
       }
     }
 

@@ -107,33 +107,44 @@
         ansError1: '',//错误答案1
         ansError2: '',//错误答案2
         count: '12',//总题数
-        title_data:'',//数据接口
-        title_send:"",
+        title_data:'',//数据渲染接口
+        title_send:"",//数据保存接口
       }
     },
     created() {
 
-      // this.saveReword()
     },
     mounted() {
       this.restaurants = this.loadAll();
-      //this.partReword()
-      this.titlebase()
+      this.titleBase()
     },
     computed: {
       ...mapState(['setting_dtData']),
       ...mapActions(['saveDatadt'])
     },
+    updated(){
+      this.savaTitleBase()
+    },
     methods: {
-      titlebase() {
+      titleBase() {
         let Data = JSON.parse(sessionStorage.getItem('Datadt'))
         this.title_data = Data.dtQuestionSetupExtend
-        console.log(this.title_data);
         this.radio1=  Number(this.title_data.questionType).toString()
         this.answerState=this.title_data.dtQuestionTypeExtendList
         this.titleCount=this.title_data.questionTotalNum
         this.radomCount=this.title_data.questionRadomNum
         this.radio2= Number(this.title_data.answerTimeLimit).toString()
+      },
+      savaTitleBase(){
+        let Data = JSON.parse(sessionStorage.getItem('Datadt'))
+        this.title_send=Data.dtQuestionSetupExtend
+        this.title_send.questionType=this.radio1
+        this.title_send.dtQuestionTypeExtendList=this.answerState
+        this.title_send.questionTotalNum=this.titleCount
+        this.title_send.questionRadomNum=this.radomCount
+        this.title_send.answerTimeLimit=this.radio2
+        this.$store.state.setting_dtData.dtQuestionSetupExtend =  this.title_send
+        _this.$bus.emit("send_title", this.title_send)
       },
 
       handleAvatarSuccess(res, file) {
@@ -176,18 +187,7 @@
         console.log(item);
         // this.answerState=item.index
       },
-      //奖金设置部分的数据
-      // partReword(){
-      //   let Data = sessionStorage.getItem('Data')
-      //
-      // },
-      //保存奖品数据
-      // saveReword(){
-      //   // this.$store.dispatch("saveData")
-      //   let Data = sessionStorage.getItem('Data')
-      //
-      //   this.$bus.emit("send_reword",this.reword_send)
-      // },
+
       Toggle() {
         this.ok = !this.ok;
       },

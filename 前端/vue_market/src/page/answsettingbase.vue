@@ -76,7 +76,6 @@
         twoRadio: null,//��ѡ��һֵ
         base_data:'',//基础设置数据
         base_send:"",
-
         pickerOptions2: {
           shortcuts: [{
             text: '最近一周',
@@ -108,8 +107,6 @@
         value5: ''
       };
 
-
-
     },
     created(){
     },
@@ -117,11 +114,13 @@
       // _this.$store.dispatch('saveData')
       this.partBase()
 
-
     },
     computed:{
       ...mapState(['setting_dtData']),
       ...mapActions(['saveDatadt'])
+    },
+    updated(){
+      this.saveBase()
     },
     methods: {
 
@@ -159,33 +158,32 @@
       saveBase(){
         let _this = this
         // _this.$store.dispatch('saveData')
-        let Data = sessionStorage.getItem('Data')
-        _this.base_send = JSON.parse(Data).jggBaseSetup
+        let Data = sessionStorage.getItem('Datadt')
+        _this.base_send = JSON.parse(Data).dtBaseSetup
         _this.base_send.activityName = _this.formName
-        // this.base_data.endDate = this.value7
+        _this.base_send.addDoubling= _this.addCount
         _this.base_send.shows = _this.radio1 == 1 ? true : false;
         _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
-        // this.$store.state.setting_data.jggBaseSetup = this.base_send
-        _this.$bus.emit("send_base",_this.base_send)
+        _this.base_send.startDate= _this.start_date
+        _this.base_send.endDate=_this.end_date
+        _this.base_send.rule= _this.form.explain
+        if (this.formName != '') {
+          this.$store.state.setting_dtData.dtBaseSetup = this.base_send
+          _this.$bus.emit("send_base",_this.base_send)
+
+        } else {
+          alert('活动名称，不能为空哦！')
+
+        }
       },
 
       onSubmit() {
-        alert(this.activeTime.getTime());
+        // alert(this.activeTime.getTime());
         // this.activeTime = this.activeTime.getTime();
         // this.activeHour = this.activeHour.getTime();
         this.oneRadio = this.radio1;
         this.twoRadio = this.radio2;
 
-        alert(this.oneRadio)
-        alert(this.twoRadio)
-        if (this.formName != '') {
-          //   if(){
-
-          //   }
-        } else {
-          alert('活动名称，不能为空哦！')
-
-        }
       },
       inputData() {
         // console.log(this.formName);

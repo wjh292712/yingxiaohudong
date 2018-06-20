@@ -166,7 +166,7 @@
                 <el-input type="textarea" v-model="form.desc2_1"></el-input>
               </el-form-item>
               <el-form-item label="奖品类型">
-                <el-select v-model="form.region2_2" placeholder="请选择活动区域">
+                <el-select v-model="form.region2" placeholder="请选择活动区域">
                   <el-option v-for="(items,index) in reword_type2"  :label="items.name" :value="index+1" :key="index"></el-option>
                 </el-select>
               </el-form-item>
