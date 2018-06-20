@@ -517,6 +517,19 @@
             this.rewdata = kjDataList
           })
         }
+        else if (this.templateUuid == 3) {//答题发布奖品
+          this.$axios({
+            method: 'post',
+            url: 'http://center.marketing.yunpaas.cn/dt/awardSetup/list',
+            params: {
+              activityId: this.activeId,
+            }
+          }).then(res => {
+            let dtDataList=res.data.data.list
+            console.log(dtDataList);
+            this.rewdata = dtDataList
+          })
+        }
 
       },
       show() {

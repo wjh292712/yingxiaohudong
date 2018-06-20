@@ -32,8 +32,12 @@
         </el-tabs>
 
       </div>
-    </div>
 
+    </div>
+    <div id="active_AllBtn">
+      <el-button @click="goBack()">返回</el-button>
+      <el-button @click="onSave()">保存</el-button>
+    </div>
   </div>
 </template>
 <script>
@@ -74,53 +78,46 @@ import ansadvanced from '@/page/ansadvanced'
       ...mapActions(['saveDatadt'])
     },
     mounted(){
-      this.$store.dispatch('saveData')
-      let Data = sessionStorage.getItem('Data')
+      this.$store.dispatch('saveDatadt')
+      let Data = sessionStorage.getItem('Datadt')
       this.sendData = JSON.parse(Data)
-      var _this = this
-      //分享部分返回的数据
-      this.$bus.on("send_share",function(data){
-        data == '' ?_this.sendData.jggShareSetup = _this.sendData.jggShareSetup : _this.sendData.jggShareSetup = data
+      var _this = this;
+      //基础设置返回的数据
+      this.$bus.on("send_base",function(data){
+        data == ''?_this.sendData.dtBaseSetup = _this.sendData.dtBaseSetup : _this.sendData.dtBaseSetup = data;
+        // _this.save.high = data
+        console.log(data)
+      });
+      //题目设置返回的数据
+      this.$bus.on("send_title",function(data){
+        data == '' ?_this.sendData.dtQuestionSetupExtend = _this.sendData.dtQuestionSetupExtend : _this.sendData.dtQuestionSetupExtend = data
 
-        // console.log(data)
-      })
-      //奖金设置返回的数据
-      this.$bus.on("send_reword",function(data){
-        data == ''?_this.sendData.jggAwardSetupExtendList = _this.sendData.jggAwardSetupExtendList : _this.sendData.jggAwardSetupExtendList = data
-
-        // console.log(data)
-      })
+      });
       //派奖设置返回的数据
       this.$bus.on("send_award",function(data){
-        data == '' ?_this.sendData.jggAwardSendSetup = _this.sendData.jggAwardSendSetup :  _this.sendData.jggAwardSendSetup = data
+        data == '' ?_this.sendData.dtAwardSendSetup = _this.sendData.dtAwardSendSetup :  _this.sendData.dtAwardSendSetup = data
 
-        // console.log(data)
-      })
+      });
+      //奖品设置返回的数据
+      this.$bus.on("send_reword",function(data){
+        data == ''?_this.sendData.dtAwardSetupExtendList = _this.sendData.dtAwardSetupExtendList : _this.sendData.dtAwardSetupExtendList = data
+
+      });
+
       //高级设置返回的数据
       this.$bus.on("send_high",function(data){
         if(data == ''){
-          _this.sendData.jggHighCompanySetup = _this.sendData.jggHighCompanySetup
-          _this.sendData.jggHighSecuritySetup = _this.sendData.jggHighSecuritySetup
-          _this.sendData.jggHighOtherSetup = _this.sendData.jggHighOtherSetup
+          _this.sendData.dtHighCompanySetup = _this.sendData.dtHighCompanySetup
+          _this.sendData.dtShareSetup = _this.sendData.dtShareSetup
+          _this.sendData.dtHighOtherSetup = _this.sendData.dtHighOtherSetup
         }else{
-          _this.sendData.jggHighCompanySetup = data[0]
-          _this.sendData.jggHighSecuritySetup = data[1]
-          _this.sendData.jggHighOtherSetup = data[2]
+          _this.sendData.dtHighCompanySetup = data[0]
+          _this.sendData.dtShareSetup = data[1]
+          _this.sendData.dtHighOtherSetup = data[2]
         }
 
-        // console.log(data)
-      })
-      //基础设置返回的数据
-      this.$bus.on("send_base",function(data){
-        data == ''?_this.sendData.jggBaseSetup = _this.sendData.jggBaseSetup : _this.sendData.jggBaseSetup = data
-        // _this.save.high = data
-        console.log(data)
       })
 
-
-      // this.onSave()
-      // this.setting()
-      // this.$store.dispatch('setting_msg')
     },
     methods:{
       // ...mapMutations([setting])
@@ -129,29 +126,23 @@ import ansadvanced from '@/page/ansadvanced'
       //保存设置
       onSave(){
         var sendNew =JSON.stringify(this.sendData)
-        console.log(sendNew)
+        var token=sessionStorage.getItem('token')
         $.ajax({
-          type:"POST",
-          url:"http://center.marketing.yunpaas.cn/jgg/activitySetup/save",
+          type:"POST",//砍价保存数据
+          url:"http://center.marketing.yunpaas.cn/dt/activitySetup/save?token="+token,
           data:sendNew,
           contentType:"application/json",
           datatype:"json",
           success(data){
-            console.log(data)
+            alert(data.msg)
           }
         })
-        // this.$axios({
-        //     method:'post',
-        //     url:"http://192.168.2.170:8080/jgg/activitySetup/save",
-        //     headers: {'Content-Type': 'application/json'},
-        //     params:sendNew
-        // }).then(res => {
-        //     console.log(res)
-        // }).catch( res => {
 
-        // })
-
-
+      },
+      goBack(){
+        if( confirm('返回后所编辑的内容不能被保存，是否需要返回？')){
+          this.$router.push({path:'/activeslide/activeFirst'})
+        }
       },
 
 
@@ -207,6 +198,19 @@ import ansadvanced from '@/page/ansadvanced'
         }
       }
     }
+  }
+  #active_AllBtn{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background: #929292;
+    opacity: 0.8;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    z-index: 99999;
+    left: 0;
+
   }
 </style>
 

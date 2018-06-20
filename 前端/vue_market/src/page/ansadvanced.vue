@@ -262,7 +262,7 @@
       //保存设置
       saveHight(){
         // this.$store.dispatch('saveData')
-        let Data = sessionStorage.getItem('Datakj')
+        let Data = sessionStorage.getItem('Datadt')
 
         //企业保存设置
         this.company_send = JSON.parse(Data).dtHighCompanySetup

@@ -15,8 +15,8 @@
 
 
                     <el-tab-pane label="基础设置" name="first">
-                      <!--<setting-base></setting-base>-->
-                      <settingbaseEdit></settingbaseEdit>
+                      <setting-base></setting-base>
+                      <!--<settingbaseEdit></settingbaseEdit>-->
                     </el-tab-pane>
                     <el-tab-pane label="奖品设置" name="second">
                       <reword></reword>

@@ -3,7 +3,7 @@
     <div class="base_con">
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="活动名称">
-          <el-input v-model="formName" @input='inputData'></el-input>
+          <el-input v-model="formName" @input='inputData' maxlength="10" placeholder="不超过10个汉字"></el-input>
           <!-- <div>{{setting_data}}</div> -->
         </el-form-item>
         <el-form-item label="活动日期">
@@ -12,19 +12,20 @@
             type="datetimerange"
             range-separator="至"
             start-placeholder="开始日期"
-            end-placeholder="结束日期" style="width:300px">
+            end-placeholder="结束日期" style="width:400px">
           </el-date-picker >
         </el-form-item>
         <el-form-item label="参与人数">
           <el-radio-group v-model="radio1">
             <el-radio label="1">隐藏</el-radio>
-            <el-radio label="2">显示</el-radio>
-            <div class="label_text">在实际参与人数基础上增加
-              <input class="people" style="display: inline-block;width: 50px;height: 20px;text-align: center"/>{{setting_data.addNum}}
-              倍
-              <span>(该数据只用于显示，不计入统计)</span>
-            </div>
+            <el-radio label="2">
+              <span @click="pepshow()">显示</span></el-radio>
           </el-radio-group>
+          <div class="label_text" v-show="pepcount">在实际参与人数基础上增加
+            <input class="people" v-model="addpepCount" style="display: inline-block;width: 50px;height: 20px;text-align: center"/>
+            倍
+            <span>(该数据只用于显示，不计入统计)</span>
+          </div>
         </el-form-item>
         <el-form-item label="是否关注">
           <el-radio-group v-model="radio2">
@@ -34,7 +35,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="活动规则">
-          <el-input style="height:6rem;" type="textarea" v-model="form.desc"></el-input>
+          <el-input style="height:6rem;" type="textarea" maxlength="500" v-model="form.desc" placeholder="请输入活动规则0／500字"></el-input>
           {{form.desc}}
         </el-form-item>
         <el-form-item>
@@ -79,6 +80,8 @@
         base_send: "",
         start_date: '',
         end_date: "",
+        addpepCount:'',
+        pepcount:false,//参与人数倍数
 
         pickerOptions2: {
           shortcuts: [{
@@ -147,6 +150,7 @@
         _this.formName = _this.base_data.activityName
         formName = _this.base_data.activityName
         _this.form.desc=_this.base_data.rule
+        _this.addpepCount=_this.base_data.addNum
        console.log(_this.form.desc);
 
         _this.start_date = _this.base_data.startDate//日期开始时间
@@ -188,6 +192,7 @@
         _this.base_send = JSON.parse(Data).jggBaseSetup
         _this.base_send.activityName = _this.formName
         _this.base_send.rule=_this.form.desc
+        _this.base_send.addNum =_this.addpepCount
         // this.base_data.endDate = this.value7
         _this.base_send.shows = _this.radio1 == 1 ? true : false;
         _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
@@ -224,6 +229,9 @@
       },
       back(){
         this.$router.go(-1)
+      },
+      pepshow(){
+        this.pepcount=!this.pepcount
       }
     }
   })
