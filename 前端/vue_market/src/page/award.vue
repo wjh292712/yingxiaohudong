@@ -12,9 +12,11 @@
         <p>
           <span>单人总抽奖机会 : </span>
           <span>
-          <el-radio v-model="radio1" label="1">限制</el-radio>
+          <el-radio v-model="radio1" label="1">
+            <span @click="xzlimit()">限制</span>
+          </el-radio>
           <el-radio v-model="radio1" label="2">不限制</el-radio>
-          <span class="more">每人最多有
+          <span class="more" v-show="limitCount">每人最多有
             <span>
               <el-input class="ipt" v-model="input1">
               </el-input>
@@ -186,10 +188,11 @@
           resource4: '',
           desc: ''
         },
+        limitCount:false,
         radio: '1',
         radio1: '',
         radio2: '',
-        input1: '',
+        input1: '',//抽奖次数
         input2: '',
         input3: '',
         input4: '',
@@ -236,6 +239,7 @@
         if (!this.award_data.singleTotalDrawLimit) {
           this.radio1 = '2'
         }
+        this.input1=this.award_data.singleDrawCount
         this.input2 = this.award_data.singleDayDrawCount
         this.input3 = this.award_data.singleWinCount
         this.radio2 = this.award_data.sendRule.toString()
@@ -255,7 +259,10 @@
       },
       back(){
         this.$router.go(-1)
-      }
+      },
+      xzlimit(){
+        this.limitCount=!this.limitCount
+      },
     }
   }
 </script>

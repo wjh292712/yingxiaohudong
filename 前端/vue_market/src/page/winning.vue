@@ -14,6 +14,7 @@
         <div class="phone_body">
           <header class="i-header">
             <span>
+              <
                </span>
                 <span class="title">参与活动赢大奖</span>
 
@@ -109,7 +110,7 @@
   .section .ticket span {
     width: 100%;
     height: 2rem;
-    line-height: 4rem; 
+    line-height: 4rem;
     margin-left: 25%;
     font-size: 0.8rem;
   }

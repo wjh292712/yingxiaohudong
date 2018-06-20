@@ -36,7 +36,6 @@
         </el-form-item>
         <el-form-item label="活动规则">
           <el-input style="height:6rem;" type="textarea" maxlength="500" v-model="form.desc" placeholder="请输入活动规则0／500字"></el-input>
-          {{form.desc}}
         </el-form-item>
         <el-form-item>
           <!--<div class="btn_click">-->
