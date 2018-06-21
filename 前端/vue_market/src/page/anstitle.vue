@@ -144,7 +144,7 @@
         this.title_send.questionRadomNum=this.radomCount
         this.title_send.answerTimeLimit=this.radio2
         this.$store.state.setting_dtData.dtQuestionSetupExtend =  this.title_send
-        _this.$bus.emit("send_title", this.title_send)
+        this.$bus.emit("send_title", this.title_send)
       },
 
       handleAvatarSuccess(res, file) {

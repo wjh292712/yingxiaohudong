@@ -66,6 +66,7 @@
         this.$axios({
           method: "post",
           url: "http://center.marketing.yunpaas.cn/center/enterpriseuser/login_step1?",
+          // url: "http://192.168.2.112:8085/center/enterpriseuser/login_step1?",
           params: {
             userName: this.userName,
             password: this.userPwd

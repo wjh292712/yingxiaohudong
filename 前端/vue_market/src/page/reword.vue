@@ -20,7 +20,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
-                <el-input  maxlength="15" v-model="form.name1_1" placeholder="不超过15个字"></el-input>
+                <el-input  maxlength="15" :disabled="actName" v-model="form.name1_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-upload
@@ -38,12 +38,12 @@
 
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name1_2" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
+                <el-input v-model="form.name1_2"  :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">
+                  <el-radio :disabled="ticket" label="1">系统生成</el-radio>
+                  <el-radio  :disabled="ticket" label="2">
                     <span @click="handlead()">手动导入</span>
                   </el-radio>
                 </el-radio-group>
@@ -57,6 +57,7 @@
               <el-form-item label="兑奖时间">
                 <el-date-picker
                   v-model="value5"
+                  :disabled="startTime"
                   type="datetimerange"
                   range-separator="至"
                   start-placeholder="开始日期"
@@ -144,7 +145,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
-                <el-input  maxlength="15" v-model="form.name2_1" placeholder="不超过15个字"></el-input>
+                <el-input  maxlength="15" :disabled="actName" v-model="form.name2_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-upload
@@ -161,12 +162,12 @@
 
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name2_2" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
+                <el-input v-model="form.name2_2" :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio2_2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">
+                  <el-radio :disabled="ticket" label="1">系统生成</el-radio>
+                  <el-radio :disabled="ticket" label="2">
                     <span @click="handlead()">手动导入</span>
                   </el-radio>
                 </el-radio-group>
@@ -179,6 +180,8 @@
               <el-form-item label="兑奖时间">
                 <el-date-picker
                   v-model="value6"
+
+                  :disabled="startTime"
                   type="datetimerange"
                   range-separator="至"
                   start-placeholder="开始日期"
@@ -260,7 +263,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
-                <el-input  maxlength="15" v-model="form.name3_1" placeholder="不超过15个字"></el-input>
+                <el-input  maxlength="15" :disabled="actName" v-model="form.name3_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-upload
@@ -277,12 +280,12 @@
 
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name3_2" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
+                <el-input v-model="form.name3_2" :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio3_2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">
+                  <el-radio :disabled="ticket" label="1">系统生成</el-radio>
+                  <el-radio :disabled="ticket" label="2">
                     <span @click="handlead()">手动导入</span>
                   </el-radio>
                 </el-radio-group>
@@ -296,6 +299,7 @@
               <el-form-item label="兑奖时间">
                 <el-date-picker
                   v-model="value7"
+                  :disabled="startTime"
                   type="datetimerange"
                   range-separator="至"
                   start-placeholder="开始日期"
@@ -379,7 +383,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
-                <el-input  maxlength="15" v-model="form.name4_1" placeholder="不超过15个字"></el-input>
+                <el-input  maxlength="15" :disabled="actName" v-model="form.name4_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-upload
@@ -396,12 +400,12 @@
 
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name4_2" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
+                <el-input v-model="form.name4_2" :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio4_2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">
+                  <el-radio :disabled="ticket" label="1">系统生成</el-radio>
+                  <el-radio :disabled="ticket" label="2">
                     <span @click="handlead()">手动导入</span>
                   </el-radio>
                 </el-radio-group>
@@ -415,6 +419,7 @@
               <el-form-item label="兑奖时间">
                 <el-date-picker
                   v-model="value8"
+                  :disabled="startTime"
                   type="datetimerange"
                   range-separator="至"
                   start-placeholder="开始日期"
@@ -497,7 +502,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
-                <el-input maxlength="15" v-model="form.name5_1" placeholder="不超过15个字"></el-input>
+                <el-input maxlength="15"  :disabled="actName" v-model="form.name5_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-upload
@@ -514,12 +519,12 @@
 
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name5_2" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
+                <el-input v-model="form.name5_2":disabled="rewordCount"  maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio5_2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">
+                  <el-radio :disabled="ticket" label="1">系统生成</el-radio>
+                  <el-radio :disabled="ticket" label="2">
                     <span @click="handlead()">手动导入</span>
                   </el-radio>
                 </el-radio-group>
@@ -533,6 +538,7 @@
               <el-form-item label="兑奖时间">
                 <el-date-picker
                   v-model="value9"
+                  :disabled="startTime"
                   type="datetimerange"
                   range-separator="至"
                   start-placeholder="开始日期"
@@ -615,7 +621,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
-                <el-input maxlength="15" v-model="form.name6_1" placeholder="不超过15个字"></el-input>
+                <el-input maxlength="15" :disabled="actName" v-model="form.name6_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-upload
@@ -632,12 +638,12 @@
 
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name6_2" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
+                <el-input v-model="form.name6_2" :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio6_2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">
+                  <el-radio :disabled="ticket" label="1">系统生成</el-radio>
+                  <el-radio :disabled="ticket" label="2">
                     <span @click="handlead()">手动导入</span>
                   </el-radio>
                 </el-radio-group>
@@ -651,6 +657,7 @@
               <el-form-item label="兑奖时间">
                 <el-date-picker
                   v-model="value10"
+                  :disabled="startTime"
                   type="datetimerange"
                   range-separator="至"
                   start-placeholder="开始日期"
@@ -733,7 +740,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
-                <el-input  maxlength="15" v-model="form.name7_1" placeholder="不超过15个字"></el-input>
+                <el-input  maxlength="15" :disabled="actName" v-model="form.name7_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-upload
@@ -750,12 +757,12 @@
 
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name7_2" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
+                <el-input v-model="form.name7_2"  :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio7_2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">
+                  <el-radio :disabled="ticket" label="1">系统生成</el-radio>
+                  <el-radio :disabled="ticket" label="2">
                     <span @click="handlead()">手动导入</span>
                   </el-radio>
                 </el-radio-group>
@@ -769,6 +776,7 @@
               <el-form-item label="兑奖时间">
                 <el-date-picker
                   v-model="value11"
+                  :disabled="startTime"
                   type="datetimerange"
                   range-separator="至"
                   start-placeholder="开始日期"
@@ -969,6 +977,7 @@
 
 <script>
   import {mapState, mapMutations, mapActions} from 'vuex';
+  import myactive from '@/page/myactive'
   import "../plugins/sudoku/jquery-1.11.0"
   import "../js/lrz"
   import "../js/exif"
@@ -976,6 +985,10 @@
   export default({
     data(){
       return {
+        actName:false,
+        startTime:false,
+        rewordCount:false,
+        ticket:false,//券码
         list:[],
         dialogImageUrl: '',//微信公众号
         dialogImageUrl1: '',
@@ -1180,6 +1193,7 @@
     mounted(){
       //this.saveReword()//保存数据
       // this.$store.dispatch("saveData")
+
       this.partReword()
       this.timestampToTime()
       $('.shop_info').hide();
@@ -1206,6 +1220,13 @@
         $('.shop_info').hide();
         $('.ser_info').hide();
         $(".public").hide();
+      })
+      this.$nextTick(function () {
+        this.startTime=myactive.data().startTime
+        this.actName =myactive.data().actName
+        this.rewordCount=myactive.data().rewordCount
+        this.ticket=myactive.data().ticket
+
       })
     },
     computed:{
@@ -1578,7 +1599,6 @@
 $("#tab-first").css({"display":"none"})
         if(this.reword.length==7){
           this.reword.push('奖金八')
-
 
         }else{
           alert("最多添加8个奖品")

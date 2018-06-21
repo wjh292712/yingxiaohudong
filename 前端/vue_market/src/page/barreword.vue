@@ -21,7 +21,7 @@
 
               </el-form-item>
               <el-form-item label="商品名称">
-                <el-input v-model="form.name1" placeholder="不超过15个字"></el-input>
+                <el-input v-model="form.name1"  :disabled="actName" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item label="商品图片">
                 <el-upload
@@ -36,10 +36,10 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price1" placeholder="必须是大于0的数，支持小数点后两位"></el-input>
+                <el-input v-model="form.price1" :disabled="startPrice" placeholder="必须是大于0的数，支持小数点后两位"></el-input>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow1" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" onkeyup="value=value.replace(/[^\d]/g,'')"></el-input>
+                <el-input v-model="form.priceLow1" :disabled="endPrice" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" onkeyup="value=value.replace(/[^\d]/g,'')"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
@@ -114,7 +114,7 @@
 
               </el-form-item>
               <el-form-item label="商品名称">
-                <el-input v-model="form.name2" placeholder="不超过15个字"></el-input>
+                <el-input v-model="form.name2"  :disabled="actName"  placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item label="商品图片">
                 <el-upload
@@ -129,10 +129,10 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price2" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
+                <el-input v-model="form.price2" :disabled="startPrice" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow2" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
+                <el-input v-model="form.priceLow2" :disabled="endPrice" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
@@ -208,7 +208,7 @@
 
               </el-form-item>
               <el-form-item label="商品名称">
-                <el-input v-model="form.name3" placeholder="不超过15个字"></el-input>
+                <el-input v-model="form.name3"  :disabled="actName"  placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item label="商品图片">
                 <el-upload
@@ -223,10 +223,10 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price3" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
+                <el-input v-model="form.price3" :disabled="startPrice" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow3" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
+                <el-input v-model="form.priceLow3" :disabled="endPrice" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
@@ -304,7 +304,7 @@
 
               </el-form-item>
               <el-form-item label="商品名称">
-                <el-input v-model="form.name4" placeholder="不超过15个字"></el-input>
+                <el-input v-model="form.name4"  :disabled="actName"  placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item label="商品图片">
                 <el-upload
@@ -319,10 +319,10 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price4" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
+                <el-input v-model="form.price4" :disabled="startPrice" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow4" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
+                <el-input v-model="form.priceLow4" :disabled="endPrice" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
@@ -399,7 +399,7 @@
 
               </el-form-item>
               <el-form-item label="商品名称">
-                <el-input v-model="form.name5" placeholder="不超过15个字"></el-input>
+                <el-input v-model="form.name5"  :disabled="actName"  placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item label="商品图片">
                 <el-upload
@@ -414,10 +414,10 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price5" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
+                <el-input v-model="form.price5" :disabled="startPrice" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow5" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
+                <el-input v-model="form.priceLow5" :disabled="endPrice" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
@@ -493,7 +493,7 @@
 
               </el-form-item>
               <el-form-item label="商品名称">
-                <el-input v-model="form.name6" placeholder="不超过15个字"></el-input>
+                <el-input v-model="form.name6"  :disabled="actName"  placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item label="商品图片">
                 <el-upload
@@ -508,10 +508,10 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price6" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
+                <el-input v-model="form.price6" :disabled="startPrice" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow6" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
+                <el-input v-model="form.priceLow6" :disabled="endPrice" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
@@ -588,7 +588,7 @@
 
               </el-form-item>
               <el-form-item label="商品名称">
-                <el-input v-model="form.name7" placeholder="不超过15个字"></el-input>
+                <el-input v-model="form.name7"  :disabled="actName"  placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item label="商品图片">
                 <el-upload
@@ -603,10 +603,10 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price7" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
+                <el-input v-model="form.price7" :disabled="startPrice" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow7" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
+                <el-input v-model="form.priceLow7" :disabled="endPrice" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
@@ -687,6 +687,9 @@
     data() {
       return {
         //dialogImageUrl: '',
+         actName:false,//商品名称
+         startPrice:false,//商品原价
+         endPrice:false,//商品底价
         imageUrl: '',
         dialogVisible: false,
         reword: "",

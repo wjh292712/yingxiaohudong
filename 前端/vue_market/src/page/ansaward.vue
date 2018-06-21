@@ -99,8 +99,8 @@
        this.raward_send.singleDayDrawCount= this.input3
         this.raward_send.singleWinTotalCount=this.input4
        this.raward_send.probability= this.input5
-        _this.$store.state.setting_kjData.dtAwardSendSetup = this.raward_send
-        _this.$bus.emit("send_award", this.raward_send)
+        this.$store.state.setting_kjData.dtAwardSendSetup = this.raward_send
+        this.$bus.emit("send_award", this.raward_send)
       },
       Toggle(){
         this.limit=!this.limit

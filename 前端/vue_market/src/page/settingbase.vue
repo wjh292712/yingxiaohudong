@@ -7,13 +7,27 @@
           <!-- <div>{{setting_data}}</div> -->
         </el-form-item>
         <el-form-item label="活动日期">
+          <!--<el-date-picker-->
+            <!--v-model="value4"-->
+            <!--type="datetimerange"-->
+            <!--:disabled="ok"-->
+            <!--range-separator="至"-->
+            <!--start-placeholder="开始日期"-->
+            <!--end-placeholder="结束日期" style="width:400px">-->
+          <!--</el-date-picker >-->
+
           <el-date-picker
-            v-model="value4"
-            type="datetimerange"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期" style="width:400px">
-          </el-date-picker >
+            v-model="value1"
+            :disabled="startTime"
+            type="datetime"
+            placeholder="选择开始时间" style="width: 250px">
+          </el-date-picker>
+          <el-date-picker
+            v-model="value2"
+            :disabled="endTime"
+            type="datetime"
+            placeholder="选择结束时间" style="width: 250px">
+          </el-date-picker>
         </el-form-item>
         <el-form-item label="参与人数">
           <el-radio-group v-model="radio1">
@@ -50,7 +64,7 @@
 </template>
 <script>
   import {mapState, mapMutations, mapActions,timestampToTime} from 'vuex';
-
+  import myactive from '@/page/myactive'
   export default ({
     props: {
       child: ""
@@ -81,7 +95,7 @@
         end_date: "",
         addpepCount:'',
         pepcount:false,//参与人数倍数
-
+        ok:false,
         pickerOptions2: {
           shortcuts: [{
             text: '最近一周',
@@ -110,7 +124,11 @@
           }]
         },
         value4: [new Date(2018, 10, 29, 10, 10), new Date(2018, 10, 11, 10, 10)],
-        value5: ''
+        value5: '',
+        value1:'',
+        value2:'',
+        startTime:false, //基础设置的开始时间
+        endTime:false,//基础设置的结束时间
       };
 
 
@@ -119,12 +137,14 @@
     },
     mounted() {
       //alert(123)
-      var _this = this
       // _this.$store.dispatch('saveData')
+      this.partBase()
+      this.timestampToTime()
+      this.$nextTick(function () {
+        this.startTime=myactive.data().startTime
+        alert(myactive.redact().this.states+"jiugonggejichushezhi")
 
-      _this.partBase()
-      _this.timestampToTime()
-
+      })
 
     },
     updated(){
@@ -162,6 +182,8 @@
       let newStr= _this.timestampToTime(str)
          strend=_this.timestampToTime(strend)
         _this.value4=[newStr,strend]
+        _this.value1=newStr
+        _this.value2=strend
 
         // console.log(_this.value4);
 

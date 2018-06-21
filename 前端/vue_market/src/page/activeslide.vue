@@ -46,6 +46,7 @@
                 this.$axios({
                   method:'post',
                   url:'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token='+token,//我的活动
+                  // url:'http://192.168.2.112:8085/center/activity/findMyActivity?token='+token,
                   params:{
                     pagesize:this.pagesize,
                     pageNum:this.currentPage

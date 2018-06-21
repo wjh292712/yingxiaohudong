@@ -249,7 +249,7 @@
       height: 50px;
       line-height: 50px;
       text-align: center;
-      z-index: 99999;
+      z-index: 9999;
       left: 0;
 
     }

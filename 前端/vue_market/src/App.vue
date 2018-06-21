@@ -57,6 +57,7 @@ export default {
   justify-content: space-between;
   .app_left {
     width: 6%;
+
   }
   .app_right {
     width: 94%;

@@ -7,12 +7,24 @@
 
         </el-form-item>
         <el-form-item label="活动日期">
+          <!--<el-date-picker-->
+            <!--v-model="value4"-->
+            <!--type="datetimerange"-->
+            <!--range-separator="至"-->
+            <!--start-placeholder="开始日期"-->
+            <!--end-placeholder="结束日期">-->
+          <!--</el-date-picker>-->
           <el-date-picker
-            v-model="value4"
-            type="datetimerange"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期">
+            v-model="value1"
+            :disabled="startTime1"
+            type="datetime"
+            placeholder="选择开始时间" style="width: 250px">
+          </el-date-picker>
+          <el-date-picker
+            v-model="value2"
+            :disabled="endTime"
+            type="datetime"
+            placeholder="选择结束时间" style="width: 250px">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="参与人数">
@@ -52,7 +64,7 @@
 </template>
 <script>
   import {mapState, mapMutations, mapActions} from 'vuex';
-
+  import myactive from '@/page/myactive'
   export default ({
     props: {
       child: ""
@@ -105,7 +117,12 @@
           }]
         },
         value4: [new Date(2018, 10, 10, 10, 20, 30), new Date(2018, 10, 11, 10, 10, 26)],
-        value5: ''
+        value5: '',
+        value1:'',
+        value2:'',
+        startTime1:true, //基础设置的开始时间
+        startTime:false,
+        endTime:false,//基础设置的结束时间
       };
 
     },
@@ -113,11 +130,15 @@
 
     },
     mounted() {
-      //  alert(123)
-      var _this = this
+
       // _this.$store.dispatch('saveData')
-      _this.partBase()
-      _this.timestampToTime()
+      this.partBase()
+      this.timestampToTime()
+      this.$nextTick(function () {
+        this.startTime1=myactive.data().startTime1
+        this.startTime=myactive.data().startTime
+
+      })
 
     },
     computed: {
@@ -155,6 +176,8 @@
         let newStr = _this.timestampToTime(str)
         strend = _this.timestampToTime(strend)
         _this.value4 = [newStr, strend]
+        _this.value1=newStr
+        _this.value2=strend
         // console.log(_this.value4);
         return formName;
       },
@@ -226,7 +249,7 @@
 <style>
   .base_wrap {
     background: #fbfbfb;
-    padding: 20px;
+    padding: 15px;
     height: 100%;
     position: relative;
   }

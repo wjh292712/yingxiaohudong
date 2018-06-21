@@ -60,11 +60,18 @@
           </template>
         </el-table-column>
 
+        <!--<el-table-column-->
+          <!--prop="stateForMyActivity"-->
+          <!--label="活动状态"-->
+          <!--:filters="[{text: '全选', value: '全选'},{text: '未发布', value: '未发布'}, {text: '未开始', value: '未开始'}, {text: '进行中', value: '进行中'}, {text: '已结束', value: '已结束'}]"-->
+          <!--:filter-method="filterHandler">-->
+          <!--<template slot-scope="scope">-->
+            <!--{{state(scope.row.stateForMyActivity)}}-->
+          <!--</template>-->
+        <!--</el-table-column>-->
         <el-table-column
           prop="stateForMyActivity"
-          label="活动状态"
-          :filters="[{text: '全选', value: '全选'},{text: '未发布', value: '未发布'}, {text: '未开始', value: '未开始'}, {text: '进行中', value: '进行中'}, {text: '已结束', value: '已结束'}]"
-          :filter-method="filterHandler">
+          label="活动状态">
           <template slot-scope="scope">
             {{state(scope.row.stateForMyActivity)}}
           </template>
@@ -72,14 +79,6 @@
         <el-table-column
           prop="takeNumber"
           label="参与">
-          <!--:filters="[{ text: '家', value: '家' }, { text: '公司', value: '公司' }]"-->
-          <!--:filter-method="filterTag"-->
-          <!--filter-placement="bottom-end">-->
-          <!--<template slot-scope="scope">-->
-          <!--<el-tag-->
-          <!--:type="scope.row.tag === '家' ? 'primary' : 'success'"-->
-          <!--disable-transitions>{{scope.row.tag}}</el-tag>-->
-          <!--</template>-->
         </el-table-column>
         <el-table-column
           prop="maxNumber"
@@ -117,7 +116,8 @@
             <span
               class="abb"
               size="mini"
-            >
+              @click="redact($event,scope.row.activityId,scope.row.templateUuid,scope.row.stateForMyActivity)"
+             >
             编辑／
             </span>
             <el-dropdown trigger="click">
@@ -230,7 +230,7 @@
 <script>
 
   import Button from "iview/src/components/button/button";
-  import {mapState, mapMutations, mapActions} from 'vuex'
+  import {mapState, mapMutations, mapActions,newActiveStates} from 'vuex'
 
   export default {
     data() {
@@ -270,6 +270,7 @@
         activeEndDate: '',
         activeState: '',
         activeFindState: '',
+        states:'',
         tableData: [
           {
             activityName: '信用大转盘',
@@ -323,6 +324,13 @@
         pagesize: 10,//每页的数据条数
         currentPage: 1,//默认开始页面
         input3: 'http://ninini//',
+        startTime:false, //基础设置的开始时间
+        endTime:false,//基础设置的结束时间
+        actName:false,//基础设置活动名称
+        rewordCount:false,//奖品设置奖品数量
+        startPrice:false,//商品原价
+        endPrice:false,//商品底价
+        ticket:false,//券码
       }
     },
     created() {
@@ -330,7 +338,7 @@
     },
     computed: {
       ...mapState(['setting_data']),
-      ...mapActions(['saveData', 'activePull']),
+      ...mapActions(['saveData', 'activePull','newActiveStates']),
     },
     mounted() {
       this.restaurants = this.loadAll();
@@ -530,6 +538,73 @@
             this.rewdata = dtDataList
           })
         }
+
+      },
+      redact(e, index, templ,states){
+        this.activeId = index
+        this.templateUuid = templ
+        this.states=states
+        this.$store.commit('newActiveStates',this.states)
+
+        if(this.templateUuid == 1){
+          this.$axios({
+            method: 'post',
+            url: 'http://center.marketing.yunpaas.cn/jgg/activitySetup/getBaseSetupById',
+            params: {
+              activityId:this.activeId,
+            }
+          }).then(res => {
+            console.log(res);
+            if(this.states===3){
+              this.startTime=true;
+              this.actName=true;
+              this.rewordCount=true;
+              this.ticket=true
+            }
+            this.$router.push({path:'/activeslide/activelist'})
+
+          })
+        }else if(this.templateUuid == 2){
+          this.$axios({
+            method: 'post',
+            url: 'http://center.marketing.yunpaas.cn/kj/activitySetup/getBaseSetupById',
+            params: {
+              activityId: this.activeId,
+            }
+          }).then(res => {
+            console.log(res);
+            if(this.states===3){
+              this.actName=true
+              this.startPrice=true
+                this.endPrice=true
+              this.ticket=true
+            }
+            this.$router.push({path:'/activeslide/bargainlist'})
+
+          })
+        }else if (this.templateUuid == 3){
+          this.$axios({
+            method: 'post',
+            url: 'http://center.marketing.yunpaas.cn/dt/activitySetup/getBaseSetupById',
+            params: {
+              activityId: this.activeId,
+            }
+          }).then(res => {
+            console.log(res);
+            if(this.states===3){
+                this.startTime=true
+                this.actName=true
+                this.rewordCount=true
+                this.ticket=true
+              alert( this.startTime+"dati")
+            }
+            this.$router.push({path:'/activeslide/answerlist'})
+
+          })
+
+
+        }
+
 
       },
       show() {

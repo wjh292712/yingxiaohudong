@@ -3,15 +3,27 @@
     <div class="base_con">
       <el-form ref="form" :model="form" label-width="100px">
         <el-form-item label="活动名称:">
-          <el-input v-model="formName"  @input='inputData'></el-input>
+          <el-input v-model="formName" @input='inputData'></el-input>
         </el-form-item>
         <el-form-item label="活动日期:">
+          <!--<el-date-picker-->
+            <!--v-model="value4"-->
+            <!--type="datetimerange"-->
+            <!--range-separator="至"-->
+            <!--start-placeholder="开始日期"-->
+            <!--end-placeholder="结束日期">-->
+          <!--</el-date-picker>-->
           <el-date-picker
-            v-model="value4"
-            type="datetimerange"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期">
+            v-model="value1"
+            :disabled="startTime"
+            type="datetime"
+            placeholder="选择开始时间" style="width: 250px">
+          </el-date-picker>
+          <el-date-picker
+            v-model="value2"
+            :disabled="endTime"
+            type="datetime"
+            placeholder="选择结束时间" style="width: 250px">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="参与人数:">
@@ -49,6 +61,7 @@
 </template>
 <script>
   import {mapState, mapMutations, mapActions} from 'vuex';
+  import myactive from '@/page/myactive'
   export default ({
     props: {
       child: ""
@@ -104,7 +117,12 @@
           }]
         },
         value4: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
-        value5: ''
+        value5: '',
+        value1:'',
+        value2:'',
+        startTime:false, //基础设置的开始时间
+        endTime:false,//基础设置的结束时间
+        actName:false,
       };
 
     },
@@ -113,14 +131,28 @@
     mounted(){
       // _this.$store.dispatch('saveData')
       this.partBase()
+      // this.$bus.on("ss",function (states) {
+      //   alert(states)
+      //   console.log(states);
+      // })
 
+      // this.nextTick(function () {
+      //   this.startTime=myactive.data().startTime
+      //   alert(this.startTime+"答题基础设置")
+      // })
     },
     computed:{
       ...mapState(['setting_dtData']),
-      ...mapActions(['saveDatadt'])
+      ...mapActions(['saveDatadt','newActiveStates'])
     },
     updated(){
       this.saveBase()
+    },
+    watch:{
+      startTime:function (a,b) {
+this.startTime=true
+      },
+      deep: true
     },
     methods: {
 
@@ -144,6 +176,11 @@
         let newStr = _this.timestampToTime(str)
         strend = _this.timestampToTime(strend)
         _this.value4 = [newStr, strend]
+        _this.value1=newStr
+        _this.value2=strend
+      },
+      getter(){
+
       },
       timestampToTime(timestamp) {
         var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
@@ -225,7 +262,7 @@
 <style>
   .base_wrap{
     /*background: #fbfbfb;*/
-    padding: 30px;
+    padding: 15px;
     height: 100%;
     position: relative;
   }
