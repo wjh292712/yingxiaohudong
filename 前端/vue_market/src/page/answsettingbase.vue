@@ -82,7 +82,6 @@
         pep:false,
         checkBtn: false,//��ť��ʽ
         formName:"答题活动" ,//活动名称
-        isApperant: false,//�Ƿ���ʾ
         radio1: '',//参与人数
         radio2: '',//是否需要关注
         oneRadio: null,//��ѡ��һֵ
@@ -130,16 +129,16 @@
     },
     mounted(){
       // _this.$store.dispatch('saveData')
-      this.partBase()
-      // this.$bus.on("ss",function (states) {
-      //   alert(states)
-      //   console.log(states);
-      // })
-
-      // this.nextTick(function () {
-      //   this.startTime=myactive.data().startTime
-      //   alert(this.startTime+"答题基础设置")
-      // })
+       this.partBase()
+      let _this=this
+      this.$bus.on("send",(a,b,c,d)=>{
+        _this.startTime=true
+      _this.startTime=a
+        _this.actName=b
+      console.log(_this.startTime+"1")
+       console.log(_this.actName+"2")
+      })
+      console.log(_this.startTime+"3")
     },
     computed:{
       ...mapState(['setting_dtData']),
@@ -148,12 +147,7 @@
     updated(){
       this.saveBase()
     },
-    watch:{
-      startTime:function (a,b) {
-this.startTime=true
-      },
-      deep: true
-    },
+
     methods: {
 
       // 基础设置模块

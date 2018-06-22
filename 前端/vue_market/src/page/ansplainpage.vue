@@ -133,9 +133,9 @@
       },
       activeN() {
         let _this = this
-        let Data = sessionStorage.getItem('Datakj')
+        let Data = sessionStorage.getItem('Datadt')
         console.log(66672);
-        _this.base_data = JSON.parse(Data).kjBaseSetup
+        _this.base_data = JSON.parse(Data).dtBaseSetup
         console.log(_this.base_data);
         _this.activeName = _this.formName = _this.base_data.activityName
       },
@@ -386,7 +386,7 @@
                     }
                     .phone_text {
                       position: absolute;
-                      left: 40%;
+                      left: 46%;
                       height: 1.5rem;
                       line-height: 1.5rem;
                       font-size: .7rem;

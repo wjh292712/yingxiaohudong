@@ -592,12 +592,16 @@
           }).then(res => {
             console.log(res);
             if(this.states===3){
+              let _this=this
                 this.startTime=true
                 this.actName=true
                 this.rewordCount=true
                 this.ticket=true
               alert( this.startTime+"dati")
+              this.$bus.emit("send",_this.startTime,_this.actName,_this.rewordCount,_this.ticket)
+
             }
+            // this.$bus.emit("send",this.starttime)
             this.$router.push({path:'/activeslide/answerlist'})
 
           })
