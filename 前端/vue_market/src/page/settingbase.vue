@@ -90,12 +90,14 @@
         oneRadio: null,//��ѡ��һֵ
         twoRadio: null,//��ѡ��һֵ
         base_data: '',//基础设置数据
+        base_data1:'',
         base_send: "",
         start_date: '',
         end_date: "",
         addpepCount:'',
         pepcount:false,//参与人数倍数
         ok:false,
+        dataStatus:0,
         pickerOptions2: {
           shortcuts: [{
             text: '最近一周',
@@ -131,7 +133,6 @@
         endTime:false,//基础设置的结束时间
       };
 
-
     },
     created() {
     },
@@ -139,16 +140,23 @@
       //alert(123)
       // _this.$store.dispatch('saveData')
       this.partBase()
+
       this.timestampToTime()
-      this.$nextTick(function () {
-        this.startTime=myactive.data().startTime
-        alert(myactive.redact().this.states+"jiugonggejichushezhi")
-
-      })
-
+      this.startTime=this.$route.query.startTime
+      this.base_data=this.$route.query.newjggData
+      this.dataStatus=this.$route.query.dataStatus
+      if (this.dataStatus==='1') {
+        this.partBase1()
+      }
     },
     updated(){
-      this.saveBase()
+      if(this.dataStatus===undefined){
+        this.saveBase()
+      }else if (this.dataStatus==='1') {
+        this.saveBase1()
+      }
+      // this.base_data=this.$route.newjggData.dtBaseSetup
+
     },
     computed: {
       ...mapState(['setting_data']),
@@ -160,17 +168,18 @@
       partBase() {
         let _this = this
         let formName=""
+        alert(this.dataStatus+"wo")
+          let Data = sessionStorage.getItem('Data')
+          console.log(Data);
+          _this.base_data = JSON.parse(Data).jggBaseSetup
         // _this.$store.dispatch('saveData')
         // let Data = sessionStorage.getItem('Data')
-        let Data = sessionStorage.getItem('Data')
-        console.log(Data);
-        _this.base_data = JSON.parse(Data).jggBaseSetup
+
         console.log(_this.base_data);
         _this.formName = _this.base_data.activityName
         formName = _this.base_data.activityName
         _this.form.desc=_this.base_data.rule
         _this.addpepCount=_this.base_data.addNum
-       console.log(_this.form.desc);
 
         _this.start_date = _this.base_data.startDate//日期开始时间
         _this.end_date=_this.base_data.endDate//结束时间
@@ -190,9 +199,39 @@
         _this.radio1 = Number(_this.base_data.shows).toString(),
           _this.radio2 = Number(_this.base_data.subscribe).toString()
 
-         return formName;
       },
 
+      partBase1() {
+        let _this = this
+        let formName=""
+          _this.base_data=_this.$route.query.newjggData.jggBaseSetup
+        // _this.$store.dispatch('saveData')
+        // let Data = sessionStorage.getItem('Data')
+
+        console.log(_this.base_data);
+        _this.formName = _this.base_data.activityName
+        formName = _this.base_data.activityName
+        _this.form.desc=_this.base_data.rule
+        _this.addpepCount=_this.base_data.addNum
+
+        _this.start_date = _this.base_data.startDate//日期开始时间
+        _this.end_date=_this.base_data.endDate//结束时间
+        let str = _this.start_date
+        let strend=_this.end_date
+
+        //时间戳转换日期
+        let newStr= _this.timestampToTime(str)
+        strend=_this.timestampToTime(strend)
+        _this.value4=[newStr,strend]
+        _this.value1=newStr
+        _this.value2=strend
+
+        // console.log(_this.value4);
+
+        _this.radio1 = Number(_this.base_data.shows).toString(),
+          _this.radio2 = Number(_this.base_data.subscribe).toString()
+
+      },
       timestampToTime(timestamp) {
         var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
         var Y = date.getFullYear() + '-';
@@ -221,7 +260,21 @@
         _this.$bus.emit("send_base", _this.base_send)
 
       },
+      saveBase1() {
+        let _this = this
+        // _this.$store.dispatch('saveData')
 
+        _this.base_send = _this.$route.query.newjggData.jggBaseSetup
+        _this.base_send.activityName = _this.formName
+        _this.base_send.rule=_this.form.desc
+        _this.base_send.addNum =_this.addpepCount
+        // this.base_data.endDate = this.value7
+        _this.base_send.shows = _this.radio1 == 1 ? true : false;
+        _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
+        // this.$store.state.setting_data.jggBaseSetup = this.base_send
+        _this.$bus.emit("send_base", _this.base_send)
+
+      },
       onSubmit() {
         alert(this.activeTime.getTime());
         // this.activeTime = this.activeTime.getTime();
@@ -264,7 +317,7 @@
     width: 100%;
     margin: 1rem 0;
     background: #fbfbfb;
-    padding: 30px;
+    padding: 15px;
     .label_text {
       font-size: .7rem;
       .people {

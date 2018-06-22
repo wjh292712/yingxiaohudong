@@ -126,30 +126,43 @@
 
     },
     created(){
+
     },
     mounted(){
       // _this.$store.dispatch('saveData')
        this.partBase()
       let _this=this
-      this.$bus.on("send",(a,b,c,d)=>{
-        _this.startTime=true
-      _this.startTime=a
-        _this.actName=b
-      console.log(_this.startTime+"1")
-       console.log(_this.actName+"2")
-      })
-      console.log(_this.startTime+"3")
+      this.startTime=this.$route.query.startTime
+      // alert(this.startTime+"136hang")
+      // this.$bus.on("send",(a,b,c,d)=>{
+      //   _this.startTime=true
+      //   _this.startTime=a
+      //   _this.actName=b
+      //   console.log(_this.startTime+"1")//true
+      //   console.log(_this.actName+"2")
+      //   _this.fn(a,b)
+      // })
+
     },
+
     computed:{
       ...mapState(['setting_dtData']),
       ...mapActions(['saveDatadt','newActiveStates'])
     },
     updated(){
       this.saveBase()
+      this.base_data=this.$route.newjggData.dtBaseSetup
+      alert(this.base_data+"新数据")
     },
 
     methods: {
 
+      fn(a,b){
+        let _this=this
+        _this.startTime=a
+        _this.actName=b
+        alert(_this.startTime+"eee")
+      },
       // 基础设置模块
       partBase(){
         let _this = this

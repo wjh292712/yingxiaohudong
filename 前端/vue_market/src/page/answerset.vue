@@ -36,7 +36,7 @@
     </div>
     <div id="active_AllBtn">
       <el-button @click="goBack()">返回</el-button>
-      <el-button @click="onSave()">保存</el-button>
+      <el-button @click="onSave()" :disabled="btnsave">保存</el-button>
     </div>
   </div>
 </template>
@@ -70,7 +70,8 @@ import ansadvanced from '@/page/ansadvanced'
           award:"",
           high:""
         },
-        sendData:""
+        sendData:"",
+        btnsave:false,
       }
     },
     computed:{
@@ -117,7 +118,7 @@ import ansadvanced from '@/page/ansadvanced'
         }
 
       })
-
+      this.btnsave=this.$route.query.btnsave
     },
     methods:{
       // ...mapMutations([setting])
@@ -141,7 +142,7 @@ import ansadvanced from '@/page/ansadvanced'
       },
       goBack(){
         if( confirm('返回后所编辑的内容不能被保存，是否需要返回？')){
-          this.$router.push({path:'/activeslide/activeFirst'})
+          this.$router.push({path:'/mainPage'})
         }
       },
 

@@ -9,8 +9,8 @@
             <el-tab-pane tag='li'label="奖品一" name="first" data-idx="0">
               <el-form-item label="奖品来源">
                 <el-radio-group v-model="radio1">
-                  <el-radio label="1">自家商品</el-radio>
-                  <el-radio label="2">平台奖品库</el-radio>
+                  <el-radio :disabled="ticket" label="1">自家商品</el-radio>
+                  <el-radio :disabled="ticket" label="2">平台奖品库</el-radio>
                 </el-radio-group>
                 <a href="javascript:;">去奖品商城购买</a>
               </el-form-item>
@@ -42,8 +42,8 @@
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">
+                  <el-radio :disabled="ticket" label="1">系统生成</el-radio>
+                  <el-radio :disabled="ticket" label="2">
                     <span @click="handlead()">手动导入</span>
                   </el-radio>
                 </el-radio-group>
@@ -132,14 +132,14 @@
             </el-tab-pane>
             <!-- 奖品二 -->
             <el-tab-pane label="奖品二" name="second" data-idx="1">
-              <el-form-item label="奖品来源">
+              <el-form-item :disabled="ticket" label="奖品来源">
                 <el-radio-group v-model="radio2_1">
                   <el-radio label="1">自家商品</el-radio>
                   <el-radio label="2">平台奖品库</el-radio>
                 </el-radio-group>
                 <a href="javascript:;">去奖品商城购买</a>
               </el-form-item>
-              <el-form-item label="奖品类型">
+              <el-form-item :disabled="ticket" label="奖品类型">
                 <el-select v-model="form.region2" placeholder="请选择奖品类型">
                   <el-option v-for="(items,index) in reword_type2"  :label="items.name" :value="index+1" :key="index"></el-option>
                 </el-select>
@@ -166,8 +166,8 @@
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio2_2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">
+                  <el-radio :disabled="ticket" label="1">系统生成</el-radio>
+                  <el-radio :disabled="ticket" label="2">
                     <span @click="handlead()">手动导入</span>
                   </el-radio>
                 </el-radio-group>
@@ -251,8 +251,8 @@
             <el-tab-pane label="奖品三" name="third" data-idx="2">
               <el-form-item label="奖品来源">
                 <el-radio-group v-model="radio3_1">
-                  <el-radio label="1">自家商品</el-radio>
-                  <el-radio label="2">平台奖品库</el-radio>
+                  <el-radio :disabled="ticket" label="1">自家商品</el-radio>
+                  <el-radio :disabled="ticket" label="2">平台奖品库</el-radio>
                 </el-radio-group>
                 <a href="javascript:;">去奖品商城购买</a>
               </el-form-item>
@@ -283,8 +283,8 @@
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio3_2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">
+                  <el-radio :disabled="ticket" label="1">系统生成</el-radio>
+                  <el-radio :disabled="ticket" label="2">
                     <span @click="handlead()">手动导入</span>
                   </el-radio>
                 </el-radio-group>
@@ -371,8 +371,8 @@
             <el-tab-pane label="奖品四" name="fourth" data-idx="3">
               <el-form-item label="奖品来源">
                 <el-radio-group v-model="radio4_1">
-                  <el-radio label="1">自家商品</el-radio>
-                  <el-radio label="2">平台奖品库</el-radio>
+                  <el-radio :disabled="ticket" label="1">自家商品</el-radio>
+                  <el-radio :disabled="ticket" label="2">平台奖品库</el-radio>
                 </el-radio-group>
                 <a href="javascript:;">去奖品商城购买</a>
               </el-form-item>
@@ -403,8 +403,8 @@
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio4_2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">
+                  <el-radio :disabled="ticket" label="1">系统生成</el-radio>
+                  <el-radio :disabled="ticket" label="2">
                     <span @click="handlead()">手动导入</span>
                   </el-radio>
                 </el-radio-group>
@@ -490,8 +490,8 @@
             <el-tab-pane label="奖品五" name="fifth" data-idx="4">
               <el-form-item label="奖品来源">
                 <el-radio-group v-model="radio5_1">
-                  <el-radio label="1">自家商品</el-radio>
-                  <el-radio label="2">平台奖品库</el-radio>
+                  <el-radio :disabled="ticket" label="1">自家商品</el-radio>
+                  <el-radio :disabled="ticket" label="2">平台奖品库</el-radio>
                 </el-radio-group>
                 <a href="javascript:;">去奖品商城购买</a>
               </el-form-item>
@@ -522,8 +522,8 @@
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio5_2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">
+                  <el-radio :disabled="ticket" label="1">系统生成</el-radio>
+                  <el-radio :disabled="ticket" label="2">
                     <span @click="handlead()">手动导入</span>
                   </el-radio>
                 </el-radio-group>
@@ -609,8 +609,8 @@
             <el-tab-pane label="奖品六" name="sixth" data-idx="5">
               <el-form-item label="奖品来源">
                 <el-radio-group v-model="radio6_1">
-                  <el-radio label="1">自家商品</el-radio>
-                  <el-radio label="2">平台奖品库</el-radio>
+                  <el-radio :disabled="ticket" label="1">自家商品</el-radio>
+                  <el-radio :disabled="ticket" label="2">平台奖品库</el-radio>
                 </el-radio-group>
                 <a href="javascript:;">去奖品商城购买</a>
               </el-form-item>
@@ -641,8 +641,8 @@
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio6_2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">
+                  <el-radio :disabled="ticket" label="1">系统生成</el-radio>
+                  <el-radio :disabled="ticket" label="2">
                     <span @click="handlead()">手动导入</span>
                   </el-radio>
                 </el-radio-group>
@@ -728,8 +728,8 @@
             <el-tab-pane label="奖品七" name="seventh" data-idx="6">
               <el-form-item label="奖品来源">
                 <el-radio-group v-model="radio7_1">
-                  <el-radio label="1">自家商品</el-radio>
-                  <el-radio label="2">平台奖品库</el-radio>
+                  <el-radio :disabled="ticket" label="1">自家商品</el-radio>
+                  <el-radio :disabled="ticket" label="2">平台奖品库</el-radio>
                 </el-radio-group>
                 <a href="javascript:;">去奖品商城购买</a>
               </el-form-item>
@@ -760,8 +760,8 @@
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio7_2">
-                  <el-radio label="1">系统生成</el-radio>
-                  <el-radio label="2">
+                  <el-radio :disabled="ticket" label="1">系统生成</el-radio>
+                  <el-radio :disabled="ticket" label="2">
                     <span @click="handlead()">手动导入</span>
                   </el-radio>
                 </el-radio-group>
@@ -964,10 +964,10 @@
             <!--</el-form-item>-->
             <!--</el-tab-pane>-->
           </el-tabs>
-          <div class="cddd">
-            <span class="reword_num" @click="addgift()">+</span>
-            <span class="reword_num" @click="reducegift()">-</span>
-          </div>
+          <!--<div class="cddd">-->
+            <!--<span class="reword_num" @click="addgift()">+</span>-->
+            <!--<span class="reword_num" @click="reducegift()">-</span>-->
+          <!--</div>-->
         </div>
       </el-form>
     </div>
@@ -987,6 +987,7 @@
         actName:false,
         startTime:false,
         rewordCount:false,
+        ticket:false,
         list:[],
         dialogImageUrl: '',//微信公众号
         dialogImageUrl1: '',
@@ -1219,12 +1220,10 @@
         $('.ser_info').hide();
         $(".public").hide();
       })
-      this.$nextTick(function () {
-        this.startTime=myactive.data().startTime
-        this.actName =myactive.data().actName
-        this.rewordCount=myactive.data().rewordCount
-
-      })
+      this.startTime=this.$route.query.startTime
+      this.actName=this.$route.query.actName
+      this.rewordCount=this.$route.query.rewordCount
+      this.ticket=this.$route.query.ticket
     },
     computed:{
       ...mapState(['setting_dtData']),

@@ -173,15 +173,21 @@
             other:'',//其他设置
             company_send:'',//企业设置保存
             safety_send:'',//安全设置保存
-            other_send:''//其他设置保存
+            other_send:'',//其他设置保存
+            dataStatus:0,
           };
         },
         created(){
-          this.saveHight()
-          this.partHight()
+
         },
         mounted(){
           //this.partHight()
+          this.partHight()
+          this.dataStatus=this.$route.query.dataStatus
+          if (this.dataStatus==='1') {
+            this.partHight1()
+          }
+
         },
         computed:{
           ...mapState(['setting_data']),
@@ -189,7 +195,11 @@
 
         },
         updated(){
-          this.saveHight()
+          if(this.dataStatus===undefined){
+            this.saveHight()
+          }else if (this.dataStatus==='1') {
+            this.saveHight1()
+          }
         },
         methods: {
 
@@ -230,6 +240,41 @@
               this.radio10 = "1"
             }
           },
+          partHight1(){
+            // this.$store.dispatch('saveData')
+            this.company = this.$route.query.newjggData.jggHighCompanySetup
+            this.radio2 = this.company.companyLogoType.toString()
+            // console.log(this.company.companyLogoType)
+            if(!this.company.loadImgType){
+              this.radio3 = "1"
+            }
+
+          // 安全设置
+
+
+            this.safety = this.$route.query.newjggData.jggHighSecuritySetup
+            this.radio5 = this.safety.redSecurityLevel.toString()
+            this.radio6 = this.safety.smsCheckType.toString()
+            if(!this.safety.blackUser){
+              this.radio4 = "2"
+            }
+
+          // 其它设置
+
+            this.other = this.$route.query.newjggData.jggHighOtherSetup
+            if(this.other.ad){
+              this.radio7 = "1"
+            }
+            if(this.other.carousel){
+              this.radio8 = "1"
+            }
+            if(!this.other.form){
+              this.radio9 = "1"
+            }
+            if(!this.other.area){
+              this.radio10 = "1"
+            }
+          },
 
           //保存设置
           saveHight(){
@@ -251,14 +296,42 @@
 
           // 其它设置
 
-
             this.other_send = JSON.parse(Data).jggHighOtherSetup
             this.other_send.ad = this.radio7 == 1 ? true : false
             this.other_send.carousel = this.radio8 == 1 ? true : false
             this.other_send.form = this.radio9 == 1 ? false : true
             this.other_send.area = this.radio10 == 1 ? false : true
-            this.other_send = this.$store.state.setting_data.jggHighOtherSetup
-            this.$bus.emit("send_high",[this.company_send,this.safety_send,this.other_send])
+            this.$store.state.setting_data.jggHighOtherSetup=this.other_send
+              this.$bus.emit("send_high",[this.company_send,this.safety_send,this.other_send])
+            // console.log(this.company_send,this.safety_send,this.other_send)
+            alert(this.other_send+"advanced的264")
+            console.log(this.other_send);
+          },
+          saveHight1(){
+
+            this.company_send =this.$route.query.newjggData.jggHighCompanySetup
+            this.company_send.companyLogoType = Number(this.radio2)
+            this.company_send.loadImgType = this.radio3 == 1 ? 0 : ''
+            this.$store.state.setting_data.jggHighCompanySetup = this.company_send
+
+          // 安全设置
+
+
+            this.safety_send = this.$route.query.newjggData.jggHighSecuritySetup
+            this.safety_send.redSecurityLevel = Number(this.radio5)
+            this.safety_send.smsCheckType = Number(this.radio6)
+            this.safety_send.blackUser = this.radio4 == 1 ? ture :false
+            this.$store.state.setting_data.jggHighSecuritySetup = this.safety_send
+
+          // 其它设置
+
+            this.other_send = this.$route.query.newjggData.jggHighOtherSetup
+            this.other_send.ad = this.radio7 == 1 ? true : false
+            this.other_send.carousel = this.radio8 == 1 ? true : false
+            this.other_send.form = this.radio9 == 1 ? false : true
+            this.other_send.area = this.radio10 == 1 ? false : true
+           this.$store.state.setting_data.jggHighOtherSetup= this.other_send
+             this.$bus.emit("send_high",[this.company_send,this.safety_send,this.other_send])
             // console.log(this.company_send,this.safety_send,this.other_send)
             alert(this.other_send+"advanced的264")
             console.log(this.other_send);

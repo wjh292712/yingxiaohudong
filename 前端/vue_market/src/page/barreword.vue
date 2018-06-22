@@ -812,6 +812,11 @@
     mounted() {
       // this.$store.dispatch("saveData")
       this.partReword()
+
+      this.actName=this.$route.query.actName
+      this.startPrice=this.$route.query.startPrice
+      this.endPrice=this.$route.query.endPrice
+
     },
     computed: {
       ...mapState(['setting_kjData']),

@@ -159,7 +159,8 @@
               console.log(token);
               $.ajax({
                     type:"POST",
-                    url:"http://center.marketing.yunpaas.cn/jgg/activitySetup/save?token="+token,
+                    // url:"http://center.marketing.yunpaas.cn/jgg/activitySetup/save?token="+token,
+                 url:"http://192.168.2.112:8085/jgg/activitySetup/save?token="+token,
                     data:sendNew,
                     contentType:"application/json",
                     // datatype:"json",
@@ -183,7 +184,7 @@
             },
           goBack(){
            if( confirm('返回后所编辑的内容不能被保存，是否需要返回？')){
-             this.$router.push({path:'/activeslide/activeFirst'})
+             this.$router.push({path:'/mainPage'})
            }
           },
 

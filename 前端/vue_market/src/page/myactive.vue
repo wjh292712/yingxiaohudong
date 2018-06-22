@@ -331,6 +331,11 @@
         startPrice:false,//商品原价
         endPrice:false,//商品底价
         ticket:false,//券码
+        btnsave:false,//保存
+        newjggData:'',//编辑数据接口
+        newkjData:'',//编辑数据接口
+        newdtData:'',//编辑数据接口
+        dataStatus:'',
       }
     },
     created() {
@@ -549,61 +554,101 @@
         if(this.templateUuid == 1){
           this.$axios({
             method: 'post',
-            url: 'http://center.marketing.yunpaas.cn/jgg/activitySetup/getBaseSetupById',
+            url: 'http://center.marketing.yunpaas.cn/jgg/activitySetup/getActivitySetupById',
             params: {
               activityId:this.activeId,
             }
           }).then(res => {
             console.log(res);
+            let newJggData=res.data.data
+this.newjggData=newJggData
+         console.log(this.newjggData)
             if(this.states===3){
-              this.startTime=true;
-              this.actName=true;
-              this.rewordCount=true;
+              alert("223")
+              let _this=this
+              this.startTime=true
+              this.actName=true
+              this.rewordCount=true
               this.ticket=true
+              this.$router.push({path:'/activeslide/activelist',query: { startTime:true,actName:true,rewordCount:true,ticket:true,newjggData:newJggData,dataStatus:'1'}})
+            }else  if(this.states===4){
+              alert("312")
+              let _this=this
+              this.startTime=true
+              this.actName=true
+              this.rewordCount=true
+              this.ticket=true
+              this.btnsave=true
+              this.$router.push({path:'/activeslide/activelist',query: { startTime:true,actName:true,rewordCount:true,ticket:true,btnsave:true,newjggData:newJggData,dataStatus:'1'}})
             }
-            this.$router.push({path:'/activeslide/activelist'})
+            else {
+              this.$router.push({path:'/activeslide/activelist',query:{newjggData:newJggData,dataStatus:'1'}})
+            }
+
 
           })
         }else if(this.templateUuid == 2){
           this.$axios({
             method: 'post',
-            url: 'http://center.marketing.yunpaas.cn/kj/activitySetup/getBaseSetupById',
+            url: 'http://center.marketing.yunpaas.cn/kj/activitySetup/getActivitySetupById',
             params: {
               activityId: this.activeId,
             }
           }).then(res => {
-            console.log(res);
+
             if(this.states===3){
+              alert("223")
+              let _this=this
+              this.startTime=true
               this.actName=true
               this.startPrice=true
-                this.endPrice=true
-              this.ticket=true
+              this.endPrice=true
+              this.$router.push({path:'/activeslide/bargainlist',query: { startTime:true,actName:true,startPrice:true,endPrice:true,}})
+            }else  if(this.states===4){
+              alert("312")
+              let _this=this
+              this.startTime=true
+              this.actName=true
+
+              this.startPrice=true
+              this.endPrice=true
+              this.btnsave=true
+              this.$router.push({path:'/activeslide/bargainlist',query: { startTime:true,actName:true,startPrice:true,endPrice:true,btnsave:true}})
             }
-            this.$router.push({path:'/activeslide/bargainlist'})
+            else {
+              this.$router.push({path:'/activeslide/bargainlist',})
+            }
 
           })
         }else if (this.templateUuid == 3){
           this.$axios({
             method: 'post',
-            url: 'http://center.marketing.yunpaas.cn/dt/activitySetup/getBaseSetupById',
+            url: 'http://center.marketing.yunpaas.cn/dt/activitySetup/getActivitySetupById',
             params: {
               activityId: this.activeId,
             }
           }).then(res => {
-            console.log(res);
             if(this.states===3){
+              alert("223")
               let _this=this
                 this.startTime=true
                 this.actName=true
                 this.rewordCount=true
                 this.ticket=true
-              alert( this.startTime+"dati")
-              this.$bus.emit("send",_this.startTime,_this.actName,_this.rewordCount,_this.ticket)
-
+              this.$router.push({path:'/activeslide/answerlist',query: { startTime:true,actName:true,rewordCount:true,ticket:true}})
+            }else  if(this.states===4){
+              alert("312")
+              let _this=this
+              this.startTime=true
+              this.actName=true
+              this.rewordCount=true
+              this.ticket=true
+              this.btnsave=true
+              this.$router.push({path:'/activeslide/answerlist',query: { startTime:true,actName:true,rewordCount:true,ticket:true,btnsave:true}})
             }
-            // this.$bus.emit("send",this.starttime)
-            this.$router.push({path:'/activeslide/answerlist'})
-
+            else {
+              this.$router.push({path:'/activeslide/answerlist',})
+            }
           })
 
 

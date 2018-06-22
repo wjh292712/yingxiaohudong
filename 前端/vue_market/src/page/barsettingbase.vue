@@ -120,7 +120,7 @@
         value5: '',
         value1:'',
         value2:'',
-        startTime1:true, //基础设置的开始时间
+        startTime1:false, //基础设置的开始时间
         startTime:false,
         endTime:false,//基础设置的结束时间
       };
@@ -134,11 +134,7 @@
       // _this.$store.dispatch('saveData')
       this.partBase()
       this.timestampToTime()
-      this.$nextTick(function () {
-        this.startTime1=myactive.data().startTime1
-        this.startTime=myactive.data().startTime
-
-      })
+      this.startTime=this.$route.query.startTime
 
     },
     computed: {

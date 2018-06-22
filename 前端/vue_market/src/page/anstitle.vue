@@ -133,6 +133,7 @@
         this.answerState=this.title_data.dtQuestionTypeExtendList
         this.titleCount=this.title_data.questionTotalNum
         this.radomCount=this.title_data.questionRadomNum
+        this.ansName=this.title_data.dtActivityQuestionExtendList.dtQuestionExtend.title
         this.radio2= Number(this.title_data.answerTimeLimit).toString()
       },
       savaTitleBase(){
@@ -142,7 +143,7 @@
         this.title_send.dtQuestionTypeExtendList=this.answerState
         this.title_send.questionTotalNum=this.titleCount
         this.title_send.questionRadomNum=this.radomCount
-        this.title_send.answerTimeLimit=this.radio2
+        this.title_send.answerTimeLimit=this.radio2==0?false:true
         this.$store.state.setting_dtData.dtQuestionSetupExtend =  this.title_send
         this.$bus.emit("send_title", this.title_send)
       },

@@ -94,7 +94,7 @@
         this.raward_send = JSON.parse(Data).dtAwardSendSetup
        this.raward_send.winScore= this.input1
      this.raward_send.sendType= this.radio1
-      this.raward_send.singleTotalDrawLimit=this.radio2
+      this.raward_send.singleTotalDrawLimit=this.radio2==0?false:true
         this.raward_send.singleDrawCount=this.input2
        this.raward_send.singleDayDrawCount= this.input3
         this.raward_send.singleWinTotalCount=this.input4

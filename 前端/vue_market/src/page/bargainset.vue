@@ -153,7 +153,7 @@
       },
       goBack(){
         if( confirm('返回后所编辑的内容不能被保存，是否需要返回？')){
-          this.$router.push({path:'/activeslide/activeFirst'})
+          this.$router.push({path:'/mainPage'})
         }
       },
 

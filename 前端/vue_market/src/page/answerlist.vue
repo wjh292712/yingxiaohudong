@@ -75,7 +75,7 @@
                   <!--中奖页-->
                   <div class="active_down">
                     <div class="active_downCon">
-                      <winning/>
+                      <answinning></answinning>
                     </div>
                   </div>
                 </div>
@@ -83,7 +83,7 @@
                   <!--未中奖页-->
                   <div class="active_down">
                     <div class="active_downCon">
-                      <losing/>
+                      <anslosing></anslosing>
                     </div>
                   </div>
                 </div>
@@ -129,6 +129,8 @@
   import ansdraw from '@/page/ansdraw'
   import ansactivedraw from '@/page/ansactivedraw'
   import ansdetailpage from '@/page/ansdetailpage'
+  import answinning from '@/page/answinning'
+  import anslosing from '@/page/anslosing'
 
   import detailpage from '@/page/detailpage'
   import losing from '@/page/losing'
@@ -178,8 +180,8 @@
       ansdraw,
       ansactivedraw,
       ansdetailpage,
-      losing,
-      winning
+      anslosing,
+      answinning
     }
   })
 </script>

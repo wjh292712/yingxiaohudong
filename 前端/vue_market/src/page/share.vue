@@ -90,7 +90,8 @@
                         desc: ''
                         },
                 share_data:'',//接口数据保存
-                share_send:''
+                share_send:'',
+              dataStatus:0,
             }
         },
         created(){
@@ -103,9 +104,18 @@
         },
         mounted(){
             this.partShare()
+          this.dataStatus=this.$route.query.dataStatus
+          if (this.dataStatus==='1') {
+            this.partShare1()
+          }
         },
       updated(){
+
+        if(this.dataStatus===undefined){
           this.savedShare()
+        }else if (this.dataStatus==='1') {
+          this.savedShare1()
+        }
       },
         methods:{
             onSubmit() {
@@ -129,11 +139,30 @@
                         this.form.resource3 = this.share_data.wxShareTitleType.toString()
                         this.form.resource4 = this.share_data.wxShareContentType.toString()
                     },
+          partShare1(){
+
+                        this.share_data = this.$route.query.newjggData.jggShareSetup
+                        this.form.resource1 = Number(this.share_data.share).toString()
+                        this.form.resource2 = this.share_data.wxShareLogoType.toString()
+                        this.form.resource3 = this.share_data.wxShareTitleType.toString()
+                        this.form.resource4 = this.share_data.wxShareContentType.toString()
+                    },
                     //分享保存部分
                     savedShare(){
                         // this.$store.dispatch('saveData')
                         let Data = sessionStorage.getItem('Data')
                         this.share_send = JSON.parse(Data).jggShareSetup
+                        this.share_send.share = this.form.resource1 == 1 ? true : false
+                        this.share_send.wxShareLogoType = this.form.resource2
+                        this.share_send.wxShareTitleType = this.form.resource3
+                        this.share_send.wxShareContentType = this.form.resource4
+                        this.$store.state.setting_data.jggShareSetup = this.share_send
+                        this.$bus.emit("send_share",this.share_send)
+                    },
+          savedShare1(){
+                        // this.$store.dispatch('saveData')
+
+                        this.share_send = this.$route.query.newjggData.jggShareSetup
                         this.share_send.share = this.form.resource1 == 1 ? true : false
                         this.share_send.wxShareLogoType = this.form.resource2
                         this.share_send.wxShareTitleType = this.form.resource3
