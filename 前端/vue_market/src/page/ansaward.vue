@@ -61,6 +61,7 @@
         limit:false,
         raward_data:'',//渲染接口数据
         raward_send:'',//保存后接口数据
+        dataStatus:0,
       }
     },
     created(){
@@ -68,13 +69,22 @@
     },
     mounted(){
       this.partAward()
+      this.dataStatus=this.$route.query.dataStatus
+      if (this.dataStatus==='1') {
+        this.partAward1()
+      }
     },
     computed:{
       ...mapState(['setting_dtData']),
       ...mapActions(['saveDatadt'])
     },
     updated(){
-      this.saveAward()
+
+      if(this.dataStatus===undefined){
+        this.saveAward()
+      }else if (this.dataStatus==='1') {
+        this.saveAward1()
+      }
     },
     methods: {
       partAward(){
@@ -89,9 +99,34 @@
         this.input5=this.raward_data.probability
 
       },
+      partAward1(){
+
+        this.raward_data = this.$route.query.newdtData.dtAwardSendSetup
+        this.input1=this.raward_data.winScore
+        this.radio1=Number(this.raward_data.sendType).toString()
+        this.radio2=Number(this.raward_data.singleTotalDrawLimit).toString()
+        this.input2=this.raward_data.singleDrawCount
+        this.input3=this.raward_data.singleDayDrawCount
+        this.input4=this.raward_data.singleWinTotalCount
+        this.input5=this.raward_data.probability
+
+      },
       saveAward(){
         let Data = sessionStorage.getItem('Datadt')
         this.raward_send = JSON.parse(Data).dtAwardSendSetup
+       this.raward_send.winScore= this.input1
+     this.raward_send.sendType= this.radio1
+      this.raward_send.singleTotalDrawLimit=this.radio2==0?false:true
+        this.raward_send.singleDrawCount=this.input2
+       this.raward_send.singleDayDrawCount= this.input3
+        this.raward_send.singleWinTotalCount=this.input4
+       this.raward_send.probability= this.input5
+        this.$store.state.setting_kjData.dtAwardSendSetup = this.raward_send
+        this.$bus.emit("send_award", this.raward_send)
+      },
+      saveAward1(){
+
+        this.raward_send = this.$route.query.newdtData.dtAwardSendSetup
        this.raward_send.winScore= this.input1
      this.raward_send.sendType= this.radio1
       this.raward_send.singleTotalDrawLimit=this.radio2==0?false:true

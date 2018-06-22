@@ -299,7 +299,7 @@ export default ({
                   }
                   .phone_text {
                     position: absolute;
-                    left: 40%;
+                    left: 45%;
                     height: 1.5rem;
                     line-height: 1.5rem;
                     font-size: .7rem;

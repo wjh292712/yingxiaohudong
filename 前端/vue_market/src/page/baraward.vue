@@ -59,6 +59,7 @@
         input7:'',
         raward_data:'',//渲染接口数据
         raward_send:'',//保存后接口数据
+        dataStatus:0,
       }
     },
     created(){
@@ -66,13 +67,21 @@
     },
     mounted(){
       this.partAward()
+      this.dataStatus=this.$route.query.dataStatus
+      if (this.dataStatus==='1') {
+        this.partAward1()
+      }
     },
     computed:{
       ...mapState(['setting_kjData']),
       ...mapActions(['saveDatakj'])
     },
     updated(){
-
+      if(this.dataStatus===undefined){
+        this.saveAward()
+      }else if (this.dataStatus==='1') {
+        this.saveAward1()
+      }
     },
     methods: {
       partAward(){
@@ -83,9 +92,25 @@
         this.input6=this.raward_data.singleUserHelpNum //一人能为多少玩家助力
         this.radio1=Number(this.raward_data.topShow).toString()//用户端是否显示
       },
+      partAward1(){
+        this.raward_data = this.$route.query.newkjData.kjBargainSetup
+        this.input4=this.raward_data.holdTime // 底价保留时长
+        this.input5=this.raward_data.singleUserBargainNum //每人最多参与砍价数量
+        this.input6=this.raward_data.singleUserHelpNum //一人能为多少玩家助力
+        this.radio1=Number(this.raward_data.topShow).toString()//用户端是否显示
+      },
       saveAward(){
         let Data = sessionStorage.getItem('Datakj')
         this.raward_send = JSON.parse(Data).kjBargainSetup
+        this.raward_send.holdTime= this.input4
+        this.raward_send.singleUserBargainNum = this.input5
+        this.raward_send.singleUserHelpNum = this.input6
+        this.raward_send.topShow = this.radio1
+        _this.$store.state.setting_kjData.kjBargainSetup = this.raward_send
+        _this.$bus.emit("send_award", this.raward_send)
+      },
+      saveAward1(){
+        this.raward_send = this.$route.query.newkjData.kjBargainSetup
         this.raward_send.holdTime= this.input4
         this.raward_send.singleUserBargainNum = this.input5
         this.raward_send.singleUserHelpNum = this.input6

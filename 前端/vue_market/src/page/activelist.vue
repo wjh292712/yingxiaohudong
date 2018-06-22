@@ -169,7 +169,7 @@ export default ({
 </script>
 
 
-<style lang="scss">
+<style lang="scss" >
   .pic_ture{
     position: relative;
   }
@@ -361,7 +361,7 @@ export default ({
                   }
                   .phone_text {
                     position: absolute;
-                    left: 40%;
+                    left: 46%;
                     height: 1.5rem;
                     line-height: 1.5rem;
                     font-size: .7rem;

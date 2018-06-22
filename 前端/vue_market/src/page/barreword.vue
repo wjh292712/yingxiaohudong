@@ -690,6 +690,7 @@
          actName:false,//商品名称
          startPrice:false,//商品原价
          endPrice:false,//商品底价
+        dataStatus:0,
         imageUrl: '',
         dialogVisible: false,
         reword: "",
@@ -816,6 +817,10 @@
       this.actName=this.$route.query.actName
       this.startPrice=this.$route.query.startPrice
       this.endPrice=this.$route.query.endPrice
+      this.dataStatus=this.$route.query.dataStatus
+      if (this.dataStatus==='1') {
+        this.partReword1()
+      }
 
     },
     computed: {
@@ -827,6 +832,11 @@
     },
     updated(){
       this.saveReword()
+      if(this.dataStatus===undefined){
+        this.saveReword()
+      }else if (this.dataStatus==='1') {
+        this.saveReword1()
+      }
     },
     methods: {
 
@@ -940,11 +950,196 @@
         this.form.deliveryInfo7 = this.reword_data[6].deliveryInfo//发货说明
 
       },
+      partReword1() {
+
+        this.reword_data = this.$route.query.newkjData.kjGoodsSetupExtendList
+        console.log(this.reword_data)//奖品数据
+        //商品一
+        this.reword_type1 = this.reword_data[0].kjGoodsTypeList//商品类型
+        this.form.name1 = this.reword_data[0].goodsName//商品名称
+        this.form.price1 = this.reword_data[0].goodsMarketPrice//商品原价
+        this.form.priceLow1 = this.reword_data[0].goodsCostPrice//商品底价
+        this.form.count1 = this.reword_data[0].goodsStockNum//商品库存
+        this.form.countsales1 = this.reword_data[0].goodsSalesNum//虚拟销量
+        this.form.imageUrl1_1 = this.reword_data[0].goodsImg1//商品详情图片1
+        this.form.imageUrl1_2 = this.reword_data[0].goodsImg2//商品详情图片2
+        this.form.imageUrl1_3 = this.reword_data[0].goodsImg3//商品详情图片3
+        this.form.deliveryType1 = this.reword_data[0].deliveryType//配送方式
+        this.form.deliveryInfo1 = this.reword_data[0].deliveryInfo//发货说明
+
+        // 商品二
+        this.reword_type2 = this.reword_data[1].kjGoodsTypeList//商品类型
+        this.form.name2 = this.reword_data[1].goodsName//商品名称
+        this.form.price2 = this.reword_data[1].goodsMarketPrice//商品原价
+        this.form.priceLow2 = this.reword_data[1].goodsCostPrice//商品底价
+        this.form.count2 = this.reword_data[1].goodsStockNum//商品库存
+        this.form.countsales2 = this.reword_data[1].goodsSalesNum//虚拟销量
+        this.form.imageUrl2_1 = this.reword_data[1].goodsImg1//商品详情图片1
+        this.form.imageUrl2_2 = this.reword_data[1].goodsImg2//商品详情图片2
+        this.form.imageUrl2_3 = this.reword_data[1].goodsImg3//商品详情图片3
+        this.form.deliveryType2 = this.reword_data[1].deliveryType//配送方式
+        this.form.deliveryInfo2 = this.reword_data[1].deliveryInfo//发货说明        // 商品三
+        this.reword_type3 = this.reword_data[2].kjGoodsTypeList//商品类型
+        this.form.name3 = this.reword_data[2].goodsName//商品名称
+        this.form.price3 = this.reword_data[2].goodsMarketPrice//商品原价
+        this.form.priceLow3 = this.reword_data[2].goodsCostPrice//商品底价
+        this.form.count3 = this.reword_data[2].goodsStockNum//商品库存
+        this.form.countsales3 = this.reword_data[2].goodsSalesNum//虚拟销量
+        this.form.imageUrl3_1 = this.reword_data[2].goodsImg1//商品详情图片1
+        this.form.imageUrl3_2 = this.reword_data[2].goodsImg2//商品详情图片2
+        this.form.imageUrl3_3 = this.reword_data[2].goodsImg3//商品详情图片3
+        this.form.deliveryType3 = this.reword_data[2].deliveryType//配送方式
+        this.form.deliveryInfo3 = this.reword_data[2].deliveryInfo//发货说明
+         // 商品四
+        this.reword_type4 = this.reword_data[3].kjGoodsTypeList//商品类型
+        this.form.name4 = this.reword_data[3].goodsName//商品名称
+        this.form.price4 = this.reword_data[3].goodsMarketPrice//商品原价
+        this.form.priceLow4 = this.reword_data[3].goodsCostPrice//商品底价
+        this.form.count4 = this.reword_data[3].goodsStockNum//商品库存
+        this.form.countsales4 = this.reword_data[3].goodsSalesNum//虚拟销量
+        this.form.imageUrl4_1 = this.reword_data[3].goodsImg1//商品详情图片1
+        this.form.imageUrl4_2 = this.reword_data[3].goodsImg2//商品详情图片2
+        this.form.imageUrl4_3 = this.reword_data[3].goodsImg3//商品详情图片3
+        this.form.deliveryType4 = this.reword_data[3].deliveryType//配送方式
+        this.form.deliveryInfo4 = this.reword_data[3].deliveryInfo//发货说明
+         // 商品五
+        this.reword_type5 = this.reword_data[4].kjGoodsTypeList//商品类型
+        this.form.name5 = this.reword_data[4].goodsName//商品名称
+        this.form.price5 = this.reword_data[4].goodsMarketPrice//商品原价
+        this.form.priceLow5 = this.reword_data[4].goodsCostPrice//商品底价
+        this.form.count5 = this.reword_data[4].goodsStockNum//商品库存
+        this.form.countsales5 = this.reword_data[4].goodsSalesNum//虚拟销量
+        this.form.imageUrl5_1 = this.reword_data[4].goodsImg1//商品详情图片1
+        this.form.imageUrl5_2 = this.reword_data[4].goodsImg2//商品详情图片2
+        this.form.imageUrl5_3 = this.reword_data[4].goodsImg3//商品详情图片3
+        this.form.deliveryType5 = this.reword_data[4].deliveryType//配送方式
+        this.form.deliveryInfo5 = this.reword_data[4].deliveryInfo//发货说明         // 商品六
+        this.reword_type6 = this.reword_data[5].kjGoodsTypeList//商品类型
+        this.form.name6 = this.reword_data[5].goodsName//商品名称
+        this.form.price6 = this.reword_data[5].goodsMarketPrice//商品原价
+        this.form.priceLow6 = this.reword_data[5].goodsCostPrice//商品底价
+        this.form.count6 = this.reword_data[5].goodsStockNum//商品库存
+        this.form.countsales6 = this.reword_data[5].goodsSalesNum//虚拟销量
+        this.form.imageUrl6_1 = this.reword_data[5].goodsImg1//商品详情图片1
+        this.form.imageUrl6_2 = this.reword_data[5].goodsImg2//商品详情图片2
+        this.form.imageUrl6_3 = this.reword_data[5].goodsImg3//商品详情图片3
+        this.form.deliveryType6 = this.reword_data[5].deliveryType//配送方式
+        this.form.deliveryInfo6 = this.reword_data[5].deliveryInfo//发货说明         // 商品七
+        this.reword_type7 = this.reword_data[6].kjGoodsTypeList//商品类型
+        this.form.name7 = this.reword_data[6].goodsName//商品名称
+        this.form.price7 = this.reword_data[6].goodsMarketPrice//商品原价
+        this.form.priceLow7 = this.reword_data[6].goodsCostPrice//商品底价
+        this.form.count7 = this.reword_data[6].goodsStockNum//商品库存
+        this.form.countsales7 = this.reword_data[6].goodsSalesNum//虚拟销量
+        this.form.imageUrl7_1 = this.reword_data[6].goodsImg1//商品详情图片1
+        this.form.imageUrl7_2 = this.reword_data[6].goodsImg2//商品详情图片2
+        this.form.imageUrl7_3 = this.reword_data[6].goodsImg3//商品详情图片3
+        this.form.deliveryType7 = this.reword_data[6].deliveryType//配送方式
+        this.form.deliveryInfo7 = this.reword_data[6].deliveryInfo//发货说明
+
+      },
       //保存奖品数据
       saveReword() {
         // this.$store.dispatch("saveData")
         let Data = sessionStorage.getItem('Datakj')
         this.reword_send = JSON.parse(Data).kjGoodsSetupExtendList
+        //商品一
+        this.reword_send[0].kjGoodsTypeList = this.reword_type1//商品类型
+        this.reword_send[0].goodsName = this.form.name1 //商品名称
+        this.reword_send[0].goodsMarketPrice = this.form.price1//商品原价
+        this.reword_send[0].goodsCostPrice = this.form.priceLow1 //商品底价
+        this.reword_send[0].goodsStockNum = this.form.count1//商品库存
+        this.reword_send[0].goodsSalesNum = this.form.countsales1//虚拟销量
+        this.reword_send[0].goodsImg1 = this.form.imageUrl1_1//商品详情图片1
+        this.reword_send[0].goodsImg2 = this.form.imageUrl1_2//商品详情图片2
+        this.reword_send[0].goodsImg3 = this.form.imageUrl1_3//商品详情图片3
+        this.reword_send[0].deliveryType = this.form.deliveryType1//配送方式
+        this.reword_send[0].deliveryInfo = this.form.deliveryInfo1//发货说明
+        // 商品二
+        this.reword_send[1].kjGoodsTypeList = this.reword_type2
+        this.reword_send[1].goodsName = this.form.name2
+        this.reword_send[1].goodsMarketPrice = this.form.price2
+        this.reword_send[1].goodsCostPrice = this.form.priceLow2
+        this.reword_send[1].goodsStockNum = this.form.count2
+        this.reword_send[1].goodsSalesNum = this.form.countsales2
+        this.reword_send[1].goodsImg1 = this.form.imageUrl2_1
+        this.reword_send[1].goodsImg2 = this.form.imageUrl2_2
+        this.reword_send[1].goodsImg3 = this.form.imageUrl2_3
+        this.reword_send[1].deliveryType = this.form.deliveryType2
+        this.reword_send[1].deliveryInfo = this.form.deliveryInfo2
+
+        //商品三
+        this.reword_send[2].kjGoodsTypeList = this.reword_type3
+        this.reword_send[2].goodsName = this.form.name3
+        this.reword_send[2].goodsMarketPrice = this.form.price3
+        this.reword_send[2].goodsCostPrice = this.form.priceLow3
+        this.reword_send[2].goodsStockNum = this.form.count3
+        this.reword_send[2].goodsSalesNum = this.form.countsales3
+        this.reword_send[2].goodsImg1 = this.form.imageUrl3_1
+        this.reword_send[2].goodsImg2 = this.form.imageUrl3_2
+        this.reword_send[2].goodsImg3 = this.form.imageUrl3_3
+        this.reword_send[2].deliveryType = this.form.deliveryType3
+        this.reword_send[2].deliveryInfo = this.form.deliveryInfo3
+
+        //商品四
+        this.reword_send[3].kjGoodsTypeList = this.reword_type4
+        this.reword_send[3].goodsName = this.form.name4
+        this.reword_send[3].goodsMarketPrice = this.form.price4
+        this.reword_send[3].goodsCostPrice = this.form.priceLow4
+        this.reword_send[3].goodsStockNum = this.form.count4
+        this.reword_send[3].goodsSalesNum = this.form.countsales4
+        this.reword_send[3].goodsImg1 = this.form.imageUrl4_1
+        this.reword_send[3].goodsImg2 = this.form.imageUrl4_2
+        this.reword_send[3].goodsImg3 = this.form.imageUrl4_3
+        this.reword_send[3].deliveryType = this.form.deliveryType4
+        this.reword_send[3].deliveryInfo = this.form.deliveryInfo4
+
+        //商品五
+        this.reword_send[4].kjGoodsTypeList = this.reword_type5
+        this.reword_send[4].goodsName = this.form.name5
+        this.reword_send[4].goodsMarketPrice = this.form.price5
+        this.reword_send[4].goodsCostPrice = this.form.priceLow5
+        this.reword_send[4].goodsStockNum = this.form.count5
+        this.reword_send[4].goodsSalesNum = this.form.countsales5
+        this.reword_send[4].goodsImg1 = this.form.imageUrl5_1
+        this.reword_send[4].goodsImg2 = this.form.imageUrl5_2
+        this.reword_send[4].goodsImg3 = this.form.imageUrl5_3
+        this.reword_send[4].deliveryType = this.form.deliveryType5
+        this.reword_send[4].deliveryInfo = this.form.deliveryInfo5
+
+        //商品六
+        this.reword_send[5].kjGoodsTypeList = this.reword_type6
+        this.reword_send[5].goodsName = this.form.name6
+        this.reword_send[5].goodsMarketPrice = this.form.price6
+        this.reword_send[5].goodsCostPrice = this.form.priceLow6
+        this.reword_send[5].goodsStockNum = this.form.count6
+        this.reword_send[5].goodsSalesNum = this.form.countsales6
+        this.reword_send[5].goodsImg1 = this.form.imageUrl6_1
+        this.reword_send[5].goodsImg2 = this.form.imageUrl6_2
+        this.reword_send[5].goodsImg3 = this.form.imageUrl6_3
+        this.reword_send[5].deliveryType = this.form.deliveryType6
+        this.reword_send[5].deliveryInfo = this.form.deliveryInfo6
+
+        //商品七
+        this.reword_send[6].kjGoodsTypeList = this.reword_type7
+        this.reword_send[6].goodsName = this.form.name7
+        this.reword_send[6].goodsMarketPrice = this.form.price7
+        this.reword_send[6].goodsCostPrice = this.form.priceLow7
+        this.reword_send[6].goodsStockNum = this.form.count7
+        this.reword_send[6].goodsSalesNum = this.form.countsales7
+        this.reword_send[6].goodsImg1 = this.form.imageUrl7_1
+        this.reword_send[6].goodsImg2 = this.form.imageUrl7_2
+        this.reword_send[6].goodsImg3 = this.form.imageUrl7_3
+        this.reword_send[6].deliveryType = this.form.deliveryType7
+        this.reword_send[6].deliveryInfo = this.form.deliveryInfo7
+        this.$store.state.setting_kjData.kjGoodsSetupExtendList = this.reword_send
+        this.$bus.emit("send_reword", this.reword_send)
+        console.log(this.reword_send)
+      },
+      saveReword1() {
+        // this.$store.dispatch("saveData")
+
+        this.reword_send = this.$route.query.newkjData.kjGoodsSetupExtendList
         //商品一
         this.reword_send[0].kjGoodsTypeList = this.reword_type1//商品类型
         this.reword_send[0].goodsName = this.form.name1 //商品名称

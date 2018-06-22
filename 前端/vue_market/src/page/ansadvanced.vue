@@ -204,6 +204,7 @@
         wxTil:false,
         wxsharcontent:false,
         logoShow:false,
+        dataStatus:0,
       };
     },
     created(){
@@ -211,13 +212,22 @@
     },
     mounted(){
       this.partHight()
+      this.dataStatus=this.$route.query.dataStatus
+      if (this.dataStatus==='1') {
+        this.partHight1()
+      }
     },
     computed:{
       ...mapState(['setting_dtData']),
       ...mapActions(['saveDatadt'])
     },
     updated(){
-      this.saveHight()
+
+      if(this.dataStatus===undefined){
+        this.saveHight()
+      }else if (this.dataStatus==='1') {
+        this.saveHight1()
+      }
     },
     methods: {
 
@@ -258,6 +268,41 @@
           this.radio11 = "1"
         }
       },
+      partHight1(){
+        // this.$store.dispatch('saveData')
+
+        // 企业设置
+        this.company = this.$route.query.newdtData.dtHighCompanySetup
+        this.input=this.company.company //主办单位
+        this.input3=this.company.url   //链接地址
+        this.radio2 = this.company.companyLogoType.toString()//主办单位logo
+        if(!this.company.loadImgType){ //加载页面图片
+          this.radio3 = "1"
+        }else {
+          this.radio3 = "2"
+        }
+
+        // 分享设置
+        this.share = this.$route.query.newdtData.dtShareSetup
+        this.radio5 = this.share.wxShareLogoType.toString()
+        this.radio6 = this.share.wxShareTitleType.toString()
+        this.radio7 = this.share.wxShareContentType.toString()
+
+        // 其它设置
+        this.other = this.$route.query.newdtData.dtHighOtherSetup
+        if(this.other.ad){
+          this.radio8 = "1"
+        }
+        if(this.other.carousel){
+          this.radio9 = "1"
+        }
+        if(!this.other.form){
+          this.radio10 = "1"
+        }
+        if(!this.other.area){
+          this.radio11 = "1"
+        }
+      },
 
       //保存设置
       saveHight(){
@@ -281,6 +326,34 @@
 
         // 其它保存设置
         this.other_send = JSON.parse(Data).dtHighOtherSetup
+        this.other_send.ad = this.radio8 == 1 ? true : false
+        this.other_send.carousel = this.radio9 == 1 ? true : false
+        this.other_send.form = this.radio10 == 1 ? false : true
+        this.other_send.area = this.radio11 == 1 ? false : true
+        this.$store.state.setting_dtData.dtHighOtherSetup =this.other_send
+        this.$bus.emit("send_high",[this.company_send,this.share_send,this.other_send])
+      },
+      saveHight1(){
+        // this.$store.dispatch('saveData')
+
+
+        //企业保存设置
+        this.company_send = this.$route.query.newdtData.dtHighCompanySetup
+        this.company_send.company = this.input
+        this.company_send.url = this.input3
+        this.company_send.companyLogoType = Number(this.radio2)
+        this.company_send.loadImgType = this.radio3 == 1 ? 0 : ''
+        this.$store.state.setting_dtData.dtHighCompanySetup = this.company_send
+
+        // 分享保存设置
+        this.share_send =this.$route.query.newdtData.dtShareSetup
+        this.share_send.wxShareLogoType = this.radio5
+        this.share_send.wxShareTitleType = this.radio6
+        this.share_send.wxShareContentType = this.radio7
+        this.$store.state.setting_dtData.dtShareSetup = this.share_send
+
+        // 其它保存设置
+        this.other_send = this.$route.query.newdtData.dtHighOtherSetup
         this.other_send.ad = this.radio8 == 1 ? true : false
         this.other_send.carousel = this.radio9 == 1 ? true : false
         this.other_send.form = this.radio10 == 1 ? false : true

@@ -1226,7 +1226,6 @@
       this.actName=this.$route.query.actName
       this.rewordCount=this.$route.query.rewordCount
       this.ticket=this.$route.query.ticket
-      this.base_data=this.$route.query.newjggData
       this.dataStatus=this.$route.query.dataStatus
       if (this.dataStatus==='1') {
         this.partReword1()

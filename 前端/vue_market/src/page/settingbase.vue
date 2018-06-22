@@ -143,7 +143,6 @@
 
       this.timestampToTime()
       this.startTime=this.$route.query.startTime
-      this.base_data=this.$route.query.newjggData
       this.dataStatus=this.$route.query.dataStatus
       if (this.dataStatus==='1') {
         this.partBase1()

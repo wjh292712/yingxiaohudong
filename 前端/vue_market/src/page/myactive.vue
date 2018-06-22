@@ -61,13 +61,13 @@
         </el-table-column>
 
         <!--<el-table-column-->
-          <!--prop="stateForMyActivity"-->
-          <!--label="活动状态"-->
-          <!--:filters="[{text: '全选', value: '全选'},{text: '未发布', value: '未发布'}, {text: '未开始', value: '未开始'}, {text: '进行中', value: '进行中'}, {text: '已结束', value: '已结束'}]"-->
-          <!--:filter-method="filterHandler">-->
-          <!--<template slot-scope="scope">-->
-            <!--{{state(scope.row.stateForMyActivity)}}-->
-          <!--</template>-->
+        <!--prop="stateForMyActivity"-->
+        <!--label="活动状态"-->
+        <!--:filters="[{text: '全选', value: '全选'},{text: '未发布', value: '未发布'}, {text: '未开始', value: '未开始'}, {text: '进行中', value: '进行中'}, {text: '已结束', value: '已结束'}]"-->
+        <!--:filter-method="filterHandler">-->
+        <!--<template slot-scope="scope">-->
+        <!--{{state(scope.row.stateForMyActivity)}}-->
+        <!--</template>-->
         <!--</el-table-column>-->
         <el-table-column
           prop="stateForMyActivity"
@@ -117,7 +117,7 @@
               class="abb"
               size="mini"
               @click="redact($event,scope.row.activityId,scope.row.templateUuid,scope.row.stateForMyActivity)"
-             >
+            >
             编辑／
             </span>
             <el-dropdown trigger="click">
@@ -187,11 +187,11 @@
               label="奖品数量">
             </el-table-column>
             <!--<el-table-column-->
-              <!--prop="prizeCouponCodeType"-->
-              <!--label="生成券码">-->
-              <!--<template slot-scope="scope">-->
-                <!--{{state1(scope.row.prizeCouponCodeType)}}-->
-              <!--</template>-->
+            <!--prop="prizeCouponCodeType"-->
+            <!--label="生成券码">-->
+            <!--<template slot-scope="scope">-->
+            <!--{{state1(scope.row.prizeCouponCodeType)}}-->
+            <!--</template>-->
             <!--</el-table-column>-->
           </el-table>
         </div>
@@ -230,7 +230,7 @@
 <script>
 
   import Button from "iview/src/components/button/button";
-  import {mapState, mapMutations, mapActions,newActiveStates} from 'vuex'
+  import {mapState, mapMutations, mapActions, newActiveStates} from 'vuex'
 
   export default {
     data() {
@@ -270,7 +270,7 @@
         activeEndDate: '',
         activeState: '',
         activeFindState: '',
-        states:'',
+        states: '',
         tableData: [
           {
             activityName: '信用大转盘',
@@ -324,18 +324,18 @@
         pagesize: 10,//每页的数据条数
         currentPage: 1,//默认开始页面
         input3: 'http://ninini//',
-        startTime:false, //基础设置的开始时间
-        endTime:false,//基础设置的结束时间
-        actName:false,//基础设置活动名称
-        rewordCount:false,//奖品设置奖品数量
-        startPrice:false,//商品原价
-        endPrice:false,//商品底价
-        ticket:false,//券码
-        btnsave:false,//保存
-        newjggData:'',//编辑数据接口
-        newkjData:'',//编辑数据接口
-        newdtData:'',//编辑数据接口
-        dataStatus:'',
+        startTime: false, //基础设置的开始时间
+        endTime: false,//基础设置的结束时间
+        actName: false,//基础设置活动名称
+        rewordCount: false,//奖品设置奖品数量
+        startPrice: false,//商品原价
+        endPrice: false,//商品底价
+        ticket: false,//券码
+        btnsave: false,//保存
+        newjggData: '',//编辑数据接口
+        newkjData: '',//编辑数据接口
+        newdtData: '',//编辑数据接口
+        dataStatus: '',
       }
     },
     created() {
@@ -343,7 +343,7 @@
     },
     computed: {
       ...mapState(['setting_data']),
-      ...mapActions(['saveData', 'activePull','newActiveStates']),
+      ...mapActions(['saveData', 'activePull', 'newActiveStates']),
     },
     mounted() {
       this.restaurants = this.loadAll();
@@ -398,38 +398,38 @@
       },
       loadAll() {
         return [
-          {"value": "未发布" ,index:"1"},
-          {"value": "未开始",index:"2"},
-          {"value": "进行中",index:"3"},
-          {"value": "已结束",index:"4"},
-          {"value": "活动关闭",index:"5"}
+          {"value": "未发布", index: "1"},
+          {"value": "未开始", index: "2"},
+          {"value": "进行中", index: "3"},
+          {"value": "已结束", index: "4"},
+          {"value": "活动关闭", index: "5"}
         ]
       },
       handleSelect(item) {
         console.log(item);
-        this.activeFindState=item.index
+        this.activeFindState = item.index
       },
 
       find() {//点击查询
         var token = sessionStorage.getItem('token')
-        if(this.value4===null){
-          this.value4=''
+        if (this.value4 === null) {
+          this.value4 = ''
         }
-        if(this.value5===null){
-          this.value5=''
+        if (this.value5 === null) {
+          this.value5 = ''
         }
         this.$axios({
           method: 'post',
           url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,
-          params:{
-            activityName:this.activename,
-            startTime1:this.value4[0]===undefined||null?'':this.value4[0].getTime(),
-            startTime2:this.value4[1]===undefined||null?'':this.value4[1].getTime(),
-            endTime1:this.value5[0]===undefined||null?'':this.value5[0].getTime(),
-            endTime2:this.value5[1]===undefined||null?'':this.value5[1].getTime(),
-            activityState:this.activeFindState,
+          params: {
+            activityName: this.activename,
+            startTime1: this.value4[0] === undefined || null ? '' : this.value4[0].getTime(),
+            startTime2: this.value4[1] === undefined || null ? '' : this.value4[1].getTime(),
+            endTime1: this.value5[0] === undefined || null ? '' : this.value5[0].getTime(),
+            endTime2: this.value5[1] === undefined || null ? '' : this.value5[1].getTime(),
+            activityState: this.activeFindState,
           }
-        }).then(res=>{
+        }).then(res => {
           let pageData = res.data.data
           let Datalist = res.data.data.list
           this.pagesize = pageData.pagesize
@@ -440,10 +440,10 @@
 
 
       },
-       pagedata() {
+      pagedata() {
         //输出数据
-          let Data = sessionStorage.getItem('Datalist')
-          this.tableData = JSON.parse(Data)
+        let Data = sessionStorage.getItem('Datalist')
+        this.tableData = JSON.parse(Data)
         console.log(this.tableData);
       },
 //状态转换
@@ -511,10 +511,10 @@
             }
           }).then(res => {
             console.log(res);
-            let jggDataList=res.data.data.list
+            let jggDataList = res.data.data.list
             console.log(jggDataList);
             // this.rewdata.typedata= jggDataList.jggAwardType.name
-            this.rewdata=jggDataList
+            this.rewdata = jggDataList
           })
         }
         else if (this.templateUuid == 2) {//砍价发布奖品
@@ -525,7 +525,7 @@
               activityId: this.activeId,
             }
           }).then(res => {
-            let kjDataList=res.data.data.list
+            let kjDataList = res.data.data.list
             console.log(kjDataList);
             this.rewdata = kjDataList
           })
@@ -538,56 +538,63 @@
               activityId: this.activeId,
             }
           }).then(res => {
-            let dtDataList=res.data.data.list
+            let dtDataList = res.data.data.list
             console.log(dtDataList);
             this.rewdata = dtDataList
           })
         }
 
       },
-      redact(e, index, templ,states){
+      redact(e, index, templ, states) {
         this.activeId = index
         this.templateUuid = templ
-        this.states=states
-        this.$store.commit('newActiveStates',this.states)
+        this.states = states
 
-        if(this.templateUuid == 1){
+        if (this.templateUuid == 1) {
           this.$axios({
             method: 'post',
             url: 'http://center.marketing.yunpaas.cn/jgg/activitySetup/getActivitySetupById',
             params: {
-              activityId:this.activeId,
+              activityId: this.activeId,
             }
           }).then(res => {
             console.log(res);
-            let newJggData=res.data.data
-this.newjggData=newJggData
-         console.log(this.newjggData)
-            if(this.states===3){
-              alert("223")
-              let _this=this
-              this.startTime=true
-              this.actName=true
-              this.rewordCount=true
-              this.ticket=true
-              this.$router.push({path:'/activeslide/activelist',query: { startTime:true,actName:true,rewordCount:true,ticket:true,newjggData:newJggData,dataStatus:'1'}})
-            }else  if(this.states===4){
-              alert("312")
-              let _this=this
-              this.startTime=true
-              this.actName=true
-              this.rewordCount=true
-              this.ticket=true
-              this.btnsave=true
-              this.$router.push({path:'/activeslide/activelist',query: { startTime:true,actName:true,rewordCount:true,ticket:true,btnsave:true,newjggData:newJggData,dataStatus:'1'}})
+            let newJggData = res.data.data
+            this.newjggData = newJggData
+            if (this.states === 3) {
+
+              this.$router.push({
+                path: '/activeslide/activelist',
+                query: {
+                  startTime:true,
+                  actName:true,
+                  rewordCount:true,
+                  ticket:true,
+                  newjggData:newJggData,
+                  dataStatus:'1'
+                }
+              })
+            } else if (this.states === 4) {
+
+              this.$router.push({
+                path: '/activeslide/activelist',
+                query: {
+                  startTime:true,
+                  actName:true,
+                  rewordCount:true,
+                  ticket:true,
+                  btnsave:true,
+                  newjggData: newJggData,
+                  dataStatus: '1'
+                }
+              })
             }
             else {
-              this.$router.push({path:'/activeslide/activelist',query:{newjggData:newJggData,dataStatus:'1'}})
+              this.$router.push({path: '/activeslide/activelist', query: {newjggData: newJggData, dataStatus: '1'}})
             }
 
-
           })
-        }else if(this.templateUuid == 2){
+        } else if (this.templateUuid == 2) {
           this.$axios({
             method: 'post',
             url: 'http://center.marketing.yunpaas.cn/kj/activitySetup/getActivitySetupById',
@@ -595,32 +602,42 @@ this.newjggData=newJggData
               activityId: this.activeId,
             }
           }).then(res => {
+            let newKjData = res.data.data
+            this.newkjData = newKjData
+            if (this.states === 3) {
 
-            if(this.states===3){
-              alert("223")
-              let _this=this
-              this.startTime=true
-              this.actName=true
-              this.startPrice=true
-              this.endPrice=true
-              this.$router.push({path:'/activeslide/bargainlist',query: { startTime:true,actName:true,startPrice:true,endPrice:true,}})
-            }else  if(this.states===4){
-              alert("312")
-              let _this=this
-              this.startTime=true
-              this.actName=true
+              this.$router.push({
+                path: '/activeslide/bargainlist',
+                query: {
+                  startTime:true,
+                  actName:true,
+                  startPrice:true,
+                  endPrice:true,
+                  newkjData:newKjData,
+                  dataStatus: '1'
+                }
+              })
+            } else if (this.states === 4) {
 
-              this.startPrice=true
-              this.endPrice=true
-              this.btnsave=true
-              this.$router.push({path:'/activeslide/bargainlist',query: { startTime:true,actName:true,startPrice:true,endPrice:true,btnsave:true}})
+              this.$router.push({
+                path: '/activeslide/bargainlist',
+                query: {
+                  startTime:true,
+                  actName:true,
+                  startPrice:true,
+                  endPrice:true,
+                  btnsave:true,
+                  newkjData:newKjData,
+                  dataStatus:'1'
+                }
+              })
             }
             else {
-              this.$router.push({path:'/activeslide/bargainlist',})
+              this.$router.push({path: '/activeslide/bargainlist', query: {newkjData: newKjData, dataStatus: '1'}})
             }
 
           })
-        }else if (this.templateUuid == 3){
+        } else if (this.templateUuid == 3) {
           this.$axios({
             method: 'post',
             url: 'http://center.marketing.yunpaas.cn/dt/activitySetup/getActivitySetupById',
@@ -628,26 +645,38 @@ this.newjggData=newJggData
               activityId: this.activeId,
             }
           }).then(res => {
-            if(this.states===3){
-              alert("223")
-              let _this=this
-                this.startTime=true
-                this.actName=true
-                this.rewordCount=true
-                this.ticket=true
-              this.$router.push({path:'/activeslide/answerlist',query: { startTime:true,actName:true,rewordCount:true,ticket:true}})
-            }else  if(this.states===4){
-              alert("312")
-              let _this=this
-              this.startTime=true
-              this.actName=true
-              this.rewordCount=true
-              this.ticket=true
-              this.btnsave=true
-              this.$router.push({path:'/activeslide/answerlist',query: { startTime:true,actName:true,rewordCount:true,ticket:true,btnsave:true}})
+            let newDtData = res.data.data
+            this.newdtData = newDtData
+            if (this.states === 3) {
+
+              this.$router.push({
+                path: '/activeslide/answerlist',
+                query: {
+                  startTime:true,
+                  actName:true,
+                  rewordCount:true,
+                  ticket:true,
+                  newdtData: newDtData,
+                  dataStatus: '1',
+                }
+              })
+            } else if (this.states === 4) {
+
+              this.$router.push({
+                path: '/activeslide/answerlist',
+                query: {
+                  startTime:true,
+                  actName:true,
+                  rewordCount:true,
+                  ticket:true,
+                  btnsave:true,
+                  newdtData:newDtData,
+                  dataStatus: '1',
+                }
+              })
             }
             else {
-              this.$router.push({path:'/activeslide/answerlist',})
+              this.$router.push({path: '/activeslide/answerlist',query: {newdtData: newDtData, dataStatus: '1'}})
             }
           })
 

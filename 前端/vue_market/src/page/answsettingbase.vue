@@ -122,6 +122,7 @@
         startTime:false, //基础设置的开始时间
         endTime:false,//基础设置的结束时间
         actName:false,
+        dataStatus:0,
       };
 
     },
@@ -131,18 +132,11 @@
     mounted(){
       // _this.$store.dispatch('saveData')
        this.partBase()
-      let _this=this
       this.startTime=this.$route.query.startTime
-      // alert(this.startTime+"136hang")
-      // this.$bus.on("send",(a,b,c,d)=>{
-      //   _this.startTime=true
-      //   _this.startTime=a
-      //   _this.actName=b
-      //   console.log(_this.startTime+"1")//true
-      //   console.log(_this.actName+"2")
-      //   _this.fn(a,b)
-      // })
-
+      this.dataStatus=this.$route.query.dataStatus
+      if (this.dataStatus==='1') {
+        this.partBase1()
+      }
     },
 
     computed:{
@@ -150,19 +144,16 @@
       ...mapActions(['saveDatadt','newActiveStates'])
     },
     updated(){
-      this.saveBase()
-      this.base_data=this.$route.newjggData.dtBaseSetup
-      alert(this.base_data+"新数据")
+      if(this.dataStatus===undefined){
+        this.saveBase()
+      }else if (this.dataStatus==='1') {
+        this.saveBase1()
+      }
+
     },
 
     methods: {
 
-      fn(a,b){
-        let _this=this
-        _this.startTime=a
-        _this.actName=b
-        alert(_this.startTime+"eee")
-      },
       // 基础设置模块
       partBase(){
         let _this = this
@@ -170,6 +161,27 @@
         let Data = sessionStorage.getItem('Datadt')
         console.log(Data);
         _this.base_data = JSON.parse(Data).dtBaseSetup
+        _this.formName = _this.base_data.activityName //活动名称
+        _this.radio1 = Number(_this.base_data.shows).toString(), //参与人数
+          _this.addCount=_this.base_data.addDoubling//增加人数倍数
+          _this.radio2 = Number(_this.base_data.subscribe).toString()//是否需要关注
+        _this.start_date = _this.base_data.startDate//开始时间
+        _this.end_date = _this.base_data.endDate//结束时间
+        _this.form.explain=_this.base_data.rule//活动规则
+        let str = _this.start_date
+        let strend = _this.end_date
+        //时间戳转换日期
+        let newStr = _this.timestampToTime(str)
+        strend = _this.timestampToTime(strend)
+        _this.value4 = [newStr, strend]
+        _this.value1=newStr
+        _this.value2=strend
+      },
+      partBase1(){
+        let _this = this
+         _this.$store.dispatch('saveDatadt')
+
+        _this.base_data = this.$route.query.newdtData.dtBaseSetup
         _this.formName = _this.base_data.activityName //活动名称
         _this.radio1 = Number(_this.base_data.shows).toString(), //参与人数
           _this.addCount=_this.base_data.addDoubling//增加人数倍数
@@ -204,6 +216,27 @@
         // _this.$store.dispatch('saveData')
         let Data = sessionStorage.getItem('Datadt')
         _this.base_send = JSON.parse(Data).dtBaseSetup
+        _this.base_send.activityName = _this.formName
+        _this.base_send.addDoubling= _this.addCount
+        _this.base_send.shows = _this.radio1 == 1 ? true : false;
+        _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
+        _this.base_send.startDate= _this.start_date
+        _this.base_send.endDate=_this.end_date
+        _this.base_send.rule= _this.form.explain
+        if (this.formName != '') {
+          this.$store.state.setting_dtData.dtBaseSetup = this.base_send
+          _this.$bus.emit("send_base",_this.base_send)
+
+        } else {
+          alert('活动名称，不能为空哦！')
+
+        }
+      },
+      saveBase1(){
+        let _this = this
+        // _this.$store.dispatch('saveData')
+
+        _this.base_send = this.$route.query.newdtData.dtBaseSetup
         _this.base_send.activityName = _this.formName
         _this.base_send.addDoubling= _this.addCount
         _this.base_send.shows = _this.radio1 == 1 ? true : false;

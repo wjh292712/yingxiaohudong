@@ -988,6 +988,7 @@
         startTime:false,
         rewordCount:false,
         ticket:false,
+        dataStatus:0,
         list:[],
         dialogImageUrl: '',//微信公众号
         dialogImageUrl1: '',
@@ -1224,6 +1225,10 @@
       this.actName=this.$route.query.actName
       this.rewordCount=this.$route.query.rewordCount
       this.ticket=this.$route.query.ticket
+      this.dataStatus=this.$route.query.dataStatus
+      if (this.dataStatus==='1') {
+        this.partReword1()
+      }
     },
     computed:{
       ...mapState(['setting_dtData']),
@@ -1231,7 +1236,11 @@
     },
     updated(){
       //this.partReword()//
-      this.saveReword()
+      if(this.dataStatus===undefined){
+        this.saveReword()
+      }else if (this.dataStatus==='1') {
+        this.saveReword1()
+      }
     },
     methods: {
 
@@ -1455,6 +1464,181 @@
         this.dialogImageUrl6=this.reword_data[6].wxPublicAccountImg //微信公众号图片
 
       },
+      partReword1(){
+
+        this.reword_data = this.$route.query.newdtData.dtAwardSetupExtendList
+        this.list=this.reword_data
+
+        console.log(this.reword_data)
+        //  日期时间转换设置
+        this.start_date1 =this.reword_data[0].exchangeStartDate
+        this.end_date1=this.reword_data[0].exchangeEndDate//结束时间
+        let str1 = this.start_date1
+        let strend1=this.end_date1
+        //时间戳转换日期
+        let newStr1= this.timestampToTime(str1)
+        strend1=this.timestampToTime(strend1)
+        this.value5=[newStr1,strend1]
+
+
+        this.start_date2 =this.reword_data[1].exchangeStartDate
+        this.end_date2=this.reword_data[1].exchangeEndDate//结束时间
+        let str2 = this.start_date2
+        let strend2=this.end_date2
+        //时间戳转换日期
+        let newStr2= this.timestampToTime(str2)
+        strend2=this.timestampToTime(strend2)
+        this.value6=[newStr2,strend2]
+
+
+        this.start_date3 =this.reword_data[2].exchangeStartDate
+        this.end_date3=this.reword_data[2].exchangeEndDate//结束时间
+        let str3 = this.start_date3
+        let strend3=this.end_date3
+        //时间戳转换日期
+        let newStr3= this.timestampToTime(str3)
+        strend3=this.timestampToTime(strend3)
+        this.value7=[newStr3,strend3]
+
+
+        this.start_date4 =this.reword_data[3].exchangeStartDate
+        this.end_date4=this.reword_data[3].exchangeEndDate//结束时间
+        let str4 = this.start_date4
+        let strend4=this.end_date4
+        //时间戳转换日期
+        let newStr4= this.timestampToTime(str4)
+        strend4=this.timestampToTime(strend4)
+        this.value8=[newStr4,strend4]
+
+
+
+        this.start_date5 =this.reword_data[4].exchangeStartDate
+        this.end_date5=this.reword_data[4].exchangeEndDate//结束时间
+        let str5 = this.start_date5
+        let strend5=this.end_date5
+        //时间戳转换日期
+        let newStr5= this.timestampToTime(str5)
+        strend5=this.timestampToTime(strend5)
+        this.value9=[newStr5,strend5]
+
+
+        this.start_date6 =this.reword_data[5].exchangeStartDate
+        this.end_date6=this.reword_data[5].exchangeEndDate//结束时间
+        let str6 = this.start_date6
+        let strend6=this.end_date6
+        //时间戳转换日期
+        let newStr6= this.timestampToTime(str6)
+        strend6=this.timestampToTime(strend6)
+        this.value10=[newStr6,strend6]
+
+        this.start_date7 =this.reword_data[6].exchangeStartDate
+        this.end_date7=this.reword_data[6].exchangeEndDate//结束时间
+        let str7 = this.start_date7
+        let strend7=this.end_date7
+        //时间戳转换日期
+        let newStr7= this.timestampToTime(str7)
+        strend7=this.timestampToTime(strend7)
+        this.value11=[newStr7,strend7]
+
+        //奖品一
+        this.form.name1_1 = this.reword_data[0].prizeName //奖品名称
+        this.form.name1_2 = this.reword_data[0].prizeNum //奖品数量
+        this.form.name1_3 = this.reword_data[0].wxPublicAccountName //微信公众号名称
+        this.form.name1_4=this.reword_data[0].exchangeDesc //兑奖说明
+        this.form.address1=this.reword_data[0].exchangeAddress//门店地址
+        this.form.phone1_1=this.reword_data[0].exchangeTelephone //客服电话
+        this.radio1 = this.reword_data[0].prizeType.toString() //奖品来源
+        this.radio2 = this.reword_data[0].prizeSource.toString() //导入券码
+        this.radio3 = this.reword_data[0].prizeExchangeTypeId.toString() //兑奖方式
+        this.imgData1=this.reword_data[0].prizeImg //上传图片
+        this.reword_type1 = this.reword_data[0].dtAwardTypeList // 奖品类型
+        this.dialogImageUrl=this.reword_data[0].wxPublicAccountImg //微信公众号图片
+
+
+        //奖品二
+        this.form.name2_1 = this.reword_data[1].prizeName //奖品名称
+        this.form.name2_2 = this.reword_data[1].prizeNum //奖品数量
+        this.form.name2_3 = this.reword_data[1].wxPublicAccountName //微信公众号名称
+        this.form.name2_4=this.reword_data[1].exchangeDesc //兑奖说明
+        this.form.address2=this.reword_data[1].exchangeAddress//门店地址
+        this.form.phone2_1=this.reword_data[1].exchangeTelephone //客服电话
+        this.radio2_1 = this.reword_data[1].prizeType.toString() //奖品来源
+        this.radio2_2 = this.reword_data[1].prizeSource.toString() //导入券码
+        this.radio2_3 = this.reword_data[1].prizeExchangeTypeId.toString() //兑奖方式
+        this.imgData2=this.reword_data[1].prizeImg //上传图片
+        this.reword_type2 = this.reword_data[1].dtAwardTypeList // 奖品类型
+        this.dialogImageUrl1=this.reword_data[1].wxPublicAccountImg //微信公众号图片
+
+        //奖品三
+
+        this.form.name3_1 = this.reword_data[2].prizeName //奖品名称
+        this.form.name3_2 = this.reword_data[2].prizeNum //奖品数量
+        this.form.name3_3 = this.reword_data[2].wxPublicAccountName //微信公众号名称
+        this.form.name3_4=this.reword_data[2].exchangeDesc //兑奖说明
+        this.form.address3=this.reword_data[2].exchangeAddress//门店地址
+        this.form.phone3_1=this.reword_data[2].exchangeTelephone //客服电话
+        this.radio3_1 = this.reword_data[2].prizeType.toString() //奖品来源
+        this.radio3_2 = this.reword_data[2].prizeSource.toString() //导入券码
+        this.radio3_3 = this.reword_data[2].prizeExchangeTypeId.toString() //兑奖方式
+        this.imgData3=this.reword_data[2].prizeImg //上传图片
+        this.reword_type3 = this.reword_data[2].dtAwardTypeList // 奖品类型
+        this.dialogImageUrl2=this.reword_data[2].wxPublicAccountImg //微信公众号图片
+        //奖品四
+        this.form.name4_1 = this.reword_data[3].prizeName //奖品名称
+        this.form.name4_2 = this.reword_data[3].prizeNum //奖品数量
+        this.form.name4_3 = this.reword_data[3].wxPublicAccountName //微信公众号名称
+        this.form.name4_4=this.reword_data[3].exchangeDesc //兑奖说明
+        this.form.address4=this.reword_data[3].exchangeAddress//门店地址
+        this.form.phone4_1=this.reword_data[3].exchangeTelephone //客服电话
+        this.radio4_1 = this.reword_data[3].prizeType.toString() //奖品来源
+        this.radio4_2 = this.reword_data[3].prizeSource.toString() //导入券码
+        this.radio4_3 = this.reword_data[3].prizeExchangeTypeId.toString() //兑奖方式
+        this.imgData4=this.reword_data[3].prizeImg //上传图片
+        this.reword_type4 = this.reword_data[3].dtAwardTypeList // 奖品类型
+        this.dialogImageUrl3=this.reword_data[3].wxPublicAccountImg //微信公众号图片
+        //奖品五
+        this.form.name5_1 = this.reword_data[4].prizeName //奖品名称
+        this.form.name5_2 = this.reword_data[4].prizeNum //奖品数量
+        this.form.name5_3 = this.reword_data[4].wxPublicAccountName //微信公众号名称
+        this.form.name5_4=this.reword_data[4].exchangeDesc //兑奖说明
+        this.form.address5=this.reword_data[4].exchangeAddress//门店地址
+        this.form.phone5_1=this.reword_data[4].exchangeTelephone //客服电话
+        this.radio5_1 = this.reword_data[4].prizeType.toString() //奖品来源
+        this.radio5_2 = this.reword_data[4].prizeSource.toString() //导入券码
+        this.radio5_3 = this.reword_data[4].prizeExchangeTypeId.toString() //兑奖方式
+        this.imgData5=this.reword_data[4].prizeImg //上传图片
+        this.reword_type5 = this.reword_data[4].dtAwardTypeList // 奖品类型
+        this.dialogImageUrl4=this.reword_data[4].wxPublicAccountImg //微信公众号图片
+
+        //奖品六
+        this.form.name6_1 = this.reword_data[5].prizeName //奖品名称
+        this.form.name6_2 = this.reword_data[5].prizeNum //奖品数量
+        this.form.name6_3 = this.reword_data[5].wxPublicAccountName //微信公众号名称
+        this.form.name6_4=this.reword_data[5].exchangeDesc //兑奖说明
+        this.form.address6=this.reword_data[5].exchangeAddress//门店地址
+        this.form.phone6_1=this.reword_data[5].exchangeTelephone //客服电话
+        this.radio6_1 = this.reword_data[5].prizeType.toString() //奖品来源
+        this.radio6_2 = this.reword_data[5].prizeSource.toString() //导入券码
+        this.radio6_3 = this.reword_data[5].prizeExchangeTypeId.toString() //兑奖方式
+        this.imgData6=this.reword_data[5].prizeImg //上传图片
+        this.reword_type6 = this.reword_data[5].dtAwardTypeList // 奖品类型
+        this.dialogImageUrl5=this.reword_data[5].wxPublicAccountImg //微信公众号图片
+
+        //奖品七
+        this.form.name7_1 = this.reword_data[6].prizeName //奖品名称
+        this.form.name7_2 = this.reword_data[6].prizeNum //奖品数量
+        this.form.name7_3 = this.reword_data[6].wxPublicAccountName //微信公众号名称
+        this.form.name7_4=this.reword_data[6].exchangeDesc //兑奖说明
+        this.form.address7=this.reword_data[6].exchangeAddress//门店地址
+        this.form.phone7_1=this.reword_data[6].exchangeTelephone //客服电话
+        this.radio7_1 = this.reword_data[6].prizeType.toString() //奖品来源
+        this.radio7_2 = this.reword_data[6].prizeSource.toString() //导入券码
+        this.radio7_3 = this.reword_data[6].prizeExchangeTypeId.toString() //兑奖方式
+        this.imgData7=this.reword_data[6].prizeImg //上传图片
+        this.reword_type7 = this.reword_data[6].dtAwardTypeList // 奖品类型
+        this.dialogImageUrl6=this.reword_data[6].wxPublicAccountImg //微信公众号图片
+
+      },
       //保存奖品数据
       saveReword(){
         // this.$store.dispatch("saveData")
@@ -1463,6 +1647,117 @@
         console.log(Data+"555");
         // let Data1=sessionStorage.setItem('Data')
         this.reword_send = JSON.parse(Data).dtAwardSetupExtendList
+        //奖品一
+
+        this.reword_send[0].prizeName = this.form.name1_1 //奖品名称
+        this.reword_send[0].prizeNum = this.form.name1_2 //奖品数量
+        this.reword_send[0].wxPublicAccountName = this.form.name1_3  //微信公众号名称
+        this.reword_send[0].exchangeDesc = this.form.name1_4 //兑奖说明
+        this.reword_send[0].exchangeAddress = this.form.address1//门店地址
+        this.reword_send[0].exchangeTelephone =this.form.phone1_1//客服电话
+        this.reword_send[0].prizeType = this.radio1  //奖品来源
+        this.reword_send[0].prizeSource = this.radio2  //导入券码
+        this.reword_send[0].prizeExchangeTypeId = this.radio3//兑奖方式
+        this.reword_send[0].prizeImg =this.imgData1 //上传图片
+        this.reword_send[0].dtAwardTypeList = this.reword_type1 // 奖品类型
+        this.reword_send[0].wxPublicAccountImg =this.dialogImageUrl//微信公众号图片
+
+        //奖品二
+        this.reword_send[1].prizeName = this.form.name2_1 //奖品名称
+        this.reword_send[1].prizeNum = this.form.name2_2 //奖品数量
+        this.reword_send[1].wxPublicAccountName = this.form.name2_3  //微信公众号名称
+        this.reword_send[1].exchangeDesc = this.form.name2_4 //兑奖说明
+        this.reword_send[1].exchangeAddress = this.form.address2//门店地址
+        this.reword_send[1].exchangeTelephone =this.form.phone2_1//客服电话
+        this.reword_send[1].prizeType = this.radio2_1  //奖品来源
+        this.reword_send[1].prizeSource = this.radio2_2  //导入券码
+        this.reword_send[1].prizeExchangeTypeId = this.radio2_3//兑奖方式
+        this.reword_send[1].prizeImg =this.imgData2 //上传图片
+        this.reword_send[1].dtAwardTypeList = this.reword_type2 // 奖品类型
+        this.reword_send[1].wxPublicAccountImg =this.dialogImageUrl1//微信公众号图片
+
+        //奖品三
+        this.reword_send[2].prizeName = this.form.name3_1 //奖品名称
+        this.reword_send[2].prizeNum = this.form.name3_2 //奖品数量
+        this.reword_send[2].wxPublicAccountName = this.form.name3_3  //微信公众号名称
+        this.reword_send[2].exchangeDesc = this.form.name3_4 //兑奖说明
+        this.reword_send[2].exchangeAddress = this.form.address3//门店地址
+        this.reword_send[2].exchangeTelephone =this.form.phone3_1//客服电话
+        this.reword_send[2].prizeType = this.radio3_1  //奖品来源
+        this.reword_send[2].prizeSource = this.radio3_2  //导入券码
+        this.reword_send[2].prizeExchangeTypeId = this.radio3_3//兑奖方式
+        this.reword_send[2].prizeImg =this.imgData3 //上传图片
+        this.reword_send[2].dtAwardTypeList = this.reword_type3 // 奖品类型
+        this.reword_send[2].wxPublicAccountImg =this.dialogImageUrl2//微信公众号图片
+
+        //奖品四
+        this.reword_send[3].prizeName = this.form.name4_1 //奖品名称
+        this.reword_send[3].prizeNum = this.form.name4_2 //奖品数量
+        this.reword_send[3].wxPublicAccountName = this.form.name4_3  //微信公众号名称
+        this.reword_send[3].exchangeDesc = this.form.name4_4 //兑奖说明
+        this.reword_send[3].exchangeAddress = this.form.address4//门店地址
+        this.reword_send[3].exchangeTelephone =this.form.phone4_1//客服电话
+        this.reword_send[3].prizeType = this.radio4_1  //奖品来源
+        this.reword_send[3].prizeSource = this.radio4_2  //导入券码
+        this.reword_send[3].prizeExchangeTypeId = this.radio4_3//兑奖方式
+        this.reword_send[3].prizeImg =this.imgData4 //上传图片
+        this.reword_send[3].dtAwardTypeList = this.reword_type4 // 奖品类型
+        this.reword_send[3].wxPublicAccountImg =this.dialogImageUrl3//微信公众号图片
+
+        //奖品五
+        this.reword_send[4].prizeName = this.form.name5_1 //奖品名称
+        this.reword_send[4].prizeNum = this.form.name5_2 //奖品数量
+        this.reword_send[4].wxPublicAccountName = this.form.name5_3  //微信公众号名称
+        this.reword_send[4].exchangeDesc = this.form.name5_4 //兑奖说明
+        this.reword_send[4].exchangeAddress = this.form.address5//门店地址
+        this.reword_send[4].exchangeTelephone =this.form.phone5_1//客服电话
+        this.reword_send[4].prizeType = this.radio5_1  //奖品来源
+        this.reword_send[4].prizeSource = this.radio5_2  //导入券码
+        this.reword_send[4].prizeExchangeTypeId = this.radio5_3//兑奖方式
+        this.reword_send[4].prizeImg =this.imgData5 //上传图片
+        this.reword_send[4].dtAwardTypeList = this.reword_type5 // 奖品类型
+        this.reword_send[4].wxPublicAccountImg =this.dialogImageUrl4//微信公众号图片
+
+
+        //奖品六
+        this.reword_send[5].prizeName = this.form.name6_1 //奖品名称
+        this.reword_send[5].prizeNum = this.form.name6_2 //奖品数量
+        this.reword_send[5].wxPublicAccountName = this.form.name6_3  //微信公众号名称
+        this.reword_send[5].exchangeDesc = this.form.name6_4 //兑奖说明
+        this.reword_send[5].exchangeAddress = this.form.address6//门店地址
+        this.reword_send[5].exchangeTelephone =this.form.phone6_1//客服电话
+        this.reword_send[5].prizeType = this.radio6_1  //奖品来源
+        this.reword_send[5].prizeSource = this.radio6_2  //导入券码
+        this.reword_send[5].prizeExchangeTypeId = this.radio6_3//兑奖方式
+        this.reword_send[5].prizeImg =this.imgData6 //上传图片
+        this.reword_send[5].dtAwardTypeList = this.reword_type6 // 奖品类型
+        this.reword_send[5].wxPublicAccountImg =this.dialogImageUrl5//微信公众号图片
+
+
+        //奖品七
+        this.reword_send[6].prizeName = this.form.name7_1 //奖品名称
+        this.reword_send[6].prizeNum = this.form.name7_2 //奖品数量
+        this.reword_send[6].wxPublicAccountName = this.form.name7_3  //微信公众号名称
+        this.reword_send[6].exchangeDesc = this.form.name7_4 //兑奖说明
+        this.reword_send[6].exchangeAddress = this.form.address7//门店地址
+        this.reword_send[6].exchangeTelephone =this.form.phone7_1//客服电话
+        this.reword_send[6].prizeType = this.radio7_1  //奖品来源
+        this.reword_send[6].prizeSource = this.radio7_2  //导入券码
+        this.reword_send[6].prizeExchangeTypeId = this.radio7_3//兑奖方式
+        this.reword_send[6].prizeImg =this.imgData7 //上传图片
+        this.reword_send[6].dtAwardTypeList = this.reword_type7 // 奖品类型
+        this.reword_send[6].wxPublicAccountImg =this.dialogImageUrl6//微信公众号图片
+
+
+        this.$store.state.setting_dtData.dtAwardSetupExtendList = this.reword_send
+        this.$bus.emit("send_reword",this.reword_send)
+        console.log(this.reword_data)
+      },
+      saveReword1(){
+        // this.$store.dispatch("saveData")
+
+        // let Data1=sessionStorage.setItem('Data')
+        this.reword_send =this.$route.query.newdtData.dtAwardSetupExtendList
         //奖品一
 
         this.reword_send[0].prizeName = this.form.name1_1 //奖品名称

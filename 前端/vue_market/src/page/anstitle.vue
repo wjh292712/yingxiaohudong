@@ -109,6 +109,7 @@
         count: '12',//总题数
         title_data:'',//数据渲染接口
         title_send:"",//数据保存接口
+        dataStatus:0,
       }
     },
     created() {
@@ -117,13 +118,21 @@
     mounted() {
       this.restaurants = this.loadAll();
       this.titleBase()
+      this.dataStatus=this.$route.query.dataStatus
+      if (this.dataStatus==='1') {
+        this.titleBase1()
+      }
     },
     computed: {
       ...mapState(['setting_dtData']),
       ...mapActions(['saveDatadt'])
     },
     updated(){
-      this.savaTitleBase()
+      if(this.dataStatus===undefined){
+        this.savaTitleBase()
+      }else if (this.dataStatus==='1') {
+        this.savaTitleBase1()
+      }
     },
     methods: {
       titleBase() {
@@ -136,9 +145,30 @@
         this.ansName=this.title_data.dtActivityQuestionExtendList.dtQuestionExtend.title
         this.radio2= Number(this.title_data.answerTimeLimit).toString()
       },
+      titleBase1() {
+
+        this.title_data = this.$route.query.newdtData.dtQuestionSetupExtend
+        this.radio1=  Number(this.title_data.questionType).toString()
+        this.answerState=this.title_data.dtQuestionTypeExtendList
+        this.titleCount=this.title_data.questionTotalNum
+        this.radomCount=this.title_data.questionRadomNum
+        this.ansName=this.title_data.dtActivityQuestionExtendList.dtQuestionExtend.title
+        this.radio2= Number(this.title_data.answerTimeLimit).toString()
+      },
       savaTitleBase(){
         let Data = JSON.parse(sessionStorage.getItem('Datadt'))
         this.title_send=Data.dtQuestionSetupExtend
+        this.title_send.questionType=this.radio1
+        this.title_send.dtQuestionTypeExtendList=this.answerState
+        this.title_send.questionTotalNum=this.titleCount
+        this.title_send.questionRadomNum=this.radomCount
+        this.title_send.answerTimeLimit=this.radio2==0?false:true
+        this.$store.state.setting_dtData.dtQuestionSetupExtend =  this.title_send
+        this.$bus.emit("send_title", this.title_send)
+      },
+      savaTitleBase1(){
+
+        this.title_send=this.$route.query.newdtData.dtQuestionSetupExtend
         this.title_send.questionType=this.radio1
         this.title_send.dtQuestionTypeExtendList=this.answerState
         this.title_send.questionTotalNum=this.titleCount
