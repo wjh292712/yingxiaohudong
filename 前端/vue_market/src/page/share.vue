@@ -42,20 +42,24 @@
                         <el-form-item label="微信分享标题">
                                 <el-radio-group v-model="form.resource3">
                                         <el-radio label="1">默认</el-radio>
-                                        <el-radio label="2">自定义</el-radio>
+                                        <el-radio label="2">
+                                          <span @click="sharTitle()">自定义</span>
+                                        </el-radio>
                                 </el-radio-group>
                         </el-form-item>
-                        <el-form-item >
+                        <el-form-item v-show="shareTitl">
                           <el-input height="6rem" type="textarea" v-model="form.desc"></el-input>
                         </el-form-item>
 
                         <el-form-item label="微信分享内容">
                                 <el-radio-group v-model="form.resource4">
                                         <el-radio label="1">默认</el-radio>
-                                        <el-radio label="2">自定义</el-radio>
+                                        <el-radio label="2">
+                                          <span @click="shareCont()">自定义</span>
+                                        </el-radio>
                                 </el-radio-group>
                         </el-form-item>
-                        <el-form-item >
+                        <el-form-item v-show="shareContent">
                                 <el-input height="6rem" type="textarea" v-model="form.desc"></el-input>
                         </el-form-item>
 
@@ -76,6 +80,8 @@
             return {
                 dialogImageUrl: '',
                 dialogVisible: false,
+              shareTitl:false,
+              shareContent:false,
                 form: {
                         name: '',
                         region: '',
@@ -173,6 +179,12 @@
                     change(){
                         this.sendShare()
                     },
+          sharTitle(){
+              this.shareTitl=!this.shareTitl
+          },
+          shareCont(){
+              this.shareContent=!this.shareContent
+          },
           // back(){
           //     this.$router.go(-1)
           // }
@@ -185,9 +197,6 @@
     .share_wrap {
         width:100%;
         font-size:.6rem;
-        border:1px solid #ccc;
-        background:#FBFBFB;
-        border-radius:1rem;
         margin:.5rem 0;
       position: relative;
       z-index: 9;

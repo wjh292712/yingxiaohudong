@@ -9,21 +9,21 @@
 
             <el-tab-pane label="商品一" name="first">
 
-              <el-form-item label="商品类型">
-                <el-select v-model="value" placeholder="请选择">
+              <el-form-item label="商品类型:">
+                <el-select v-model="region1" placeholder="请选择">
                   <el-option
-                    v-for="item in  reword_type1"
-                    :key="item.id"
+                    v-for="(item,index) in  reword_type1"
+                    :key="index"
                     :label="item.name"
-                    :value="item.name">
+                    :value="index">
                   </el-option>
                 </el-select>
 
               </el-form-item>
-              <el-form-item label="商品名称">
+              <el-form-item label="商品名称:">
                 <el-input v-model="form.name1"  :disabled="actName" placeholder="不超过15个字"></el-input>
               </el-form-item>
-              <el-form-item label="商品图片">
+              <el-form-item label="商品图片:">
                 <el-upload
                   class="avatar-uploader"
                   action="https://jsonplaceholder.typicode.com/posts/"
@@ -35,23 +35,29 @@
                 </el-upload>
               </el-form-item>
 
-              <el-form-item label="商品原价">
+              <el-form-item label="商品原价:">
                 <el-input v-model="form.price1" :disabled="startPrice" placeholder="必须是大于0的数，支持小数点后两位"></el-input>
               </el-form-item>
-              <el-form-item label="商品底价">
+              <el-form-item label="商品底价:">
                 <el-input v-model="form.priceLow1" :disabled="endPrice" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" onkeyup="value=value.replace(/[^\d]/g,'')"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
               </el-form-item>
-
-              <el-form-item label="商品库存">
+              <el-form-item label="砍价金额范围(元):" label-width="140px">
+                <el-input v-model="input1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+              </el-form-item>
+              <el-form-item label="砍到底价成功概率:" label-width="140px">
+                <el-input v-model="input3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <span>%</span>
+              </el-form-item>
+              <el-form-item label="商品库存:">
                 <el-input type="textarea" v-model="form.count1" size="mini"></el-input>
               </el-form-item>
-              <el-form-item label="虚拟销量">
+              <el-form-item label="虚拟销量:">
                 <el-input type="textarea" v-model="form.countsales1" size="mini"></el-input>
               </el-form-item>
-              <el-form-item label="商品详情">
+              <el-form-item label="商品详情:">
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
@@ -89,12 +95,12 @@
               </el-form-item>
 
 
-              <el-form-item label="配送方式" style="width:26rem;">
+              <el-form-item label="配送方式:" style="width:26rem;">
                 <el-input type="textarea" v-model="form.deliveryType1" size="mini"></el-input>
               </el-form-item>
 
 
-              <el-form-item label="发货说明">
+              <el-form-item label="发货说明:">
                 <el-input type="textarea" v-model="form.deliveryInfo1" size="mini"></el-input>
               </el-form-item>
 
@@ -102,21 +108,21 @@
             </el-tab-pane>
             <!-- 商品二 -->
             <el-tab-pane label="商品二" name="second">
-              <el-form-item label="商品类型">
-                <el-select v-model="value" placeholder="请选择">
+              <el-form-item label="商品类型:">
+                <el-select v-model="region2" placeholder="请选择">
                   <el-option
-                    v-for="item in  reword_type2"
-                    :key="item.id"
+                    v-for="(item,index) in  reword_type2"
+                    :key="index"
                     :label="item.name"
-                    :value="item.name">
+                    :value="index">
                   </el-option>
                 </el-select>
 
               </el-form-item>
-              <el-form-item label="商品名称">
+              <el-form-item label="商品名称:">
                 <el-input v-model="form.name2"  :disabled="actName"  placeholder="不超过15个字"></el-input>
               </el-form-item>
-              <el-form-item label="商品图片">
+              <el-form-item label="商品图片:">
                 <el-upload
                   class="avatar-uploader"
                   action="https://jsonplaceholder.typicode.com/posts/"
@@ -128,7 +134,7 @@
                 </el-upload>
               </el-form-item>
 
-              <el-form-item label="商品原价">
+              <el-form-item label="商品原价:">
                 <el-input v-model="form.price2" :disabled="startPrice" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="商品底价">
@@ -137,7 +143,13 @@
                   <el-button>?</el-button>
                 </el-tooltip>
               </el-form-item>
-
+              <el-form-item label="砍价金额范围(元):" label-width="140px">
+                <el-input v-model="input2_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input2_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+              </el-form-item>
+              <el-form-item label="砍到底价成功概率:" label-width="140px">
+                <el-input v-model="input2_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <span>%</span>
+              </el-form-item>
               <el-form-item label="商品库存">
                 <el-input type="textarea" v-model="form.count2" size="mini"></el-input>
               </el-form-item>
@@ -197,12 +209,12 @@
             <!-- 商品三 -->
             <el-tab-pane label="商品三" name="third">
               <el-form-item label="商品类型">
-                <el-select v-model="value" placeholder="请选择">
+                <el-select v-model="region3" placeholder="请选择">
                   <el-option
-                    v-for="item in  reword_type3"
-                    :key="item.id"
+                    v-for="(item,index) in  reword_type3"
+                    :key="index"
                     :label="item.name"
-                    :value="item.name">
+                    :value="index">
                   </el-option>
                 </el-select>
 
@@ -231,7 +243,13 @@
                   <el-button>?</el-button>
                 </el-tooltip>
               </el-form-item>
-
+              <el-form-item label="砍价金额范围(元):" label-width="140px">
+                <el-input v-model="input3_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input3_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+              </el-form-item>
+              <el-form-item label="砍到底价成功概率:" label-width="140px">
+                <el-input v-model="input3_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <span>%</span>
+              </el-form-item>
               <el-form-item label="商品库存">
                 <el-input type="textarea" v-model="form.count3" size="mini"></el-input>
               </el-form-item>
@@ -293,12 +311,12 @@
             <!-- 商品四 -->
             <el-tab-pane label="商品四" name="fourth">
               <el-form-item label="商品类型">
-                <el-select v-model="value" placeholder="请选择">
+                <el-select v-model="region4" placeholder="请选择">
                   <el-option
-                    v-for="item in  reword_type4"
-                    :key="item.id"
+                    v-for="(item,index) in  reword_type4"
+                    :key="index"
                     :label="item.name"
-                    :value="item.name">
+                    :value="index">
                   </el-option>
                 </el-select>
 
@@ -327,7 +345,13 @@
                   <el-button>?</el-button>
                 </el-tooltip>
               </el-form-item>
-
+              <el-form-item label="砍价金额范围(元):" label-width="140px">
+                <el-input v-model="input4_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input4_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+              </el-form-item>
+              <el-form-item label="砍到底价成功概率:" label-width="140px">
+                <el-input v-model="input4_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <span>%</span>
+              </el-form-item>
               <el-form-item label="商品库存">
                 <el-input type="textarea" v-model="form.count4" size="mini"></el-input>
               </el-form-item>
@@ -388,12 +412,12 @@
             <!-- 商品五 -->
             <el-tab-pane label="商品五" name="fifth">
               <el-form-item label="商品类型">
-                <el-select v-model="value" placeholder="请选择">
+                <el-select v-model="region5" placeholder="请选择">
                   <el-option
-                    v-for="item in  reword_type5"
-                    :key="item.id"
+                    v-for="(item,index) in  reword_type5"
+                    :key="index"
                     :label="item.name"
-                    :value="item.name">
+                    :value="index">
                   </el-option>
                 </el-select>
 
@@ -422,7 +446,13 @@
                   <el-button>?</el-button>
                 </el-tooltip>
               </el-form-item>
-
+              <el-form-item label="砍价金额范围(元):" label-width="140px">
+                <el-input v-model="input5_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input5_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+              </el-form-item>
+              <el-form-item label="砍到底价成功概率:" label-width="140px">
+                <el-input v-model="input5_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <span>%</span>
+              </el-form-item>
               <el-form-item label="商品库存">
                 <el-input type="textarea" v-model="form.count5" size="mini"></el-input>
               </el-form-item>
@@ -482,12 +512,12 @@
             <!-- 商品六 -->
             <el-tab-pane label="商品六" name="six">
               <el-form-item label="商品类型">
-                <el-select v-model="value" placeholder="请选择">
+                <el-select v-model="region6" placeholder="请选择">
                   <el-option
-                    v-for="item in  reword_type6"
-                    :key="item.id"
+                    v-for="(item,index) in  reword_type6"
+                    :key="index"
                     :label="item.name"
-                    :value="item.name">
+                    :value="index">
                   </el-option>
                 </el-select>
 
@@ -516,7 +546,13 @@
                   <el-button>?</el-button>
                 </el-tooltip>
               </el-form-item>
-
+              <el-form-item label="砍价金额范围(元):" label-width="140px">
+                <el-input v-model="input6_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input6_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+              </el-form-item>
+              <el-form-item label="砍到底价成功概率:" label-width="140px">
+                <el-input v-model="input6_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <span>%</span>
+              </el-form-item>
               <el-form-item label="商品库存">
                 <el-input type="textarea" v-model="form.count6" size="mini"></el-input>
               </el-form-item>
@@ -577,12 +613,12 @@
             <!-- 商品七 -->
             <el-tab-pane label="商品七" name="seventh">
               <el-form-item label="商品类型">
-                <el-select v-model="value" placeholder="请选择">
+                <el-select v-model="region7" placeholder="请选择">
                   <el-option
-                    v-for="item in  reword_type7"
-                    :key="item.id"
+                    v-for="(item,index) in  reword_type7"
+                    :key="index"
                     :label="item.name"
-                    :value="item.name">
+                    :value="index">
                   </el-option>
                 </el-select>
 
@@ -611,7 +647,13 @@
                   <el-button>?</el-button>
                 </el-tooltip>
               </el-form-item>
-
+              <el-form-item label="砍价金额范围(元):" label-width="140px">
+                <el-input v-model="input7_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input7_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+              </el-form-item>
+              <el-form-item label="砍到底价成功概率:" label-width="140px">
+                <el-input v-model="input7_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <span>%</span>
+              </el-form-item>
               <el-form-item label="商品库存">
                 <el-input type="textarea" v-model="form.count7" size="mini"></el-input>
               </el-form-item>
@@ -694,7 +736,13 @@
         imageUrl: '',
         dialogVisible: false,
         reword: "",
-        value: '',
+        region1:'',
+        region2:'',
+        region3:'',
+        region4:'',
+        region5:'',
+        region6:'',
+        region7:'',
         reword_type1: [],//商品一类型
         reword_type2: [],//商品二类型
         reword_type3: [],//商品三类型
@@ -715,6 +763,9 @@
           imageUrl1_3: '',//商品详情3
           deliveryType1: '',//配送方式
           deliveryInfo1: '',//发货说明
+          input1:'',//商品底价范围
+          input2:'',//商品底价范围
+          input3:'',//砍价概率
 
           // 商品二
           name2: '',//商品名称
@@ -727,6 +778,9 @@
           imageUrl2_3: '',//商品详情3
           deliveryType2: '',//配送方式
           deliveryInfo2: '',//发货说明
+          input2_1:'',//商品底价范围
+          input2_2:'',//商品底价范围
+          input2_3:'',//砍价概率
 
           // 商品三
           name3: '',//商品名称
@@ -739,6 +793,9 @@
           imageUrl3_3: '',//商品详情3
           deliveryType3: '',//配送方式
           deliveryInfo3: '',//发货说明
+          input3_1:'',//商品底价范围
+          input3_2:'',//商品底价范围
+          input3_3:'',//砍价概率
 
           // 商品四
           name4: '',//商品名称
@@ -751,6 +808,9 @@
           imageUrl4_3: '',//商品详情3
           deliveryType4: '',//配送方式
           deliveryInfo4: '',//发货说明
+          input4_1:'',//商品底价范围
+          input4_2:'',//商品底价范围
+          input4_3:'',//砍价概率
 
           // 商品五
           name5: '',//商品名称
@@ -763,6 +823,9 @@
           imageUrl5_3: '',//商品详情3
           deliveryType5: '',//配送方式
           deliveryInfo5: '',//发货说明
+          input5_1:'',//商品底价范围
+          input5_2:'',//商品底价范围
+          input5_3:'',//砍价概率
 
           // 商品六
           name6: '',//商品名称
@@ -775,6 +838,9 @@
           imageUrl6_3: '',//商品详情3
           deliveryType6: '',//配送方式
           deliveryInfo6: '',//发货说明
+          input6_1:'',//商品底价范围
+          input6_2:'',//商品底价范围
+          input6_3:'',//砍价概率
 
           // 商品七
           name7: '',//商品名称
@@ -787,6 +853,9 @@
           imageUrl7_3: '',//商品详情3
           deliveryType7: '',//配送方式
           deliveryInfo7: '',//发货说明
+          input7_1:'',//商品底价范围
+          input7_2:'',//商品底价范围
+          input7_3:'',//砍价概率
 
           // 商品八
           // name8: '',//商品名称
@@ -868,9 +937,13 @@
         console.log(this.reword_data)//奖品数据
         //商品一
         this.reword_type1 = this.reword_data[0].kjGoodsTypeList//商品类型
+        this.region1=this.reword_data[0].goodsType
         this.form.name1 = this.reword_data[0].goodsName//商品名称
         this.form.price1 = this.reword_data[0].goodsMarketPrice//商品原价
         this.form.priceLow1 = this.reword_data[0].goodsCostPrice//商品底价
+        this.input1=this.reword_data[0].hiPrice
+        this.input2=this.reword_data[0].lowPrice
+        this.input3=this.reword_data[0].probability
         this.form.count1 = this.reword_data[0].goodsStockNum//商品库存
         this.form.countsales1 = this.reword_data[0].goodsSalesNum//虚拟销量
         this.form.imageUrl1_1 = this.reword_data[0].goodsImg1//商品详情图片1
@@ -881,9 +954,13 @@
 
         // 商品二
         this.reword_type2 = this.reword_data[1].kjGoodsTypeList//商品类型
+        this.region2=this.reword_data[1].goodsType
         this.form.name2 = this.reword_data[1].goodsName//商品名称
         this.form.price2 = this.reword_data[1].goodsMarketPrice//商品原价
         this.form.priceLow2 = this.reword_data[1].goodsCostPrice//商品底价
+        this.input2_1=this.reword_data[1].hiPrice
+        this.input2_2=this.reword_data[1].lowPrice
+        this.input2_3=this.reword_data[1].probability
         this.form.count2 = this.reword_data[1].goodsStockNum//商品库存
         this.form.countsales2 = this.reword_data[1].goodsSalesNum//虚拟销量
         this.form.imageUrl2_1 = this.reword_data[1].goodsImg1//商品详情图片1
@@ -892,9 +969,13 @@
         this.form.deliveryType2 = this.reword_data[1].deliveryType//配送方式
         this.form.deliveryInfo2 = this.reword_data[1].deliveryInfo//发货说明        // 商品三
         this.reword_type3 = this.reword_data[2].kjGoodsTypeList//商品类型
+        this.region3=this.reword_data[2].goodsType
         this.form.name3 = this.reword_data[2].goodsName//商品名称
         this.form.price3 = this.reword_data[2].goodsMarketPrice//商品原价
         this.form.priceLow3 = this.reword_data[2].goodsCostPrice//商品底价
+        this.input3_1=this.reword_data[3].hiPrice
+        this.input3_2=this.reword_data[3].lowPrice
+        this.input3_3=this.reword_data[3].probability
         this.form.count3 = this.reword_data[2].goodsStockNum//商品库存
         this.form.countsales3 = this.reword_data[2].goodsSalesNum//虚拟销量
         this.form.imageUrl3_1 = this.reword_data[2].goodsImg1//商品详情图片1
@@ -904,9 +985,13 @@
         this.form.deliveryInfo3 = this.reword_data[2].deliveryInfo//发货说明
          // 商品四
         this.reword_type4 = this.reword_data[3].kjGoodsTypeList//商品类型
+        this.region4=this.reword_data[3].goodsType
         this.form.name4 = this.reword_data[3].goodsName//商品名称
         this.form.price4 = this.reword_data[3].goodsMarketPrice//商品原价
         this.form.priceLow4 = this.reword_data[3].goodsCostPrice//商品底价
+        this.input4_1=this.reword_data[3].hiPrice
+        this.input4_2=this.reword_data[3].lowPrice
+        this.input4_3=this.reword_data[3].probability
         this.form.count4 = this.reword_data[3].goodsStockNum//商品库存
         this.form.countsales4 = this.reword_data[3].goodsSalesNum//虚拟销量
         this.form.imageUrl4_1 = this.reword_data[3].goodsImg1//商品详情图片1
@@ -917,8 +1002,12 @@
          // 商品五
         this.reword_type5 = this.reword_data[4].kjGoodsTypeList//商品类型
         this.form.name5 = this.reword_data[4].goodsName//商品名称
+        this.region5=this.reword_data[4].goodsType
         this.form.price5 = this.reword_data[4].goodsMarketPrice//商品原价
         this.form.priceLow5 = this.reword_data[4].goodsCostPrice//商品底价
+        this.input5_1=this.reword_data[4].hiPrice
+        this.input5_2=this.reword_data[4].lowPrice
+        this.input5_3=this.reword_data[4].probability
         this.form.count5 = this.reword_data[4].goodsStockNum//商品库存
         this.form.countsales5 = this.reword_data[4].goodsSalesNum//虚拟销量
         this.form.imageUrl5_1 = this.reword_data[4].goodsImg1//商品详情图片1
@@ -927,9 +1016,13 @@
         this.form.deliveryType5 = this.reword_data[4].deliveryType//配送方式
         this.form.deliveryInfo5 = this.reword_data[4].deliveryInfo//发货说明         // 商品六
         this.reword_type6 = this.reword_data[5].kjGoodsTypeList//商品类型
+        this.region6=this.reword_data[5].goodsType
         this.form.name6 = this.reword_data[5].goodsName//商品名称
         this.form.price6 = this.reword_data[5].goodsMarketPrice//商品原价
         this.form.priceLow6 = this.reword_data[5].goodsCostPrice//商品底价
+        this.input6_1=this.reword_data[5].hiPrice
+        this.input6_2=this.reword_data[5].lowPrice
+        this.input6_3=this.reword_data[5].probability
         this.form.count6 = this.reword_data[5].goodsStockNum//商品库存
         this.form.countsales6 = this.reword_data[5].goodsSalesNum//虚拟销量
         this.form.imageUrl6_1 = this.reword_data[5].goodsImg1//商品详情图片1
@@ -938,9 +1031,13 @@
         this.form.deliveryType6 = this.reword_data[5].deliveryType//配送方式
         this.form.deliveryInfo6 = this.reword_data[5].deliveryInfo//发货说明         // 商品七
         this.reword_type7 = this.reword_data[6].kjGoodsTypeList//商品类型
+        this.region7=this.reword_data[6].goodsType
         this.form.name7 = this.reword_data[6].goodsName//商品名称
         this.form.price7 = this.reword_data[6].goodsMarketPrice//商品原价
         this.form.priceLow7 = this.reword_data[6].goodsCostPrice//商品底价
+        this.input7_1=this.reword_data[6].hiPrice
+        this.input7_2=this.reword_data[6].lowPrice
+        this.input7_3=this.reword_data[6].probability
         this.form.count7 = this.reword_data[6].goodsStockNum//商品库存
         this.form.countsales7 = this.reword_data[6].goodsSalesNum//虚拟销量
         this.form.imageUrl7_1 = this.reword_data[6].goodsImg1//商品详情图片1
@@ -953,12 +1050,16 @@
       partReword1() {
 
         this.reword_data = this.$route.query.newkjData.kjGoodsSetupExtendList
-        console.log(this.reword_data)//奖品数据
+        // console.log(this.reword_data)//奖品数据
         //商品一
         this.reword_type1 = this.reword_data[0].kjGoodsTypeList//商品类型
+        this.region1=this.reword_data[0].goodsType
         this.form.name1 = this.reword_data[0].goodsName//商品名称
         this.form.price1 = this.reword_data[0].goodsMarketPrice//商品原价
         this.form.priceLow1 = this.reword_data[0].goodsCostPrice//商品底价
+        this.input1=this.reword_data[0].hiPrice
+        this.input2=this.reword_data[0].lowPrice
+        this.input3=this.reword_data[0].probability
         this.form.count1 = this.reword_data[0].goodsStockNum//商品库存
         this.form.countsales1 = this.reword_data[0].goodsSalesNum//虚拟销量
         this.form.imageUrl1_1 = this.reword_data[0].goodsImg1//商品详情图片1
@@ -969,9 +1070,13 @@
 
         // 商品二
         this.reword_type2 = this.reword_data[1].kjGoodsTypeList//商品类型
+        this.region2=this.reword_data[1].goodsType
         this.form.name2 = this.reword_data[1].goodsName//商品名称
         this.form.price2 = this.reword_data[1].goodsMarketPrice//商品原价
         this.form.priceLow2 = this.reword_data[1].goodsCostPrice//商品底价
+        this.input2_1=this.reword_data[1].hiPrice
+        this.input2_2=this.reword_data[1].lowPrice
+        this.input2_3=this.reword_data[1].probability
         this.form.count2 = this.reword_data[1].goodsStockNum//商品库存
         this.form.countsales2 = this.reword_data[1].goodsSalesNum//虚拟销量
         this.form.imageUrl2_1 = this.reword_data[1].goodsImg1//商品详情图片1
@@ -980,9 +1085,13 @@
         this.form.deliveryType2 = this.reword_data[1].deliveryType//配送方式
         this.form.deliveryInfo2 = this.reword_data[1].deliveryInfo//发货说明        // 商品三
         this.reword_type3 = this.reword_data[2].kjGoodsTypeList//商品类型
+        this.region3=this.reword_data[2].goodsType
         this.form.name3 = this.reword_data[2].goodsName//商品名称
         this.form.price3 = this.reword_data[2].goodsMarketPrice//商品原价
         this.form.priceLow3 = this.reword_data[2].goodsCostPrice//商品底价
+        this.input3_1=this.reword_data[3].hiPrice
+        this.input3_2=this.reword_data[3].lowPrice
+        this.input3_3=this.reword_data[3].probability
         this.form.count3 = this.reword_data[2].goodsStockNum//商品库存
         this.form.countsales3 = this.reword_data[2].goodsSalesNum//虚拟销量
         this.form.imageUrl3_1 = this.reword_data[2].goodsImg1//商品详情图片1
@@ -990,11 +1099,15 @@
         this.form.imageUrl3_3 = this.reword_data[2].goodsImg3//商品详情图片3
         this.form.deliveryType3 = this.reword_data[2].deliveryType//配送方式
         this.form.deliveryInfo3 = this.reword_data[2].deliveryInfo//发货说明
-         // 商品四
+        // 商品四
         this.reword_type4 = this.reword_data[3].kjGoodsTypeList//商品类型
+        this.region4=this.reword_data[3].goodsType
         this.form.name4 = this.reword_data[3].goodsName//商品名称
         this.form.price4 = this.reword_data[3].goodsMarketPrice//商品原价
         this.form.priceLow4 = this.reword_data[3].goodsCostPrice//商品底价
+        this.input4_1=this.reword_data[3].hiPrice
+        this.input4_2=this.reword_data[3].lowPrice
+        this.input4_3=this.reword_data[3].probability
         this.form.count4 = this.reword_data[3].goodsStockNum//商品库存
         this.form.countsales4 = this.reword_data[3].goodsSalesNum//虚拟销量
         this.form.imageUrl4_1 = this.reword_data[3].goodsImg1//商品详情图片1
@@ -1002,11 +1115,15 @@
         this.form.imageUrl4_3 = this.reword_data[3].goodsImg3//商品详情图片3
         this.form.deliveryType4 = this.reword_data[3].deliveryType//配送方式
         this.form.deliveryInfo4 = this.reword_data[3].deliveryInfo//发货说明
-         // 商品五
+        // 商品五
         this.reword_type5 = this.reword_data[4].kjGoodsTypeList//商品类型
+        this.region5=this.reword_data[4].goodsType
         this.form.name5 = this.reword_data[4].goodsName//商品名称
         this.form.price5 = this.reword_data[4].goodsMarketPrice//商品原价
         this.form.priceLow5 = this.reword_data[4].goodsCostPrice//商品底价
+        this.input5_1=this.reword_data[4].hiPrice
+        this.input5_2=this.reword_data[4].lowPrice
+        this.input5_3=this.reword_data[4].probability
         this.form.count5 = this.reword_data[4].goodsStockNum//商品库存
         this.form.countsales5 = this.reword_data[4].goodsSalesNum//虚拟销量
         this.form.imageUrl5_1 = this.reword_data[4].goodsImg1//商品详情图片1
@@ -1015,9 +1132,13 @@
         this.form.deliveryType5 = this.reword_data[4].deliveryType//配送方式
         this.form.deliveryInfo5 = this.reword_data[4].deliveryInfo//发货说明         // 商品六
         this.reword_type6 = this.reword_data[5].kjGoodsTypeList//商品类型
+        this.region6=this.reword_data[5].goodsType
         this.form.name6 = this.reword_data[5].goodsName//商品名称
         this.form.price6 = this.reword_data[5].goodsMarketPrice//商品原价
         this.form.priceLow6 = this.reword_data[5].goodsCostPrice//商品底价
+        this.input6_1=this.reword_data[5].hiPrice
+        this.input6_2=this.reword_data[5].lowPrice
+        this.input6_3=this.reword_data[5].probability
         this.form.count6 = this.reword_data[5].goodsStockNum//商品库存
         this.form.countsales6 = this.reword_data[5].goodsSalesNum//虚拟销量
         this.form.imageUrl6_1 = this.reword_data[5].goodsImg1//商品详情图片1
@@ -1026,9 +1147,13 @@
         this.form.deliveryType6 = this.reword_data[5].deliveryType//配送方式
         this.form.deliveryInfo6 = this.reword_data[5].deliveryInfo//发货说明         // 商品七
         this.reword_type7 = this.reword_data[6].kjGoodsTypeList//商品类型
+        this.region7=this.reword_data[6].goodsType
         this.form.name7 = this.reword_data[6].goodsName//商品名称
         this.form.price7 = this.reword_data[6].goodsMarketPrice//商品原价
         this.form.priceLow7 = this.reword_data[6].goodsCostPrice//商品底价
+        this.input7_1=this.reword_data[6].hiPrice
+        this.input7_2=this.reword_data[6].lowPrice
+        this.input7_3=this.reword_data[6].probability
         this.form.count7 = this.reword_data[6].goodsStockNum//商品库存
         this.form.countsales7 = this.reword_data[6].goodsSalesNum//虚拟销量
         this.form.imageUrl7_1 = this.reword_data[6].goodsImg1//商品详情图片1
@@ -1045,9 +1170,13 @@
         this.reword_send = JSON.parse(Data).kjGoodsSetupExtendList
         //商品一
         this.reword_send[0].kjGoodsTypeList = this.reword_type1//商品类型
+        this.reword_send[0].goodsType=this.region1
         this.reword_send[0].goodsName = this.form.name1 //商品名称
         this.reword_send[0].goodsMarketPrice = this.form.price1//商品原价
         this.reword_send[0].goodsCostPrice = this.form.priceLow1 //商品底价
+        this.reword_send[0].hiPrice=this.input1
+        this.reword_send[0].lowPrice=this.input2
+        this.reword_send[0].probability=this.input3
         this.reword_send[0].goodsStockNum = this.form.count1//商品库存
         this.reword_send[0].goodsSalesNum = this.form.countsales1//虚拟销量
         this.reword_send[0].goodsImg1 = this.form.imageUrl1_1//商品详情图片1
@@ -1057,9 +1186,13 @@
         this.reword_send[0].deliveryInfo = this.form.deliveryInfo1//发货说明
         // 商品二
         this.reword_send[1].kjGoodsTypeList = this.reword_type2
+        this.reword_send[1].goodsType=this.region2
         this.reword_send[1].goodsName = this.form.name2
         this.reword_send[1].goodsMarketPrice = this.form.price2
         this.reword_send[1].goodsCostPrice = this.form.priceLow2
+        this.reword_send[1].hiPrice=this.input2_1
+        this.reword_send[1].lowPrice=this.input2_2
+        this.reword_send[1].probability=this.input2_3
         this.reword_send[1].goodsStockNum = this.form.count2
         this.reword_send[1].goodsSalesNum = this.form.countsales2
         this.reword_send[1].goodsImg1 = this.form.imageUrl2_1
@@ -1070,9 +1203,13 @@
 
         //商品三
         this.reword_send[2].kjGoodsTypeList = this.reword_type3
+        this.reword_send[2].goodsType=this.region3
         this.reword_send[2].goodsName = this.form.name3
         this.reword_send[2].goodsMarketPrice = this.form.price3
         this.reword_send[2].goodsCostPrice = this.form.priceLow3
+        this.reword_send[2].hiPrice=this.input3_1
+        this.reword_send[2].lowPrice=this.input3_2
+        this.reword_send[2].probability=this.input3_3
         this.reword_send[2].goodsStockNum = this.form.count3
         this.reword_send[2].goodsSalesNum = this.form.countsales3
         this.reword_send[2].goodsImg1 = this.form.imageUrl3_1
@@ -1083,9 +1220,13 @@
 
         //商品四
         this.reword_send[3].kjGoodsTypeList = this.reword_type4
+        this.reword_send[3].goodsType=this.region4
         this.reword_send[3].goodsName = this.form.name4
         this.reword_send[3].goodsMarketPrice = this.form.price4
         this.reword_send[3].goodsCostPrice = this.form.priceLow4
+        this.reword_send[3].hiPrice=this.input4_1
+        this.reword_send[3].lowPrice=this.input4_2
+        this.reword_send[3].probability=this.input4_3
         this.reword_send[3].goodsStockNum = this.form.count4
         this.reword_send[3].goodsSalesNum = this.form.countsales4
         this.reword_send[3].goodsImg1 = this.form.imageUrl4_1
@@ -1096,9 +1237,13 @@
 
         //商品五
         this.reword_send[4].kjGoodsTypeList = this.reword_type5
+        this.reword_send[4].goodsType=this.region5
         this.reword_send[4].goodsName = this.form.name5
         this.reword_send[4].goodsMarketPrice = this.form.price5
         this.reword_send[4].goodsCostPrice = this.form.priceLow5
+        this.reword_send[4].hiPrice=this.input5_1
+        this.reword_send[4].lowPrice=this.input5_2
+        this.reword_send[4].probability=this.input5_3
         this.reword_send[4].goodsStockNum = this.form.count5
         this.reword_send[4].goodsSalesNum = this.form.countsales5
         this.reword_send[4].goodsImg1 = this.form.imageUrl5_1
@@ -1109,9 +1254,13 @@
 
         //商品六
         this.reword_send[5].kjGoodsTypeList = this.reword_type6
+        this.reword_send[5].goodsType=this.region6
         this.reword_send[5].goodsName = this.form.name6
         this.reword_send[5].goodsMarketPrice = this.form.price6
         this.reword_send[5].goodsCostPrice = this.form.priceLow6
+        this.reword_send[5].hiPrice=this.input6_1
+        this.reword_send[5].lowPrice=this.input6_2
+        this.reword_send[5].probability=this.input6_3
         this.reword_send[5].goodsStockNum = this.form.count6
         this.reword_send[5].goodsSalesNum = this.form.countsales6
         this.reword_send[5].goodsImg1 = this.form.imageUrl6_1
@@ -1122,9 +1271,13 @@
 
         //商品七
         this.reword_send[6].kjGoodsTypeList = this.reword_type7
+        this.reword_send[6].goodsType=this.region7
         this.reword_send[6].goodsName = this.form.name7
         this.reword_send[6].goodsMarketPrice = this.form.price7
         this.reword_send[6].goodsCostPrice = this.form.priceLow7
+        this.reword_send[6].hiPrice=this.input7_1
+        this.reword_send[6].lowPrice=this.input7_2
+        this.reword_send[6].probability=this.input7_3
         this.reword_send[6].goodsStockNum = this.form.count7
         this.reword_send[6].goodsSalesNum = this.form.countsales7
         this.reword_send[6].goodsImg1 = this.form.imageUrl7_1
@@ -1142,9 +1295,13 @@
         this.reword_send = this.$route.query.newkjData.kjGoodsSetupExtendList
         //商品一
         this.reword_send[0].kjGoodsTypeList = this.reword_type1//商品类型
+        this.reword_send[0].goodsType=this.region1
         this.reword_send[0].goodsName = this.form.name1 //商品名称
         this.reword_send[0].goodsMarketPrice = this.form.price1//商品原价
         this.reword_send[0].goodsCostPrice = this.form.priceLow1 //商品底价
+        this.reword_send[0].hiPrice=this.input1
+        this.reword_send[0].lowPrice=this.input2
+        this.reword_send[0].probability=this.input3
         this.reword_send[0].goodsStockNum = this.form.count1//商品库存
         this.reword_send[0].goodsSalesNum = this.form.countsales1//虚拟销量
         this.reword_send[0].goodsImg1 = this.form.imageUrl1_1//商品详情图片1
@@ -1154,9 +1311,13 @@
         this.reword_send[0].deliveryInfo = this.form.deliveryInfo1//发货说明
         // 商品二
         this.reword_send[1].kjGoodsTypeList = this.reword_type2
+        this.reword_send[1].goodsType=this.region2
         this.reword_send[1].goodsName = this.form.name2
         this.reword_send[1].goodsMarketPrice = this.form.price2
         this.reword_send[1].goodsCostPrice = this.form.priceLow2
+        this.reword_send[1].hiPrice=this.input2_1
+        this.reword_send[1].lowPrice=this.input2_2
+        this.reword_send[1].probability=this.input2_3
         this.reword_send[1].goodsStockNum = this.form.count2
         this.reword_send[1].goodsSalesNum = this.form.countsales2
         this.reword_send[1].goodsImg1 = this.form.imageUrl2_1
@@ -1167,9 +1328,13 @@
 
         //商品三
         this.reword_send[2].kjGoodsTypeList = this.reword_type3
+        this.reword_send[2].goodsType=this.region3
         this.reword_send[2].goodsName = this.form.name3
         this.reword_send[2].goodsMarketPrice = this.form.price3
         this.reword_send[2].goodsCostPrice = this.form.priceLow3
+        this.reword_send[2].hiPrice=this.input3_1
+        this.reword_send[2].lowPrice=this.input3_2
+        this.reword_send[2].probability=this.input3_3
         this.reword_send[2].goodsStockNum = this.form.count3
         this.reword_send[2].goodsSalesNum = this.form.countsales3
         this.reword_send[2].goodsImg1 = this.form.imageUrl3_1
@@ -1180,9 +1345,13 @@
 
         //商品四
         this.reword_send[3].kjGoodsTypeList = this.reword_type4
+        this.reword_send[3].goodsType=this.region4
         this.reword_send[3].goodsName = this.form.name4
         this.reword_send[3].goodsMarketPrice = this.form.price4
         this.reword_send[3].goodsCostPrice = this.form.priceLow4
+        this.reword_send[3].hiPrice=this.input4_1
+        this.reword_send[3].lowPrice=this.input4_2
+        this.reword_send[3].probability=this.input4_3
         this.reword_send[3].goodsStockNum = this.form.count4
         this.reword_send[3].goodsSalesNum = this.form.countsales4
         this.reword_send[3].goodsImg1 = this.form.imageUrl4_1
@@ -1193,9 +1362,13 @@
 
         //商品五
         this.reword_send[4].kjGoodsTypeList = this.reword_type5
+        this.reword_send[4].goodsType=this.region5
         this.reword_send[4].goodsName = this.form.name5
         this.reword_send[4].goodsMarketPrice = this.form.price5
         this.reword_send[4].goodsCostPrice = this.form.priceLow5
+        this.reword_send[4].hiPrice=this.input5_1
+        this.reword_send[4].lowPrice=this.input5_2
+        this.reword_send[4].probability=this.input5_3
         this.reword_send[4].goodsStockNum = this.form.count5
         this.reword_send[4].goodsSalesNum = this.form.countsales5
         this.reword_send[4].goodsImg1 = this.form.imageUrl5_1
@@ -1206,9 +1379,13 @@
 
         //商品六
         this.reword_send[5].kjGoodsTypeList = this.reword_type6
+        this.reword_send[5].goodsType=this.region6
         this.reword_send[5].goodsName = this.form.name6
         this.reword_send[5].goodsMarketPrice = this.form.price6
         this.reword_send[5].goodsCostPrice = this.form.priceLow6
+        this.reword_send[5].hiPrice=this.input6_1
+        this.reword_send[5].lowPrice=this.input6_2
+        this.reword_send[5].probability=this.input6_3
         this.reword_send[5].goodsStockNum = this.form.count6
         this.reword_send[5].goodsSalesNum = this.form.countsales6
         this.reword_send[5].goodsImg1 = this.form.imageUrl6_1
@@ -1219,9 +1396,13 @@
 
         //商品七
         this.reword_send[6].kjGoodsTypeList = this.reword_type7
+        this.reword_send[6].goodsType=this.region7
         this.reword_send[6].goodsName = this.form.name7
         this.reword_send[6].goodsMarketPrice = this.form.price7
         this.reword_send[6].goodsCostPrice = this.form.priceLow7
+        this.reword_send[6].hiPrice=this.input7_1
+        this.reword_send[6].lowPrice=this.input7_2
+        this.reword_send[6].probability=this.input7_3
         this.reword_send[6].goodsStockNum = this.form.count7
         this.reword_send[6].goodsSalesNum = this.form.countsales7
         this.reword_send[6].goodsImg1 = this.form.imageUrl7_1
@@ -1233,7 +1414,6 @@
         this.$bus.emit("send_reword", this.reword_send)
         console.log(this.reword_send)
       },
-
       //添加奖品
       addgift() {
         if (this.reword.length == 7) {

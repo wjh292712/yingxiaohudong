@@ -40,12 +40,14 @@
               <span>
                       <el-radio-group v-model="radio3">
                         <el-radio label="1">默认</el-radio>
-                        <el-radio label="2">自定义</el-radio>
+                        <el-radio label="2">
+                          <span @click="imgLoad()">自定义</span>
+                        </el-radio>
                         <!-- <el-radio>上传LOGO</el-radio> -->
                       </el-radio-group>
                     </span>
             </p>
-            <p>
+            <p v-show="imgLoa">
               <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
                 <img v-if="imageUrl" :src="imageUrl" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -193,6 +195,7 @@
         radio11: '',
         imageUrl: '',
         centerDialogVisible: false,
+        imgLoa:false,
         company:'',//企业设置
         share:'',//分享设置
         other:'',//其他设置
@@ -383,6 +386,9 @@
       logo(){
         this.logoShow=!this.logoShow
       },
+      imgLoad(){
+        this.imgLoa=!this.imgLoa
+      },
       wxiconShow(){
         this.wxicon=!this.wxicon
       },
@@ -420,10 +426,11 @@
     font-size: .4rem;
     color: #8c939d;
     width: 5rem;
-    height: 3rem;
-    line-height: 3rem;
+    height: 5rem;
+    line-height: 5rem;
+    border: 1px solid  #8c939d;
     text-align: center;
-    border: 1px solid #d9d9d9;
+
   }
 
   .message p .avatar-uploader {

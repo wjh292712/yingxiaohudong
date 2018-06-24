@@ -16,10 +16,10 @@
           <el-form-item label="选择题库:">
             <el-select v-model="value4" clearable placeholder="请选择">
               <el-option
-                v-for="item in answerState"
-                :key="item.id"
+                v-for="(item,index) in answerState"
+                :key="index"
                 :label="item.typeName"
-                :value="item.id">
+                :value="index">
               </el-option>
             </el-select>
             <i>总题量1000</i>
@@ -35,10 +35,14 @@
           <el-form-item label="每局答题时间:" label-width="100px">
             <el-radio-group v-model="radio2">
               <el-radio label="0">不限</el-radio>
-              <el-radio label="1">自定义</el-radio>
+              <el-radio label="1">
+               <span @click="tilTime()"> 自定义</span>
+              </el-radio>
             </el-radio-group>
+            <span v-show="tileTime">
             <el-input size="mini" style="width: 50px"></el-input>
             分钟
+              </span>
           </el-form-item>
         </div>
 
@@ -61,6 +65,9 @@
                 :on-remove="handleRemove" class="upLoad">
                 <i class="el-icon-plus"></i>
               </el-upload>
+              <el-dialog :visible.sync="dialogVisible">
+                <img width="100%" :src="imageUrl" alt="">
+              </el-dialog>
             </el-form-item>
             <p> 只能上传jpg/png文件，且不超过500kb</p>
             <el-form-item label="正确答案:" label-width="80px">
@@ -101,7 +108,10 @@
         radio2: '',
         titleCount:'',//总题量
         radomCount:'',//随机题量
+        imageUrl:'',
         ok: false,
+        tileTime:false,
+        dialogVisible: false,
         ansName: '',//题目
         ansCorrect: '',//正确答案
         ansError1: '',//错误答案1
@@ -138,18 +148,28 @@
       titleBase() {
         let Data = JSON.parse(sessionStorage.getItem('Datadt'))
         this.title_data = Data.dtQuestionSetupExtend
-        this.radio1=  Number(this.title_data.questionType).toString()
+        this.radio1=  Number(this.title_data.questionBank).toString()
         this.answerState=this.title_data.dtQuestionTypeExtendList
+        this.value4=this.title_data.questionType
         this.titleCount=this.title_data.questionTotalNum
         this.radomCount=this.title_data.questionRadomNum
-        this.ansName=this.title_data.dtActivityQuestionExtendList.dtQuestionExtend.title
+        this.ansName=this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.title
+        if(this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight===true){
+          this.ansCorrect=this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent
+        }else if (this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight===false){
+          this.ansError1=this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent
+        }
+
+
+
         this.radio2= Number(this.title_data.answerTimeLimit).toString()
       },
       titleBase1() {
 
         this.title_data = this.$route.query.newdtData.dtQuestionSetupExtend
-        this.radio1=  Number(this.title_data.questionType).toString()
+        this.radio1=  Number(this.title_data.questionBank).toString()
         this.answerState=this.title_data.dtQuestionTypeExtendList
+        this.value4=this.title_data.questionType
         this.titleCount=this.title_data.questionTotalNum
         this.radomCount=this.title_data.questionRadomNum
         this.ansName=this.title_data.dtActivityQuestionExtendList.dtQuestionExtend.title
@@ -158,8 +178,9 @@
       savaTitleBase(){
         let Data = JSON.parse(sessionStorage.getItem('Datadt'))
         this.title_send=Data.dtQuestionSetupExtend
-        this.title_send.questionType=this.radio1
+        this.title_send.questionBank=this.radio1
         this.title_send.dtQuestionTypeExtendList=this.answerState
+        this.title_send.questionType=this.value4
         this.title_send.questionTotalNum=this.titleCount
         this.title_send.questionRadomNum=this.radomCount
         this.title_send.answerTimeLimit=this.radio2==0?false:true
@@ -169,8 +190,9 @@
       savaTitleBase1(){
 
         this.title_send=this.$route.query.newdtData.dtQuestionSetupExtend
-        this.title_send.questionType=this.radio1
+        this.title_send.questionBank=this.radio1
         this.title_send.dtQuestionTypeExtendList=this.answerState
+        this.title_send.questionType=this.value4
         this.title_send.questionTotalNum=this.titleCount
         this.title_send.questionRadomNum=this.radomCount
         this.title_send.answerTimeLimit=this.radio2==0?false:true
@@ -183,15 +205,20 @@
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
+        const isPNG = file.type === 'image/png';
         const isLt2M = file.size / 1024 / 1024 < 2;
 
-        if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!');
+        if (!isJPG&&!isPNG) {
+          this.$message.error('上传头像图片只能是 JPG /PNG 格式!');
         }
+        if (!isPNG) {
+          this.$message.error('上传头像图片只能是 JPG /PNG 格式!');
+        }
+
         if (!isLt2M) {
           this.$message.error('上传头像图片大小不能超过 2MB!');
         }
-        return isJPG && isLt2M;
+        return isJPG ||isPNG && isLt2M;
       },
       handleRemove(file, fileList) {
         console.log(file, fileList);
@@ -221,6 +248,9 @@
 
       Toggle() {
         this.ok = !this.ok;
+      },
+      tilTime(){
+        this.tileTime=!this.tileTime
       },
       del() {
         this.ok = !this.ok;

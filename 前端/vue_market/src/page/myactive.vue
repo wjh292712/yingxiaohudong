@@ -129,6 +129,9 @@
                   <i>详情</i>
                 </el-dropdown-item>
                 <el-dropdown-item class="clearfix">
+                  <i @click="copyContent($event,scope.row.activityId,scope.row.templateUuid,scope.row.stateForMyActivity)">复制</i>
+                </el-dropdown-item>
+                <el-dropdown-item class="clearfix">
                   <i @click="del(scope.row.activityId,scope.row.templateUuid)">删除</i>
                 </el-dropdown-item>
                 <el-dropdown-item class="clearfix">
@@ -669,6 +672,146 @@
                   rewordCount:true,
                   ticket:true,
                   btnsave:true,
+                  newdtData:newDtData,
+                  dataStatus: '1',
+                }
+              })
+            }
+            else {
+              this.$router.push({path: '/activeslide/answerlist',query: {newdtData: newDtData, dataStatus: '1'}})
+            }
+          })
+
+
+        }
+
+
+      },
+      copyContent(e, index, templ, states) {
+        this.activeId = index
+        this.templateUuid = templ
+        this.states = states
+
+        if (this.templateUuid == 1) {
+          this.$axios({
+            method: 'post',
+            url: 'http://center.marketing.yunpaas.cn/jgg/activitySetup/copy',
+            params: {
+              id: this.activeId,
+            }
+          }).then(res => {
+            console.log(res);
+            let newJggData = res.data.data
+            this.newjggData = newJggData
+            if (this.states === 3) {
+
+              this.$router.push({
+                path: '/activeslide/activelist',
+                query: {
+                  startTime:false,
+                  actName:false,
+                  rewordCount:false,
+                  ticket:false,
+                  newjggData:newJggData,
+                  dataStatus:'1'
+                }
+              })
+            } else if (this.states === 4) {
+
+              this.$router.push({
+                path: '/activeslide/activelist',
+                query: {
+                  startTime:false,
+                  actName:false,
+                  rewordCount:false,
+                  ticket:false,
+                  btnsave:false,
+                  newjggData: newJggData,
+                  dataStatus: '1'
+                }
+              })
+            }
+            else {
+              this.$router.push({path: '/activeslide/activelist', query: {newjggData: newJggData, dataStatus: '1'}})
+            }
+
+          })
+        } else if (this.templateUuid == 2) {
+          this.$axios({
+            method: 'post',
+            url: 'http://center.marketing.yunpaas.cn/kj/activitySetup/copy',
+            params: {
+              id: this.activeId,
+            }
+          }).then(res => {
+            let newKjData = res.data.data
+            this.newkjData = newKjData
+            if (this.states === 3) {
+
+              this.$router.push({
+                path: '/activeslide/bargainlist',
+                query: {
+                  startTime:false,
+                  actName:false,
+                  startPrice:false,
+                  endPrice:false,
+                  newkjData:newKjData,
+                  dataStatus: '1'
+                }
+              })
+            } else if (this.states === 4) {
+
+              this.$router.push({
+                path: '/activeslide/bargainlist',
+                query: {
+                  startTime:false,
+                  actName:false,
+                  startPrice:false,
+                  endPrice:false,
+                  btnsave:false,
+                  newkjData:newKjData,
+                  dataStatus:'1'
+                }
+              })
+            }
+            else {
+              this.$router.push({path: '/activeslide/bargainlist', query: {newkjData: newKjData, dataStatus: '1'}})
+            }
+
+          })
+        } else if (this.templateUuid == 3) {
+          this.$axios({
+            method: 'post',
+            url: 'http://center.marketing.yunpaas.cn/dt/activitySetup/copy',
+            params: {
+              id: this.activeId,
+            }
+          }).then(res => {
+            let newDtData = res.data.data
+            this.newdtData = newDtData
+            if (this.states === 3) {
+
+              this.$router.push({
+                path: '/activeslide/answerlist',
+                query: {
+                  startTime:false,
+                  actName:false,
+                  rewordCount:false,
+                  ticket:false,
+                  newdtData: newDtData,
+                  dataStatus: '1',
+                }
+              })
+            } else if (this.states === 4) {
+
+              this.$router.push({
+                path: '/activeslide/answerlist',
+                query: {
+                  startTime:false,
+                  actName:false,
+                  rewordCount:false,
+                  ticket:false,
+                  btnsave:false,
                   newdtData:newDtData,
                   dataStatus: '1',
                 }

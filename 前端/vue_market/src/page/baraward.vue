@@ -3,17 +3,17 @@
   <div class="container">
     <div class="send">
       <el-form ref="form" label-width="100px">
-        <p>
-          <span>砍价金额范围(元)：</span>
-          <el-input v-model="input1" placeholder="请输入内容" class="nns" />
-         ——
-          <el-input v-model="input2" placeholder="请输入内容"  class="nns"/>
-        </p>
-        <p>
-          <span>砍到底价成功概率：</span>
-          <el-input v-model="input3" placeholder="请输入内容" class="nns" />
-          <span>%</span>
-        </p>
+        <!--<p>-->
+          <!--<span>砍价金额范围(元)：</span>-->
+          <!--<el-input v-model="input1" placeholder="请输入内容" class="nns" />-->
+         <!--——-->
+          <!--<el-input v-model="input2" placeholder="请输入内容"  class="nns"/>-->
+        <!--</p>-->
+        <!--<p>-->
+          <!--<span>砍到底价成功概率：</span>-->
+          <!--<el-input v-model="input3" placeholder="请输入内容" class="nns" />-->
+          <!--<span>%</span>-->
+        <!--</p>-->
         <p>
           <span>底价保留时长：</span>
           <el-input v-model="input4" placeholder="请输入内容" class="nns" />
@@ -50,9 +50,9 @@
     data() {
       return {
         radio1:'',
-        input1:'',
-        input2:'',
-        input3:'',
+        // input1:'',
+        // input2:'',
+        // input3:'',
         input4:'',
         input5:'',
         input6:'',

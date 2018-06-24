@@ -315,7 +315,6 @@
   .base_wrap {
     width: 100%;
     margin: 1rem 0;
-    background: #fbfbfb;
     padding: 15px;
     position: relative;
     z-index: 9;

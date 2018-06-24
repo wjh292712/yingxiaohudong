@@ -159,8 +159,8 @@
               console.log(token);
               $.ajax({
                     type:"POST",
-                    // url:"http://center.marketing.yunpaas.cn/jgg/activitySetup/save?token="+token,
-                 url:"http://192.168.2.112:8085/jgg/activitySetup/save?token="+token,
+                    url:"http://center.marketing.yunpaas.cn/jgg/activitySetup/save?token="+token,
+                 // url:"http://192.168.2.112:8085/jgg/activitySetup/save?token="+token,
                     data:sendNew,
                     contentType:"application/json",
                     // datatype:"json",

@@ -19,27 +19,35 @@
                       </el-input>
                     </span>
                   </p>
-                  <p>
+                  <p class="logo">
                     <span class="host">主办单位LOGO:</span>
                     <span>
                       <el-radio-group v-model="radio2">
                         <el-radio label="1">隐藏</el-radio>
-                        <el-radio label="2">显示</el-radio>
-                        <el-radio label="3">上传LOGO</el-radio>
+                        <el-radio label="2">
+                         <span @click="logo()">显示</span>
+                        </el-radio>
                       </el-radio-group>
                     </span>
+                    <span class="logo_up" v-show="logoShow">
+                <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+               上传logo
+              </el-upload>
+              </span>
                   </p>
                   <p>
                     <span class="host">加载页面图片:</span>
                     <span>
                       <el-radio-group v-model="radio3">
                         <el-radio label="1">默认</el-radio>
-                        <el-radio label="2">自定义</el-radio>
+                        <el-radio label="2">
+                          <span @click="imgLoad()">自定义</span>
+                        </el-radio>
                         <!-- <el-radio>上传LOGO</el-radio> -->
                       </el-radio-group>
                     </span>
                   </p>
-                  <p>
+                  <p v-show="imgLoa">
                     <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
                       <img v-if="imageUrl" :src="imageUrl" class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon">上传图片</i>
@@ -168,6 +176,8 @@
             radio10: '',
             imageUrl: '',
             centerDialogVisible: false,
+            logoShow:false,
+            imgLoa:false,
             company:'',//企业设置
             safety:'',//安全设置
             other:'',//其他设置
@@ -303,9 +313,7 @@
             this.other_send.area = this.radio10 == 1 ? false : true
             this.$store.state.setting_data.jggHighOtherSetup=this.other_send
               this.$bus.emit("send_high",[this.company_send,this.safety_send,this.other_send])
-            // console.log(this.company_send,this.safety_send,this.other_send)
-            alert(this.other_send+"advanced的264")
-            console.log(this.other_send);
+            // console.log(this.other_send);
           },
           saveHight1(){
 
@@ -342,6 +350,12 @@
           },
           handleAvatarSuccess(res, file) {
             this.imageUrl = URL.createObjectURL(file.raw);
+          },
+          logo(){
+            this.logoShow=!this.logoShow
+          },
+          imgLoad(){
+            this.imgLoa=!this.imgLoa
           },
           beforeAvatarUpload(file) {
             const isJPG = file.type === 'image/jpeg';
@@ -390,7 +404,7 @@
       }
 
       .message p .avatar-uploader {
-        margin-left: 6rem;
+        margin-left: 2rem;
       }
 
       .message p .save {
@@ -410,11 +424,12 @@
       }
 
       .message p .avatar-uploader-icon {
-        font-size: 28px;
+        font-size: 14px;
         color: #8c939d;
-        width: 178px;
-        height: 178px;
-        line-height: 178px;
+        border: 1px solid  #8c939d;
+        width: 5rem;
+        height: 5rem;
+        line-height: 5rem;
         text-align: center;
       }
 
@@ -456,5 +471,13 @@
 
       .rests p .conserve .saves {
         margin-top: 4rem;
+      }
+      .logo{
+        .logo_up{
+          text-align: center;
+          display: inline-block;
+          color: blue;
+          font-size: 14px;
+        }
       }
       </style>

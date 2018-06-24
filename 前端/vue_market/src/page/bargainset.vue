@@ -136,6 +136,7 @@
         $.ajax({
           type:"POST",//砍价保存数据
           url:"http://center.marketing.yunpaas.cn/kj/activitySetup/save?token="+token,
+          // url:"http://192.168.2.112:8080/kj/activitySetup/save?token="+token,
           data:sendNew,
           contentType:"application/json",
           datatype:"json",
