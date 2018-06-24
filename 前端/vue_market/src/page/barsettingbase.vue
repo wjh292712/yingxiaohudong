@@ -18,13 +18,13 @@
             v-model="value1"
             :disabled="startTime1"
             type="datetime"
-            placeholder="选择开始时间" style="width: 250px">
+            placeholder="选择开始时间" style="width: 240px">
           </el-date-picker>
           <el-date-picker
             v-model="value2"
             :disabled="endTime"
             type="datetime"
-            placeholder="选择结束时间" style="width: 250px">
+            placeholder="选择结束时间" style="width: 240px">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="参与人数">
