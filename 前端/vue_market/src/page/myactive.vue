@@ -7,23 +7,22 @@
       <el-input
         clearable
         placeholder="活动名称"
-        v-model="activename" style="width:150px;margin-right: 10px">
+        v-model="activename" style="width:140px;margin-right: 5px">
       </el-input>
       <el-date-picker
         size="large"
         v-model="value4"
         type="datetimerange"
         start-placeholder="活动开始时间"
-        style="width:300px;margin-right:10px">
+        style="width:300px;margin-right:5px">
       </el-date-picker>
       <el-date-picker
         size="large"
         v-model="value5"
         type="datetimerange"
         start-placeholder="活动结束时间"
-        style="width:300px;margin-right:10px">
+        style="width:300px;margin-right:5px">
       </el-date-picker>
-
       <el-autocomplete
         clearable="true"
         class="inline-input"
@@ -31,7 +30,7 @@
         :fetch-suggestions="querySearch"
         placeholder="请输入内容"
         @select="handleSelect"
-        style="width:150px;margin-right:10px">
+        style="width:140px;margin-right:5px">
       </el-autocomplete>
       <el-button @click="find()">查询</el-button>
     </div>
