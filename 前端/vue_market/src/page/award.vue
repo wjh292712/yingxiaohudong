@@ -301,6 +301,8 @@
   .container {
     width: 100%;
     height: auto;
+    position: relative;
+    z-index: 9;
   }
 
   .send {

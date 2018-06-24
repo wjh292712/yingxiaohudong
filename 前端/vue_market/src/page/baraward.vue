@@ -122,6 +122,10 @@
   }
 </script>
 <style lang="scss" scoped>
+  .container{
+    position: relative;
+    z-index: 9;
+  }
   .send{
     margin-top: 20px;
     p{

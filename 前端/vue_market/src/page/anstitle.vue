@@ -233,6 +233,8 @@
   .reword_wrap {
     width: 100%;
     height: 600px;
+    position: relative;
+    z-index: 9;
     .reword_con {
       /* .el-upload--picture-card{
           float:left;

@@ -304,6 +304,7 @@
     padding: 15px;
     height: 100%;
     position: relative;
+    z-index: 9;
   }
 
   .el-radio-group {

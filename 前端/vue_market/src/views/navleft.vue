@@ -86,25 +86,25 @@
           display:block;
           background-size:100%;
         }
-        
+
         .icon1 {
-          background:url(../../static\firstimage\首页.png)
+          background:url(../../static/firstimage/首页.png)
         }
         .icon2 {
-          background:url(../../static\firstimage\活动.png)
+          background:url(../../static/firstimage/活动.png)
         }
         .icon3 {
-          background:url(../../static\firstimage\核销.png)
+          background:url(../../static/firstimage/核销.png)
         }
         .icon4 {
-          background:url(../../static\firstimage\数据.png)
+          background:url(../../static/firstimage/数据.png)
         }
         .icon5 {
-          background:url(../../static\firstimage\商城.png)
+          background:url(../../static/firstimage/商城.png)
         }
       }
     }
   }
   }
-  
+
 </style>

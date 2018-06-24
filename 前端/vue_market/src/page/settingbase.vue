@@ -317,6 +317,8 @@
     margin: 1rem 0;
     background: #fbfbfb;
     padding: 15px;
+    position: relative;
+    z-index: 9;
     .label_text {
       font-size: .7rem;
       .people {

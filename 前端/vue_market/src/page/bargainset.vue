@@ -8,12 +8,6 @@
       </div>
       <div class="setting_title">
         <el-tabs v-model="activeName2" >
-          <!-- <el-tab-pane label="基础设置" name="first"><router-view></router-view></el-tab-pane>
-          <el-tab-pane label="奖品设置" name="second"><router-view></router-view></el-tab-pane>
-          <el-tab-pane label="派奖设置" name="third"><router-view></router-view></el-tab-pane>
-          <el-tab-pane label="分享设置" name="fourth"><router-view></router-view></el-tab-pane>
-          <el-tab-pane label="高级设置" name="ffifth"><router-view></router-view></el-tab-pane> -->
-
 
           <el-tab-pane label="基础设置" name="first">
             <barsettingbase></barsettingbase>

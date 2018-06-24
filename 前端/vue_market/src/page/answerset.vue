@@ -9,7 +9,6 @@
         <el-tabs v-model="activeName2" >
 
 
-
           <el-tab-pane label="基础设置" name="first">
        <answsettingbase></answsettingbase>
           </el-tab-pane>

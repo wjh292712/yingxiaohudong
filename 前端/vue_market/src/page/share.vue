@@ -189,6 +189,8 @@
         background:#FBFBFB;
         border-radius:1rem;
         margin:.5rem 0;
+      position: relative;
+      z-index: 9;
         .share_con {
             width:95%;
             margin:0 auto;

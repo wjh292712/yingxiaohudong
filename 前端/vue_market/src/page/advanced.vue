@@ -362,6 +362,8 @@
       <style lang="scss" scoped>
       .setup_wrap {
         width: 100%;
+        position: relative;
+        z-index: 9;
         .setup_con {
           .el-menu-demo {}
         }

@@ -1903,6 +1903,8 @@
 <style lang="scss" scoped>
   .reword_wrap {
     width: 100%;
+    position: relative;
+    z-index: 9;
     .reword_con {
 
       /* .el-upload--picture-card{
