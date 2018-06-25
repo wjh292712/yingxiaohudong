@@ -19,9 +19,7 @@
         <p class="content3">
           <span>单人总抽奖机会：</span>
           <el-radio-group v-model="radio2">
-            <el-radio label="1" checked>
-              <span @click="Toggle()">限制</span>
-            </el-radio>
+            <el-radio label="1" checked>限制</el-radio>
             <el-radio label="0">不限制</el-radio>
           </el-radio-group>
           <span v-show="limit" class="lim">
@@ -93,6 +91,12 @@
         this.input1=this.raward_data.winScore
         this.radio1=Number(this.raward_data.sendType).toString()
         this.radio2=Number(this.raward_data.singleTotalDrawLimit).toString()
+        if(this.radio2==0){
+          this.limit=false
+        }else {
+          this.limit=true
+        }
+
         this.input2=this.raward_data.singleDrawCount
         this.input3=this.raward_data.singleDayDrawCount
         this.input4=this.raward_data.singleWinTotalCount
@@ -105,6 +109,11 @@
         this.input1=this.raward_data.winScore
         this.radio1=Number(this.raward_data.sendType).toString()
         this.radio2=Number(this.raward_data.singleTotalDrawLimit).toString()
+        if(this.radio2==0){
+          this.limit=false
+        }else {
+          this.limit=true
+        }
         this.input2=this.raward_data.singleDrawCount
         this.input3=this.raward_data.singleDayDrawCount
         this.input4=this.raward_data.singleWinTotalCount
@@ -117,6 +126,11 @@
        this.raward_send.winScore= this.input1
      this.raward_send.sendType= this.radio1
       this.raward_send.singleTotalDrawLimit=this.radio2==0?false:true
+        if(this.radio2==0){
+          this.limit=false
+        }else {
+          this.limit=true
+        }
         this.raward_send.singleDrawCount=this.input2
        this.raward_send.singleDayDrawCount= this.input3
         this.raward_send.singleWinTotalCount=this.input4
@@ -130,6 +144,11 @@
        this.raward_send.winScore= this.input1
      this.raward_send.sendType= this.radio1
       this.raward_send.singleTotalDrawLimit=this.radio2==0?false:true
+        if(this.radio2==0){
+          this.limit=false
+        }else {
+          this.limit=true
+        }
         this.raward_send.singleDrawCount=this.input2
        this.raward_send.singleDayDrawCount= this.input3
         this.raward_send.singleWinTotalCount=this.input4
@@ -137,9 +156,6 @@
         this.$store.state.setting_kjData.dtAwardSendSetup = this.raward_send
         this.$bus.emit("send_award", this.raward_send)
       },
-      Toggle(){
-        this.limit=!this.limit
-      }
     }
   }
 </script>

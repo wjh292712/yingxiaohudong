@@ -36,13 +36,15 @@
               </el-form-item>
 
               <el-form-item label="商品原价:">
-                <el-input v-model="form.price1" :disabled="startPrice" placeholder="必须是大于0的数，支持小数点后两位"></el-input>
+                <el-input v-model="form.price1" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <span class="xlcontent">必须是大于0的数，支持小数点后两位</span>
               </el-form-item>
               <el-form-item label="商品底价:">
-                <el-input v-model="form.priceLow1" :disabled="endPrice" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" onkeyup="value=value.replace(/[^\d]/g,'')"></el-input>
+                <el-input v-model="form.priceLow1" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px" ></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
+                <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
                 <el-input v-model="input1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
@@ -52,10 +54,11 @@
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存:">
-                <el-input type="textarea" v-model="form.count1" size="mini"></el-input>
+                <el-input v-model="form.count1" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px" ></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量:">
-                <el-input type="textarea" v-model="form.countsales1" size="mini"></el-input>
+                <el-input v-model="form.countsales1" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <span class="xlcontent">展示销量 = 虚拟销量 + 实际销量</span>
               </el-form-item>
               <el-form-item label="商品详情:">
                 <span class="scccc">
@@ -135,13 +138,15 @@
               </el-form-item>
 
               <el-form-item label="商品原价:">
-                <el-input v-model="form.price2" :disabled="startPrice" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
+                <el-input v-model="form.price2" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <span class="xlcontent">必须是大于0的数，支持小数点后两位</span>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow2" :disabled="endPrice" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
+                <el-input v-model="form.priceLow2" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
+                <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
                 <el-input v-model="input2_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input2_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
@@ -151,10 +156,11 @@
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存">
-                <el-input type="textarea" v-model="form.count2" size="mini"></el-input>
+                <el-input  v-model="form.count2" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量">
-                <el-input type="textarea" v-model="form.countsales2" size="mini"></el-input>
+                <el-input  v-model="form.countsales2" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <span class="xlcontent">展示销量 = 虚拟销量 + 实际销量</span>
               </el-form-item>
               <el-form-item label="商品详情">
                 <span class="scccc">
@@ -235,13 +241,15 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price3" :disabled="startPrice" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
+                <el-input v-model="form.price3" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <span class="xlcontent">必须是大于0的数，支持小数点后两位</span>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow3" :disabled="endPrice" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
+                <el-input v-model="form.priceLow3" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
+                <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
                 <el-input v-model="input3_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input3_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
@@ -251,10 +259,11 @@
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存">
-                <el-input type="textarea" v-model="form.count3" size="mini"></el-input>
+                <el-input  v-model="form.count3" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量">
-                <el-input type="textarea" v-model="form.countsales3" size="mini"></el-input>
+                <el-input  v-model="form.countsales3" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <span class="xlcontent">展示销量 = 虚拟销量 + 实际销量</span>
               </el-form-item>
               <el-form-item label="商品详情">
                 <span class="scccc">
@@ -337,13 +346,15 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price4" :disabled="startPrice" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
+                <el-input v-model="form.price4" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <span class="xlcontent">必须是大于0的数，支持小数点后两位</span>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow4" :disabled="endPrice" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
+                <el-input v-model="form.priceLow4" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
+                <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
                 <el-input v-model="input4_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input4_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
@@ -353,10 +364,11 @@
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存">
-                <el-input type="textarea" v-model="form.count4" size="mini"></el-input>
+                <el-input  v-model="form.count4" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量">
-                <el-input type="textarea" v-model="form.countsales4" size="mini"></el-input>
+                <el-input  v-model="form.countsales4" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <span class="xlcontent">展示销量 = 虚拟销量 + 实际销量</span>
               </el-form-item>
               <el-form-item label="商品详情">
                 <span class="scccc">
@@ -438,13 +450,15 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price5" :disabled="startPrice" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
+                <el-input v-model="form.price5" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <span class="xlcontent">必须是大于0的数，支持小数点后两位</span>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow5" :disabled="endPrice" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
+                <el-input v-model="form.priceLow5" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
+                <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
                 <el-input v-model="input5_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input5_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
@@ -454,10 +468,11 @@
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存">
-                <el-input type="textarea" v-model="form.count5" size="mini"></el-input>
+                <el-input v-model="form.count5" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量">
-                <el-input type="textarea" v-model="form.countsales5" size="mini"></el-input>
+                <el-input  v-model="form.countsales5" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <span class="xlcontent">展示销量 = 虚拟销量 + 实际销量</span>
               </el-form-item>
               <el-form-item label="商品详情">
                 <span class="scccc">
@@ -538,13 +553,15 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price6" :disabled="startPrice" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
+                <el-input v-model="form.price6" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <span class="xlcontent">必须是大于0的数，支持小数点后两位</span>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow6" :disabled="endPrice" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
+                <el-input v-model="form.priceLow6" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
+                <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
                 <el-input v-model="input6_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input6_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
@@ -554,10 +571,11 @@
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存">
-                <el-input type="textarea" v-model="form.count6" size="mini"></el-input>
+                <el-input v-model="form.count6" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量">
-                <el-input type="textarea" v-model="form.countsales1" size="mini"></el-input>
+                <el-input  v-model="form.countsales1" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <span class="xlcontent">展示销量 = 虚拟销量 + 实际销量</span>
               </el-form-item>
               <el-form-item label="商品详情">
                 <span class="scccc">
@@ -639,13 +657,15 @@
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price7" :disabled="startPrice" placeholder="必须是大于0的数，支持小数点后两位" size="mini"></el-input>
+                <el-input v-model="form.price7" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <span class="xlcontent">必须是大于0的数，支持小数点后两位</span>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow7" :disabled="endPrice" placeholder="必须是大于0的数，支持小数点后两位活动发布后不允许修改" size="mini"></el-input>
+                <el-input v-model="form.priceLow7" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
+                <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
                 <el-input v-model="input7_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input7_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
@@ -655,10 +675,11 @@
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存">
-                <el-input type="textarea" v-model="form.count7" size="mini"></el-input>
+                <el-input v-model="form.count7" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量">
-                <el-input type="textarea" v-model="form.countsales7" size="mini"></el-input>
+                <el-input  v-model="form.countsales7" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <span class="xlcontent">展示销量 = 虚拟销量 + 实际销量</span>
               </el-form-item>
               <el-form-item label="商品详情">
                 <span class="scccc">
@@ -731,7 +752,7 @@
         //dialogImageUrl: '',
          actName:false,//商品名称
          startPrice:false,//商品原价
-         endPrice:false,//商品底价
+           endPrice:false,//商品底价
         dataStatus:0,
         imageUrl: '',
         dialogVisible: false,
@@ -1524,5 +1545,9 @@
     width: 150px;
     height: 150px;
     display: block;
+  }
+  .xlcontent{
+    display: inline-block;
+    color: #a1a1a1;
   }
 </style>

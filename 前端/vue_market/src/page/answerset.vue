@@ -134,7 +134,13 @@ import ansadvanced from '@/page/ansadvanced'
           contentType:"application/json",
           datatype:"json",
           success(data){
-            alert(data.msg)
+            let _this=this
+            if(data.code==209){
+              alert("请重新登录")
+              _this.$router.push({path:'/mainPage'})
+            }else {
+              alert(data.msg)
+            }
           }
         })
 

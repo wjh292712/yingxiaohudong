@@ -48,14 +48,14 @@
 <style lang="scss">
   .nav_bigWrap {
     width:100%;
-    height:100%;
+    height:130%;
     .nav_tab {
     width:94%;
   }
   .nav_wrap {
     width:100%;
     height:100%;
-    min-height:22rem;
+    min-height:26rem;
     background: #353D50;
 
     .nav_con {

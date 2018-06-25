@@ -274,7 +274,7 @@
                         .box1{
                           span {
                             display: inline-block;
-                            width: 49.5%;
+                            width: 47.5%;
                             margin: 0 auto;
                             text-align: center;
                             border-bottom: 2px solid #cf2c44;
@@ -318,7 +318,7 @@
 
                         p {
                           position: absolute;
-                          top: 270px;
+                          top: 255px;
                           left: 7.5%;
                           right: 7.5%;
                           /*background-size: 100%;*/
@@ -370,7 +370,7 @@
                         .active_info {
                           position: absolute;
                           right: 1rem;
-                          top: 9.8rem;
+                          top: 9rem;
                           span {
                             display: inline-block;
                             height: 1rem;

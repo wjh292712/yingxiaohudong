@@ -1378,7 +1378,7 @@
         this.imgData1=this.reword_data[0].prizeImg //上传图片
         this.reword_type1 = this.reword_data[0].dtAwardTypeList // 奖品类型
         this.form.region1=this.reword_data[0].prizeType
-        alert(  this.form.region1)
+
         this.dialogImageUrl=this.reword_data[0].wxPublicAccountImg //微信公众号图片
 
         console.log(this.reword_data[0].dtAwardTypeList);

@@ -423,8 +423,10 @@
         this.$axios({
           method: 'post',
           url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,
+          // url: 'http://192.168.2.112:8085/center/activity/findMyActivity?token=' + token,
+          headers: {'Content-Type': 'application/json'},
           params: {
-            activityName: this.activename,
+            activityName:this.activename,
             startTime1: this.value4[0] === undefined || null ? '' : this.value4[0].getTime(),
             startTime2: this.value4[1] === undefined || null ? '' : this.value4[1].getTime(),
             endTime1: this.value5[0] === undefined || null ? '' : this.value5[0].getTime(),

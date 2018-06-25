@@ -1,7 +1,7 @@
 <template>
   <div class="base_wrap">
     <div class="base_con">
-      <el-form ref="form" :model="form" label-width="100px">
+      <el-form ref="form" :model="form" label-width="100px" class="ffom">
         <el-form-item label="活动名称">
           <el-input v-model="formName" @input='inputData'></el-input>
 
@@ -18,13 +18,15 @@
             v-model="value1"
             :disabled="startTime1"
             type="datetime"
-            placeholder="选择开始时间" style="width: 240px">
+            class="inpu_t"
+            placeholder="选择开始时间" style="width: 182px">
           </el-date-picker>
           <el-date-picker
             v-model="value2"
             :disabled="endTime"
+                class="inpu_t"
             type="datetime"
-            placeholder="选择结束时间" style="width: 240px">
+            placeholder="选择结束时间" style="width: 182px">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="参与人数">
@@ -298,10 +300,18 @@
     z-index: 999;
   }
 </style>
+<style scoped>
+
+</style>
+
 <style>
+.inpu_t input{
+width: 100% !important;
+padding-right: 0px !important;
+}
   .base_wrap {
     background: #fbfbfb;
-    padding: 15px;
+    padding: 10px;
     height: 100%;
     position: relative;
     z-index: 9;

@@ -15,12 +15,15 @@
             </div>
           </div>
           <!-- banner轮播图 -->
-          <div class="block">
-            <el-carousel trigger="click" height="132px">
-              <el-carousel-item v-for="(items,index) in banner" :key=index>
-                <img :src="items.imgUrl" alt="">
-              </el-carousel-item>
-            </el-carousel>
+          <!--<div class="block">-->
+            <!--<el-carousel trigger="click" height="132px">-->
+              <!--<el-carousel-item v-for="(items,index) in banner" :key=index>-->
+                <!--<img :src="items.imgUrl" alt="">-->
+              <!--</el-carousel-item>-->
+            <!--</el-carousel>-->
+          <!--</div>-->
+          <div class="bannerImg">
+            <img src="../../static/active/banner1.png" alt="">
           </div>
         </div>
       </header>
@@ -190,9 +193,17 @@
           }
         }
       }
-      .block {
-        margin-bottom: 0.5rem;
-        img {
+      /*.block {*/
+        /*margin-bottom: 0.5rem;*/
+        /*img {*/
+          /*width: 100%;*/
+          /*height: 100%;*/
+        /*}*/
+      /*}*/
+      .bannerImg{
+        width: 100%;
+        height: 100%;
+        img{
           width: 100%;
           height: 100%;
         }
@@ -214,8 +225,8 @@
         width: 100%;
         background: #fff;
         .up {
-          width: 80%;
-          margin: .5rem auto 0;
+          width: 100%;
+          margin: .5rem auto 0 0;
           padding: .5rem 0 0;
           cursor: pointer;
           h3 {
@@ -226,14 +237,19 @@
           }
           .main_list {
             width: 100%;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
+            /*display: flex;*/
+            /*flex-wrap: wrap;*/
+            /*justify-content: space-around;*/
             .main_list_box {
+              float: left;
+              /*flex-wrap: wrap;*/
+             /*justify-content: center;*/
               border-radius: 0.3rem;
               border: 0.05rem solid #ccc;
               width: 18%;
               min-width: 8rem;
+              margin-right: 20px;
+              margin-top: 20px;
               .body_img {
                 border-radius: 0.3rem;
                 width: 100%;

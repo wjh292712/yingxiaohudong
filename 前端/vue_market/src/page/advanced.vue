@@ -341,7 +341,6 @@
            this.$store.state.setting_data.jggHighOtherSetup= this.other_send
              this.$bus.emit("send_high",[this.company_send,this.safety_send,this.other_send])
             // console.log(this.company_send,this.safety_send,this.other_send)
-            alert(this.other_send+"advanced的264")
             console.log(this.other_send);
           },
 
