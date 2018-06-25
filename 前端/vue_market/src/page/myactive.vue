@@ -927,6 +927,12 @@
           method: 'post',
           url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,
           params: {
+            activityName:this.activename,
+            startTime1: this.value4[0] === undefined || null ? '' : this.value4[0].getTime(),
+            startTime2: this.value4[1] === undefined || null ? '' : this.value4[1].getTime(),
+            endTime1: this.value5[0] === undefined || null ? '' : this.value5[0].getTime(),
+            endTime2: this.value5[1] === undefined || null ? '' : this.value5[1].getTime(),
+            activityState: this.activeFindState,
             pagesize: this.pagesize,
             pageNum: this.currentPage
           }

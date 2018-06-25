@@ -13,9 +13,9 @@
                 <el-select v-model="region1" placeholder="请选择">
                   <el-option
                     v-for="(item,index) in  reword_type1"
-                    :key="index"
+                    :key="item.id"
                     :label="item.name"
-                    :value="index">
+                    :value="item.id">
                   </el-option>
                 </el-select>
 
@@ -115,9 +115,9 @@
                 <el-select v-model="region2" placeholder="请选择">
                   <el-option
                     v-for="(item,index) in  reword_type2"
-                    :key="index"
+                    :key="item.id"
                     :label="item.name"
-                    :value="index">
+                    :value="item.id">
                   </el-option>
                 </el-select>
 
@@ -218,9 +218,9 @@
                 <el-select v-model="region3" placeholder="请选择">
                   <el-option
                     v-for="(item,index) in  reword_type3"
-                    :key="index"
+                    :key="item.id"
                     :label="item.name"
-                    :value="index">
+                    :value="item.id">
                   </el-option>
                 </el-select>
 
@@ -323,9 +323,9 @@
                 <el-select v-model="region4" placeholder="请选择">
                   <el-option
                     v-for="(item,index) in  reword_type4"
-                    :key="index"
+                    :key="item.id"
                     :label="item.name"
-                    :value="index">
+                    :value="item.id">
                   </el-option>
                 </el-select>
 
@@ -427,9 +427,9 @@
                 <el-select v-model="region5" placeholder="请选择">
                   <el-option
                     v-for="(item,index) in  reword_type5"
-                    :key="index"
+                    :key="item.id"
                     :label="item.name"
-                    :value="index">
+                    :value="item.id">
                   </el-option>
                 </el-select>
 
@@ -530,9 +530,9 @@
                 <el-select v-model="region6" placeholder="请选择">
                   <el-option
                     v-for="(item,index) in  reword_type6"
-                    :key="index"
+                    :key="item.id"
                     :label="item.name"
-                    :value="index">
+                    :value="item.id">
                   </el-option>
                 </el-select>
 
@@ -634,9 +634,9 @@
                 <el-select v-model="region7" placeholder="请选择">
                   <el-option
                     v-for="(item,index) in  reword_type7"
-                    :key="index"
+                    :key="item.id"
                     :label="item.name"
-                    :value="index">
+                    :value="item.id">
                   </el-option>
                 </el-select>
 
@@ -733,10 +733,10 @@
             </el-tab-pane>
 
           </el-tabs>
-          <div class="cddd">
-            <span class="reword_num" @click="addgift()">+</span>
-            <span class="reword_num" @click="reducegift()">-</span>
-          </div>
+          <!--<div class="cddd">-->
+            <!--<span class="reword_num" @click="addgift()">+</span>-->
+            <!--<span class="reword_num" @click="reducegift()">-</span>-->
+          <!--</div>-->
         </div>
       </el-form>
     </div>

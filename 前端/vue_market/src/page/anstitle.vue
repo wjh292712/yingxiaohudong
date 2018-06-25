@@ -15,9 +15,9 @@
             <el-select v-model="value4" clearable placeholder="请选择">
               <el-option
                 v-for="(item,index) in answerState"
-                :key="index"
+                :key="item.id"
                 :label="item.typeName"
-                :value="index">
+                :value="item.id">
               </el-option>
             </el-select>
             <i>总题量1000</i>

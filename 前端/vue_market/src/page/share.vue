@@ -203,6 +203,10 @@
         .share_con {
             width:95%;
             margin:0 auto;
+
         }
+    }
+    .el-form-item__label{
+      text-align: left;
     }
 </style>

@@ -16,7 +16,7 @@
               </el-form-item>
               <el-form-item label="奖品类型">
                 <el-select v-model="form.region1" placeholder="请选择奖品类型">
-                  <el-option v-for="(items,index) in reword_type1"  :label="items.name" :value="index" :key="index"></el-option>
+                  <el-option v-for="(items,index) in reword_type1"  :label="items.name" :value="items.id" :key="items.id"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
@@ -141,7 +141,7 @@
               </el-form-item>
               <el-form-item :disabled="ticket" label="奖品类型">
                 <el-select v-model="form.region2" placeholder="请选择奖品类型">
-                  <el-option v-for="(items,index) in reword_type2"  :label="items.name" :value="index" :key="index"></el-option>
+                  <el-option v-for="(items,index) in reword_type2"  :label="items.name" :value="items.id" :key="items.id"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
@@ -258,7 +258,7 @@
               </el-form-item>
               <el-form-item label="奖品类型">
                 <el-select v-model="form.region3" placeholder="请选择奖品类型">
-                  <el-option v-for="(items,index) in reword_type3"  :label="items.name" :value="index" :key="index"></el-option>
+                  <el-option v-for="(items,index) in reword_type3"  :label="items.name" :value="items.id" :key="items.id"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
@@ -378,7 +378,7 @@
               </el-form-item>
               <el-form-item label="奖品类型">
                 <el-select v-model="form.region4" placeholder="请选择奖品类型">
-                  <el-option v-for="(items,index) in reword_type4"  :label="items.name" :value="index" :key="index"></el-option>
+                  <el-option v-for="(items,index) in reword_type4"  :label="items.name" :value="items.id" :key="items.id"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
@@ -497,7 +497,7 @@
               </el-form-item>
               <el-form-item label="奖品类型">
                 <el-select v-model="form.region5" placeholder="请选择奖品类型">
-                  <el-option v-for="(items,index) in reword_type5"  :label="items.name" :value="index" :key="index"></el-option>
+                  <el-option v-for="(items,index) in reword_type5"  :label="items.name" :value="items.id" :key="items.id"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
@@ -616,7 +616,7 @@
               </el-form-item>
               <el-form-item label="奖品类型">
                 <el-select v-model="form.region6" placeholder="请选择奖品类型">
-                  <el-option v-for="(items,index) in reword_type6"  :label="items.name" :value="index" :key="index"></el-option>
+                  <el-option v-for="(items,index) in reword_type6"  :label="items.name" :value="items.id" :key="items.id"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
@@ -735,7 +735,7 @@
               </el-form-item>
               <el-form-item label="奖品类型">
                 <el-select v-model="form.region7" placeholder="请选择奖品类型">
-                  <el-option v-for="(items,index) in reword_type7"  :label="items.name" :value="index" :key="index"></el-option>
+                  <el-option v-for="(items,index) in reword_type7"  :label="items.name" :value="items.id" :key="items.id"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">

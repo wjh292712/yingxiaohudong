@@ -225,12 +225,12 @@
         width: 100%;
         background: #fff;
         .up {
-          width: 100%;
+          width: 98%;
           margin: .5rem auto 0 0;
-          padding: .5rem 0 0;
+          padding: 1rem 0 0;
           cursor: pointer;
           h3 {
-            margin-bottom: .5rem;
+            margin-bottom: 1rem;
             border-left: 0.5rem solid #FC7132;
             text-indent: 1rem;
             font-size: .7rem;
@@ -249,7 +249,7 @@
               width: 18%;
               min-width: 8rem;
               margin-right: 20px;
-              margin-top: 20px;
+              margin-top: 25px;
               .body_img {
                 border-radius: 0.3rem;
                 width: 100%;

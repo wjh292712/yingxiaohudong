@@ -167,7 +167,6 @@
       partBase() {
         let _this = this
         let formName=""
-        alert(this.dataStatus+"wo")
           let Data = sessionStorage.getItem('Data')
           console.log(Data);
           _this.base_data = JSON.parse(Data).jggBaseSetup
