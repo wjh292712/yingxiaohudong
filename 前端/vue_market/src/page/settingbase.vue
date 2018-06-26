@@ -252,6 +252,8 @@
         _this.base_send.rule=_this.form.desc
         _this.base_send.addNum =_this.addpepCount
         // this.base_data.endDate = this.value7
+        _this.base_send.startDate=_this.value1.getTime()
+        _this.base_send.end_date=_this.value2.getTime()
         _this.base_send.shows = _this.radio1 == 1 ? true : false;
         _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
         // this.$store.state.setting_data.jggBaseSetup = this.base_send
@@ -267,6 +269,8 @@
         _this.base_send.rule=_this.form.desc
         _this.base_send.addNum =_this.addpepCount
         // this.base_data.endDate = this.value7
+        _this.base_send.startDate=_this.value1.getTime()
+        _this.base_send.end_date=_this.value2.getTime()
         _this.base_send.shows = _this.radio1 == 1 ? true : false;
         _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
         // this.$store.state.setting_data.jggBaseSetup = this.base_send

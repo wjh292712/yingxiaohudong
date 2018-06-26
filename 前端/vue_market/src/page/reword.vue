@@ -149,15 +149,16 @@
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
                 <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
+                  <img width="100%" :src="dialogImageUrl1" alt="">
                 </el-dialog>
 
               </el-form-item>
@@ -267,15 +268,16 @@
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
                 <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
+                  <img width="100%" :src="dialogImageUrl2" alt="">
                 </el-dialog>
 
               </el-form-item>
@@ -387,15 +389,16 @@
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
                 <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
+                  <img width="100%" :src="dialogImageUrl3" alt="">
                 </el-dialog>
 
               </el-form-item>
@@ -506,15 +509,16 @@
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
                 <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
+                  <img width="100%" :src="dialogImageUrl4" alt="">
                 </el-dialog>
 
               </el-form-item>
@@ -625,15 +629,16 @@
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
                 <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
+                  <img width="100%" :src="dialogImageUrl5" alt="">
                 </el-dialog>
 
               </el-form-item>
@@ -744,15 +749,16 @@
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
                 <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
+                  <img width="100%" :src="dialogImageUrl6" alt="">
                 </el-dialog>
 
               </el-form-item>

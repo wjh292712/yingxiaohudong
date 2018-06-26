@@ -166,7 +166,12 @@
                     // datatype:"json",
                     success(data){
                         console.log(data)
-                      alert(data.msg)
+                      if(data.code==209){
+                        this.$router.push({path:'/mainPage'})
+                      }else {
+                        alert(data.msg)
+                      }
+
                     }
                 })
 

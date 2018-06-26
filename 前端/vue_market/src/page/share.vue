@@ -22,11 +22,11 @@
                         </el-form-item>
                         <el-form-item label="微信分享图标">
                                 <el-radio-group v-model="form.resource2">
-                                        <el-radio label="1">开启</el-radio>
-                                        <el-radio label="2">关闭</el-radio>
+                                        <el-radio label="1">默认</el-radio>
+                                        <el-radio label="2">自定义</el-radio>
                                 </el-radio-group>
                         </el-form-item>
-                        <el-form-item>
+                        <el-form-item v-show="shareIcon">
                         <el-upload
                             action="https://jsonplaceholder.typicode.com/posts/"
                             list-type="picture-card"
@@ -42,9 +42,7 @@
                         <el-form-item label="微信分享标题">
                                 <el-radio-group v-model="form.resource3">
                                         <el-radio label="1">默认</el-radio>
-                                        <el-radio label="2">
-                                          <span @click="sharTitle()">自定义</span>
-                                        </el-radio>
+                                        <el-radio label="2">自定义</el-radio>
                                 </el-radio-group>
                         </el-form-item>
                         <el-form-item v-show="shareTitl">
@@ -54,9 +52,7 @@
                         <el-form-item label="微信分享内容">
                                 <el-radio-group v-model="form.resource4">
                                         <el-radio label="1">默认</el-radio>
-                                        <el-radio label="2">
-                                          <span @click="shareCont()">自定义</span>
-                                        </el-radio>
+                                        <el-radio label="2">自定义</el-radio>
                                 </el-radio-group>
                         </el-form-item>
                         <el-form-item v-show="shareContent">
@@ -81,6 +77,7 @@
                 dialogImageUrl: '',
                 dialogVisible: false,
               shareTitl:false,
+              shareIcon:false,
               shareContent:false,
                 form: {
                         name: '',
@@ -142,16 +139,46 @@
                         this.share_data = JSON.parse(Data).jggShareSetup
                         this.form.resource1 = Number(this.share_data.share).toString()
                         this.form.resource2 = this.share_data.wxShareLogoType.toString()
+                      if(this.form.resource2==1){
+                        this.shareIcon=false
+                      }else {
+                        this.shareIcon=true
+                      }
                         this.form.resource3 = this.share_data.wxShareTitleType.toString()
+                      if(this.form.resource3==1){
+                        this.shareTitl=false
+                      }else {
+                        this.shareTitl=true
+                      }
                         this.form.resource4 = this.share_data.wxShareContentType.toString()
+                      if(this.form.resource4==1){
+                        this.shareContent=false
+                      }else {
+                        this.shareContent=true
+                      }
                     },
           partShare1(){
 
                         this.share_data = this.$route.query.newjggData.jggShareSetup
                         this.form.resource1 = Number(this.share_data.share).toString()
                         this.form.resource2 = this.share_data.wxShareLogoType.toString()
+            if(this.form.resource2==1){
+              this.shareIcon=false
+            }else {
+              this.shareIcon=true
+            }
                         this.form.resource3 = this.share_data.wxShareTitleType.toString()
+            if(this.form.resource3==1){
+              this.shareTitl=false
+            }else {
+              this.shareTitl=true
+            }
                         this.form.resource4 = this.share_data.wxShareContentType.toString()
+            if(this.form.resource4==1){
+              this.shareContent=false
+            }else {
+              this.shareContent=true
+            }
                     },
                     //分享保存部分
                     savedShare(){
@@ -160,8 +187,23 @@
                         this.share_send = JSON.parse(Data).jggShareSetup
                         this.share_send.share = this.form.resource1 == 1 ? true : false
                         this.share_send.wxShareLogoType = this.form.resource2
-                        this.share_send.wxShareTitleType = this.form.resource3
-                        this.share_send.wxShareContentType = this.form.resource4
+                      if(this.form.resource2==1){
+                        this.shareIcon=false
+                      }else {
+                        this.shareIcon=true
+                      }
+                      this.share_send.wxShareTitleType = this.form.resource3
+                      if(this.form.resource3==1){
+                        this.shareTitl=false
+                      }else {
+                        this.shareTitl=true
+                      }
+                      this.share_send.wxShareContentType = this.form.resource4
+                      if(this.form.resource4==1){
+                        this.shareContent=false
+                      }else {
+                        this.shareContent=true
+                      }
                         this.$store.state.setting_data.jggShareSetup = this.share_send
                         this.$bus.emit("send_share",this.share_send)
                     },
@@ -171,20 +213,30 @@
                         this.share_send = this.$route.query.newjggData.jggShareSetup
                         this.share_send.share = this.form.resource1 == 1 ? true : false
                         this.share_send.wxShareLogoType = this.form.resource2
-                        this.share_send.wxShareTitleType = this.form.resource3
-                        this.share_send.wxShareContentType = this.form.resource4
+            if(this.form.resource2==1){
+              this.shareIcon=false
+            }else {
+              this.shareIcon=true
+            }
+                      this.share_send.wxShareTitleType = this.form.resource3
+            if(this.form.resource3==1){
+              this.shareTitl=false
+            }else {
+              this.shareTitl=true
+            }
+            this.share_send.wxShareContentType = this.form.resource4
+            if(this.form.resource4==1){
+              this.shareContent=false
+            }else {
+              this.shareContent=true
+            }
                         this.$store.state.setting_data.jggShareSetup = this.share_send
                         this.$bus.emit("send_share",this.share_send)
                     },
                     change(){
                         this.sendShare()
                     },
-          sharTitle(){
-              this.shareTitl=!this.shareTitl
-          },
-          shareCont(){
-              this.shareContent=!this.shareContent
-          },
+
           // back(){
           //     this.$router.go(-1)
           // }

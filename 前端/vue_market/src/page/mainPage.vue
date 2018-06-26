@@ -82,6 +82,7 @@
       ...mapActions(['saveForm'])
     },
     mounted() {
+        this.$emit("hides",true)
       this.inform()
       //测试代码
       // this.$axios.post("center/activityDataModel/list").then((res)=>{
@@ -226,7 +227,7 @@
         background: #fff;
         .up {
           width: 98%;
-          margin: .5rem auto 0 0;
+          margin: .5rem auto 0;
           padding: 1rem 0 0;
           cursor: pointer;
           h3 {
@@ -238,18 +239,16 @@
           .main_list {
             width: 100%;
             /*display: flex;*/
+            /*justify-content: space-between;*/
             /*flex-wrap: wrap;*/
-            /*justify-content: space-around;*/
             .main_list_box {
               float: left;
-              /*flex-wrap: wrap;*/
-             /*justify-content: center;*/
               border-radius: 0.3rem;
               border: 0.05rem solid #ccc;
               width: 18%;
               min-width: 8rem;
               margin-right: 20px;
-              margin-top: 25px;
+              margin-top: 30px;
               .body_img {
                 border-radius: 0.3rem;
                 width: 100%;
