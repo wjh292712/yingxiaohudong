@@ -60,7 +60,7 @@
           <div class="phone_title">
 
             <i class="el-icon-arrow-left"></i>
-            <span class="phone_text">参与赢大奖</span>
+            <span class="phone_text">{{activeName1}}</span>
           </div>
           <div class="nine_blog">
             <div class="title_image"></div>
@@ -99,14 +99,36 @@ export default ({
       //筛选条件数据
       activeName: 'second',
       centerDialogVisible: false,
-      isMask: true
+      isMask: true,
+      activeName1: '',
+      dataStatus:0,
+    }
+
+  },
+  mounted() {
+
+    this.activeN()
+    this.dataStatus=this.$route.query.dataStatus
+    if (this.dataStatus==='1') {
+      this.activeN1()
     }
 
   },
   methods: {
     handleClick(tab, event) {
       console.log(tab, event);
-    }
+    },
+    activeN(){
+      let _this = this
+      let Data = sessionStorage.getItem('Data')
+      _this.base_data = JSON.parse(Data).jggBaseSetup
+      _this.activeName1 = _this.formName=_this.base_data.activityName
+    },
+    activeN1(){
+      let _this = this
+      _this.base_data = _this.$route.query.newjggData.jggBaseSetup
+      _this.activeName1 = _this.formName=_this.base_data.activityName
+    },
   },
   components: {
     // prizedraw
@@ -239,7 +261,7 @@ export default ({
                       width: 90%;
                       margin: .5rem auto;
                       height: 13rem;
-                      background: url(../../static\active\九宫格1.jpg) no-repeat;
+                      background: url(../../static/active/九宫格1.jpg) no-repeat;
                       background-size: 100%;
                     }
                     .ten {
@@ -252,7 +274,7 @@ export default ({
                       width: 85%;
                       margin: 0rem auto;
                       height: 1.17rem;
-                      background: url(../../static\active\通知.png) no-repeat;
+                      background: url(../../static/active/通知.png) no-repeat;
                       background-size: 100%;
                       font-size: .6rem;
                       text-indent: 2rem;
@@ -262,7 +284,7 @@ export default ({
                     .title_image {
                       width: 100%;
                       height: 6.25rem;
-                      background: url(../../static\active\banner.jpg) no-repeat;
+                      background: url(../../static/active/banner.jpg) no-repeat;
                       background-size: 100%;
                     }
                   }
@@ -273,11 +295,12 @@ export default ({
                   }
                   .phone_text {
                     position: absolute;
-                    left: 40%;
+                    /*left: 40%;*/
                     height: 1.5rem;
                     line-height: 1.5rem;
                     font-size: .7rem;
                     display: inline-block;
+                    text-align: center;
                   }
                 }
               }

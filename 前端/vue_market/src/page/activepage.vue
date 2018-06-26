@@ -59,7 +59,7 @@ export default ({
       //筛选条件数据
       activeName: '',
       centerDialogVisible: false,
-
+      dataStatus:0,
 
       url: [
         require('../assets/images/111.jpg'),
@@ -91,6 +91,10 @@ export default ({
     //let curname='';
     // let cua='';
      this.activeN()
+    this.dataStatus=this.$route.query.dataStatus
+    if (this.dataStatus==='1') {
+      this.activeN1()
+    }
     // this.$nextTick(function () {
     //   curname = settingbase.methods.partBase()
     //   // cua=settingbase.methods.inputData()
@@ -112,9 +116,12 @@ export default ({
     activeN(){
       let _this = this
       let Data = sessionStorage.getItem('Data')
-      console.log(66672);
       _this.base_data = JSON.parse(Data).jggBaseSetup
-      console.log(_this.base_data);
+      _this.activeName = _this.formName=_this.base_data.activityName
+    },
+    activeN1(){
+      let _this = this
+      _this.base_data = _this.$route.query.newjggData.jggBaseSetup
       _this.activeName = _this.formName=_this.base_data.activityName
     },
     updataImg() {
@@ -299,11 +306,12 @@ export default ({
                   }
                   .phone_text {
                     position: absolute;
-                    left: 45%;
+                    /*left: 45%;*/
                     height: 1.5rem;
                     line-height: 1.5rem;
                     font-size: .7rem;
                     display: inline-block;
+                    text-align: center;
                   }
                 }
               }

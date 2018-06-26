@@ -15,9 +15,9 @@
         </div>
         <div class="phone_body">
           <div class="mask" v-show="isMask">
-            <div class="remove">
-              <span>X</span>
-            </div>
+            <!--<div class="remove">-->
+              <!--&lt;!&ndash;<span>X</span>&ndash;&gt;-->
+            <!--</div>-->
             <!--弹框封装-->
             <div class="center">
               <el-tabs v-model="activeName" >
@@ -25,30 +25,52 @@
                   <div class="explain">
                     <p class="rule">活动时间</p>
                     <p>
-                      <span>9999</span>
+                      <span>{{activeStartDate}}--{{activeEndDate}}</span>
                     </p>
                   </div>
                   <div class="explain">
-                    <p class="rule"> 活动奖品</p>
+                    <p class="rule">活动奖品</p>
                     <p>
-                      <span>9999</span>
+                      <span>{{activerewordList1}},{{activerewordList2}},{{activerewordList3}},{{activerewordList4}},{{activerewordList5}},{{activerewordList6}},{{activerewordList7}}
+                      </span>
                     </p>
                   </div>
                   <div class="explain">
                     <p class="rule">活动规则</p>
                     <p>
-                      <span>9999</span>
+                      <span>{{activeInfo}}</span>
                     </p>
                   </div>
                 </el-tab-pane>
-                <el-tab-pane label="我的奖品" name="second">我的奖品</el-tab-pane>
+                <el-tab-pane label="我的奖品" name="second">
+                  <div class="total">
+                    <div class="to_left">
+                      <span>100元</span>
+
+                    </div>
+                    <div class="to_right">
+                      <h6 style="margin-top:10px;text-align:center;">话费券</h6>
+                      <h6> 2018.2.1~2018.2.10</h6>
+                    </div>
+                  </div>
+                  <div class=" copy">
+                    <div class="co_left">
+                      <span>100元</span>
+
+                    </div>
+                    <div class="co_right">
+                      <h6 style="margin-top:10px;text-align:center;">话费券</h6>
+                      <h6> 2018.2.1~2018.2.10</h6>
+                    </div>
+                  </div>
+                </el-tab-pane>
               </el-tabs>
             </div>
           </div>
           <div class="phone_title">
 
             <i class="el-icon-arrow-left"></i>
-            <span class="phone_text">参与赢大奖</span>
+            <span class="phone_text">{{activeName1}}</span>
           </div>
           <div class="nine_blog">
             <div class="title_image"></div>
@@ -89,15 +111,79 @@ export default ({
       //侧边数据
       //筛选条件数据
       activeName: 'first',
+      activeName1: '',
       centerDialogVisible: false,
-      isMask: true
+      isMask: true,
+      dataStatus:0,
+      activeStartDate:'999',
+      activeEndDate:'999',
+      activerewordList1:'999',
+      activerewordList2:'999',
+      activerewordList3:'999',
+      activerewordList4:'999',
+      activerewordList5:'999',
+      activerewordList6:'999',
+      activerewordList7:'999',
+      activeInfo:'活动规则介绍',
+    }
+
+  },
+  mounted() {
+
+    this.activeN()
+    this.dataStatus=this.$route.query.dataStatus
+    if (this.dataStatus==='1') {
+      this.activeN1()
     }
 
   },
   methods: {
     handleClick(tab, event) {
       console.log(tab, event);
-    }
+    },
+    activeN(){
+      let _this = this
+      let Data = sessionStorage.getItem('Data')
+      _this.base_data = JSON.parse(Data).jggBaseSetup
+      _this.reword_data = JSON.parse(Data).jggAwardSetupExtendList
+      _this.activeName1 = _this.formName=_this.base_data.activityName
+        _this.activeStartDate=_this.timestampToTime(_this.base_data.startDate)
+          _this.activeEndDate=_this.timestampToTime(_this.base_data.endDate)
+        _this.activerewordList1=_this.reword_data[0].prizeName
+      _this.activerewordList2=_this.reword_data[1].prizeName
+      _this.activerewordList3=_this.reword_data[2].prizeName
+      _this.activerewordList4=_this.reword_data[3].prizeName
+      _this.activerewordList5=_this.reword_data[4].prizeName
+      _this.activerewordList6=_this.reword_data[5].prizeName
+      _this.activerewordList7=_this.reword_data[6].prizeName
+        _this.activeInfo=_this.base_data.rule
+    },
+    activeN1(){
+      let _this = this
+      _this.base_data = _this.$route.query.newjggData.jggBaseSetup
+      _this.reword_data = _this.$route.query.newjggData.jggAwardSetupExtendList
+      _this.activeName1 = _this.formName=_this.base_data.activityName
+      _this.activeStartDate=_this.timestampToTime(_this.base_data.startDate)
+      _this.activeEndDate=_this.timestampToTime(_this.base_data.endDate)
+      _this.activerewordList1=_this.reword_data[0].prizeName
+      _this.activerewordList2=_this.reword_data[1].prizeName
+      _this.activerewordList3=_this.reword_data[2].prizeName
+      _this.activerewordList4=_this.reword_data[3].prizeName
+      _this.activerewordList5=_this.reword_data[4].prizeName
+      _this.activerewordList6=_this.reword_data[5].prizeName
+      _this.activerewordList7=_this.reword_data[6].prizeName
+      _this.activeInfo=_this.base_data.rule
+    },
+    timestampToTime(timestamp) {
+      var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      var Y = date.getFullYear() + '-';
+      var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+      var D = date.getDate() + ' ';
+      var h = date.getHours() + ':';
+      var m = date.getMinutes() + ':';
+      var s = date.getSeconds();
+      return Y+M+D+h+m+s;
+    },
   },
   components: {
     // prizedraw
@@ -230,7 +316,7 @@ export default ({
                       width: 90%;
                       margin: .5rem auto;
                       height: 13rem;
-                      background: url(../../static\active/九宫格1.jpg) no-repeat;
+                      background: url(../../static/active/九宫格1.jpg) no-repeat;
                       background-size: 100%;
                     }
                     .ten {
@@ -243,7 +329,7 @@ export default ({
                       width: 85%;
                       margin: 0rem auto;
                       height: 1.17rem;
-                      background: url(../../static\active/通知.png) no-repeat;
+                      background: url(../../static/active/通知.png) no-repeat;
                       background-size: 100%;
                       font-size: .6rem;
                       text-indent: 2rem;
@@ -253,7 +339,7 @@ export default ({
                     .title_image {
                       width: 100%;
                       height: 6.25rem;
-                      background: url(../../static\active/banner.jpg) no-repeat;
+                      background: url(../../static/active/banner.jpg) no-repeat;
                       background-size: 100%;
                     }
                   }
@@ -264,11 +350,12 @@ export default ({
                   }
                   .phone_text {
                     position: absolute;
-                    left: 40%;
+                    /*left: 40%;*/
                     height: 1.5rem;
                     line-height: 1.5rem;
                     font-size: .7rem;
                     display: inline-block;
+                    text-align: center;
                   }
                 }
               }
@@ -375,12 +462,13 @@ export default ({
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.3);
-  z-index: 90
+  z-index: 90;
+  overflow-y: auto;
 }
 
 .mask .center {
   width: 80%;
-  height: 40%;
+min-height: 50%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -398,7 +486,67 @@ export default ({
 .mask .center .rule {
   color: red;
 }
+.mask .center .total {
+  width: 8rem;
+  height: 3rem;
+  margin: 0 auto;
+  display: flex;
+}
 
+
+.mask .center .total .to_left {
+  width: 30%;
+  background: #FF5210;
+  color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.mask .center .total .to_left span {
+  width: 3rem;
+  height: 3rem;
+  line-height: 3rem;
+}
+
+.mask .center .total .to_right {
+  width: 70%;
+  border: 1px solid #ccc;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #FF2F2D;
+  color: #fff;
+}
+.mask .center .copy {
+  width: 8rem;
+  height: 3rem;
+  margin: 0 auto;
+  display: flex;
+  margin-top: 10px;
+}
+
+
+.mask .center .copy .co_left {
+  width: 30%;
+  background: #D7D7D7;
+  color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.mask .center .copy .co_left span {
+  width: 3rem;
+  height: 3rem;
+  line-height: 3rem;
+}
+
+.mask .center .copy .co_right {
+  width: 70%;
+  border: 1px solid #ccc;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #C2C0C0;
+  color: #fff;
+}
 .mask .remove {
   width: 1.5rem;
   height: 1.5rem;
@@ -414,5 +562,6 @@ export default ({
   margin-left: 30%;
   color: #fff;
 }
+
 </style>
 

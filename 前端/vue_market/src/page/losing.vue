@@ -15,7 +15,7 @@
           <header class="i-header">
             <span>
               < </span>
-                <span class="title">参与活动赢大奖</span>
+                <span class="title">{{activeName1}}</span>
 
           </header>
           <section class="section">
@@ -45,8 +45,31 @@
 export default {
   data() {
     return {
-
+      activeName1: '',
+      dataStatus:0,
     }
+  },
+  mounted() {
+
+    this.activeN()
+    this.dataStatus=this.$route.query.dataStatus
+    if (this.dataStatus==='1') {
+      this.activeN1()
+    }
+
+  },
+  methods:{
+    activeN(){
+      let _this = this
+      let Data = sessionStorage.getItem('Data')
+      _this.base_data = JSON.parse(Data).jggBaseSetup
+      _this.activeName1 = _this.formName=_this.base_data.activityName
+    },
+    activeN1(){
+      let _this = this
+      _this.base_data = _this.$route.query.newjggData.jggBaseSetup
+      _this.activeName1 = _this.formName=_this.base_data.activityName
+    },
   }
 
 }
@@ -88,7 +111,7 @@ export default {
 .section .congratulation span {
   width: 100%;
   height: 2rem;
-  line-height: 2rem; 
+  line-height: 2rem;
   margin-left: 40%;
   font-size: 0.8rem;
   color: #ff2437;
