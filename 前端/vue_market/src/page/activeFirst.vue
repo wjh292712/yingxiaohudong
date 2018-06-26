@@ -50,7 +50,7 @@
         listdata2:null,
         listdata3:null,
         titlemsg: [{
-          title: "营销场景:",
+          title: "活动类型:",
           con: "全部"
         },
           {
@@ -58,7 +58,7 @@
             con: "全部"
           },
           {
-            title: "营销场景:",
+            title: "活动主题:",
             con: "全部"
           }],
         mainmsg: [{
@@ -86,6 +86,7 @@
         data: {},
       }).then(res => {
         let _this = this
+        console.log(res);
         console.log(_this.titlemsg);
         console.log(res.data.data);
         _this.listdata1 = res.data.data.ActivityCategory

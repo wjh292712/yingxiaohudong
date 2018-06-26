@@ -142,8 +142,8 @@
           contentType:"application/json",
           datatype:"json",
           success(data){
-            if(data.code==209){
-              alert("请重新登录")
+            if(data.data==="请重新登录"){
+              alert(data.data)
               _this.$router.push({path:'/login'})
             }else {
               alert(data.msg)

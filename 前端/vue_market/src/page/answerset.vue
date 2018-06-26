@@ -14,18 +14,18 @@
           </el-tab-pane>
           <el-tab-pane label="题目设置" name="second">
             <anstitle></anstitle>
-
           </el-tab-pane>
-          <el-tab-pane label="派奖设置" name="third">
 
-            <ansaward></ansaward>
-          </el-tab-pane>
           <el-tab-pane label="奖品设置" name="fourth">
             <ansreword></ansreword>
           </el-tab-pane>
+
+          <el-tab-pane label="派奖设置" name="third">
+            <ansaward></ansaward>
+          </el-tab-pane>
+
           <el-tab-pane label="高级设置" name="fifth">
                       <ansadvanced></ansadvanced>
-
           </el-tab-pane>
 
         </el-tabs>
@@ -135,8 +135,8 @@ import ansadvanced from '@/page/ansadvanced'
           contentType:"application/json",
           datatype:"json",
           success(data){
-            if(data.code==209){
-              alert("请重新登录")
+            if(data.data==="请重新登录"){
+              alert(data.data)
               _this.$router.push({path:'/login'})
             }else {
               alert(data.msg)

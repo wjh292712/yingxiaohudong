@@ -166,10 +166,10 @@
                     contentType:"application/json",
                     // datatype:"json",
                     success(data){
-                        console.log(data)
-                      if(data.code==209){
-                          alert("请重新登录")
-                      _this.$router.push({path:'/login'})
+                        console.log(data.data)
+                      if(data.data==="请重新登录"){
+                          alert(data.data)
+                       _this.$router.push({path:'/login'})
                       }else {
                         alert(data.msg)
                         _this.$router.push({path:'/activeslide/myactive'})
