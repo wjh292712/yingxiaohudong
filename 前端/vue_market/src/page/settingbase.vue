@@ -135,18 +135,25 @@
 
     },
     created() {
-    },
-    mounted() {
-      //alert(123)
-      // _this.$store.dispatch('saveData')
       this.partBase()
-
       this.timestampToTime()
       this.startTime=this.$route.query.startTime
       this.dataStatus=this.$route.query.dataStatus
       if (this.dataStatus==='1') {
         this.partBase1()
       }
+    },
+    mounted() {
+      //alert(123)
+      // _this.$store.dispatch('saveData')
+      //this.partBase()
+
+      this.timestampToTime()
+      // this.startTime=this.$route.query.startTime
+      // this.dataStatus=this.$route.query.dataStatus
+      // if (this.dataStatus==='1') {
+      //   this.partBase1()
+      // }
     },
     updated(){
       if(this.dataStatus===undefined){
@@ -183,17 +190,13 @@
         _this.end_date=_this.base_data.endDate//结束时间
         let str = _this.start_date
         let strend=_this.end_date
-
-
         //时间戳转换日期
       let newStr= _this.timestampToTime(str)
          strend=_this.timestampToTime(strend)
         _this.value4=[newStr,strend]
         _this.value1=newStr
         _this.value2=strend
-
         // console.log(_this.value4);
-
         _this.radio1 = Number(_this.base_data.shows).toString(),
           _this.radio2 = Number(_this.base_data.subscribe).toString()
 
@@ -211,7 +214,6 @@
         formName = _this.base_data.activityName
         _this.form.desc=_this.base_data.rule
         _this.addpepCount=_this.base_data.addNum
-
         _this.start_date = _this.base_data.startDate//日期开始时间
         _this.end_date=_this.base_data.endDate//结束时间
         let str = _this.start_date
@@ -252,8 +254,8 @@
         _this.base_send.rule=_this.form.desc
         _this.base_send.addNum =_this.addpepCount
         // this.base_data.endDate = this.value7
-        _this.base_send.startDate=_this.value1.getTime()
-        _this.base_send.end_date=_this.value2.getTime()
+        _this.base_send.startDate = _this.start_date
+        _this.base_send.endDate =  _this.end_date
         _this.base_send.shows = _this.radio1 == 1 ? true : false;
         _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
         // this.$store.state.setting_data.jggBaseSetup = this.base_send
@@ -263,14 +265,13 @@
       saveBase1() {
         let _this = this
         // _this.$store.dispatch('saveData')
-
         _this.base_send = _this.$route.query.newjggData.jggBaseSetup
         _this.base_send.activityName = _this.formName
         _this.base_send.rule=_this.form.desc
         _this.base_send.addNum =_this.addpepCount
         // this.base_data.endDate = this.value7
-        _this.base_send.startDate=_this.value1.getTime()
-        _this.base_send.end_date=_this.value2.getTime()
+        _this.base_send.startDate = _this.start_date
+        _this.base_send.endDate =  _this.end_date
         _this.base_send.shows = _this.radio1 == 1 ? true : false;
         _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
         // this.$store.state.setting_data.jggBaseSetup = this.base_send

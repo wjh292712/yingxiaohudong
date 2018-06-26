@@ -157,6 +157,7 @@
                 console.log(sendNew)
               var token=sessionStorage.getItem('token')
               console.log(token);
+              let _this=this;
               $.ajax({
                     type:"POST",
                     url:"http://center.marketing.yunpaas.cn/jgg/activitySetup/save?token="+token,
@@ -167,7 +168,8 @@
                     success(data){
                         console.log(data)
                       if(data.code==209){
-                        this.$router.push({path:'/mainPage'})
+                          alert("请重新登录")
+                      _this.$router.push({path:'/login'})
                       }else {
                         alert(data.msg)
                       }

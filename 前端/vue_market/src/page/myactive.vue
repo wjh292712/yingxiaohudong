@@ -551,6 +551,7 @@
       },
       redact(e, index, templ, states) {
         this.activeId = index
+        alert(this.activeId)
         this.templateUuid = templ
         this.states = states
 

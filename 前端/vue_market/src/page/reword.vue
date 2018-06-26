@@ -26,7 +26,7 @@
                 <el-upload
                   action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess1"
                   :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
@@ -151,7 +151,7 @@
                 <el-upload
                   action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess2"
                   :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
@@ -270,7 +270,7 @@
                 <el-upload
                   action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess3"
                   :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
@@ -391,7 +391,7 @@
                 <el-upload
                   action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess4"
                   :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
@@ -511,7 +511,7 @@
                 <el-upload
                   action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess5"
                   :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
@@ -631,7 +631,7 @@
                 <el-upload
                   action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess6"
                   :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
@@ -751,7 +751,7 @@
                 <el-upload
                   action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess7"
                   :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
@@ -1260,8 +1260,38 @@
          this.dialogImageUrl = file.url;
          this.dialogVisible = true;
       },
-      handleAvatarSuccess(res, file,fileList) {
-      this.imgData=file.response.data
+      handleAvatarSuccess1(res, file,fileList) {
+      this.imgData1=file.response.data
+        // this.imageUrl = URL.createObjectURL(file.raw);
+       this.saveReword()
+      },
+      handleAvatarSuccess2(res, file,fileList) {
+      this.imgData2=file.response.data
+        // this.imageUrl = URL.createObjectURL(file.raw);
+       this.saveReword()
+      },
+      handleAvatarSuccess3(res, file,fileList) {
+      this.imgData3=file.response.data
+        // this.imageUrl = URL.createObjectURL(file.raw);
+       this.saveReword()
+      },
+      handleAvatarSuccess4(res, file,fileList) {
+      this.imgData4=file.response.data
+        // this.imageUrl = URL.createObjectURL(file.raw);
+       this.saveReword()
+      },
+      handleAvatarSuccess5(res, file,fileList) {
+      this.imgData5=file.response.data
+        // this.imageUrl = URL.createObjectURL(file.raw);
+       this.saveReword()
+      },
+      handleAvatarSuccess6(res, file,fileList) {
+      this.imgData6=file.response.data
+        // this.imageUrl = URL.createObjectURL(file.raw);
+       this.saveReword()
+      },
+      handleAvatarSuccess7(res, file,fileList) {
+      this.imgData7=file.response.data
         // this.imageUrl = URL.createObjectURL(file.raw);
        this.saveReword()
       },
@@ -1273,7 +1303,7 @@
       beforeAvatarUpload(file){
         const isJPG = file.type === 'image/jpeg';
         const isPNG=file.type==='image/png';
-        const isLt1M = file.size / 100 < .1;
+        const isLt100kb = file.size / 1024 < 0.1;
 
         if (!isJPG&&!isPNG) {
           this.$message.error('上传头像图片只能是 JPG 或 PNG 格式!');
@@ -1281,7 +1311,7 @@
         if (!isLt100kb) {
           this.$message.error('上传头像图片大小不能超过 100kb!');
         }
-        return isJPG|| isPNG && isLt1M;
+        return isJPG|| isPNG && isLt100kb;
       },
       handleClick(tab, event) {
         console.log(tab, event);
@@ -1702,7 +1732,7 @@
         this.reword_send[0].prizeSource = this.radio1  //奖品来源
         this.reword_send[0].prizeCouponCodeType = this.radio2  //导入券码
         this.reword_send[0].prizeExchangeTypeId = this.radio3//兑奖方式
-        this.reword_send[0].prizeImg =this.imgData1 //上传图片
+        this.reword_send[0].prizeImg =this.imgData //上传图片
         this.reword_send[0].jggAwardTypeList = this.reword_type1 // 奖品类型
         this.reword_send[0].prizeType=this.form.region1
         this.reword_send[0].wxPublicAccountImg =this.dialogImageUrl//微信公众号图片
