@@ -34,6 +34,7 @@
         },
       mounted(){
         this.$store.dispatch('activePull')
+        this.changeClick(index)
       },
         components:{
             activeList,
@@ -52,7 +53,6 @@
                     pageNum:this.currentPage
                   }
                 }).then(res=>{
-
                   console.log(JSON.stringify(res.data.data));
                   let activData=JSON.stringify(res.data.data)
                   let Datalist  =JSON.stringify(res.data.data.list)//我的活动数据

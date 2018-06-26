@@ -122,7 +122,6 @@
         value5: '',
         value1:'',
         value2:'',
-
         startTime1:false, //基础设置的开始时间
         startTime:false,
         endTime:false,//基础设置的结束时间
@@ -131,7 +130,7 @@
 
     },
     created() {
-
+this. partBase()
     },
     mounted() {
 

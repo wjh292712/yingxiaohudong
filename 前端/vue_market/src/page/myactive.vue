@@ -350,23 +350,23 @@
     mounted() {
       this.restaurants = this.loadAll();
       let activeData = JSON.parse(sessionStorage.getItem('activData'))
-      // var token = sessionStorage.getItem('token')
-      // this.$axios({
-      //   method: 'post',
-      //   url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,
-      //   params: {
-      //     pagesize: this.pagesize,
-      //     pageNum: this.currentPage
-      //   }
-      // }).then(res => {
-      //   let pageData = res.data.data
-      //   console.log(pageData);
-      //   let Datalist = res.data.data.list
-      //   this.pagesize = pageData.pagesize
-      //   this.currentPage = pageData.pageNum
-      //   this.total = pageData.total
-      //   this.tableData = Datalist
-      // })
+      var token = sessionStorage.getItem('token')
+      this.$axios({
+        method: 'post',
+        url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,
+        params: {
+          pagesize: this.pagesize,
+          pageNum: this.currentPage
+        }
+      }).then(res => {
+        let pageData = res.data.data
+        console.log(pageData);
+        let Datalist = res.data.data.list
+        this.pagesize = pageData.pagesize
+        this.currentPage = pageData.pageNum
+        this.total = pageData.total
+        this.tableData = Datalist
+      })
       //this.$store.dispatch('activePull')
       this.currentPage = activeData.pageNum
       this.total = activeData.total
@@ -551,7 +551,6 @@
       },
       redact(e, index, templ, states) {
         this.activeId = index
-        alert(this.activeId)
         this.templateUuid = templ
         this.states = states
 
@@ -836,7 +835,7 @@
       chain(url) {
         //链接活动发送
         this.input3 = url
-        alert(this.input3)
+
         this.imgUrl = 'http://center.marketing.yunpaas.cn/center/enterprisewx/getImg?url=' + this.input3
         console.log(this.imgUrl);
 

@@ -172,6 +172,7 @@
                       _this.$router.push({path:'/login'})
                       }else {
                         alert(data.msg)
+                        _this.$router.push({path:'/activeslide/myactive'})
                       }
 
                     }

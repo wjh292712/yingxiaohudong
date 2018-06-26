@@ -147,6 +147,9 @@
       ...mapState(['setting_kjData']),
       ...mapActions(['saveDatakj'])
     },
+    created(){
+
+    },
     mounted(){
       // this.$store.dispatch('saveForm')
       // console.log(this.banner)
@@ -155,7 +158,9 @@
         url: "http://center.marketing.yunpaas.cn/kj/activitySetup/init",//数据初始化接口
         params: {},
       }).then(res => {
-
+        console.log(res.data.data);
+        let setting_kjData=JSON.stringify(res.data.data)
+        sessionStorage.setItem("Datakj",setting_kjData)
       })
     },
     methods: {

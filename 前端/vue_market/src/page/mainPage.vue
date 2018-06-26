@@ -95,14 +95,13 @@
 
         if (e.id === 1) {
           this.$router.push({path: "/activeslide/activelist"})
+        } else if (e.id === 2) {
+          this.$router.push({path: '/activeslide/answerlist'})
         }
-        //id=2暂无活动
         else if (e.id === 3) {
           this.$router.push({path: '/activeslide/bargainlist'})
         }
-        else if (e.id === 4) {
-          this.$router.push({path: '/activeslide/answerlist'})
-        }
+
       },
 
       inform() {

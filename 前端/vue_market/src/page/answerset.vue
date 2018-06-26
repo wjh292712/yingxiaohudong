@@ -127,6 +127,7 @@ import ansadvanced from '@/page/ansadvanced'
       onSave(){
         var sendNew =JSON.stringify(this.sendData)
         var token=sessionStorage.getItem('token')
+        let _this=this;
         $.ajax({
           type:"POST",//砍价保存数据
           url:"http://center.marketing.yunpaas.cn/dt/activitySetup/save?token="+token,
@@ -134,12 +135,12 @@ import ansadvanced from '@/page/ansadvanced'
           contentType:"application/json",
           datatype:"json",
           success(data){
-            let _this=this
             if(data.code==209){
               alert("请重新登录")
-              _this.$router.push({path:'/mainPage'})
+              _this.$router.push({path:'/login'})
             }else {
               alert(data.msg)
+              _this.$router.push({path:'/activeslide/myactive'})
             }
           }
         })
