@@ -48,7 +48,7 @@
 <style lang="scss">
   .nav_bigWrap {
     width:100%;
-    height:130%;
+    height:100%;
     .nav_tab {
     width:94%;
   }

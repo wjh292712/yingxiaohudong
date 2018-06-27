@@ -24,8 +24,8 @@
                 <div class="total">
                   <div class="to_left">
                     <img src="../../static/active/dijias.png" alt="" class="images">
-                    <h6 style="margin-top:10px;text-align:center;">话费券</h6>
-                    <h6> 2018.2.1~2018.2.10</h6>
+                    <p style="text-align:center;" class="to_left_award"><span>¥</span>100<span>话费券</span></p>
+                    <p class=""> 2018.2.1~2018.2.10</p>
                   </div>
                   <div class="to_right">
                     <span>立即兑换</span>
@@ -411,10 +411,10 @@ export default ({
 }
 
 .mask .center {
-  width: 80%;
-  height: 40%;
+  width: 90%;
+  height: 60%;
   position: absolute;
-  top: 50%;
+  top: 52%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
   background: #Fff;
@@ -432,11 +432,11 @@ export default ({
 }
 
 .mask .center .total {
-  width: 9rem;
+  width: 12rem;
   height: 3rem;
   margin: 0 auto;
-  display: flex;
-  margin-top: 1.5rem;
+  /*display: flex;*/
+  margin-top: 0.5rem;
 }
 
 
@@ -450,6 +450,18 @@ export default ({
     width: 100%;
     height: 100%;
   }
+  .to_left_award{
+    position: absolute;
+    top: 1rem;
+    left: 40%;
+    font-size: 18px;
+    span:nth-child(1){
+      font-size: 12px;
+    }
+  span:nth-child(2){
+    font-size: 12px;
+    color: #929292;
+  }}
 }
 
 .mask .center .total .to_left span {

@@ -138,9 +138,11 @@ import ansadvanced from '@/page/ansadvanced'
             if(data.data==="请重新登录"){
               alert(data.data)
               _this.$router.push({path:'/login'})
-            }else {
-              alert(data.msg)
+            }else if(data.data==="修改成功"||data.data==="保存成功"){
+              alert(data.data)
               _this.$router.push({path:'/activeslide/myactive'})
+            }else {
+              alert(data.data)
             }
           }
         })
