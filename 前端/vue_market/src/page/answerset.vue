@@ -134,7 +134,7 @@ import ansadvanced from '@/page/ansadvanced'
           data:sendNew,
           contentType:"application/json",
           datatype:"json",
-          success(data){
+          success(data){ //保存跳转活动页面
             if(data.data==="请重新登录"){
               alert(data.data)
               _this.$router.push({path:'/login'})

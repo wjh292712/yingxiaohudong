@@ -165,7 +165,7 @@
                     data:sendNew,
                     contentType:"application/json",
                     // datatype:"json",
-                    success(data){
+                    success(data){//保存跳转活动页面
                         // console.log(data.data)
                       if(data.data==="请重新登录"){
                           alert(data.data)

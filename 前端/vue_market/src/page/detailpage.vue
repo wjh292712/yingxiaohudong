@@ -25,7 +25,7 @@
                   <div class="to_left">
                     <img src="../../static/active/dijias.png" alt="" class="images">
                     <p style="text-align:center;" class="to_left_award"><span>¥</span>100<span>话费券</span></p>
-                    <p class=""> 2018.2.1~2018.2.10</p>
+                    <p class="dateActive"> 2018.2.1~2018.2.10</p>
                   </div>
                   <div class="to_right">
                     <span>立即兑换</span>
