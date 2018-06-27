@@ -1193,8 +1193,25 @@
     mounted(){
       //this.saveReword()//保存数据
       // this.$store.dispatch("saveData")
+      this.$axios({
+        method: "post",
+        url: "http://center.marketing.yunpaas.cn/dt/activitySetup/init",//数据初始化接口
+        params: {},
+      }).then(res => {
+        console.log(res.data.data);
+        let setting_dtData=JSON.stringify(res.data.data)
+        sessionStorage.setItem("Datadt",setting_dtData)
+        this.partReword()
+        this.startTime=this.$route.query.startTime
+        this.actName=this.$route.query.actName
+        this.rewordCount=this.$route.query.rewordCount
+        this.ticket=this.$route.query.ticket
+        this.dataStatus=this.$route.query.dataStatus
+        if (this.dataStatus==='1') {
+          this.partReword1()
+        }
+      })
 
-      this.partReword()
       this.timestampToTime()
       $('.shop_info').hide();
       $('.ser_info').hide();
@@ -1221,14 +1238,7 @@
         $('.ser_info').hide();
         $(".public").hide();
       })
-      this.startTime=this.$route.query.startTime
-      this.actName=this.$route.query.actName
-      this.rewordCount=this.$route.query.rewordCount
-      this.ticket=this.$route.query.ticket
-      this.dataStatus=this.$route.query.dataStatus
-      if (this.dataStatus==='1') {
-        this.partReword1()
-      }
+
     },
     computed:{
       ...mapState(['setting_dtData']),

@@ -1200,14 +1200,30 @@
     mounted(){
       //this.saveReword()//保存数据
       // this.$store.dispatch("saveData")
+      this.$axios({
+        method: "post",
+        url: "http://center.marketing.yunpaas.cn/jgg/activitySetup/init",//数据初始化接口
+        params: {},
+      }).then(res => {
+        console.log(res.data.data);
+        let setting_data=JSON.stringify(res.data.data)
+        sessionStorage.setItem("Data",setting_data)
+        this.partReword()
+        this.startTime=this.$route.query.startTime
+        this.actName=this.$route.query.actName
+        this.rewordCount=this.$route.query.rewordCount
+        this.ticket=this.$route.query.ticket
+        this.dataStatus=this.$route.query.dataStatus
+        if (this.dataStatus==='1') {
+          this.partReword1()
+        }
+      })
 
-      this.partReword()
       this.timestampToTime()
       $('.shop_info').hide();
       $('.ser_info').hide();
       $(".public").hide();
       $('.nnn').click(function () {
-        console.log(333333344443333);
         $('.shop_info').show()
         $('.ser_info').hide()
         $(".public").hide()
@@ -1223,19 +1239,13 @@
         $('.ser_info').hide();
       })
       $('.bbc').click(function () {
-        console.log(222);
+
         $('.shop_info').hide();
         $('.ser_info').hide();
         $(".public").hide();
       })
-      this.startTime=this.$route.query.startTime
-      this.actName=this.$route.query.actName
-      this.rewordCount=this.$route.query.rewordCount
-      this.ticket=this.$route.query.ticket
-      this.dataStatus=this.$route.query.dataStatus
-      if (this.dataStatus==='1') {
-        this.partReword1()
-      }
+
+
     },
     computed:{
       ...mapState(['setting_data']),

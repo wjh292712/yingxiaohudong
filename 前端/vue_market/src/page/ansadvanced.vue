@@ -214,12 +214,22 @@
 
     },
     mounted(){
-      this.partHight()
-      this.dataStatus=this.$route.query.dataStatus
-      if (this.dataStatus==='1') {
-        this.partHight1()
-      }
-    },
+
+      this.$axios({
+        method: "post",
+        url: "http://center.marketing.yunpaas.cn/dt/activitySetup/init",//数据初始化接口
+        params: {},
+      }).then(res => {
+        console.log(res.data.data);
+        let setting_dtData=JSON.stringify(res.data.data)
+        sessionStorage.setItem("Datadt",setting_dtData)
+        this.partHight()
+        this.dataStatus=this.$route.query.dataStatus
+        if (this.dataStatus==='1') {
+          this.partHight1()
+        }
+      })
+    },  
     computed:{
       ...mapState(['setting_dtData']),
       ...mapActions(['saveDatadt'])

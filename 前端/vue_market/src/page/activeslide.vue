@@ -53,7 +53,12 @@
                     pageNum:this.currentPage
                   }
                 }).then(res=>{
+                  let _this=this
                   console.log(JSON.stringify(res.data.data));
+                  // if(res.data.data==="请重新登录"){
+                  //   alert(res.data.data)
+                  //   _this.$router.push({path:'/login'})
+                  // }
                   let activData=JSON.stringify(res.data.data)
                   let Datalist  =JSON.stringify(res.data.data.list)//我的活动数据
                   sessionStorage.setItem('Datalist',Datalist)

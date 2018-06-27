@@ -130,18 +130,29 @@
 
     },
     created() {
-this. partBase()
+// this. partBase()
     },
     mounted() {
-
       // _this.$store.dispatch('saveData')
-      this.partBase()
+
+      this.$axios({
+        method: "post",
+        url: "http://center.marketing.yunpaas.cn/kj/activitySetup/init",//数据初始化接口
+        params: {},
+      }).then(res => {
+        let _this=this
+        let setting_kjData=JSON.stringify(res.data.data)
+        sessionStorage.setItem("Datakj",setting_kjData)
+        this.partBase()
+        this.startTime1=this.$route.query.startTime
+        this.dataStatus=this.$route.query.dataStatus
+        if (this.dataStatus==='1') {
+          this.partBase1()
+        }
+      })
+
       this.timestampToTime()
-      this.startTime1=this.$route.query.startTime
-      this.dataStatus=this.$route.query.dataStatus
-      if (this.dataStatus==='1') {
-        this.partBase1()
-      }
+
     },
     computed: {
       ...mapState(['setting_kjData']),
@@ -163,10 +174,10 @@ this. partBase()
         // _this.$store.dispatch('saveData')
         // let Data = sessionStorage.getItem('Data')
         let Data = sessionStorage.getItem('Datakj')
+        console.log(Data+"1222222222222");
         _this.base_data = JSON.parse(Data).kjBaseSetup
         console.log(_this.base_data);
         _this.formName = _this.base_data.activityName
-        formName = _this.base_data.activityName
         _this.radio1 = Number(_this.base_data.isShow).toString(),
           _this.radio2 = Number(_this.base_data.subscribe).toString()
         _this.form.explain = _this.base_data.rule//活动说明
@@ -196,7 +207,6 @@ this. partBase()
         _this.base_data = this.$route.query.newkjData.kjBaseSetup
         console.log(_this.base_data);
         _this.formName = _this.base_data.activityName
-        formName = _this.base_data.activityName
         _this.radio1 = Number(_this.base_data.isShow).toString(),
           _this.radio2 = Number(_this.base_data.subscribe).toString()
         _this.form.explain = _this.base_data.rule//活动说明

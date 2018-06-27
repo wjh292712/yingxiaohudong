@@ -130,13 +130,22 @@
 
     },
     mounted(){
-      // _this.$store.dispatch('saveData')
-       this.partBase()
-      this.startTime=this.$route.query.startTime
-      this.dataStatus=this.$route.query.dataStatus
-      if (this.dataStatus==='1') {
-        this.partBase1()
-      }
+      this.$axios({
+        method: "post",
+        url: "http://center.marketing.yunpaas.cn/dt/activitySetup/init",//数据初始化接口
+        params: {},
+      }).then(res => {
+        console.log(res.data.data);
+        let setting_dtData=JSON.stringify(res.data.data)
+        sessionStorage.setItem("Datadt",setting_dtData)
+        this.partBase()
+        this.startTime=this.$route.query.startTime
+        this.dataStatus=this.$route.query.dataStatus
+        if (this.dataStatus==='1') {
+          this.partBase1()
+        }
+      })
+
     },
 
     computed:{

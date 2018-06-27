@@ -43,7 +43,7 @@
 
               <div class="pic_ture">
                 <div class="sett">
-                  <bargainset></bargainset>
+                  <bargainset :m="setting_kjData"></bargainset>
                 </div>
                 <div v-show="num==0">
                   <div class="active_down">
@@ -148,11 +148,6 @@
       ...mapActions(['saveDatakj'])
     },
     created(){
-
-    },
-    mounted(){
-      // this.$store.dispatch('saveForm')
-      // console.log(this.banner)
       this.$axios({
         method: "post",
         url: "http://center.marketing.yunpaas.cn/kj/activitySetup/init",//数据初始化接口
@@ -161,7 +156,13 @@
         console.log(res.data.data);
         let setting_kjData=JSON.stringify(res.data.data)
         sessionStorage.setItem("Datakj",setting_kjData)
+
       })
+    },
+    mounted(){
+      // this.$store.dispatch('saveForm')
+      // console.log(this.banner)
+
     },
     methods: {
       tab(index) {

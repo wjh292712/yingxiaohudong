@@ -902,15 +902,24 @@
     },
     mounted() {
       // this.$store.dispatch("saveData")
-      this.partReword()
+      this.$axios({
+        method: "post",
+        url: "http://center.marketing.yunpaas.cn/kj/activitySetup/init",//数据初始化接口
+        params: {},
+      }).then(res => {
+        let _this=this
+        let setting_kjData=JSON.stringify(res.data.data)
+        sessionStorage.setItem("Datakj",setting_kjData)
 
-      this.actName=this.$route.query.actName
-      this.startPrice=this.$route.query.startPrice
-      this.endPrice=this.$route.query.endPrice
-      this.dataStatus=this.$route.query.dataStatus
-      if (this.dataStatus==='1') {
-        this.partReword1()
-      }
+        this.partReword()
+        this.actName=this.$route.query.actName
+        this.startPrice=this.$route.query.startPrice
+        this.endPrice=this.$route.query.endPrice
+        this.dataStatus=this.$route.query.dataStatus
+        if (this.dataStatus==='1') {
+          this.partReword1()
+        }
+      })
 
     },
     computed: {

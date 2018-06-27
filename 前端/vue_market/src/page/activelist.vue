@@ -150,11 +150,15 @@ export default ({
   mounted(){
     this.$store.dispatch('saveData')
     // console.log(this.banner)
+
   },
   methods: {
     tab(index) {
       this.num = index;
-    }
+    },
+ nextTick(){
+   window.location.href="/activeslide/answerlist/#/activeslide/activelist"
+ }
   },
   components: {
     setting,

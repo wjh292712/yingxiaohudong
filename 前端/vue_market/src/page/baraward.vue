@@ -66,11 +66,21 @@
       // this.saveAward()
     },
     mounted(){
-      this.partAward()
-      this.dataStatus=this.$route.query.dataStatus
-      if (this.dataStatus==='1') {
-        this.partAward1()
-      }
+      this.$axios({
+        method: "post",
+        url: "http://center.marketing.yunpaas.cn/kj/activitySetup/init",//数据初始化接口
+        params: {},
+      }).then(res => {
+        let _this=this
+        let setting_kjData=JSON.stringify(res.data.data)
+        sessionStorage.setItem("Datakj",setting_kjData)
+        this.partAward()
+        this.dataStatus=this.$route.query.dataStatus
+        if (this.dataStatus==='1') {
+          this.partAward1()
+        }
+      })
+
     },
     computed:{
       ...mapState(['setting_kjData']),

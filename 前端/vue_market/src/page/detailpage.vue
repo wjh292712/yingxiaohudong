@@ -28,7 +28,7 @@
                     <p class="dateActive"> 2018.2.1~2018.2.10</p>
                   </div>
                   <div class="to_right">
-                    <span>立即兑换</span>
+                    <h3>立即兑换</h3>
                   </div>
                 </div>
                 <div class="site">
@@ -412,9 +412,9 @@ export default ({
 
 .mask .center {
   width: 90%;
-  height: 60%;
+  height: 55%;
   position: absolute;
-  top: 52%;
+  top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
   background: #Fff;
@@ -452,16 +452,23 @@ export default ({
   }
   .to_left_award{
     position: absolute;
-    top: 1rem;
+    top: 0.5rem;
     left: 40%;
-    font-size: 18px;
+    font-size: 20px;
     span:nth-child(1){
       font-size: 12px;
     }
   span:nth-child(2){
     font-size: 12px;
-    color: #929292;
+    color: #000000;
   }}
+  .dateActive{
+    position: absolute;
+    top: 2.6rem;
+    left: 35%;
+    font-size: 12px;
+    color: #6d6d72;
+  }
 }
 
 .mask .center .total .to_left span {
@@ -471,10 +478,14 @@ export default ({
 }
 
 .mask .center .total .to_right {
-  width: 30%;
+  width: 100%;
+  height: 1.8rem;
+  line-height: 1.8rem;
   border: 1px solid #ccc;
-  border-radius: 10px;
+  border-radius: 30px;
   background: #FF2F2D;
+  margin-top: 20px;
+  text-align: center;
   color: #fff;
 }
 
@@ -487,12 +498,12 @@ export default ({
 .mask .site {
   width: 9rem;
   height: 4rem;
-  margin: 0 auto;
+  margin: 4rem auto;
 }
 
 .mask .site p {
-  margin-top: 5px;
-  margin-left: 5px;
+  margin-top: 10px;
+  margin-left: -20px;
 }
 
 .mask .remove {

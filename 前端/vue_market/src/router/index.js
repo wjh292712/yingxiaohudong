@@ -79,7 +79,7 @@ import shouquanSuccess from '@/page/shouquanSuccess'
 Vue.use(Router)
 
 export default new Router({
-  
+
   routes: [
     // 活动端
     {
@@ -257,14 +257,14 @@ export default new Router({
       path: "/setting",
       component: resolve => void(require(['@/page/setting'],resolve)),
       children: [
-        // {
-        //   path: "/setting/settingbase",
-        //   component: settingbase
-        // },
         {
-          path: "/setting/settingbaseEdit",
-          component: settingbaseEdit
+          path: "/setting/settingbase",
+          component: settingbase
         },
+        // {
+        //   path: "/setting/settingbaseEdit",
+        //   component: settingbaseEdit
+        // },
         {
           path: "/setting/share",
           component: share

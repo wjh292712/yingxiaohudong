@@ -68,11 +68,15 @@
                 sendData:""
             }
         },
+      created(){
+
+      },
         computed:{
             ...mapState(['setting_data']),
             ...mapActions(['saveData'])
         },
         mounted(){
+
           let th_is=this;
             this.$store.dispatch('saveData')
             let Data = sessionStorage.getItem('Data')

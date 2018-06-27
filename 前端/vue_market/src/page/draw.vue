@@ -465,8 +465,8 @@ export default ({
 }
 
 .mask .center {
-  width: 80%;
-  min-height: 50%;
+  width: 90%;
+  min-height: 55%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -488,7 +488,7 @@ export default ({
 .mask .center .total {
   width: 8rem;
   height: 3rem;
-  margin: 0 auto;
+  margin: 1rem auto;
   display: flex;
 }
 

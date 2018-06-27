@@ -94,7 +94,8 @@
       targetActive(e) {
 
         if (e.id === 1) {
-          this.$router.push({path: "/activeslide/activelist"})
+          // this.$router.push({path: "/activeslide/activelist"})
+          window.location.href="/activeslide/answerlist/#/activeslide/activelist"
         } else if (e.id === 2) {
           this.$router.push({path: '/activeslide/answerlist'})
         }

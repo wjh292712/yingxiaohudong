@@ -124,12 +124,22 @@
 
     },
     mounted() {
-      this.restaurants = this.loadAll();
-      this.titleBase()
-      this.dataStatus=this.$route.query.dataStatus
-      if (this.dataStatus==='1') {
-        this.titleBase1()
-      }
+      this.$axios({
+        method: "post",
+        url: "http://center.marketing.yunpaas.cn/dt/activitySetup/init",//数据初始化接口
+        params: {},
+      }).then(res => {
+        console.log(res.data.data);
+        let setting_dtData=JSON.stringify(res.data.data)
+        sessionStorage.setItem("Datadt",setting_dtData)
+        this.restaurants = this.loadAll();
+        this.titleBase()
+        this.dataStatus=this.$route.query.dataStatus
+        if (this.dataStatus==='1') {
+          this.titleBase1()
+        }
+      })
+
     },
     computed: {
       ...mapState(['setting_dtData']),
@@ -158,7 +168,7 @@
         this.titleCount=this.title_data.questionTotalNum
         this.radomCount=this.title_data.questionRadomNum
         this.ansName=this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.title
-        alert(this.ansName+"wenti")
+        // alert(this.ansName+"wenti")
         if(this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight===true){
           this.ansCorrect=this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent
         }else if (this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight===false){
