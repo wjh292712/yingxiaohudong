@@ -32,7 +32,7 @@ import ansaward from '@/page/ansaward' //派奖设置
 import ansreword from '@/page/ansreword'//奖品设置
 import ansadvanced from '@/page/ansadvanced'//高级设置
 
-
+import xitongSet from '@/page/xitongSet'//系统设置
 // 运营端
 import login from '@/components/login'
 import details from '@/components/details'
@@ -67,16 +67,19 @@ import losing from '@/page/losing'
 import shouye from '@/page/shouye'
 import choujiang from '@/page/choujiang'
 import shiwan from '@/page/shiwan'
-import firstpage from '@/page/firstpage'
+
 import notwin from '@/page/notwin'
 import drawwin from '@/page/drawwin'
 import cash from '@/page/cash'
 import trophy from '@/page/trophy'
 import testimonial from '@/page/testimonial'
+import xitongSetMenuList from '@/components/xitongSetMenuList'
+import shouquanSuccess from '@/page/shouquanSuccess'
 // import raffle from '@/page/raffle'
 Vue.use(Router)
 
 export default new Router({
+  
   routes: [
     // 活动端
     {
@@ -86,6 +89,20 @@ export default new Router({
       //   path:"/activeslide",
       //   component:activeslide,
       // }]
+    },
+    {
+      path:'/shouquanSuccess',
+      component:shouquanSuccess
+    },
+    {
+      path: '/xitongSetMenuList',
+      component:xitongSetMenuList,
+      children:[
+        {
+          path: 'xitongSet',
+          component:xitongSet
+        }
+      ]
     },
     {
       path:'/company',
@@ -346,11 +363,7 @@ export default new Router({
       name: 'shouye',
       component: shouye
     },
-    {
-      path: '/firstpage',
-      name: 'firstpage',
-      component: firstpage
-    },
+
     {
       path: '/notwin',
       name: 'notwin',

@@ -48,18 +48,36 @@
   </script>
 <script>
 export default {
-  
+  props:{
+      taburl:{
+          type:String,
+          required:true
+      }
+  },
     data(){
         return{
-    activeName:'first'
+            activeName:this.taburl
 
-  
         }
     },
+
+
+
   methods: {
+
+      first(){
+           this.activeName="first"
+      },
+      second(){
+this.activeName="second"
+      },
       handleClick(tab, event) {
         console.log(tab, event);
       }
+    },
+    mounted(){
+        alert(this.taburl)
+        
     }
 };
 

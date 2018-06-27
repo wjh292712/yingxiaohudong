@@ -70,7 +70,7 @@ export default {
   right: 0;
   bottom: 0;
   /* background: rgba(0, 0, 1, 0.4); */
-  z-index: 1000;
+  /* z-index: 1000; */
   transition: all .3s ease-in-out;
 }
 
