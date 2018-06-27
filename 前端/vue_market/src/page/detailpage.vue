@@ -15,17 +15,17 @@
         </div>
         <div class="phone_body">
           <div class="mask" v-show="isMask">
-            <div class="remove">
-              <span>X</span>
-            </div>
+            <!--<div class="remove">-->
+              <!--<span>X</span>-->
+            <!--</div>-->
             <div class="center">
               <el-tabs v-model="activeName" >
 
                 <div class="total">
                   <div class="to_left">
+                    <img src="../../static/active/dijias.png" alt="" class="images">
                     <h6 style="margin-top:10px;text-align:center;">话费券</h6>
                     <h6> 2018.2.1~2018.2.10</h6>
-
                   </div>
                   <div class="to_right">
                     <span>立即兑换</span>
@@ -441,11 +441,15 @@ export default ({
 
 
 .mask .center .total .to_left {
-  width: 70%;
-  background: #FF5210;
-  color: #fff;
+  width: 100%;
+  background: #fff;
+  color: #000000;
   border: 1px solid #ccc;
   border-radius: 10px;
+  .images{
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .mask .center .total .to_left span {
