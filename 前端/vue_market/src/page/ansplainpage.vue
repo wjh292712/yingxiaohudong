@@ -14,7 +14,7 @@
         <div class="phone_body">
           <div class="phone_title">
             <i class="el-icon-arrow-left"></i>
-            <span class="phone_text">{{activeName}}</span>
+            <span class="phone_text">{{activeName1}}</span>
           </div>
           <div class="nine_blog">
             <div class="title_image">

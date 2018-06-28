@@ -25,7 +25,7 @@
                 </div>
                 <div>
                   <h3>商家地址</h3>
-                  <textarea type="text" placeholder="商家地址" v-model="adress" class="inp2"></textarea>
+                  <textarea type="text" placeholder="商家地址" v-model="address" class="inp2"></textarea>
                 </div>
                 <div>
                   <h3>商家电话</h3>
@@ -97,9 +97,11 @@
         activeName: '',
         centerDialogVisible: false,
         plain: '商家简介商家简介具体内容具体内容商家简介商家简介具体内容具体内容商家简介商家简介',
-        adress: '商家地址商家地址',
+        address: '商家地址商家地址',
         phone: '400-1234-098',
-
+        dataStatus:0,
+        activeExplain:'',
+        activeInfo:'',
         url: [
           require('../assets/images/111.jpg'),
           require('../assets/images/111.jpg'),
@@ -130,13 +132,10 @@
       //let curname='';
       // let cua='';
       this.activeN()
-      // this.$nextTick(function () {
-      //   curname = settingbase.methods.partBase()
-      //   // cua=settingbase.methods.inputData()
-      //   console.log(curname);
-      //   // console.log(cua);
-      //   this.activeName=curname
-      // })
+      this.dataStatus=this.$route.query.dataStatus
+      if (this.dataStatus==='1') {
+        this.activeN1()
+      }
 
     },
     updated() {
@@ -151,10 +150,21 @@
       activeN() {
         let _this = this
         let Data = sessionStorage.getItem('Datakj')
-        console.log(66672);
         _this.base_data = JSON.parse(Data).kjBaseSetup
-        console.log(_this.base_data);
         _this.activeName = _this.formName = _this.base_data.activityName
+        _this.activeExplain= _this.base_data.rule//活动说明
+        _this.plain= _this.base_data.merchantInfo //商家简介
+        _this.address= _this.base_data.merchantAddress //商家地址
+        _this.phone= this.base_data.merchantTelephone  //商家电话
+      },
+      activeN1() {
+        let _this = this
+        _this.base_data = _this.$route.query.newkjData.kjBaseSetup
+        _this.activeName = _this.formName = _this.base_data.activityName
+        _this.activeExplain= _this.base_data.rule//活动说明
+        _this.plain= _this.base_data.merchantInfo //商家简介
+        _this.address= _this.base_data.merchantAddress //商家地址
+        _this.phone= this.base_data.merchantTelephone  //商家电话
       },
       // updataImg() {
       //   this.$http({

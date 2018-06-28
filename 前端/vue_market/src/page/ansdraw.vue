@@ -221,7 +221,7 @@
                         overflow: hidden;
                         background-size: 100%;
                         position: absolute;
-                        top: 5px;
+                        top: 0px;
 
                       }
                     }
@@ -234,11 +234,12 @@
                     }
                     .phone_text {
                       position: absolute;
-                      left: 46%;
+
                       height: 1.5rem;
                       line-height: 1.5rem;
                       font-size: .7rem;
                       display: inline-block;
+                      text-align: center;
                     }
                   }
                 }

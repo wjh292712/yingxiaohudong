@@ -70,6 +70,7 @@
         //筛选条件数据
         activeName: '',
         centerDialogVisible: false,
+        dataStatus:0
 
       }
 
@@ -90,6 +91,10 @@
       //let curname='';
       // let cua='';
       this.activeN()
+      this.dataStatus=this.$route.query.dataStatus
+      if (this.dataStatus==='1') {
+        this.activeN1()
+      }
       // this.$nextTick(function () {
       //   curname = settingbase.methods.partBase()
       //   // cua=settingbase.methods.inputData()
@@ -110,10 +115,13 @@
       },
       activeN() {
         let _this = this
-        let Data = sessionStorage.getItem('Datakj')
-        console.log(66672);
+        let Data = sessionStorage.getItem('Datakj');
         _this.base_data = JSON.parse(Data).kjBaseSetup
-        console.log(_this.base_data);
+        _this.activeName = _this.formName = _this.base_data.activityName
+      },
+      activeN1() {
+        let _this = this
+        _this.base_data =_this.$route.query.newkjData.kjBaseSetup
         _this.activeName = _this.formName = _this.base_data.activityName
       },
       updataImg() {

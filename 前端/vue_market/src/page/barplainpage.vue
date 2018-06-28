@@ -20,7 +20,7 @@
 </div>
             <div class="cet_plain">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.
+                {{activeExplain}}
               </p>
             </div>
               <div>
@@ -87,7 +87,9 @@
         //筛选条件数据
         activeName: '',
         centerDialogVisible: false,
-
+        dataStatus:0,
+        activeExplain:'',
+        activeInfo:'',
 
         url: [
           require('../assets/images/111.jpg'),
@@ -119,13 +121,10 @@
       //let curname='';
       // let cua='';
       this.activeN()
-      // this.$nextTick(function () {
-      //   curname = settingbase.methods.partBase()
-      //   // cua=settingbase.methods.inputData()
-      //   console.log(curname);
-      //   // console.log(cua);
-      //   this.activeName=curname
-      // })
+      this.dataStatus=this.$route.query.dataStatus
+      if (this.dataStatus==='1') {
+        this.activeN1()
+      }
 
     },
     updated() {
@@ -140,10 +139,17 @@
       activeN() {
         let _this = this
         let Data = sessionStorage.getItem('Datakj')
-        console.log(66672);
         _this.base_data = JSON.parse(Data).kjBaseSetup
-        console.log(_this.base_data);
         _this.activeName = _this.formName = _this.base_data.activityName
+        _this. activeExplain = _this.base_data.rule//活动说明
+       _this.activeInfo= _this.base_data.merchantInfo //商家简介
+      },
+      activeN1() {
+        let _this = this
+        _this.base_data = _this.$route.query.newkjData.kjBaseSetup
+        _this.activeName = _this.formName = _this.base_data.activityName
+        _this. activeExplain= _this.base_data.rule//活动说明
+        _this.activeInfo=  _this.base_data.merchantInfo //商家简介
       },
       // updataImg() {
       //   this.$http({
@@ -559,7 +565,7 @@
     .cet_plain{
       width: 100%;
       padding: 1rem 0.5rem;
-      text-align: center;
+      text-align: left;
     }
   }
 

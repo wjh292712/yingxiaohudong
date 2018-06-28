@@ -46,18 +46,26 @@
     data() {
       return {
         activeName: '',
+        dataStatus:0,
       }
     },
     mounted(){
       this. activeN()
+      this.dataStatus=this.$route.query.dataStatus
+      if (this.dataStatus==='1') {
+        this.activeN1()
+      }
     },
     methods:{
       activeN() {
         let _this = this
         let Data = sessionStorage.getItem('Datadt')
-        console.log(66672);
         _this.base_data = JSON.parse(Data).dtBaseSetup
-        console.log(_this.base_data);
+        _this.activeName = _this.formName = _this.base_data.activityName
+      },
+      activeN1() {
+        let _this = this
+        _this.base_data = _this.$route.query.newdtData.dtBaseSetup
         _this.activeName = _this.formName = _this.base_data.activityName
       },
     }

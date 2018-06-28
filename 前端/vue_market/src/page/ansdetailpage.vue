@@ -130,6 +130,10 @@
       //let curname='';
       // let cua='';
       this.activeN()
+      this.dataStatus=this.$route.query.dataStatus
+      if (this.dataStatus==='1') {
+        this.activeN1()
+      }
       // this.$nextTick(function () {
       //   curname = settingbase.methods.partBase()
       //   // cua=settingbase.methods.inputData()
@@ -153,6 +157,12 @@
         let Data = sessionStorage.getItem('Datadt')
         console.log(66672);
         _this.base_data = JSON.parse(Data).dtBaseSetup
+        console.log(_this.base_data);
+        _this.activeName = _this.formName = _this.base_data.activityName
+      },
+      activeN1() {
+        let _this = this
+        _this.base_data = _this.$route.query.newdtData.dtBaseSetup
         console.log(_this.base_data);
         _this.activeName = _this.formName = _this.base_data.activityName
       },
@@ -403,11 +413,11 @@
                     }
                     .phone_text {
                       position: absolute;
-                      left: 46%;
                       height: 1.5rem;
                       line-height: 1.5rem;
                       font-size: .7rem;
                       display: inline-block;
+                      text-align: center;
                     }
                   }
                 }
