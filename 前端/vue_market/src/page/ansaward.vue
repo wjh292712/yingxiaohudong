@@ -71,12 +71,12 @@
         url: "http://center.marketing.yunpaas.cn/dt/activitySetup/init",//数据初始化接口
         params: {},
       }).then(res => {
-        console.log(res.data.data);
         let setting_dtData=JSON.stringify(res.data.data)
         sessionStorage.setItem("Datadt",setting_dtData)
-        this.partAward()
         this.dataStatus=this.$route.query.dataStatus
-        if (this.dataStatus==='1') {
+        if(this.dataStatus===undefined){
+          this.partAward()
+        }else if (this.dataStatus==='1') {
           this.partAward1()
         }
       })

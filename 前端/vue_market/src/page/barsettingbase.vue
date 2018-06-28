@@ -143,10 +143,11 @@
         let _this=this
         let setting_kjData=JSON.stringify(res.data.data)
         sessionStorage.setItem("Datakj",setting_kjData)
-        this.partBase()
         this.startTime1=this.$route.query.startTime
         this.dataStatus=this.$route.query.dataStatus
-        if (this.dataStatus==='1') {
+        if(this.dataStatus===undefined){
+          this.partBase()
+        }else if (this.dataStatus==='1') {
           this.partBase1()
         }
       })

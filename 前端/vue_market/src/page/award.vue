@@ -229,9 +229,10 @@
         console.log(res.data.data);
         let setting_data=JSON.stringify(res.data.data)
         sessionStorage.setItem("Data",setting_data)
-        this.partAward()
         this.dataStatus=this.$route.query.dataStatus
-        if (this.dataStatus==='1') {
+        if(this.dataStatus===undefined){
+          this.partAward()
+        }else if (this.dataStatus==='1') {
           this.partAward1()
         }
       })

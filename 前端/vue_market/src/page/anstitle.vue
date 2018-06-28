@@ -3,7 +3,7 @@
   <div class="reword_wrap">
     <div class="reword_con">
       <!--<el-form ref="form" :model="form" label-width="82px" > -->
-      <el-form label-width="82px" >
+      <el-form label-width="82px">
         <div class="reword_type">
           <el-form-item label="选择题库:">
             <el-radio-group v-model="radio1">
@@ -31,11 +31,11 @@
             <span class="callInfo">随机出题数量不超过本次游戏总题量</span>
           </el-form-item>
           <el-form-item label="每局答题时间:" label-width="100px">
-            <el-radio-group v-model="radio2"  >
-              <el-radio label="0" >
+            <el-radio-group v-model="radio2">
+              <el-radio label="0">
                 <span @click="tilTime1()">不限</span></el-radio>
               <el-radio label="1">
-                <span @click="tilTime()">自定义</span> </el-radio>
+                <span @click="tilTime()">自定义</span></el-radio>
             </el-radio-group>
             <span v-show="tileTime">
             <el-input size="mini" style="width: 50px"></el-input>
@@ -101,23 +101,23 @@
     data() {
       return {
         answerState: '',//题库内容
-        value4:'',//题库选择
+        value4: '',//题库选择
         radio1: '',//选择题库
         radio2: '',
-        titleCount:'',//总题量
-        radomCount:'',//随机题量
-        imageUrl:'',
+        titleCount: '',//总题量
+        radomCount: '',//随机题量
+        imageUrl: '',
         ok: false,
-        tileTime:false,
+        tileTime: false,
         dialogVisible: false,
         ansName: '',//题目
         ansCorrect: '',//正确答案
         ansError1: '',//错误答案1
         ansError2: '',//错误答案2
         count: '12',//总题数
-        title_data:'',//数据渲染接口
-        title_send:"",//数据保存接口
-        dataStatus:0,
+        title_data: '',//数据渲染接口
+        title_send: "",//数据保存接口
+        dataStatus: 0,
       }
     },
     created() {
@@ -130,12 +130,13 @@
         params: {},
       }).then(res => {
         console.log(res.data.data);
-        let setting_dtData=JSON.stringify(res.data.data)
-        sessionStorage.setItem("Datadt",setting_dtData)
+        let setting_dtData = JSON.stringify(res.data.data)
+        sessionStorage.setItem("Datadt", setting_dtData)
         this.restaurants = this.loadAll();
-        this.titleBase()
-        this.dataStatus=this.$route.query.dataStatus
-        if (this.dataStatus==='1') {
+        this.dataStatus = this.$route.query.dataStatus
+        if (this.dataStatus === undefined) {
+          this.titleBase()
+        } else if (this.dataStatus === '1') {
           this.titleBase1()
         }
       })
@@ -145,97 +146,95 @@
       ...mapState(['setting_dtData']),
       ...mapActions(['saveDatadt'])
     },
-    updated(){
-      if(this.dataStatus===undefined){
+    updated() {
+      if (this.dataStatus === undefined) {
         this.savaTitleBase()
-      }else if (this.dataStatus==='1') {
+      } else if (this.dataStatus === '1') {
         this.savaTitleBase1()
       }
     },
     methods: {
       titleBase() {
+
         let Data = JSON.parse(sessionStorage.getItem('Datadt'))
         this.title_data = Data.dtQuestionSetupExtend
-        this.radio1=  Number(this.title_data.questionBank).toString()
-        if(this.radio1==1){
+        this.radio1 = Number(this.title_data.questionBank).toString()
+        if (this.radio1 == 1) {
           this.ok = false;
-        }else {
+        } else {
           this.ok = true;
         }
-
-        this.answerState=this.title_data.dtQuestionTypeExtendList
-        this.value4=this.title_data.questionType
-        this.titleCount=this.title_data.questionTotalNum
-        this.radomCount=this.title_data.questionRadomNum
-        this.ansName=this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.title
-        // alert(this.ansName+"wenti")
-        if(this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight===true){
-          this.ansCorrect=this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent
-        }else if (this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight===false){
-          this.ansError1=this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent
+        this.answerState = this.title_data.dtQuestionTypeExtendList
+        this.value4 = this.title_data.questionType
+        this.titleCount = this.title_data.questionTotalNum
+        this.radomCount = this.title_data.questionRadomNum
+        this.ansName = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.title
+        if (this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight === true) {
+          this.ansCorrect = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent
+        } else if (this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight === false) {
+          this.ansError1 = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent
         }
 
 
-
-        this.radio2= Number(this.title_data.answerTimeLimit).toString()
+        this.radio2 = Number(this.title_data.answerTimeLimit).toString()
       },
       titleBase1() {
-
         this.title_data = this.$route.query.newdtData.dtQuestionSetupExtend
-        this.radio1=  Number(this.title_data.questionBank).toString()
-        if(this.radio1==1){
+        this.radio1 = Number(this.title_data.questionBank).toString()
+        if (this.radio1 == 1) {
           this.ok = false;
-        }else {
+        } else {
           this.ok = true;
         }
-        this.answerState=this.title_data.dtQuestionTypeExtendList
-        this.value4=this.title_data.questionType
-        this.titleCount=this.title_data.questionTotalNum
-        this.radomCount=this.title_data.questionRadomNum
-        this.ansName=this.title_data.dtActivityQuestionExtendList.dtQuestionExtend.title
-        if(this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight===true){
-          this.ansCorrect=this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent
-        }else if (this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight===false){
-          this.ansError1=this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent
+        this.answerState = this.title_data.dtQuestionTypeExtendList
+        this.value4 = this.title_data.questionType
+        this.titleCount = this.title_data.questionTotalNum
+        this.radomCount = this.title_data.questionRadomNum
+        this.ansName = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.title
+        if (this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight === true) {
+          this.ansCorrect = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent
+        } else if (this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight === false) {
+          this.ansError1 = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent
         }
-        this.radio2= Number(this.title_data.answerTimeLimit).toString()
+        this.radio2 = Number(this.title_data.answerTimeLimit).toString()
       },
-      savaTitleBase(){
+      savaTitleBase() {
         let Data = JSON.parse(sessionStorage.getItem('Datadt'))
-        this.title_send=Data.dtQuestionSetupExtend
-        this.title_send.questionBank=this.radio1
-        if(this.radio1==1){
+        this.title_send = Data.dtQuestionSetupExtend
+        this.title_send.questionBank = this.radio1
+        if (this.radio1 == 1) {
           this.ok = false;
-        }else {
+        } else {
           this.ok = true;
         }
-        this.title_send.dtQuestionTypeExtendList=this.answerState
-        this.title_send.questionType=this.value4
-        this.title_send.questionTotalNum=this.titleCount
-        this.title_send.questionRadomNum=this.radomCount
-        this.title_send.answerTimeLimit=this.radio2==0?false:true
-        this.title_send.dtActivityQuestionExtendList.dtQuestionExtend.title=this.ansName
+        this.title_send.dtQuestionTypeExtendList = this.answerState
+        this.title_send.questionType = this.value4
+        this.title_send.questionTotalNum = this.titleCount
+        this.title_send.questionRadomNum = this.radomCount
+        this.title_send.answerTimeLimit = this.radio2 == 0 ? false : true
+        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.title = this.ansName
 
 
-        this.$store.state.setting_dtData.dtQuestionSetupExtend =  this.title_send
+        this.$store.state.setting_dtData.dtQuestionSetupExtend = this.title_send
 
         this.$bus.emit("send_title", this.title_send)
       },
-      savaTitleBase1(){
+      savaTitleBase1() {
 
-        this.title_send=this.$route.query.newdtData.dtQuestionSetupExtend
-        this.title_send.questionBank=this.radio1
-        if(this.radio1==1){
+        this.title_send = this.$route.query.newdtData.dtQuestionSetupExtend
+        this.title_send.questionBank = this.radio1
+        if (this.radio1 == 1) {
           this.ok = false;
-        }else {
+        } else {
           this.ok = true;
         }
-        this.title_send.dtQuestionTypeExtendList=this.answerState
-        this.title_send.questionType=this.value4
-        this.title_send.questionTotalNum=this.titleCount
-        this.title_send.questionRadomNum=this.radomCount
-        this.title_send.answerTimeLimit=this.radio2==0?false:true
-        this.$store.state.setting_dtData.dtQuestionSetupExtend =  this.title_send
+        this.title_send.dtQuestionTypeExtendList = this.answerState
+        this.title_send.questionType = this.value4
+        this.title_send.questionTotalNum = this.titleCount
+        this.title_send.questionRadomNum = this.radomCount
+        this.title_send.answerTimeLimit = this.radio2 == 0 ? false : true
+        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.title = this.ansName
+        this.$store.state.setting_dtData.dtQuestionSetupExtend = this.title_send
         this.$bus.emit("send_title", this.title_send)
       },
 
@@ -247,7 +246,7 @@
         const isPNG = file.type === 'image/png';
         const isLt2M = file.size / 1024 / 1024 < 2;
 
-        if (!isJPG&&!isPNG) {
+        if (!isJPG && !isPNG) {
           this.$message.error('上传头像图片只能是 JPG /PNG 格式!');
         }
         if (!isPNG) {
@@ -257,7 +256,7 @@
         if (!isLt2M) {
           this.$message.error('上传头像图片大小不能超过 2MB!');
         }
-        return isJPG ||isPNG && isLt2M;
+        return isJPG || isPNG && isLt2M;
       },
       handleRemove(file, fileList) {
         console.log(file, fileList);
@@ -284,14 +283,14 @@
         console.log(item);
         // this.answerState=item.index
       },
-      saveTitle(){
+      saveTitle() {
 
       },
-      tilTime1(){
-        this.tileTime=false
+      tilTime1() {
+        this.tileTime = false
       },
-      tilTime(){
-        this.tileTime=!this.tileTime
+      tilTime() {
+        this.tileTime = !this.tileTime
       },
       // del() {
       //   if(this.radio1==1){
@@ -342,9 +341,11 @@
       }
     }
   }
-.callInfo{
-  color: #929292;
-}
+
+  .callInfo {
+    color: #929292;
+  }
+
   .answ1 {
     width: 530px;
     height: 510px;

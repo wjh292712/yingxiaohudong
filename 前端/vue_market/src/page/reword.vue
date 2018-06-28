@@ -1208,13 +1208,14 @@
         console.log(res.data.data);
         let setting_data=JSON.stringify(res.data.data)
         sessionStorage.setItem("Data",setting_data)
-        this.partReword()
         this.startTime=this.$route.query.startTime
         this.actName=this.$route.query.actName
         this.rewordCount=this.$route.query.rewordCount
         this.ticket=this.$route.query.ticket
         this.dataStatus=this.$route.query.dataStatus
-        if (this.dataStatus==='1') {
+        if(this.dataStatus===undefined){
+          this.partReword()
+        }else if (this.dataStatus==='1') {
           this.partReword1()
         }
       })

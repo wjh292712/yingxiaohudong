@@ -77,53 +77,60 @@
         },
         mounted(){
 
-          let th_is=this;
-            this.$store.dispatch('saveData')
+          this.$axios({
+            method: "post",
+            url: "http://center.marketing.yunpaas.cn/jgg/activitySetup/init",//数据初始化接口
+            params: {},
+          }).then(res => {
+            let setting_data=JSON.stringify(res.data.data)
+            sessionStorage.setItem("Data",setting_data)
+            // this.$store.dispatch('saveData')
             let Data = sessionStorage.getItem('Data')
             this.sendData = JSON.parse(Data)
-                var _this = this
-                //分享部分返回的数据
-                this.$bus.on("send_share",function(data){
-                    data == '' ?_this.sendData.jggShareSetup = _this.sendData.jggShareSetup : _this.sendData.jggShareSetup = data
-                  // this.onSave();
-                    // console.log(data)
-                })
-                //奖金设置返回的数据
-                this.$bus.on("send_reword",function(data){
-                    data == ''?_this.sendData.jggAwardSetupExtendList = _this.sendData.jggAwardSetupExtendList : _this.sendData.jggAwardSetupExtendList = data
+            var _this = this
+            //分享部分返回的数据
+            this.$bus.on("send_share",function(data){
+              data == '' ?_this.sendData.jggShareSetup = _this.sendData.jggShareSetup : _this.sendData.jggShareSetup = data
+              // this.onSave();
+              // console.log(data)
+            })
+            //奖金设置返回的数据
+            this.$bus.on("send_reword",function(data){
+              data == ''?_this.sendData.jggAwardSetupExtendList = _this.sendData.jggAwardSetupExtendList : _this.sendData.jggAwardSetupExtendList = data
 
-                    // console.log(data)
-                })
-                //派奖设置返回的数据
-                this.$bus.on("send_award",function(data){
-                    data == '' ?_this.sendData.jggAwardSendSetup = _this.sendData.jggAwardSendSetup :  _this.sendData.jggAwardSendSetup = data
+              // console.log(data)
+            })
+            //派奖设置返回的数据
+            this.$bus.on("send_award",function(data){
+              data == '' ?_this.sendData.jggAwardSendSetup = _this.sendData.jggAwardSendSetup :  _this.sendData.jggAwardSendSetup = data
 
-                    // console.log(data)
-                })
-                //高级设置返回的数据
-                this.$bus.on("send_high",function(data){
-                    if(data == ''){
-                        _this.sendData.jggHighCompanySetup = _this.sendData.jggHighCompanySetup
-                        _this.sendData.jggHighSecuritySetup = _this.sendData.jggHighSecuritySetup
-                        _this.sendData.jggHighOtherSetup = _this.sendData.jggHighOtherSetup
-                    }else{
-                        _this.sendData.jggHighCompanySetup = data[0]
-                        _this.sendData.jggHighSecuritySetup = data[1]
-                        _this.sendData.jggHighOtherSetup = data[2]
-                    }
-                  // th_is.onSave()
-                  console.log(JSON.stringify(data)+"2111");
-                  //console.log(data+"2323232222")
-                })
-                //基础设置返回的数据
-                this.$bus.on("send_base",function(data){
-                        data == ''?_this.sendData.jggBaseSetup = _this.sendData.jggBaseSetup : _this.sendData.jggBaseSetup = data
-                    // _this.save.high = data
-                    console.log(data)
-                  // thi_s.flag=false;
+              // console.log(data)
+            })
+            //高级设置返回的数据
+            this.$bus.on("send_high",function(data){
+              if(data == ''){
+                _this.sendData.jggHighCompanySetup = _this.sendData.jggHighCompanySetup
+                _this.sendData.jggHighSecuritySetup = _this.sendData.jggHighSecuritySetup
+                _this.sendData.jggHighOtherSetup = _this.sendData.jggHighOtherSetup
+              }else{
+                _this.sendData.jggHighCompanySetup = data[0]
+                _this.sendData.jggHighSecuritySetup = data[1]
+                _this.sendData.jggHighOtherSetup = data[2]
+              }
+              // th_is.onSave()
+              console.log(JSON.stringify(data)+"2111");
+              //console.log(data+"2323232222")
+            })
+            //基础设置返回的数据
+            this.$bus.on("send_base",function(data){
+              data == ''?_this.sendData.jggBaseSetup = _this.sendData.jggBaseSetup : _this.sendData.jggBaseSetup = data
+              // _this.save.high = data
+              console.log(data)
+              // thi_s.flag=false;
+            })
 
+          })
 
-                })
 
 
             // this.onSave()

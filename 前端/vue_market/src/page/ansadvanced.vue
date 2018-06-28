@@ -223,9 +223,10 @@
         console.log(res.data.data);
         let setting_dtData=JSON.stringify(res.data.data)
         sessionStorage.setItem("Datadt",setting_dtData)
-        this.partHight()
         this.dataStatus=this.$route.query.dataStatus
-        if (this.dataStatus==='1') {
+        if(this.dataStatus===undefined){
+          this.partHight()
+        }else if (this.dataStatus==='1') {
           this.partHight1()
         }
       })

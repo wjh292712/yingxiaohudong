@@ -71,50 +71,58 @@
       ...mapActions(['saveDatakj'])
     },
     mounted(){
-      this.$store.dispatch('saveDatakj')
-      let Data = sessionStorage.getItem('Datakj')
-      console.log(sessionStorage.getItem('Datakj'));
-      this.sendData = JSON.parse(Data)
-      console.log(this.sendData);
-      var _this = this
-      //分享部分返回的数据
-      this.$bus.on("send_share",function(data){
-        data == '' ?_this.sendData.kjShareSetup = _this.sendData.kjShareSetup : _this.sendData.kjShareSetup = data
-        // console.log(data)
-      })
-      //商品设置返回的数据
-      this.$bus.on("send_reword",function(data){
-        console.log(data);
-        data == ''?_this.sendData.kjGoodsSetupExtendList = _this.sendData.kjGoodsSetupExtendList : _this.sendData.kjGoodsSetupExtendList = data
-        // console.log(data)
-      })
-      //砍价设置返回的数据
-      this.$bus.on("send_award",function(data){
-        data == '' ?_this.sendData.kjBargainSetup = _this.sendData.kjBargainSetup :  _this.sendData.kjBargainSetup = data
-         console.log(data)
-      })
-      //高级设置返回的数据
-      this.$bus.on("send_high",function(data){
-        console.log(data);
-        if(data == ''){
-          _this.sendData.kjHighCompanySetup = _this.sendData.kjHighCompanySetup
-          _this.sendData.kjShareSetup = _this.sendData.kjShareSetup
-          _this.sendData.kjHighOtherSetup = _this.sendData.kjHighOtherSetup
-        }else{
-          _this.sendData.kjHighCompanySetup = data[0]
-          _this.sendData.kjShareSetup = data[1]
-          _this.sendData.kjHighOtherSetup = data[2]
-        }
+      this.$axios({
+        method: "post",
+        url: "http://center.marketing.yunpaas.cn/kj/activitySetup/init",//数据初始化接口
+        params: {},
+      }).then(res => {
+        let _this=this
+        let setting_kjData=JSON.stringify(res.data.data)
+        sessionStorage.setItem("Datakj",setting_kjData)
+        //this.$store.dispatch('saveDatakj')
+        let Data = sessionStorage.getItem('Datakj')
+        // console.log(sessionStorage.getItem('Datakj'));
+        this.sendData = JSON.parse(Data)
+        // console.log(this.sendData);
+        //分享部分返回的数据
+        this.$bus.on("send_share",function(data){
+          data == '' ?_this.sendData.kjShareSetup = _this.sendData.kjShareSetup : _this.sendData.kjShareSetup = data
+          // console.log(data)
+        })
+        //商品设置返回的数据
+        this.$bus.on("send_reword",function(data){
+          // console.log(data);
+          data == ''?_this.sendData.kjGoodsSetupExtendList = _this.sendData.kjGoodsSetupExtendList : _this.sendData.kjGoodsSetupExtendList = data
+          // console.log(data)
+        })
+        //砍价设置返回的数据
+        this.$bus.on("send_award",function(data){
+          data == '' ?_this.sendData.kjBargainSetup = _this.sendData.kjBargainSetup :  _this.sendData.kjBargainSetup = data
+          // console.log(data)
+        })
+        //高级设置返回的数据
+        this.$bus.on("send_high",function(data){
+          // console.log(data);
+          if(data == ''){
+            _this.sendData.kjHighCompanySetup = _this.sendData.kjHighCompanySetup
+            _this.sendData.kjShareSetup = _this.sendData.kjShareSetup
+            _this.sendData.kjHighOtherSetup = _this.sendData.kjHighOtherSetup
+          }else{
+            _this.sendData.kjHighCompanySetup = data[0]
+            _this.sendData.kjShareSetup = data[1]
+            _this.sendData.kjHighOtherSetup = data[2]
+          }
 
-        // console.log(data)
-      })
-      //基础设置返回的数据
-      this.$bus.on("send_base",function(data){
-        data == ''?_this.sendData.kjBaseSetup = _this.sendData.kjBaseSetup : _this.sendData.kjBaseSetup = data
-        // _this.save.high = data
-        console.log(data)
-      })
+          // console.log(data)
+        })
+        //基础设置返回的数据
+        this.$bus.on("send_base",function(data){
+          data == ''?_this.sendData.kjBaseSetup = _this.sendData.kjBaseSetup : _this.sendData.kjBaseSetup = data
+          // _this.save.high = data
+          // console.log(data)
+        })
 
+      })
 
       // this.onSave()
       // this.setting()

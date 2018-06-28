@@ -104,7 +104,7 @@
     },
     mounted(){
       $("li").click(function () {
-        alert($(this).text())
+        // alert($(this).text())
       })
     },
     methods: {

@@ -79,26 +79,24 @@ sessionStorage.setItem('id', id);//存储id
         console.log(res);
         console.log(res.data);
         if(res.data.status===true){
-       
+
           // this.username = res.data.data.name
           // this.$bus.emit('name',this.username)
           this.$store.dispatch('undisappear')
           // this.$store.commit('show'),
           if(res.data.code===200){
                     this.$emit("hides",true)
-             
+
              this.$router.push({path:"/mainPage"})//跳转主页
-            
+
           }else if(res.data.code===201){
             this.$router.push({path:'/company'})
           }
 
-}else{
-
-          alert("用户名或密码错误")
 }
         //商户选择
                 }).catch(res => {
+        alert("用户名或密码错误")
                     console.log(res)
                 })
     }

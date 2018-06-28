@@ -135,13 +135,13 @@
         url: "http://center.marketing.yunpaas.cn/dt/activitySetup/init",//数据初始化接口
         params: {},
       }).then(res => {
-        console.log(res.data.data);
         let setting_dtData=JSON.stringify(res.data.data)
         sessionStorage.setItem("Datadt",setting_dtData)
-        this.partBase()
         this.startTime=this.$route.query.startTime
         this.dataStatus=this.$route.query.dataStatus
-        if (this.dataStatus==='1') {
+        if(this.dataStatus===undefined){
+          this.partBase()
+        }else if (this.dataStatus==='1') {
           this.partBase1()
         }
       })
@@ -168,7 +168,6 @@
         let _this = this
          _this.$store.dispatch('saveDatadt')
         let Data = sessionStorage.getItem('Datadt')
-        console.log(Data);
         _this.base_data = JSON.parse(Data).dtBaseSetup
         _this.formName = _this.base_data.activityName //活动名称
         _this.radio1 = Number(_this.base_data.shows).toString(), //参与人数
@@ -188,7 +187,7 @@
       },
       partBase1(){
         let _this = this
-         _this.$store.dispatch('saveDatadt')
+        // _this.$store.dispatch('saveDatadt')
 
         _this.base_data = this.$route.query.newdtData.dtBaseSetup
         _this.formName = _this.base_data.activityName //活动名称
@@ -233,9 +232,9 @@
         _this.base_send.endDate=_this.end_date
         _this.base_send.rule= _this.form.explain
         if (this.formName != '') {
-          this.$store.state.setting_dtData.dtBaseSetup = this.base_send
+          _this.$store.state.setting_dtData.dtBaseSetup = _this.base_send
           _this.$bus.emit("send_base",_this.base_send)
-
+console.log(_this.base_send)
         } else {
           alert('活动名称，不能为空哦！')
 
@@ -246,6 +245,7 @@
         // _this.$store.dispatch('saveData')
 
         _this.base_send = this.$route.query.newdtData.dtBaseSetup
+        console.log(_this.base_send);
         _this.base_send.activityName = _this.formName
         _this.base_send.addDoubling= _this.addCount
         _this.base_send.shows = _this.radio1 == 1 ? true : false;

@@ -222,10 +222,11 @@
         let _this=this
         let setting_kjData=JSON.stringify(res.data.data)
         sessionStorage.setItem("Datakj",setting_kjData)
-        this.partHight()
         this.base_data=this.$route.query.newkjData
         this.dataStatus=this.$route.query.dataStatus
-        if (this.dataStatus==='1') {
+        if(this.dataStatus===undefined){
+          this.partHight()
+        }else if (this.dataStatus==='1') {
           this.partHight1()
         }
       })

@@ -910,13 +910,13 @@
         let _this=this
         let setting_kjData=JSON.stringify(res.data.data)
         sessionStorage.setItem("Datakj",setting_kjData)
-
-        this.partReword()
         this.actName=this.$route.query.actName
         this.startPrice=this.$route.query.startPrice
         this.endPrice=this.$route.query.endPrice
         this.dataStatus=this.$route.query.dataStatus
-        if (this.dataStatus==='1') {
+        if(this.dataStatus===undefined){
+          this.partReword()
+        }else if (this.dataStatus==='1') {
           this.partReword1()
         }
       })

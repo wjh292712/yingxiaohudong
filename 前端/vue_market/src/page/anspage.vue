@@ -90,7 +90,6 @@
       activeN() {
         let _this = this
         let Data = sessionStorage.getItem('Datadt')
-        console.log(66672);
         _this.base_data = JSON.parse(Data).dtBaseSetup
         console.log(_this.base_data);
         _this.activeName = _this.formName = _this.base_data.activityName

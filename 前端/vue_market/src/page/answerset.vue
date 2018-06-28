@@ -78,46 +78,56 @@ import ansadvanced from '@/page/ansadvanced'
       ...mapActions(['saveDatadt'])
     },
     mounted(){
-      this.$store.dispatch('saveDatadt')
-      let Data = sessionStorage.getItem('Datadt')
-      this.sendData = JSON.parse(Data)
-      var _this = this;
-      //基础设置返回的数据
-      this.$bus.on("send_base",function(data){
-        data == ''?_this.sendData.dtBaseSetup = _this.sendData.dtBaseSetup : _this.sendData.dtBaseSetup = data;
-        // _this.save.high = data
-        console.log(data)
-      });
-      //题目设置返回的数据
-      this.$bus.on("send_title",function(data){
-        data == '' ?_this.sendData.dtQuestionSetupExtend = _this.sendData.dtQuestionSetupExtend : _this.sendData.dtQuestionSetupExtend = data
+      // this.$store.dispatch('saveDatadt')
+      this.$axios({
+        method: "post",
+        url: "http://center.marketing.yunpaas.cn/dt/activitySetup/init",//数据初始化接口
+        params: {},
+      }).then(res => {
+        let setting_dtData=JSON.stringify(res.data.data)
+        sessionStorage.setItem("Datadt",setting_dtData)
+        let Data = sessionStorage.getItem('Datadt')
+        this.sendData = JSON.parse(Data)
+        console.log(this.sendData);
+        var _this = this;
+        //基础设置返回的数据
+        this.$bus.on("send_base",function(data){
+          data == ''?_this.sendData.dtBaseSetup = _this.sendData.dtBaseSetup : _this.sendData.dtBaseSetup = data;
+          // _this.save.high = data
+          console.log(data)
+        });
+        //题目设置返回的数据
+        this.$bus.on("send_title",function(data){
+          data == '' ?_this.sendData.dtQuestionSetupExtend = _this.sendData.dtQuestionSetupExtend : _this.sendData.dtQuestionSetupExtend = data
 
-      });
-      //派奖设置返回的数据
-      this.$bus.on("send_award",function(data){
-        data == '' ?_this.sendData.dtAwardSendSetup = _this.sendData.dtAwardSendSetup :  _this.sendData.dtAwardSendSetup = data
+        });
+        //派奖设置返回的数据
+        this.$bus.on("send_award",function(data){
+          data == '' ?_this.sendData.dtAwardSendSetup = _this.sendData.dtAwardSendSetup :  _this.sendData.dtAwardSendSetup = data
 
-      });
-      //奖品设置返回的数据
-      this.$bus.on("send_reword",function(data){
-        data == ''?_this.sendData.dtAwardSetupExtendList = _this.sendData.dtAwardSetupExtendList : _this.sendData.dtAwardSetupExtendList = data
+        });
+        //奖品设置返回的数据
+        this.$bus.on("send_reword",function(data){
+          data == ''?_this.sendData.dtAwardSetupExtendList = _this.sendData.dtAwardSetupExtendList : _this.sendData.dtAwardSetupExtendList = data
 
-      });
+        });
 
-      //高级设置返回的数据
-      this.$bus.on("send_high",function(data){
-        if(data == ''){
-          _this.sendData.dtHighCompanySetup = _this.sendData.dtHighCompanySetup
-          _this.sendData.dtShareSetup = _this.sendData.dtShareSetup
-          _this.sendData.dtHighOtherSetup = _this.sendData.dtHighOtherSetup
-        }else{
-          _this.sendData.dtHighCompanySetup = data[0]
-          _this.sendData.dtShareSetup = data[1]
-          _this.sendData.dtHighOtherSetup = data[2]
-        }
+        //高级设置返回的数据
+        this.$bus.on("send_high",function(data){
+          if(data == ''){
+            _this.sendData.dtHighCompanySetup = _this.sendData.dtHighCompanySetup
+            _this.sendData.dtShareSetup = _this.sendData.dtShareSetup
+            _this.sendData.dtHighOtherSetup = _this.sendData.dtHighOtherSetup
+          }else{
+            _this.sendData.dtHighCompanySetup = data[0]
+            _this.sendData.dtShareSetup = data[1]
+            _this.sendData.dtHighOtherSetup = data[2]
+          }
 
+        })
+        this.btnsave=this.$route.query.btnsave
       })
-      this.btnsave=this.$route.query.btnsave
+
     },
     methods:{
       // ...mapMutations([setting])
@@ -126,6 +136,7 @@ import ansadvanced from '@/page/ansadvanced'
       //保存设置
       onSave(){
         var sendNew =JSON.stringify(this.sendData)
+        console.log(sendNew);
         var token=sessionStorage.getItem('token')
         let _this=this;
         $.ajax({
@@ -142,7 +153,7 @@ import ansadvanced from '@/page/ansadvanced'
               alert(data.data)
               _this.$router.push({path:'/activeslide/myactive'})
             }else {
-              alert(data.data)
+              alert(data.data+"11")
             }
           }
         })
