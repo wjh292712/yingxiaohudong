@@ -33,7 +33,7 @@
           <div class="main_list">
             <div class="main_list_box" v-for="(item,index) in mainmsg" :key="index" @click="targetActive(item)">
               <div class="body_img">
-                <img src="../../static/mainPage/Group 17 Copy 3.png" alt="">
+                <img :src=item.img alt="">
               </div>
               <div class="body_text">
                 <h5>{{item.title}}</h5>
@@ -76,6 +76,18 @@
         // banner:[]
       }
 
+    },
+    created(){
+      let _this=this
+      this.$axios({
+        method:"post",
+        url:"http://center.marketing.yunpaas.cn/center/activityDataModel/list",
+        params:{
+
+        },
+      }).then(res=>{
+        _this.mainmsg=res.data.data.list
+      })
     },
     computed: {
       ...mapState(['count', 'banner']),
