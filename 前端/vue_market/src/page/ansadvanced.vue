@@ -229,7 +229,7 @@
           this.partHight1()
         }
       })
-    },  
+    },
     computed:{
       ...mapState(['setting_dtData']),
       ...mapActions(['saveDatadt'])

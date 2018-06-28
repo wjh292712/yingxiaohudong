@@ -8,15 +8,15 @@
           <div class="active_mall">
             <div class="active_body" v-for="(item,index) in  titlemsg">
               <h5 class="active_title">{{item.title}}</h5>
-<button class="btn_all">全部</button>
+<button class="btn_all" @click="getAllData()">全部</button>
               <ul class="body_list" id="contented">
-                <li class="body_list_con" v-for="lll in listdata1" v-if="index==0">
+                <li class="body_list_con" v-for="(lll) in listdata1" v-if="index==0" @click="filterCount(lll.id)">
                   {{lll.name}}
                  </li>
-                <li class="body_list_con" v-for="lll in listdata2" v-if="index==1">
+                <li class="body_list_con" v-for="lll in listdata2" v-if="index==1" @click="filterCount(lll.id)">
                   {{lll.name}}
                 </li>
-                <li class="body_list_con" v-for="lll in listdata3" v-if="index==2">
+                <li class="body_list_con" v-for="lll in listdata3" v-if="index==2" @click="filterCount(lll.id)">
                   {{lll.name}}
                 </li>
               </ul>
@@ -49,7 +49,8 @@
         listdata1:null,
         listdata2:null,
         listdata3:null,
-        titlemsg: [{
+        titlemsg: [
+          {
           title: "活动类型:",
           con: "全部"
         },
@@ -61,7 +62,8 @@
             title: "活动主题:",
             con: "全部"
           }],
-        mainmsg: [{
+        mainmsg: [
+          {
           img: 1,
           title: "开心快乐砸金蛋，来来来",
         }, {
@@ -76,7 +78,11 @@
         }, {
           img: 5,
           title: "I was feeling epic"
-        }]
+        }],
+        categoryId: [],
+        sceneId:[],
+        topicId:[]
+
       }
     },
     created() {
@@ -96,11 +102,51 @@
 
       })
     },
+    mounted(){
+      $("li").click(function () {
+        alert($(this).text())
+      })
+    },
     methods: {
       target() {
         // console.log(222)
         this.$router.push({path: "/activeslide/activelist"})
-      }
+      },
+      getAllData(){
+        let obj={
+
+        }
+        this.$axios({
+          method:"post",
+          url:"http://center.marketing.yunpaas.cn/center/activityDataModel/getActivityByParams",
+          headers: {'Content-Type': 'application/json'},
+          params:{
+
+          },
+        }).then(res=>{
+          console.log(res);
+        })
+      },
+      filterCount(id){
+        this.categoryId=id
+        this.sceneId=id
+        this.topicId=id
+        console.log(this.categoryId)
+        console.log(this.sceneId)
+        console.log(this.topicId)
+        this.$axios({
+          method:"post",
+          url:"http://center.marketing.yunpaas.cn/center/activityDataModel/getActivityByParams",
+          headers: {'Content-Type': 'application/json'},
+          params:{
+            categoryId:this.categoryId,
+            sceneId:this.sceneId,
+            topicId:this.topicId
+          },
+        }).then(res=>{
+          console.log(res);
+        })
+      },
     }
   })
 </script>
