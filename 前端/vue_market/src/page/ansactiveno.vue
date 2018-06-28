@@ -451,8 +451,8 @@
       }
       .grade{
         position: absolute;
-        top: 48%;
-        left: 30%;
+        top: 45%;
+        left: 31%;
         color: #330000;
         p{
           i{
@@ -461,7 +461,7 @@
         }}
       .footer_info{
         position: absolute;
-        top: 67%;
+        top: 63%;
         left: 25%;
         color: #ff0000;
       }

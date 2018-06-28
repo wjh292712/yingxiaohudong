@@ -451,7 +451,7 @@
      }
      .grade{
        position: absolute;
-       top: 48%;
+       top: 45.5%;
        left: 30%;
        color: #330000;
      p{
@@ -461,8 +461,8 @@
      }}
      .footer_info{
        position: absolute;
-       top: 67%;
-       left: 30%;
+       top: 64%;
+       left: 29%;
        color: #ff0000;
      }
      .active_icon{

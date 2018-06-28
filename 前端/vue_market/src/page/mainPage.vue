@@ -260,7 +260,7 @@
               width: 18%;
               min-width: 8rem;
               margin-right: 20px;
-              margin-top: 30px;
+              margin-top: 10px;
               .body_img {
                 border-radius: 0.3rem;
                 width: 100%;

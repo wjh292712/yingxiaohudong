@@ -44,28 +44,32 @@
             </div>
           </div>
           <div class="mask">
+            <!--<div class="remove">-->
+            <!--&lt;!&ndash;<span>X</span>&ndash;&gt;-->
+            <!--</div>-->
+            <!--弹框封装-->
             <div class="center">
-              <el-tabs v-model="activeName1" >
+              <el-tabs v-model="activeName" >
                 <el-tab-pane label="活动说明" name="first">
                   <div class="explain">
                     <p class="rule">活动时间</p>
                     <p>
-                      <span>9999</span>
+                      <span>{{activeStartDate}}--{{activeEndDate}}</span>
                     </p>
                   </div>
                   <div class="explain">
-                    <p class="rule"> 活动奖品</p>
+                    <p class="rule">活动奖品</p>
                     <p>
-                      <span>9999</span>
+                      <span>{{activerewordList1}},{{activerewordList2}},{{activerewordList3}},{{activerewordList4}},{{activerewordList5}},{{activerewordList6}},{{activerewordList7}}
+                      </span>
                     </p>
                   </div>
                   <div class="explain">
                     <p class="rule">活动规则</p>
                     <p>
-                      <span>9999</span>
+                      <span>{{activeInfo}}</span>
                     </p>
                   </div>
-
                 </el-tab-pane>
                 <el-tab-pane label="我的奖品" name="second">
                   <div class="total">
@@ -112,10 +116,22 @@
       return {
         //侧边数据
         //筛选条件数据
-        activeName: '',
-        activeName1: 'second',
+        activeName1: '',
+        activeName: 'second',
         centerDialogVisible: false,
-        count: '900'
+        count: '900',
+        dataStatus:0,
+        activeStartDate:'999',
+        activeEndDate:'999',
+        activerewordList1:'999',
+        activerewordList2:'999',
+        activerewordList3:'999',
+        activerewordList4:'999',
+        activerewordList5:'999',
+        activerewordList6:'999',
+        activerewordList7:'999',
+        activeInfo:'活动规则介绍',
+
       }
 
     },
@@ -130,18 +146,11 @@
 
     },
     mounted() {
-      // this.updataImg()
-
-      //let curname='';
-      // let cua='';
       this.activeN()
-      // this.$nextTick(function () {
-      //   curname = settingbase.methods.partBase()
-      //   // cua=settingbase.methods.inputData()
-      //   console.log(curname);
-      //   // console.log(cua);
-      //   this.activeName=curname
-      // })
+      this.dataStatus=this.$route.query.dataStatus
+      if (this.dataStatus==='1') {
+        this.activeN1()
+      }
 
     },
     updated() {
@@ -153,13 +162,50 @@
       handleClick(tab, event) {
         console.log(tab, event);
       },
-      activeN() {
+      activeN(){
         let _this = this
         let Data = sessionStorage.getItem('Datadt')
-        console.log(66672);
+        console.log(Data);
         _this.base_data = JSON.parse(Data).dtBaseSetup
         console.log(_this.base_data);
-        _this.activeName = _this.formName = _this.base_data.activityName
+        _this.reword_data = JSON.parse(Data).dtAwardSetupExtendList
+        _this.activeName1 = _this.formName=_this.base_data.activityName
+        _this.activeStartDate=_this.timestampToTime(_this.base_data.startDate)
+        _this.activeEndDate=_this.timestampToTime(_this.base_data.endDate)
+        _this.activerewordList1=_this.reword_data[0].prizeName
+        _this.activerewordList2=_this.reword_data[1].prizeName
+        _this.activerewordList3=_this.reword_data[2].prizeName
+        _this.activerewordList4=_this.reword_data[3].prizeName
+        _this.activerewordList5=_this.reword_data[4].prizeName
+        _this.activerewordList6=_this.reword_data[5].prizeName
+        _this.activerewordList7=_this.reword_data[6].prizeName
+        _this.activeInfo=_this.base_data.rule
+      },
+      activeN1(){
+        let _this = this
+        _this.base_data = _this.$route.query.newdtData.dtBaseSetup
+        _this.reword_data = _this.$route.query.newdtData.dtAwardSetupExtendList
+        _this.activeName1 = _this.formName=_this.base_data.activityName
+        _this.activeStartDate=_this.timestampToTime(_this.base_data.startDate)
+        _this.activeEndDate=_this.timestampToTime(_this.base_data.endDate)
+        _this.activerewordList1=_this.reword_data[0].prizeName
+        _this.activerewordList2=_this.reword_data[1].prizeName
+        _this.activerewordList3=_this.reword_data[2].prizeName
+        _this.activerewordList4=_this.reword_data[3].prizeName
+        _this.activerewordList5=_this.reword_data[4].prizeName
+        _this.activerewordList6=_this.reword_data[5].prizeName
+        _this.activerewordList7=_this.reword_data[6].prizeName
+        _this.activeInfo=_this.base_data.rule
+      },
+      timestampToTime(timestamp) {
+        var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = date.getDate() + ' ';
+        var h = date.getHours() + ':';
+        var m = date.getMinutes() + ':';
+        var s = date.getSeconds();
+        return Y+M+D+h+m+s;
       },
 
     },
@@ -465,12 +511,14 @@
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 90;
+    overflow-y: auto;
   }
+
   .mask .center {
-    width: 80%;
-    height: 40%;
+    width: 90%;
+    min-height: 55%;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -488,7 +536,67 @@
   .mask .center .rule {
     color: red;
   }
+  .mask .center .total {
+    width: 8rem;
+    height: 3rem;
+    margin: 1rem auto;
+    display: flex;
+  }
 
+
+  .mask .center .total .to_left {
+    width: 30%;
+    background: #FF5210;
+    color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+
+  .mask .center .total .to_left span {
+    width: 3rem;
+    height: 3rem;
+    line-height: 3rem;
+  }
+
+  .mask .center .total .to_right {
+    width: 70%;
+    border: 1px solid #ccc;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: #FF2F2D;
+    color: #fff;
+  }
+  .mask .center .copy {
+    width: 8rem;
+    height: 3rem;
+    margin: 0 auto;
+    display: flex;
+    margin-top: 10px;
+  }
+
+
+  .mask .center .copy .co_left {
+    width: 30%;
+    background: #D7D7D7;
+    color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+
+  .mask .center .copy .co_left span {
+    width: 3rem;
+    height: 3rem;
+    line-height: 3rem;
+  }
+
+  .mask .center .copy .co_right {
+    width: 70%;
+    border: 1px solid #ccc;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: #C2C0C0;
+    color: #fff;
+  }
   .mask .remove {
     width: 1.5rem;
     height: 1.5rem;

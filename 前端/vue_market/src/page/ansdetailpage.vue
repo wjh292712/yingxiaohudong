@@ -43,17 +43,21 @@
               </div>
             </div>
           </div>
-          <div class="mask">
+          <div class="mask" >
+            <!--<div class="remove">-->
+            <!--<span>X</span>-->
+            <!--</div>-->
             <div class="center">
-              <el-tabs v-model="activeName1" >
+              <el-tabs v-model="activeName" >
+
                 <div class="total">
                   <div class="to_left">
-                    <h6 style="margin-top:10px;text-align:center;">话费券</h6>
-                    <h6> 2018.2.1~2018.2.10</h6>
-
+                    <img src="../../static/active/dijias.png" alt="" class="images">
+                    <p style="text-align:center;" class="to_left_award"><span>¥</span>100<span>话费券</span></p>
+                    <p class="dateActive"> 2018.2.1~2018.2.10</p>
                   </div>
                   <div class="to_right">
-                    <span>立即兑换</span>
+                    <h3>立即兑换</h3>
                   </div>
                 </div>
                 <div class="site">
@@ -105,7 +109,8 @@
         activeName:'',
         activeName1: '',
         centerDialogVisible: false,
-        count: '900'
+        count: '900',
+        dataStatus:0,
       }
 
     },
@@ -455,12 +460,13 @@
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 90
   }
+
   .mask .center {
-    width: 80%;
-    height: 40%;
+    width: 90%;
+    height: 55%;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -480,20 +486,43 @@
   }
 
   .mask .center .total {
-    width: 9rem;
+    width: 12rem;
     height: 3rem;
     margin: 0 auto;
-    display: flex;
-    margin-top: 1.5rem;
+    /*display: flex;*/
+    margin-top: 0.5rem;
   }
 
 
   .mask .center .total .to_left {
-    width: 70%;
-    background: #FF5210;
-    color: #fff;
+    width: 100%;
+    background: #fff;
+    color: #000000;
     border: 1px solid #ccc;
     border-radius: 10px;
+    .images{
+      width: 100%;
+      height: 100%;
+    }
+    .to_left_award{
+      position: absolute;
+      top: 0.5rem;
+      left: 40%;
+      font-size: 20px;
+      span:nth-child(1){
+        font-size: 12px;
+      }
+      span:nth-child(2){
+        font-size: 12px;
+        color: #000000;
+      }}
+    .dateActive{
+      position: absolute;
+      top: 2.6rem;
+      left: 35%;
+      font-size: 12px;
+      color: #6d6d72;
+    }
   }
 
   .mask .center .total .to_left span {
@@ -503,10 +532,14 @@
   }
 
   .mask .center .total .to_right {
-    width: 30%;
+    width: 100%;
+    height: 1.8rem;
+    line-height: 1.8rem;
     border: 1px solid #ccc;
-    border-radius: 10px;
+    border-radius: 30px;
     background: #FF2F2D;
+    margin-top: 20px;
+    text-align: center;
     color: #fff;
   }
 
@@ -519,12 +552,12 @@
   .mask .site {
     width: 9rem;
     height: 4rem;
-    margin: 0 auto;
+    margin: 4rem auto;
   }
 
   .mask .site p {
-    margin-top: 5px;
-    margin-left: 5px;
+    margin-top: 10px;
+    margin-left: -20px;
   }
 
   .mask .remove {
