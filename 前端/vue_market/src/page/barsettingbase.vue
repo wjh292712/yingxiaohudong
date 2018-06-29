@@ -160,22 +160,23 @@
       ...mapActions(['saveDatakj'])
     },
     updated() {
-      if(this.dataStatus===undefined){
-        this.saveBase()
-      }else if (this.dataStatus==='1') {
-        this.saveBase1()
-      }
+      // if(this.dataStatus===undefined){
+      //   this.saveBase()
+      // }else if (this.dataStatus==='1') {
+      //   this.saveBase1()
+      // }
+      this.saveBase()
     },
     methods: {
 
       // 基础设置模块
       partBase() {
+
         let _this = this
         let formName = ""
         // _this.$store.dispatch('saveData')
         // let Data = sessionStorage.getItem('Data')
         let Data = sessionStorage.getItem('Datakj')
-        console.log(Data+"1222222222222");
         _this.base_data = JSON.parse(Data).kjBaseSetup
         console.log(_this.base_data);
         _this.formName = _this.base_data.activityName
@@ -244,8 +245,12 @@
       saveBase() {
         let _this = this
         // _this.$store.dispatch('saveData')
-        let Data = sessionStorage.getItem('Datakj')
-        _this.base_send = JSON.parse(Data).kjBaseSetup
+        if(this.dataStatus===undefined){
+          let Data = sessionStorage.getItem('Datakj')
+          _this.base_send = JSON.parse(Data).kjBaseSetup
+        }else if (this.dataStatus==='1') {
+          _this.base_send = this.$route.query.newkjData.kjBaseSetup
+        }
         _this.base_send.activityName = _this.formName
         // this.base_data.endDate = this.value7
         _this.base_send.isShow = _this.radio1 == 1 ? true : false;
@@ -258,24 +263,27 @@
         _this.base_send.endDate =  _this.end_date
          _this.$store.state.setting_kjData.kjBaseSetup = this.base_send
         _this.$bus.emit("send_base", _this.base_send)
+
+        console.log(_this.base_send);
       },
-      saveBase1() {
-        let _this = this
-        _this.base_send = this.$route.query.newkjData.kjBaseSetup
-        _this.base_send.activityName = _this.formName
-        // this.base_data.endDate = this.value7
-        _this.base_send.isShow = _this.radio1 == 1 ? true : false;
-        _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
-        _this.base_send.rule = _this.form.explain
-        _this.base_send.merchantInfo = _this.form.intro
-        _this.base_send.merchantAddress = _this.form.address
-        _this.base_send.merchantTelephone = _this.form.phone
-        _this.base_send.startDate = _this.start_date
-        _this.base_send.endDate =  _this.end_date
-         _this.$store.state.setting_kjData.kjBaseSetup = this.base_send
-        _this.$bus.emit("send_base", _this.base_send)
-        console.log(_this.base_send)
-      },
+      // saveBase1() {
+      //   alert("222")
+      //   let _this = this
+      //   _this.base_send = this.$route.query.newkjData.kjBaseSetup
+      //   _this.base_send.activityName = _this.formName
+      //   // this.base_data.endDate = this.value7
+      //   _this.base_send.isShow = _this.radio1 == 1 ? true : false;
+      //   _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
+      //   _this.base_send.rule = _this.form.explain
+      //   _this.base_send.merchantInfo = _this.form.intro
+      //   _this.base_send.merchantAddress = _this.form.address
+      //   _this.base_send.merchantTelephone = _this.form.phone
+      //   _this.base_send.startDate = _this.start_date
+      //   _this.base_send.endDate =  _this.end_date
+      //    _this.$store.state.setting_kjData.kjBaseSetup = this.base_send
+      //   _this.$bus.emit("send_base", _this.base_send)
+      //   console.log(_this.base_send)
+      // },
       inputData() {
         // console.log(this.formName);
         if (!this.formName) {

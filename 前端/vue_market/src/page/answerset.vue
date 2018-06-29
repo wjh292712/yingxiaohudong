@@ -84,12 +84,14 @@ import ansadvanced from '@/page/ansadvanced'
         url: "http://center.marketing.yunpaas.cn/dt/activitySetup/init",//数据初始化接口
         params: {},
       }).then(res => {
-        let setting_dtData=JSON.stringify(res.data.data)
-        sessionStorage.setItem("Datadt",setting_dtData)
-        let Data = sessionStorage.getItem('Datadt')
-        this.sendData = JSON.parse(Data)
-        console.log(this.sendData);
-        var _this = this;
+        let _this = this
+        this.dataStatus = this.$route.query.dataStatus
+        if (this.dataStatus === undefined) {
+          this.sendData = res.data.data
+          console.log(this.sendData);
+        } else if (this.dataStatus === '1') {
+          this.sendData = this.$route.query.newdtData
+        }
         //基础设置返回的数据
         this.$bus.on("send_base",function(data){
           data == ''?_this.sendData.dtBaseSetup = _this.sendData.dtBaseSetup : _this.sendData.dtBaseSetup = data;
@@ -153,7 +155,8 @@ import ansadvanced from '@/page/ansadvanced'
               alert(data.data)
               _this.$router.push({path:'/activeslide/myactive'})
             }else {
-              alert(data.data+"11")
+              alert(data.msg+"11")
+              console.log(data.msg);
             }
           }
         })

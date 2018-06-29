@@ -170,11 +170,10 @@
 
     },
     updated(){
-      if(this.dataStatus===undefined){
-        this.saveBase()
-      }else if (this.dataStatus==='1') {
-        this.saveBase1()
-      }
+      this.saveBase()
+      //  if (this.dataStatus==='1') {
+      //   this.saveBase1()
+      // }
       // this.base_data=this.$route.newjggData.dtBaseSetup
 
     },
@@ -260,10 +259,15 @@
 
       },
       saveBase() {
+
         let _this = this
-        // _this.$store.dispatch('saveData')
-        let Data = sessionStorage.getItem('Data')
-        _this.base_send = JSON.parse(Data).jggBaseSetup
+        this.dataStatus=this.$route.query.dataStatus
+        if(this.dataStatus===undefined){
+          let Data = sessionStorage.getItem('Data')
+          _this.base_send = JSON.parse(Data).jggBaseSetup
+        }else if (this.dataStatus==='1') {
+          _this.base_send = _this.$route.query.newjggData.jggBaseSetup
+        }
         _this.base_send.activityName = _this.formName
         _this.base_send.rule=_this.form.desc
         _this.base_send.addNum =_this.addpepCount
@@ -276,22 +280,22 @@
         _this.$bus.emit("send_base", _this.base_send)
 
       },
-      saveBase1() {
-        let _this = this
-        // _this.$store.dispatch('saveData')
-        _this.base_send = _this.$route.query.newjggData.jggBaseSetup
-        _this.base_send.activityName = _this.formName
-        _this.base_send.rule=_this.form.desc
-        _this.base_send.addNum =_this.addpepCount
-        // this.base_data.endDate = this.value7
-        _this.base_send.startDate = _this.start_date
-        _this.base_send.endDate =  _this.end_date
-        _this.base_send.shows = _this.radio1 == 1 ? true : false;
-        _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
-        // this.$store.state.setting_data.jggBaseSetup = this.base_send
-        _this.$bus.emit("send_base", _this.base_send)
-
-      },
+      // saveBase1() {
+      //   let _this = this
+      //   // _this.$store.dispatch('saveData')
+      //   _this.base_send = _this.$route.query.newjggData.jggBaseSetup
+      //   _this.base_send.activityName = _this.formName
+      //   _this.base_send.rule=_this.form.desc
+      //   _this.base_send.addNum =_this.addpepCount
+      //   // this.base_data.endDate = this.value7
+      //   _this.base_send.startDate = _this.start_date
+      //   _this.base_send.endDate =  _this.end_date
+      //   _this.base_send.shows = _this.radio1 == 1 ? true : false;
+      //   _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
+      //   // this.$store.state.setting_data.jggBaseSetup = this.base_send
+      //   _this.$bus.emit("send_base", _this.base_send)
+      //
+      // },
       onSubmit() {
         alert(this.activeTime.getTime());
         // this.activeTime = this.activeTime.getTime();
@@ -299,7 +303,7 @@
         this.oneRadio = this.radio1;
         this.twoRadio = this.radio2;
 
-        alert(this.oneRadio)
+          alert(this.oneRadio)
         alert(this.twoRadio)
         if (this.formName != '') {
           //   if(){

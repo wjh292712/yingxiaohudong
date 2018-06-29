@@ -3,7 +3,7 @@
     <div class="base_con">
       <el-form ref="form" :model="form" label-width="100px">
         <el-form-item label="活动名称:">
-          <el-input v-model="formName" @input='inputData'></el-input>
+          <el-input v-model="formName" @input='inputData' maxlength="10" placeholder="不超过10个汉字"></el-input>
         </el-form-item>
         <el-form-item label="活动日期:">
           <!--<el-date-picker-->
@@ -153,11 +153,12 @@
       ...mapActions(['saveDatadt','newActiveStates'])
     },
     updated(){
-      if(this.dataStatus===undefined){
-        this.saveBase()
-      }else if (this.dataStatus==='1') {
-        this.saveBase1()
-      }
+      this.saveBase()
+        // if(this.dataStatus===undefined){
+        //   this.saveBase()
+        // }else if (this.dataStatus==='1') {
+        //   this.saveBase1()
+        // }
 
     },
 
@@ -221,9 +222,12 @@
       },
       saveBase(){
         let _this = this
-        // _this.$store.dispatch('saveData')
-        let Data = sessionStorage.getItem('Datadt')
-        _this.base_send = JSON.parse(Data).dtBaseSetup
+        if(this.dataStatus===undefined){
+          let Data = sessionStorage.getItem('Datadt')
+          _this.base_send = JSON.parse(Data).dtBaseSetup
+        }else if (this.dataStatus==='1') {
+          _this.base_send = this.$route.query.newdtData.dtBaseSetup
+        }
         _this.base_send.activityName = _this.formName
         _this.base_send.addDoubling= _this.addCount
         _this.base_send.shows = _this.radio1 == 1 ? true : false;
@@ -240,28 +244,27 @@ console.log(_this.base_send)
 
         }
       },
-      saveBase1(){
-        let _this = this
-        // _this.$store.dispatch('saveData')
-
-        _this.base_send = this.$route.query.newdtData.dtBaseSetup
-        console.log(_this.base_send);
-        _this.base_send.activityName = _this.formName
-        _this.base_send.addDoubling= _this.addCount
-        _this.base_send.shows = _this.radio1 == 1 ? true : false;
-        _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
-        _this.base_send.startDate= _this.start_date
-        _this.base_send.endDate=_this.end_date
-        _this.base_send.rule= _this.form.explain
-        if (this.formName != '') {
-          this.$store.state.setting_dtData.dtBaseSetup = this.base_send
-          _this.$bus.emit("send_base",_this.base_send)
-
-        } else {
-          alert('活动名称，不能为空哦！')
-
-        }
-      },
+      // saveBase1(){
+      //   let _this = this
+      //   // _this.$store.dispatch('saveData')
+      //   _this.base_send = this.$route.query.newdtData.dtBaseSetup
+      //   console.log(_this.base_send);
+      //   _this.base_send.activityName = _this.formName
+      //   _this.base_send.addDoubling= _this.addCount
+      //   _this.base_send.shows = _this.radio1 == 1 ? true : false;
+      //   _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
+      //   _this.base_send.startDate= _this.start_date
+      //   _this.base_send.endDate=_this.end_date
+      //   _this.base_send.rule= _this.form.explain
+      //   if (this.formName != '') {
+      //     this.$store.state.setting_dtData.dtBaseSetup = this.base_send
+      //     _this.$bus.emit("send_base",_this.base_send)
+      //
+      //   } else {
+      //     alert('活动名称，不能为空哦！')
+      //
+      //   }
+      // },
 
       onSubmit() {
         // alert(this.activeTime.getTime());

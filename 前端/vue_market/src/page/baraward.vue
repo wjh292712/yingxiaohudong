@@ -116,18 +116,18 @@
         this.raward_send.holdTime= this.input4
         this.raward_send.singleUserBargainNum = this.input5
         this.raward_send.singleUserHelpNum = this.input6
-        this.raward_send.topShow = this.radio1
-        _this.$store.state.setting_kjData.kjBargainSetup = this.raward_send
-        _this.$bus.emit("send_award", this.raward_send)
+        this.raward_send.topShow = this.radio1==0 ? false:true
+        this.$store.state.setting_kjData.kjBargainSetup = this.raward_send
+        this.$bus.emit("send_award", this.raward_send)
       },
       saveAward1(){
         this.raward_send = this.$route.query.newkjData.kjBargainSetup
         this.raward_send.holdTime= this.input4
         this.raward_send.singleUserBargainNum = this.input5
         this.raward_send.singleUserHelpNum = this.input6
-        this.raward_send.topShow = this.radio1
-        _this.$store.state.setting_kjData.kjBargainSetup = this.raward_send
-        _this.$bus.emit("send_award", this.raward_send)
+        this.raward_send.topShow = this.radio1==0 ? false:true
+        this.$store.state.setting_kjData.kjBargainSetup = this.raward_send
+        this.$bus.emit("send_award", this.raward_send)
       }
     }
   }

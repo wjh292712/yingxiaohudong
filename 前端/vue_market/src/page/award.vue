@@ -16,9 +16,9 @@
             <span @click="xzlimit()">限制</span>
           </el-radio>
           <el-radio v-model="radio1" label="2">不限制</el-radio>
-          <span class="more" v-show="limitCount">每人最多有
+          <span class="more" v-show="limitCount" >每人最多有
             <span>
-              <el-input class="ipt" v-model="input1">
+              <el-input class="ipt" v-model="input1" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
               </el-input>
             </span>
             <span>次</span>
@@ -34,7 +34,7 @@
         <p>
           <span>每人每日抽奖机会 : </span>
           <span>
-          <el-input class="every" v-model="input2">
+          <el-input class="every" v-model="input2" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
           </el-input>
           <span class="time">次</span>
         </span>
@@ -43,7 +43,7 @@
           <span>每人中奖机会 : </span>
           <span>每人最多中奖</span>
           <span>
-          <el-input class="everys" v-model="input3">
+          <el-input class="everys" v-model="input3" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
           </el-input>
           <span class="times">次</span>
         </span>
@@ -61,90 +61,90 @@
           <p>
             <span>奖项1</span>
             <span>10元话费券
-            <el-input class="every" v-model="input4">
+            <el-input class="every" v-model="input4" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
             </el-input>
             <span>%</span>
           </span>
             <span style="margin-left:2rem">每天最多派发</span>
             <span>
-            <el-input class="every" v-model="input5">
+            <el-input class="every" v-model="input5" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
             </el-input>
           </span>
           </p>
           <p>
             <span>奖项2</span>
             <span>10元话费券
-            <el-input class="every" v-model="input6">
+            <el-input class="every" v-model="input6" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
             </el-input>
             <span>%</span>
           </span>
             <span style="margin-left:2rem">每天最多派发</span>
             <span>
-            <el-input class="every" v-model="input7">
+            <el-input class="every" v-model="input7" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
             </el-input>
           </span>
           <p>
             <span>奖项3</span>
             <span>10元话费券
-              <el-input class="every" v-model="input8">
+              <el-input class="every" v-model="input8" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
               </el-input>
               <span>%</span>
             </span>
             <span style="margin-left:2rem">每天最多派发</span>
             <span>
-              <el-input class="every" v-model="input9">
+              <el-input class="every" v-model="input9" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
               </el-input>
             </span>
           </p>
           <p>
             <span>奖项4</span>
             <span>10元话费券
-              <el-input class="every" v-model="input10">
+              <el-input class="every" v-model="input10" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
               </el-input>
               <span>%</span>
             </span>
             <span style="margin-left:2rem">每天最多派发</span>
             <span>
-              <el-input class="every" v-model="input11">
+              <el-input class="every" v-model="input11" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
               </el-input>
             </span>
           </p>
           <p>
             <span>奖项5</span>
             <span>10元话费券
-              <el-input class="every" v-model="input12">
+              <el-input class="every" v-model="input12" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
               </el-input>
               <span>%</span>
             </span>
             <span style="margin-left:2rem">每天最多派发</span>
             <span>
-              <el-input class="every" v-model="input13">
+              <el-input class="every" v-model="input13" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
               </el-input>
             </span>
           </p>
           <p>
             <span>奖项6</span>
             <span>10元话费券
-              <el-input class="every" v-model="input14">
+              <el-input class="every" v-model="input14" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
               </el-input>
               <span>%</span>
             </span>
             <span style="margin-left:2rem">每天最多派发</span>
             <span>
-              <el-input class="every" v-model="input15">
+              <el-input class="every" v-model="input15" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
               </el-input>
             </span>
           </p>
           <p>
             <span>奖项7</span>
             <span>10元话费券
-              <el-input class="every" v-model="input16">
+              <el-input class="every" v-model="input16" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
               </el-input>
               <span>%</span>
             </span>
             <span style="margin-left:2rem">每天最多派发</span>
             <span>
-              <el-input class="every" v-model="input17">
+              <el-input class="every" v-model="input17" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
               </el-input>
             </span>
           </p>

@@ -47,10 +47,10 @@
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
-                <el-input v-model="input1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+                <el-input v-model="form.input1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="form.input2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
               </el-form-item>
               <el-form-item label="砍到底价成功概率:" label-width="140px">
-                <el-input v-model="input3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <el-input v-model="form.input3" placeholder="请输入内容" class="nns" style="width: 200px"/>
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存:">
@@ -149,10 +149,10 @@
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
-                <el-input v-model="input2_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input2_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+                <el-input v-model="form.input2_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="form.input2_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
               </el-form-item>
               <el-form-item label="砍到底价成功概率:" label-width="140px">
-                <el-input v-model="input2_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <el-input v-model="form.input2_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存">
@@ -252,10 +252,10 @@
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
-                <el-input v-model="input3_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input3_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+                <el-input v-model="form.input3_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="form.input3_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
               </el-form-item>
               <el-form-item label="砍到底价成功概率:" label-width="140px">
-                <el-input v-model="input3_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <el-input v-model="form.input3_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存">
@@ -357,10 +357,10 @@
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
-                <el-input v-model="input4_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input4_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+                <el-input v-model="form.input4_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="form.input4_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
               </el-form-item>
               <el-form-item label="砍到底价成功概率:" label-width="140px">
-                <el-input v-model="input4_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <el-input v-model="form.input4_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存">
@@ -461,10 +461,10 @@
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
-                <el-input v-model="input5_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input5_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+                <el-input v-model="form.input5_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="form.input5_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
               </el-form-item>
               <el-form-item label="砍到底价成功概率:" label-width="140px">
-                <el-input v-model="input5_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <el-input v-model="form.input5_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存">
@@ -564,10 +564,10 @@
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
-                <el-input v-model="input6_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input6_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+                <el-input v-model="form.input6_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="form.input6_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
               </el-form-item>
               <el-form-item label="砍到底价成功概率:" label-width="140px">
-                <el-input v-model="input6_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <el-input v-model="form.input6_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存">
@@ -668,10 +668,10 @@
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
-                <el-input v-model="input7_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="input7_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+                <el-input v-model="form.input7_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="form.input7_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
               </el-form-item>
               <el-form-item label="砍到底价成功概率:" label-width="140px">
-                <el-input v-model="input7_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <el-input v-model="form.input7_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存">
@@ -907,7 +907,7 @@
         url: "http://center.marketing.yunpaas.cn/kj/activitySetup/init",//数据初始化接口
         params: {},
       }).then(res => {
-        let _this=this
+
         let setting_kjData=JSON.stringify(res.data.data)
         sessionStorage.setItem("Datakj",setting_kjData)
         this.actName=this.$route.query.actName
@@ -971,9 +971,9 @@
         this.form.name1 = this.reword_data[0].goodsName//商品名称
         this.form.price1 = this.reword_data[0].goodsMarketPrice//商品原价
         this.form.priceLow1 = this.reword_data[0].goodsCostPrice//商品底价
-        this.input1=this.reword_data[0].hiPrice
-        this.input2=this.reword_data[0].lowPrice
-        this.input3=this.reword_data[0].probability
+        this.form.input1=this.reword_data[0].hiPrice
+        this.form.input2=this.reword_data[0].lowPrice
+        this.form.input3=this.reword_data[0].probability
         this.form.count1 = this.reword_data[0].goodsStockNum//商品库存
         this.form.countsales1 = this.reword_data[0].goodsSalesNum//虚拟销量
         this.form.imageUrl1_1 = this.reword_data[0].goodsImg1//商品详情图片1
@@ -988,9 +988,9 @@
         this.form.name2 = this.reword_data[1].goodsName//商品名称
         this.form.price2 = this.reword_data[1].goodsMarketPrice//商品原价
         this.form.priceLow2 = this.reword_data[1].goodsCostPrice//商品底价
-        this.input2_1=this.reword_data[1].hiPrice
-        this.input2_2=this.reword_data[1].lowPrice
-        this.input2_3=this.reword_data[1].probability
+        this.form.input2_1=this.reword_data[1].hiPrice
+        this.form.input2_2=this.reword_data[1].lowPrice
+        this.form.input2_3=this.reword_data[1].probability
         this.form.count2 = this.reword_data[1].goodsStockNum//商品库存
         this.form.countsales2 = this.reword_data[1].goodsSalesNum//虚拟销量
         this.form.imageUrl2_1 = this.reword_data[1].goodsImg1//商品详情图片1
@@ -1003,9 +1003,9 @@
         this.form.name3 = this.reword_data[2].goodsName//商品名称
         this.form.price3 = this.reword_data[2].goodsMarketPrice//商品原价
         this.form.priceLow3 = this.reword_data[2].goodsCostPrice//商品底价
-        this.input3_1=this.reword_data[3].hiPrice
-        this.input3_2=this.reword_data[3].lowPrice
-        this.input3_3=this.reword_data[3].probability
+        this.form.input3_1=this.reword_data[3].hiPrice
+        this.form.input3_2=this.reword_data[3].lowPrice
+        this.form.input3_3=this.reword_data[3].probability
         this.form.count3 = this.reword_data[2].goodsStockNum//商品库存
         this.form.countsales3 = this.reword_data[2].goodsSalesNum//虚拟销量
         this.form.imageUrl3_1 = this.reword_data[2].goodsImg1//商品详情图片1
@@ -1019,9 +1019,9 @@
         this.form.name4 = this.reword_data[3].goodsName//商品名称
         this.form.price4 = this.reword_data[3].goodsMarketPrice//商品原价
         this.form.priceLow4 = this.reword_data[3].goodsCostPrice//商品底价
-        this.input4_1=this.reword_data[3].hiPrice
-        this.input4_2=this.reword_data[3].lowPrice
-        this.input4_3=this.reword_data[3].probability
+        this.form.input4_1=this.reword_data[3].hiPrice
+        this.form.input4_2=this.reword_data[3].lowPrice
+        this.form.input4_3=this.reword_data[3].probability
         this.form.count4 = this.reword_data[3].goodsStockNum//商品库存
         this.form.countsales4 = this.reword_data[3].goodsSalesNum//虚拟销量
         this.form.imageUrl4_1 = this.reword_data[3].goodsImg1//商品详情图片1
@@ -1035,9 +1035,9 @@
         this.region5=this.reword_data[4].goodsType
         this.form.price5 = this.reword_data[4].goodsMarketPrice//商品原价
         this.form.priceLow5 = this.reword_data[4].goodsCostPrice//商品底价
-        this.input5_1=this.reword_data[4].hiPrice
-        this.input5_2=this.reword_data[4].lowPrice
-        this.input5_3=this.reword_data[4].probability
+        this.form.input5_1=this.reword_data[4].hiPrice
+        this.form.input5_2=this.reword_data[4].lowPrice
+        this.form.input5_3=this.reword_data[4].probability
         this.form.count5 = this.reword_data[4].goodsStockNum//商品库存
         this.form.countsales5 = this.reword_data[4].goodsSalesNum//虚拟销量
         this.form.imageUrl5_1 = this.reword_data[4].goodsImg1//商品详情图片1
@@ -1050,9 +1050,9 @@
         this.form.name6 = this.reword_data[5].goodsName//商品名称
         this.form.price6 = this.reword_data[5].goodsMarketPrice//商品原价
         this.form.priceLow6 = this.reword_data[5].goodsCostPrice//商品底价
-        this.input6_1=this.reword_data[5].hiPrice
-        this.input6_2=this.reword_data[5].lowPrice
-        this.input6_3=this.reword_data[5].probability
+        this.form.input6_1=this.reword_data[5].hiPrice
+        this.form.input6_2=this.reword_data[5].lowPrice
+        this.form.input6_3=this.reword_data[5].probability
         this.form.count6 = this.reword_data[5].goodsStockNum//商品库存
         this.form.countsales6 = this.reword_data[5].goodsSalesNum//虚拟销量
         this.form.imageUrl6_1 = this.reword_data[5].goodsImg1//商品详情图片1
@@ -1065,9 +1065,9 @@
         this.form.name7 = this.reword_data[6].goodsName//商品名称
         this.form.price7 = this.reword_data[6].goodsMarketPrice//商品原价
         this.form.priceLow7 = this.reword_data[6].goodsCostPrice//商品底价
-        this.input7_1=this.reword_data[6].hiPrice
-        this.input7_2=this.reword_data[6].lowPrice
-        this.input7_3=this.reword_data[6].probability
+        this.form.input7_1=this.reword_data[6].hiPrice
+        this.form.input7_2=this.reword_data[6].lowPrice
+        this.form.input7_3=this.reword_data[6].probability
         this.form.count7 = this.reword_data[6].goodsStockNum//商品库存
         this.form.countsales7 = this.reword_data[6].goodsSalesNum//虚拟销量
         this.form.imageUrl7_1 = this.reword_data[6].goodsImg1//商品详情图片1
@@ -1087,9 +1087,9 @@
         this.form.name1 = this.reword_data[0].goodsName//商品名称
         this.form.price1 = this.reword_data[0].goodsMarketPrice//商品原价
         this.form.priceLow1 = this.reword_data[0].goodsCostPrice//商品底价
-        this.input1=this.reword_data[0].hiPrice
-        this.input2=this.reword_data[0].lowPrice
-        this.input3=this.reword_data[0].probability
+        this.form.input1=this.reword_data[0].hiPrice
+        this.form.input2=this.reword_data[0].lowPrice
+        this.form.input3=this.reword_data[0].probability
         this.form.count1 = this.reword_data[0].goodsStockNum//商品库存
         this.form.countsales1 = this.reword_data[0].goodsSalesNum//虚拟销量
         this.form.imageUrl1_1 = this.reword_data[0].goodsImg1//商品详情图片1
@@ -1104,9 +1104,9 @@
         this.form.name2 = this.reword_data[1].goodsName//商品名称
         this.form.price2 = this.reword_data[1].goodsMarketPrice//商品原价
         this.form.priceLow2 = this.reword_data[1].goodsCostPrice//商品底价
-        this.input2_1=this.reword_data[1].hiPrice
-        this.input2_2=this.reword_data[1].lowPrice
-        this.input2_3=this.reword_data[1].probability
+        this.form.input2_1=this.reword_data[1].hiPrice
+        this.form.input2_2=this.reword_data[1].lowPrice
+        this.form.input2_3=this.reword_data[1].probability
         this.form.count2 = this.reword_data[1].goodsStockNum//商品库存
         this.form.countsales2 = this.reword_data[1].goodsSalesNum//虚拟销量
         this.form.imageUrl2_1 = this.reword_data[1].goodsImg1//商品详情图片1
@@ -1119,9 +1119,9 @@
         this.form.name3 = this.reword_data[2].goodsName//商品名称
         this.form.price3 = this.reword_data[2].goodsMarketPrice//商品原价
         this.form.priceLow3 = this.reword_data[2].goodsCostPrice//商品底价
-        this.input3_1=this.reword_data[3].hiPrice
-        this.input3_2=this.reword_data[3].lowPrice
-        this.input3_3=this.reword_data[3].probability
+        this.form.input3_1=this.reword_data[3].hiPrice
+        this.form.input3_2=this.reword_data[3].lowPrice
+        this.form.input3_3=this.reword_data[3].probability
         this.form.count3 = this.reword_data[2].goodsStockNum//商品库存
         this.form.countsales3 = this.reword_data[2].goodsSalesNum//虚拟销量
         this.form.imageUrl3_1 = this.reword_data[2].goodsImg1//商品详情图片1
@@ -1135,9 +1135,9 @@
         this.form.name4 = this.reword_data[3].goodsName//商品名称
         this.form.price4 = this.reword_data[3].goodsMarketPrice//商品原价
         this.form.priceLow4 = this.reword_data[3].goodsCostPrice//商品底价
-        this.input4_1=this.reword_data[3].hiPrice
-        this.input4_2=this.reword_data[3].lowPrice
-        this.input4_3=this.reword_data[3].probability
+        this.form.input4_1=this.reword_data[3].hiPrice
+        this.form.input4_2=this.reword_data[3].lowPrice
+        this.form.input4_3=this.reword_data[3].probability
         this.form.count4 = this.reword_data[3].goodsStockNum//商品库存
         this.form.countsales4 = this.reword_data[3].goodsSalesNum//虚拟销量
         this.form.imageUrl4_1 = this.reword_data[3].goodsImg1//商品详情图片1
@@ -1151,9 +1151,9 @@
         this.form.name5 = this.reword_data[4].goodsName//商品名称
         this.form.price5 = this.reword_data[4].goodsMarketPrice//商品原价
         this.form.priceLow5 = this.reword_data[4].goodsCostPrice//商品底价
-        this.input5_1=this.reword_data[4].hiPrice
-        this.input5_2=this.reword_data[4].lowPrice
-        this.input5_3=this.reword_data[4].probability
+        this.form.input5_1=this.reword_data[4].hiPrice
+        this.form.input5_2=this.reword_data[4].lowPrice
+        this.form.input5_3=this.reword_data[4].probability
         this.form.count5 = this.reword_data[4].goodsStockNum//商品库存
         this.form.countsales5 = this.reword_data[4].goodsSalesNum//虚拟销量
         this.form.imageUrl5_1 = this.reword_data[4].goodsImg1//商品详情图片1
@@ -1166,9 +1166,9 @@
         this.form.name6 = this.reword_data[5].goodsName//商品名称
         this.form.price6 = this.reword_data[5].goodsMarketPrice//商品原价
         this.form.priceLow6 = this.reword_data[5].goodsCostPrice//商品底价
-        this.input6_1=this.reword_data[5].hiPrice
-        this.input6_2=this.reword_data[5].lowPrice
-        this.input6_3=this.reword_data[5].probability
+        this.form.input6_1=this.reword_data[5].hiPrice
+        this.form.input6_2=this.reword_data[5].lowPrice
+        this.form.input6_3=this.reword_data[5].probability
         this.form.count6 = this.reword_data[5].goodsStockNum//商品库存
         this.form.countsales6 = this.reword_data[5].goodsSalesNum//虚拟销量
         this.form.imageUrl6_1 = this.reword_data[5].goodsImg1//商品详情图片1
@@ -1181,9 +1181,9 @@
         this.form.name7 = this.reword_data[6].goodsName//商品名称
         this.form.price7 = this.reword_data[6].goodsMarketPrice//商品原价
         this.form.priceLow7 = this.reword_data[6].goodsCostPrice//商品底价
-        this.input7_1=this.reword_data[6].hiPrice
-        this.input7_2=this.reword_data[6].lowPrice
-        this.input7_3=this.reword_data[6].probability
+        this.form.input7_1=this.reword_data[6].hiPrice
+        this.form.input7_2=this.reword_data[6].lowPrice
+        this.form.input7_3=this.reword_data[6].probability
         this.form.count7 = this.reword_data[6].goodsStockNum//商品库存
         this.form.countsales7 = this.reword_data[6].goodsSalesNum//虚拟销量
         this.form.imageUrl7_1 = this.reword_data[6].goodsImg1//商品详情图片1
@@ -1204,9 +1204,9 @@
         this.reword_send[0].goodsName = this.form.name1 //商品名称
         this.reword_send[0].goodsMarketPrice = this.form.price1//商品原价
         this.reword_send[0].goodsCostPrice = this.form.priceLow1 //商品底价
-        this.reword_send[0].hiPrice=this.input1
-        this.reword_send[0].lowPrice=this.input2
-        this.reword_send[0].probability=this.input3
+        this.reword_send[0].hiPrice=this.form.input1
+        this.reword_send[0].lowPrice=this.form.input2
+        this.reword_send[0].probability=this.form.input3
         this.reword_send[0].goodsStockNum = this.form.count1//商品库存
         this.reword_send[0].goodsSalesNum = this.form.countsales1//虚拟销量
         this.reword_send[0].goodsImg1 = this.form.imageUrl1_1//商品详情图片1
@@ -1220,9 +1220,9 @@
         this.reword_send[1].goodsName = this.form.name2
         this.reword_send[1].goodsMarketPrice = this.form.price2
         this.reword_send[1].goodsCostPrice = this.form.priceLow2
-        this.reword_send[1].hiPrice=this.input2_1
-        this.reword_send[1].lowPrice=this.input2_2
-        this.reword_send[1].probability=this.input2_3
+        this.reword_send[1].hiPrice=this.form.input2_1
+        this.reword_send[1].lowPrice=this.form.input2_2
+        this.reword_send[1].probability=this.form.input2_3
         this.reword_send[1].goodsStockNum = this.form.count2
         this.reword_send[1].goodsSalesNum = this.form.countsales2
         this.reword_send[1].goodsImg1 = this.form.imageUrl2_1
@@ -1237,9 +1237,9 @@
         this.reword_send[2].goodsName = this.form.name3
         this.reword_send[2].goodsMarketPrice = this.form.price3
         this.reword_send[2].goodsCostPrice = this.form.priceLow3
-        this.reword_send[2].hiPrice=this.input3_1
-        this.reword_send[2].lowPrice=this.input3_2
-        this.reword_send[2].probability=this.input3_3
+        this.reword_send[2].hiPrice=this.form.input3_1
+        this.reword_send[2].lowPrice=this.form.input3_2
+        this.reword_send[2].probability=this.form.input3_3
         this.reword_send[2].goodsStockNum = this.form.count3
         this.reword_send[2].goodsSalesNum = this.form.countsales3
         this.reword_send[2].goodsImg1 = this.form.imageUrl3_1
@@ -1254,9 +1254,9 @@
         this.reword_send[3].goodsName = this.form.name4
         this.reword_send[3].goodsMarketPrice = this.form.price4
         this.reword_send[3].goodsCostPrice = this.form.priceLow4
-        this.reword_send[3].hiPrice=this.input4_1
-        this.reword_send[3].lowPrice=this.input4_2
-        this.reword_send[3].probability=this.input4_3
+        this.reword_send[3].hiPrice=this.form.input4_1
+        this.reword_send[3].lowPrice=this.form.input4_2
+        this.reword_send[3].probability=this.form.input4_3
         this.reword_send[3].goodsStockNum = this.form.count4
         this.reword_send[3].goodsSalesNum = this.form.countsales4
         this.reword_send[3].goodsImg1 = this.form.imageUrl4_1
@@ -1271,9 +1271,9 @@
         this.reword_send[4].goodsName = this.form.name5
         this.reword_send[4].goodsMarketPrice = this.form.price5
         this.reword_send[4].goodsCostPrice = this.form.priceLow5
-        this.reword_send[4].hiPrice=this.input5_1
-        this.reword_send[4].lowPrice=this.input5_2
-        this.reword_send[4].probability=this.input5_3
+        this.reword_send[4].hiPrice=this.form.input5_1
+        this.reword_send[4].lowPrice=this.form.input5_2
+        this.reword_send[4].probability=this.form.input5_3
         this.reword_send[4].goodsStockNum = this.form.count5
         this.reword_send[4].goodsSalesNum = this.form.countsales5
         this.reword_send[4].goodsImg1 = this.form.imageUrl5_1
@@ -1288,9 +1288,9 @@
         this.reword_send[5].goodsName = this.form.name6
         this.reword_send[5].goodsMarketPrice = this.form.price6
         this.reword_send[5].goodsCostPrice = this.form.priceLow6
-        this.reword_send[5].hiPrice=this.input6_1
-        this.reword_send[5].lowPrice=this.input6_2
-        this.reword_send[5].probability=this.input6_3
+        this.reword_send[5].hiPrice=this.form.input6_1
+        this.reword_send[5].lowPrice=this.form.input6_2
+        this.reword_send[5].probability=this.form.input6_3
         this.reword_send[5].goodsStockNum = this.form.count6
         this.reword_send[5].goodsSalesNum = this.form.countsales6
         this.reword_send[5].goodsImg1 = this.form.imageUrl6_1
@@ -1305,9 +1305,9 @@
         this.reword_send[6].goodsName = this.form.name7
         this.reword_send[6].goodsMarketPrice = this.form.price7
         this.reword_send[6].goodsCostPrice = this.form.priceLow7
-        this.reword_send[6].hiPrice=this.input7_1
-        this.reword_send[6].lowPrice=this.input7_2
-        this.reword_send[6].probability=this.input7_3
+        this.reword_send[6].hiPrice=this.form.input7_1
+        this.reword_send[6].lowPrice=this.form.input7_2
+        this.reword_send[6].probability=this.form.input7_3
         this.reword_send[6].goodsStockNum = this.form.count7
         this.reword_send[6].goodsSalesNum = this.form.countsales7
         this.reword_send[6].goodsImg1 = this.form.imageUrl7_1
@@ -1329,9 +1329,9 @@
         this.reword_send[0].goodsName = this.form.name1 //商品名称
         this.reword_send[0].goodsMarketPrice = this.form.price1//商品原价
         this.reword_send[0].goodsCostPrice = this.form.priceLow1 //商品底价
-        this.reword_send[0].hiPrice=this.input1
-        this.reword_send[0].lowPrice=this.input2
-        this.reword_send[0].probability=this.input3
+        this.reword_send[0].hiPrice=this.form.input1
+        this.reword_send[0].lowPrice=this.form.input2
+        this.reword_send[0].probability=this.form.input3
         this.reword_send[0].goodsStockNum = this.form.count1//商品库存
         this.reword_send[0].goodsSalesNum = this.form.countsales1//虚拟销量
         this.reword_send[0].goodsImg1 = this.form.imageUrl1_1//商品详情图片1
@@ -1345,9 +1345,9 @@
         this.reword_send[1].goodsName = this.form.name2
         this.reword_send[1].goodsMarketPrice = this.form.price2
         this.reword_send[1].goodsCostPrice = this.form.priceLow2
-        this.reword_send[1].hiPrice=this.input2_1
-        this.reword_send[1].lowPrice=this.input2_2
-        this.reword_send[1].probability=this.input2_3
+        this.reword_send[1].hiPrice=this.form.input2_1
+        this.reword_send[1].lowPrice=this.form.input2_2
+        this.reword_send[1].probability=this.form.input2_3
         this.reword_send[1].goodsStockNum = this.form.count2
         this.reword_send[1].goodsSalesNum = this.form.countsales2
         this.reword_send[1].goodsImg1 = this.form.imageUrl2_1
@@ -1362,9 +1362,9 @@
         this.reword_send[2].goodsName = this.form.name3
         this.reword_send[2].goodsMarketPrice = this.form.price3
         this.reword_send[2].goodsCostPrice = this.form.priceLow3
-        this.reword_send[2].hiPrice=this.input3_1
-        this.reword_send[2].lowPrice=this.input3_2
-        this.reword_send[2].probability=this.input3_3
+        this.reword_send[2].hiPrice=this.form.input3_1
+        this.reword_send[2].lowPrice=this.form.input3_2
+        this.reword_send[2].probability=this.form.input3_3
         this.reword_send[2].goodsStockNum = this.form.count3
         this.reword_send[2].goodsSalesNum = this.form.countsales3
         this.reword_send[2].goodsImg1 = this.form.imageUrl3_1
@@ -1379,9 +1379,9 @@
         this.reword_send[3].goodsName = this.form.name4
         this.reword_send[3].goodsMarketPrice = this.form.price4
         this.reword_send[3].goodsCostPrice = this.form.priceLow4
-        this.reword_send[3].hiPrice=this.input4_1
-        this.reword_send[3].lowPrice=this.input4_2
-        this.reword_send[3].probability=this.input4_3
+        this.reword_send[3].hiPrice=this.form.input4_1
+        this.reword_send[3].lowPrice=this.form.input4_2
+        this.reword_send[3].probability=this.form.input4_3
         this.reword_send[3].goodsStockNum = this.form.count4
         this.reword_send[3].goodsSalesNum = this.form.countsales4
         this.reword_send[3].goodsImg1 = this.form.imageUrl4_1
@@ -1396,9 +1396,9 @@
         this.reword_send[4].goodsName = this.form.name5
         this.reword_send[4].goodsMarketPrice = this.form.price5
         this.reword_send[4].goodsCostPrice = this.form.priceLow5
-        this.reword_send[4].hiPrice=this.input5_1
-        this.reword_send[4].lowPrice=this.input5_2
-        this.reword_send[4].probability=this.input5_3
+        this.reword_send[4].hiPrice=this.form.input5_1
+        this.reword_send[4].lowPrice=this.form.input5_2
+        this.reword_send[4].probability=this.form.input5_3
         this.reword_send[4].goodsStockNum = this.form.count5
         this.reword_send[4].goodsSalesNum = this.form.countsales5
         this.reword_send[4].goodsImg1 = this.form.imageUrl5_1
@@ -1413,9 +1413,9 @@
         this.reword_send[5].goodsName = this.form.name6
         this.reword_send[5].goodsMarketPrice = this.form.price6
         this.reword_send[5].goodsCostPrice = this.form.priceLow6
-        this.reword_send[5].hiPrice=this.input6_1
-        this.reword_send[5].lowPrice=this.input6_2
-        this.reword_send[5].probability=this.input6_3
+        this.reword_send[5].hiPrice=this.form.input6_1
+        this.reword_send[5].lowPrice=this.form.input6_2
+        this.reword_send[5].probability=this.form.input6_3
         this.reword_send[5].goodsStockNum = this.form.count6
         this.reword_send[5].goodsSalesNum = this.form.countsales6
         this.reword_send[5].goodsImg1 = this.form.imageUrl6_1
@@ -1430,9 +1430,9 @@
         this.reword_send[6].goodsName = this.form.name7
         this.reword_send[6].goodsMarketPrice = this.form.price7
         this.reword_send[6].goodsCostPrice = this.form.priceLow7
-        this.reword_send[6].hiPrice=this.input7_1
-        this.reword_send[6].lowPrice=this.input7_2
-        this.reword_send[6].probability=this.input7_3
+        this.reword_send[6].hiPrice=this.form.input7_1
+        this.reword_send[6].lowPrice=this.form.input7_2
+        this.reword_send[6].probability=this.form.input7_3
         this.reword_send[6].goodsStockNum = this.form.count7
         this.reword_send[6].goodsSalesNum = this.form.countsales7
         this.reword_send[6].goodsImg1 = this.form.imageUrl7_1

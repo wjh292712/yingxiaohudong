@@ -24,7 +24,7 @@
         data(){
             return{
                 activemsg:["新建活动","我的活动","已购奖品"],
-                classActive:0
+                classActive:0,
             }
         },
 
@@ -34,7 +34,7 @@
         },
       mounted(){
         this.$store.dispatch('activePull')
-        this.changeClick(index)
+        this.changeClick()
       },
         components:{
             activeList,
@@ -64,9 +64,9 @@
                   sessionStorage.setItem('Datalist',Datalist)
                   sessionStorage.setItem('activDara',activData)
                   console.log(res);
-                  if(index===1){
+                  if(this.classActive===1){
                     this.$router.push({path:'/activeslide/myactive'})
-                  }else if(index===0){
+                  }else if(this.classActive===0){
                     this.$router.push({path:'/activeslide/activeFirst'})
                   }
 

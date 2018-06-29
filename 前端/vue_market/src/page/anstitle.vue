@@ -46,47 +46,281 @@
 
       </el-form>
       <div class="answ1" v-show="ok">
-        <div class="ansTitle">
-          <h3>编辑题库</h3>
-          <!--<span class="del" @click="del()">X</span>-->
-        </div>
-        <div class="ansConent">
-          <el-form label-width="60px">
-            <el-form-item label="题目:">
-              <el-input size="mini" v-model="ansName">
-              </el-input>
-              <el-upload
-                action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
-                list-type="picture-card"
-                :on-success="handleAvatarSuccess"
-                :before-upload="beforeAvatarUpload"
-                :on-remove="handleRemove" class="upLoad">
-                <i class="el-icon-plus"></i>
-              </el-upload>
-              <el-dialog :visible.sync="dialogVisible">
-                <img width="100%" :src="imageUrl" alt="">
-              </el-dialog>
-            </el-form-item>
-            <p> 只能上传jpg/png文件，且不超过500kb</p>
-            <el-form-item label="正确答案:" label-width="80px">
-              <el-input size="mini" v-model="ansCorrect">
-              </el-input>
-            </el-form-item>
-            <el-form-item label="错误答案:" label-width="80px">
-              <el-input size="mini" v-model="ansError1">
-              </el-input>
-            </el-form-item>
-            <el-form-item label="错误答案:" label-width="80px">
-              <el-input size="mini" v-model="ansError2">
-              </el-input>
-            </el-form-item>
-          </el-form>
-          <div class="acsFooter">
-            <span>上一题</span>
-            <span>下一题</span>
-            <span>共{{count}}题</span>
-            <el-button size="mini" class="btn" @click="saveTitle()">保存</el-button>
+        <div class="title">
+          <div class="ansTitle">
+            <h3>编辑题库</h3>
+            <!--<span class="del" @click="del()">X</span>-->
           </div>
+          <div class="ansConent">
+            <el-form label-width="60px">
+              <el-form-item label="题目1:">
+                <el-input size="mini" v-model="ansName">
+                </el-input>
+                <el-upload
+                  action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg"
+                  list-type="picture-card"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload"
+                  :on-remove="handleRemove" class="upLoad">
+                  <i class="el-icon-plus"></i>
+                </el-upload>
+                <el-dialog :visible.sync="dialogVisible">
+                  <img width="100%" :src="imageUrl" alt="">
+                </el-dialog>
+              </el-form-item>
+              <p> 只能上传jpg/png文件，且不超过500kb</p>
+              <el-form-item label="正确答案:" label-width="80px">
+                <el-input size="mini" v-model="ansCorrect">
+                </el-input>
+              </el-form-item>
+              <el-form-item label="错误答案:" label-width="80px">
+                <el-input size="mini" v-model="ansError1">
+                </el-input>
+              </el-form-item>
+              <el-form-item label="错误答案:" label-width="80px">
+                <el-input size="mini" v-model="ansError2">
+                </el-input>
+              </el-form-item>
+            </el-form>
+
+          </div>
+          <div class="ansConent">
+            <el-form label-width="60px">
+              <el-form-item label="题目2:">
+                <el-input size="mini" v-model="ansName">
+                </el-input>
+                <el-upload
+                  action="http://center.marketing.yunpaas.cn/dt/upImg/upActivityImg"
+                  list-type="picture-card"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload"
+                  :on-remove="handleRemove" class="upLoad">
+                  <i class="el-icon-plus"></i>
+                </el-upload>
+                <el-dialog :visible.sync="dialogVisible">
+                  <img width="100%" :src="imageUrl" alt="">
+                </el-dialog>
+              </el-form-item>
+              <p> 只能上传jpg/png文件，且不超过100kb</p>
+              <el-form-item label="正确答案:" label-width="80px">
+                <el-input size="mini" v-model="ansCorrect">
+                </el-input>
+              </el-form-item>
+              <el-form-item label="错误答案:" label-width="80px">
+                <el-input size="mini" v-model="ansError1">
+                </el-input>
+              </el-form-item>
+              <el-form-item label="错误答案:" label-width="80px">
+                <el-input size="mini" v-model="ansError2">
+                </el-input>
+              </el-form-item>
+            </el-form>
+
+          </div>
+          <div class="ansConent">
+            <el-form label-width="60px">
+              <el-form-item label="题目3:">
+                <el-input size="mini" v-model="ansName">
+                </el-input>
+                <el-upload
+                  action="http://center.marketing.yunpaas.cn/dt/upImg/upActivityImg"
+                  list-type="picture-card"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload"
+                  :on-remove="handleRemove" class="upLoad">
+                  <i class="el-icon-plus"></i>
+                </el-upload>
+                <el-dialog :visible.sync="dialogVisible">
+                  <img width="100%" :src="imageUrl" alt="">
+                </el-dialog>
+              </el-form-item>
+              <p> 只能上传jpg/png文件，且不超过100kb</p>
+              <el-form-item label="正确答案:" label-width="80px">
+                <el-input size="mini" v-model="ansCorrect">
+                </el-input>
+              </el-form-item>
+              <el-form-item label="错误答案:" label-width="80px">
+                <el-input size="mini" v-model="ansError1">
+                </el-input>
+              </el-form-item>
+              <el-form-item label="错误答案:" label-width="80px">
+                <el-input size="mini" v-model="ansError2">
+                </el-input>
+              </el-form-item>
+            </el-form>
+
+          </div>
+          <!--<div class="ansConent">-->
+            <!--<el-form label-width="60px">-->
+              <!--<el-form-item label="题目4:">-->
+                <!--<el-input size="mini" v-model="ansName">-->
+                <!--</el-input>-->
+                <!--<el-upload-->
+                  <!--action="http://center.marketing.yunpaas.cn/dt/upImg/upActivityImg"-->
+                  <!--list-type="picture-card"-->
+                  <!--:on-success="handleAvatarSuccess"-->
+                  <!--:before-upload="beforeAvatarUpload"-->
+                  <!--:on-remove="handleRemove" class="upLoad">-->
+                  <!--<i class="el-icon-plus"></i>-->
+                <!--</el-upload>-->
+                <!--<el-dialog :visible.sync="dialogVisible">-->
+                  <!--<img width="100%" :src="imageUrl" alt="">-->
+                <!--</el-dialog>-->
+              <!--</el-form-item>-->
+              <!--<p> 只能上传jpg/png文件，且不超过100kb</p>-->
+              <!--<el-form-item label="正确答案:" label-width="80px">-->
+                <!--<el-input size="mini" v-model="ansCorrect">-->
+                <!--</el-input>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="错误答案:" label-width="80px">-->
+                <!--<el-input size="mini" v-model="ansError1">-->
+                <!--</el-input>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="错误答案:" label-width="80px">-->
+                <!--<el-input size="mini" v-model="ansError2">-->
+                <!--</el-input>-->
+              <!--</el-form-item>-->
+            <!--</el-form>-->
+
+          <!--</div>-->
+          <!--<div class="ansConent">-->
+            <!--<el-form label-width="60px">-->
+              <!--<el-form-item label="题目5:">-->
+                <!--<el-input size="mini" v-model="ansName">-->
+                <!--</el-input>-->
+                <!--<el-upload-->
+                  <!--action="http://center.marketing.yunpaas.cn/dt/upImg/upActivityImg"-->
+                  <!--list-type="picture-card"-->
+                  <!--:on-success="handleAvatarSuccess"-->
+                  <!--:before-upload="beforeAvatarUpload"-->
+                  <!--:on-remove="handleRemove" class="upLoad">-->
+                  <!--<i class="el-icon-plus"></i>-->
+                <!--</el-upload>-->
+                <!--<el-dialog :visible.sync="dialogVisible">-->
+                  <!--<img width="100%" :src="imageUrl" alt="">-->
+                <!--</el-dialog>-->
+              <!--</el-form-item>-->
+              <!--<p> 只能上传jpg/png文件，且不超过100kb</p>-->
+              <!--<el-form-item label="正确答案:" label-width="80px">-->
+                <!--<el-input size="mini" v-model="ansCorrect">-->
+                <!--</el-input>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="错误答案:" label-width="80px">-->
+                <!--<el-input size="mini" v-model="ansError1">-->
+                <!--</el-input>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="错误答案:" label-width="80px">-->
+                <!--<el-input size="mini" v-model="ansError2">-->
+                <!--</el-input>-->
+              <!--</el-form-item>-->
+            <!--</el-form>-->
+
+          <!--</div>-->
+          <!--<div class="ansConent">-->
+            <!--<el-form label-width="60px">-->
+              <!--<el-form-item label="题目6:">-->
+                <!--<el-input size="mini" v-model="ansName">-->
+                <!--</el-input>-->
+                <!--<el-upload-->
+                  <!--action="http://center.marketing.yunpaas.cn/dt/upImg/upActivityImg"-->
+                  <!--list-type="picture-card"-->
+                  <!--:on-success="handleAvatarSuccess"-->
+                  <!--:before-upload="beforeAvatarUpload"-->
+                  <!--:on-remove="handleRemove" class="upLoad">-->
+                  <!--<i class="el-icon-plus"></i>-->
+                <!--</el-upload>-->
+                <!--<el-dialog :visible.sync="dialogVisible">-->
+                  <!--<img width="100%" :src="imageUrl" alt="">-->
+                <!--</el-dialog>-->
+              <!--</el-form-item>-->
+              <!--<p> 只能上传jpg/png文件，且不超过100kb</p>-->
+              <!--<el-form-item label="正确答案:" label-width="80px">-->
+                <!--<el-input size="mini" v-model="ansCorrect">-->
+                <!--</el-input>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="错误答案:" label-width="80px">-->
+                <!--<el-input size="mini" v-model="ansError1">-->
+                <!--</el-input>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="错误答案:" label-width="80px">-->
+                <!--<el-input size="mini" v-model="ansError2">-->
+                <!--</el-input>-->
+              <!--</el-form-item>-->
+            <!--</el-form>-->
+
+          <!--</div>-->
+          <!--<div class="ansConent">-->
+            <!--<el-form label-width="60px">-->
+              <!--<el-form-item label="题目7:">-->
+                <!--<el-input size="mini" v-model="ansName">-->
+                <!--</el-input>-->
+                <!--<el-upload-->
+                  <!--action="http://center.marketing.yunpaas.cn/dt/upImg/upActivityImg"-->
+                  <!--list-type="picture-card"-->
+                  <!--:on-success="handleAvatarSuccess"-->
+                  <!--:before-upload="beforeAvatarUpload"-->
+                  <!--:on-remove="handleRemove" class="upLoad">-->
+                  <!--<i class="el-icon-plus"></i>-->
+                <!--</el-upload>-->
+                <!--<el-dialog :visible.sync="dialogVisible">-->
+                  <!--<img width="100%" :src="imageUrl" alt="">-->
+                <!--</el-dialog>-->
+              <!--</el-form-item>-->
+              <!--<p> 只能上传jpg/png文件，且不超过100kb</p>-->
+              <!--<el-form-item label="正确答案:" label-width="80px">-->
+                <!--<el-input size="mini" v-model="ansCorrect">-->
+                <!--</el-input>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="错误答案:" label-width="80px">-->
+                <!--<el-input size="mini" v-model="ansError1">-->
+                <!--</el-input>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="错误答案:" label-width="80px">-->
+                <!--<el-input size="mini" v-model="ansError2">-->
+                <!--</el-input>-->
+              <!--</el-form-item>-->
+            <!--</el-form>-->
+
+          <!--</div>-->
+          <!--<div class="ansConent">-->
+            <!--<el-form label-width="60px">-->
+              <!--<el-form-item label="题目8:">-->
+                <!--<el-input size="mini" v-model="ansName">-->
+                <!--</el-input>-->
+                <!--<el-upload-->
+                  <!--action="http://center.marketing.yunpaas.cn/dt/upImg/upActivityImg"-->
+                  <!--list-type="picture-card"-->
+                  <!--:on-success="handleAvatarSuccess"-->
+                  <!--:before-upload="beforeAvatarUpload"-->
+                  <!--:on-remove="handleRemove" class="upLoad">-->
+                  <!--<i class="el-icon-plus"></i>-->
+                <!--</el-upload>-->
+                <!--<el-dialog :visible.sync="dialogVisible">-->
+                  <!--<img width="100%" :src="imageUrl" alt="">-->
+                <!--</el-dialog>-->
+              <!--</el-form-item>-->
+              <!--<p> 只能上传jpg/png文件，且不超过100kb</p>-->
+              <!--<el-form-item label="正确答案:" label-width="80px">-->
+                <!--<el-input size="mini" v-model="ansCorrect">-->
+                <!--</el-input>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="错误答案:" label-width="80px">-->
+                <!--<el-input size="mini" v-model="ansError1">-->
+                <!--</el-input>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="错误答案:" label-width="80px">-->
+                <!--<el-input size="mini" v-model="ansError2">-->
+                <!--</el-input>-->
+              <!--</el-form-item>-->
+            <!--</el-form>-->
+
+          <!--</div>-->
+        </div>
+        <div class="acsFooter">
+          <span>上一题</span>
+          <span>下一题</span>
+          <span>共{{count}}题</span>
+          <el-button size="mini" class="btn" @click="saveTitle()">保存</el-button>
         </div>
       </div>
     </div>
@@ -147,11 +381,13 @@
       ...mapActions(['saveDatadt'])
     },
     updated() {
-      if (this.dataStatus === undefined) {
-        this.savaTitleBase()
-      } else if (this.dataStatus === '1') {
-        this.savaTitleBase1()
-      }
+
+      this.savaTitleBase()
+      // if (this.dataStatus === undefined) {
+      //   this.savaTitleBase()
+      // } else if (this.dataStatus === '1') {
+      //   this.savaTitleBase1()
+      // }
     },
     methods: {
       titleBase() {
@@ -169,12 +405,19 @@
         this.titleCount = this.title_data.questionTotalNum
         this.radomCount = this.title_data.questionRadomNum
         this.ansName = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.title
-        if (this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight === true) {
-          this.ansCorrect = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent
-        } else if (this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight === false) {
-          this.ansError1 = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent
+        this.imageUrl = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.img
+        var ary = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList
+        var a = []
+        for (var i = 0; i < ary.length; i++) {
+          var cur = ary[i]
+          if (cur.isRight === true) {
+            this.ansCorrect = cur.answerContent
+          } else if (cur.isRight === false) {
+            a.push(cur.answerContent)
+          }
+          this.ansError1 = a[0]
+          this.ansError2 = a[1]
         }
-
 
         this.radio2 = Number(this.title_data.answerTimeLimit).toString()
       },
@@ -191,16 +434,35 @@
         this.titleCount = this.title_data.questionTotalNum
         this.radomCount = this.title_data.questionRadomNum
         this.ansName = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.title
-        if (this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight === true) {
-          this.ansCorrect = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent
-        } else if (this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight === false) {
-          this.ansError1 = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent
+        this.imageUrl = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.img
+        alert(this.imageUrl)
+        // if (this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight === true) {
+        //   this.ansCorrect = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent
+        // } else if (this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight === false) {
+        //   this.ansError1 = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent
+        // }
+        var ary = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList
+        var a = []
+        for (var i = 0; i < ary.length; i++) {
+          var cur = ary[i]
+          if (cur.isRight === true) {
+            this.ansCorrect = cur.answerContent
+          } else if (cur.isRight === false) {
+            a.push(cur.answerContent)
+          }
+          this.ansError1 = a[0]
+          this.ansError2 = a[1]
         }
         this.radio2 = Number(this.title_data.answerTimeLimit).toString()
       },
       savaTitleBase() {
-        let Data = JSON.parse(sessionStorage.getItem('Datadt'))
-        this.title_send = Data.dtQuestionSetupExtend
+
+        if (this.dataStatus === undefined) {
+          let Data = JSON.parse(sessionStorage.getItem('Datadt'))
+          this.title_send = Data.dtQuestionSetupExtend
+        } else if (this.dataStatus === '1') {
+          this.title_send = this.$route.query.newdtData.dtQuestionSetupExtend
+        }
         this.title_send.questionBank = this.radio1
         if (this.radio1 == 1) {
           this.ok = false;
@@ -213,33 +475,76 @@
         this.title_send.questionRadomNum = this.radomCount
         this.title_send.answerTimeLimit = this.radio2 == 0 ? false : true
         this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.title = this.ansName
+        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.img= this.imageUrl
+            this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight = true
+        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent = this.ansCorrect
+        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[1].isRight = false
+        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[1].answerContent = this.ansError1
+        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[2].isRight = false
+        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[2].answerContent = this.ansError2
 
+
+        // var ary=this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList
+        // var a=[]
+        // for (var i = 0; i < ary.length; i++) {
+        //   var cur=ary[i]
+        //   if(cur.isRight===true){
+        //     cur.answerContent=this.ansCorrect
+        //   }else if(cur.isRight===false) {
+        //     a.push(cur.answerContent)
+        //   }
+        //   a[0]=this.ansError1
+        //   a[1]=this.ansError2
+        // }
 
         this.$store.state.setting_dtData.dtQuestionSetupExtend = this.title_send
-
+        console.log(this.title_send);
         this.$bus.emit("send_title", this.title_send)
       },
-      savaTitleBase1() {
-
-        this.title_send = this.$route.query.newdtData.dtQuestionSetupExtend
-        this.title_send.questionBank = this.radio1
-        if (this.radio1 == 1) {
-          this.ok = false;
-        } else {
-          this.ok = true;
-        }
-        this.title_send.dtQuestionTypeExtendList = this.answerState
-        this.title_send.questionType = this.value4
-        this.title_send.questionTotalNum = this.titleCount
-        this.title_send.questionRadomNum = this.radomCount
-        this.title_send.answerTimeLimit = this.radio2 == 0 ? false : true
-        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.title = this.ansName
-        this.$store.state.setting_dtData.dtQuestionSetupExtend = this.title_send
-        this.$bus.emit("send_title", this.title_send)
-      },
+      // savaTitleBase1() {
+      //   this.title_send = this.$route.query.newdtData.dtQuestionSetupExtend
+      //   this.title_send.questionBank = this.radio1
+      //   if (this.radio1 == 1) {
+      //     this.ok = false;
+      //   } else {
+      //     this.ok = true;
+      //   }
+      //   this.title_send.dtQuestionTypeExtendList = this.answerState
+      //   this.title_send.questionType = this.value4
+      //   this.title_send.questionTotalNum = this.titleCount
+      //   this.title_send.questionRadomNum = this.radomCount
+      //   this.title_send.answerTimeLimit = this.radio2 == 0 ? false : true
+      //   this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.title = this.ansName
+      //this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.img= this.imageUrl
+      //   // if(this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight===true){
+      //   //   this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent=this.ansCorrect
+      //   // }else if(this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight===false){
+      //   //   this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[1].answerContent=this.ansError1
+      //   // }else if(this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight===false) {
+      //   //   this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[1].answerContent = this.ansError2
+      //   // }
+      //   //
+      //   var ary=this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList
+      //   var a=[]
+      //   for (var i = 0; i < ary.length; i++) {
+      //     var cur=ary[i]
+      //     if(cur.isRight===true){
+      //       cur.answerContent=this.ansCorrect
+      //     }else if(cur.isRight===false) {
+      //       a.push(cur.answerContent)
+      //     }
+      //     a[0]=this.ansError1
+      //     a[1]=this.ansError2
+      //   }
+      //   this.$store.state.setting_dtData.dtQuestionSetupExtend = this.title_send
+      //   this.$bus.emit("send_title", this.title_send)
+      // },
 
       handleAvatarSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
+        console.log(file);
+        console.log(res);
+        // this.imageUrl = URL.createObjectURL(file.raw);
+        this.imageUrl=file.response.data
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
@@ -284,7 +589,11 @@
         // this.answerState=item.index
       },
       saveTitle() {
-
+        if (this.radio1 == "2") {
+          this.radio1 = "1"
+        } else {
+          this.ok = false
+        }
       },
       tilTime1() {
         this.tileTime = false
@@ -354,6 +663,7 @@
     left: 50px;
     z-index: 888;
     border: 1px solid #c0c4cc;
+    overflow-y: auto;
     .ansTitle {
       width: 100%;
       height: 45px;
@@ -375,7 +685,7 @@
     .ansConent {
       width: 100%;
       height: 460px;
-      padding: 10px;
+      padding: 10px 10px 0px 20px;
       background: #fff;
       background: rgba(255, 255, 255, 255);
 

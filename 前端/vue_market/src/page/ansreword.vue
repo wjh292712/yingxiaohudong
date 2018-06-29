@@ -626,7 +626,6 @@
                 <el-upload
                   action="https://jsonplaceholder.typicode.com/posts/"
                   list-type="picture-card"
-
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
                 </el-upload>

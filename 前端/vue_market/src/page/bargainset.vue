@@ -63,7 +63,8 @@
           award:"",
           high:""
         },
-        sendData:""
+        sendData:"",
+        dataStatus:0,
       }
     },
     computed:{
@@ -77,12 +78,17 @@
         params: {},
       }).then(res => {
         let _this=this
-        let setting_kjData=JSON.stringify(res.data.data)
-        sessionStorage.setItem("Datakj",setting_kjData)
-        //this.$store.dispatch('saveDatakj')
-        let Data = sessionStorage.getItem('Datakj')
-        // console.log(sessionStorage.getItem('Datakj'));
-        this.sendData = JSON.parse(Data)
+        this.dataStatus=this.$route.query.dataStatus
+        if(this.dataStatus===undefined){
+          let setting_kjData=JSON.stringify(res.data.data)
+          sessionStorage.setItem("Datakj",setting_kjData)
+          //this.$store.dispatch('saveDatakj')
+          let Data = sessionStorage.getItem('Datakj')
+          // console.log(sessionStorage.getItem('Datakj'));
+          this.sendData = JSON.parse(Data)
+        }else if (this.dataStatus==='1') {
+          this.sendData=this.$route.query.newkjData
+        }
         // console.log(this.sendData);
         //分享部分返回的数据
         this.$bus.on("send_share",function(data){
@@ -150,6 +156,7 @@
           contentType:"application/json",
           datatype:"json",
           success(data){ //保存跳转活动页面
+            console.log(data);
             if(data.data==="请重新登录"){
               alert(data.data)
               _this.$router.push({path:'/login'})
