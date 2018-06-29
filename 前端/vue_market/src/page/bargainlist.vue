@@ -409,7 +409,7 @@
               background: #F2F2F2;
               .body_list {
                 display: flex;
-                justify-content: space-around;
+                /*justify-content: space-around;*/
                 flex-wrap: wrap;
                 width: 90%;
                 .body_list_con {
@@ -437,7 +437,7 @@
         .main_list {
           width: 100%;
           display: flex;
-          justify-content: space-between;
+          /*justify-content: space-between;*/
           flex-wrap: wrap;
           .main_list_box {
             border-radius: 0.3rem;

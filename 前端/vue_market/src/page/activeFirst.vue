@@ -45,7 +45,7 @@
                 </div>
                 <div class="body_text">
                   <h5>{{item.title}}</h5>
-                  <span class="body_text_btn" @click="target()">创建活动</span>
+                  <span class="body_text_btn" @click="target(index)">创建活动</span>
                 </div>
               </div>
             </div>
@@ -164,9 +164,15 @@
 
     },
     methods: {
-      target() {
-        // console.log(222)
-        this.$router.push({path: "/activeslide/activelist"})
+      target(index) {
+        if(index===0){
+          this.$router.push({path: "/activeslide/activelist"})
+        }else if(index===1){
+          this.$router.push({path: "/activeslide/answerlist"})
+        }else if(index===2){
+          this.$router.push({path: "/activeslide/bargainlist"})
+        }
+
       },
       getAllData1() {
         $(".body_list_con1").addClass("active")
@@ -335,21 +341,25 @@
               width: 95%;
               background: #F2F2F2;
               .body_list {
-                display: flex;
+                /*display: flex;*/
                 /*justify-content: space-around;*/
-                flex-wrap: wrap;
+                /*flex-wrap: wrap;*/
+                /*float: left;*/
                 width: 90%;
                 .body_list_con1 {
+                  float: left;
                   width: 10%;
                   font-size: 0.6rem;
                   text-align: left;
                 }
                 .body_list_con2 {
+                  float: left;
                   width: 10%;
                   font-size: 0.6rem;
                   text-align: left;
                 }
                 .body_list_con3 {
+                  float: left;
                   width: 10%;
                   font-size: 0.6rem;
                   text-align: left;

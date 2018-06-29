@@ -117,12 +117,12 @@
         let _this = this
         let Data = sessionStorage.getItem('Datakj');
         _this.base_data = JSON.parse(Data).kjBaseSetup
-        _this.activeName = _this.formName = _this.base_data.activityName
+        _this.activeName = _this.base_data.activityName
       },
       activeN1() {
         let _this = this
         _this.base_data =_this.$route.query.newkjData.kjBaseSetup
-        _this.activeName = _this.formName = _this.base_data.activityName
+        _this.activeName =_this.base_data.activityName
       },
       updataImg() {
         this.$http({

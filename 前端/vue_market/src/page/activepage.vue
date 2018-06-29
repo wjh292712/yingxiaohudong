@@ -86,22 +86,15 @@ export default ({
 
   },
   mounted() {
-    this.updataImg()
 
-    //let curname='';
-    // let cua='';
      this.activeN()
     this.dataStatus=this.$route.query.dataStatus
     if (this.dataStatus==='1') {
       this.activeN1()
     }
-    // this.$nextTick(function () {
-    //   curname = settingbase.methods.partBase()
-    //   // cua=settingbase.methods.inputData()
-    //   console.log(curname);
-    //   // console.log(cua);
-    //   this.activeName=curname
-    // })
+
+
+    this.updataImg()
 
   },
   updated(){
@@ -117,9 +110,11 @@ export default ({
       let _this = this
       let Data = sessionStorage.getItem('Data')
       _this.base_data = JSON.parse(Data).jggBaseSetup
-      _this.activeName = _this.formName=_this.base_data.activityName
+      console.log(_this.base_data);
+      _this.activeName =_this.base_data.activityName
     },
     activeN1(){
+      alert("222")
       let _this = this
       _this.base_data = _this.$route.query.newjggData.jggBaseSetup
       _this.activeName = _this.formName=_this.base_data.activityName
