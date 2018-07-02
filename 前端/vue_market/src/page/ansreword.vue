@@ -20,30 +20,46 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
-                <el-input  maxlength="15"  :disabled="actName" v-model="form.name1_1" placeholder="不超过15个字"></el-input>
+                <el-input  maxlength="15" :disabled="actName" v-model="form.name1_1"  placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="http://center.marketing.yunpaas.cn/dt/upImg/upActivityImg"
+                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess1"
                   :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
                 <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
+                  <img width="100%" :src="imgData1" alt="">
                 </el-dialog>
-
               </el-form-item>
+              <!--<el-form-item>-->
+              <!--<el-upload-->
+              <!--class="avatar-uploader"-->
+              <!--:show-file-list="false"-->
+              <!--name="file"-->
+              <!--:action="uploadUrl()"-->
+              <!--:on-error="uploadError"-->
+              <!--:on-success="handleAvatarSuccess"-->
+              <!--:before-upload="beforeAvatarUpload"-->
+              <!--enctype="multipart/form-data">-->
+              <!--<img v-if="imageUrl" :src="noticeImageUrl" class="avatar">-->
+              <!--<i v-else class="el-icon-plus avatar-uploader-icon"></i>-->
+              <!--</el-upload>-->
+              <!--</el-form-item>-->
+
+
+
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name1_2"  :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
+                <el-input v-model="form.name1_2"  :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" ></el-input>
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio2">
                   <el-radio :disabled="ticket" label="1">系统生成</el-radio>
-                  <el-radio :disabled="ticket" label="2">
+                  <el-radio  :disabled="ticket" label="2">
                     <span @click="handlead()">手动导入</span>
                   </el-radio>
                 </el-radio-group>
@@ -90,10 +106,10 @@
                 <el-form-item label="公众号名称">
                   <el-input v-model="form.name1_3" maxlength="15" placeholder="不超过15个字"></el-input>
                   <el-upload
-                    action="https://jsonplaceholder.typicode.com/posts/"
+                    action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                     list-type="picture-card_pic"
                     :on-preview="handlePictureCardPreview"
-                    :on-success="handleAvatarSuccess"
+                    :on-success="handleAvatarSuccess1_1"
                     :on-remove="handleRemove"
                     :file-list="fileList"
                   >
@@ -104,27 +120,27 @@
                   </el-dialog>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input type="textarea" v-model="form.name1_4"></el-input>
+                  <el-input type="textarea" v-model="form.name1_4" placehoder="0/50字"  maxlength="50"></el-input>
                 </el-form-item>
               </div>
 
               <div class="shop_info">
                 <el-form-item label="门店地址">
-                  <el-input v-model="form.address1" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.address1" maxlength="30" placeholder="请填写兑奖或者门店地址，不超过30个汉字"></el-input>
                 </el-form-item>
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.phone1_1" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone1_1" maxlength="15" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" ></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name1_4" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name1_4" maxlenght="15" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.phone1_1" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone1_1" maxlength="15" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" ></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name1_4" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name1_4" maxlength="15"  placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
 
@@ -132,14 +148,14 @@
             </el-tab-pane>
             <!-- 奖品二 -->
             <el-tab-pane label="奖品二" name="second" data-idx="1">
-              <el-form-item :disabled="ticket" label="奖品来源">
+              <el-form-item label="奖品来源">
                 <el-radio-group v-model="radio2_1">
-                  <el-radio label="1">自家商品</el-radio>
-                  <el-radio label="2">平台奖品库</el-radio>
+                  <el-radio :disabled="ticket" label="1">自家商品</el-radio>
+                  <el-radio :disabled="ticket" label="2">平台奖品库</el-radio>
                 </el-radio-group>
                 <a href="javascript:;">去奖品商城购买</a>
               </el-form-item>
-              <el-form-item :disabled="ticket" label="奖品类型">
+              <el-form-item label="奖品类型">
                 <el-select v-model="form.region2" placeholder="请选择奖品类型">
                   <el-option v-for="(items,index) in reword_type2"  :label="items.name" :value="items.id" :key="items.id"></el-option>
                 </el-select>
@@ -149,20 +165,21 @@
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-
+                  :on-success="handleAvatarSuccess2"
+                  :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
                 <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
+                  <img width="100%" :src="imgData2" alt="">
                 </el-dialog>
 
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name2_2" :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
+                <el-input v-model="form.name2_2" :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" ></el-input>
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio2_2">
@@ -180,6 +197,7 @@
               <el-form-item label="兑奖时间">
                 <el-date-picker
                   v-model="value6"
+
                   :disabled="startTime"
                   type="datetimerange"
                   range-separator="至"
@@ -213,13 +231,17 @@
                 <el-form-item label="公众号名称">
                   <el-input v-model="form.name2_3" maxlength="15" placeholder="不超过15个字"></el-input>
                   <el-upload
-                    action="https://jsonplaceholder.typicode.com/posts/"
+                    action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                     list-type="picture-card_pic"
                     :on-preview="handlePictureCardPreview"
+                    :on-success="handleAvatarSuccess2_1"
                     :on-remove="handleRemove"
                   >
                     <span>上传公众号二维码</span>
                   </el-upload>
+                  <el-dialog :visible.sync="dialogVisible">
+                    <img width="100%" :src="dialogImageUrl1" alt="">
+                  </el-dialog>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
                   <el-input type="textarea" v-model="form.name2_4"></el-input>
@@ -228,18 +250,18 @@
 
               <div class="shop_info">
                 <el-form-item label="门店地址">
-                  <el-input v-model="form.address2" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.address2" maxlength="30" placeholder="请填写兑奖或者门店地址，不超过30个汉字"></el-input>
                 </el-form-item>
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.phone2_1" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone2_1" maxlength="15" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" ></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2_4" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name2_4" maxlength="500" placeholder="不超过500个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.phone2_1" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone2_1" maxlength="15" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"  placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
                   <el-input v-model="form.name2_4" placeholder="不超过15个字"></el-input>
@@ -266,20 +288,21 @@
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-
+                  :on-success="handleAvatarSuccess3"
+                  :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
                 <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
+                  <img width="100%" :src="imgData3" alt="">
                 </el-dialog>
 
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name3_2" :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
+                <el-input v-model="form.name3_2" :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"></el-input>
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio3_2">
@@ -331,36 +354,40 @@
                 <el-form-item label="公众号名称">
                   <el-input v-model="form.name3_3"  maxlength="15" placeholder="不超过15个字"></el-input>
                   <el-upload
-                    action="https://jsonplaceholder.typicode.com/posts/"
+                    action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                     list-type="picture-card_pic"
                     :on-preview="handlePictureCardPreview"
+                    :on-success="handleAvatarSuccess3_1"
                     :on-remove="handleRemove"
                   >
                     <span>上传公众号二维码</span>
                   </el-upload>
+                  <el-dialog :visible.sync="dialogVisible">
+                    <img width="100%" :src="dialogImageUrl2" alt="">
+                  </el-dialog>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input type="textarea" v-model="form.name3_4"></el-input>
+                  <el-input type="textarea" maxlength="500" v-model="form.name3_4"></el-input>
                 </el-form-item>
               </div>
 
               <div class="shop_info">
                 <el-form-item label="门店地址">
-                  <el-input v-model="form.address3" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.address3" maxlength="30" placeholder="请填写兑奖或者门店地址，不超过30个汉字"></el-input>
                 </el-form-item>
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.phone3_1" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone3_1" maxlength="15" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name3_4" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name3_4" maxlength="500" placeholder="不超过500个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.phone3_1" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone3_1" maxlength="15" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name3_4" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name3_4" maxlength="500" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
 
@@ -386,20 +413,21 @@
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-
+                  :on-success="handleAvatarSuccess4"
+                  :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
                 <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
+                  <img width="100%" :src="imgData4" alt="">
                 </el-dialog>
 
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name4_2" :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
+                <el-input v-model="form.name4_2" :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"></el-input>
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio4_2">
@@ -451,36 +479,40 @@
                 <el-form-item label="公众号名称">
                   <el-input v-model="form.name4_3" maxlength="15" placeholder="不超过15个字"></el-input>
                   <el-upload
-                    action="https://jsonplaceholder.typicode.com/posts/"
+                    action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                     list-type="picture-card_pic"
                     :on-preview="handlePictureCardPreview"
+                    :on-success="handleAvatarSuccess4_1"
                     :on-remove="handleRemove"
                   >
                     <span>上传公众号二维码</span>
                   </el-upload>
+                  <el-dialog :visible.sync="dialogVisible">
+                    <img width="100%" :src="dialogImageUrl3" alt="">
+                  </el-dialog>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input type="textarea" v-model="form.name4_4"></el-input>
+                  <el-input type="textarea" maxlength="500" v-model="form.name4_4"></el-input>
                 </el-form-item>
               </div>
 
               <div class="shop_info">
                 <el-form-item label="门店地址">
-                  <el-input v-model="form.address4" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.address4" maxlength="30" placeholder="请填写兑奖或者门店地址，不超过30个汉字"></el-input>
                 </el-form-item>
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.phone4_1" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone4_1" maxlength="15" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name4_4" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name4_4" maxlength="500" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.phone4_1" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone4_1" maxlength="15" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name4_4" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name4_4" maxlength="500" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
 
@@ -501,24 +533,25 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
-                <el-input maxlength="15" :disabled="actName" v-model="form.name5_1" placeholder="不超过15个字"></el-input>
+                <el-input maxlength="15"  :disabled="actName" v-model="form.name5_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-
+                  :on-success="handleAvatarSuccess5"
+                  :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
                 <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
+                  <img width="100%" :src="imgData5" alt="">
                 </el-dialog>
 
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name5_2" :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
+                <el-input v-model="form.name5_2":disabled="rewordCount"  maxlength="15" type="text" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"></el-input>
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio5_2">
@@ -570,13 +603,17 @@
                 <el-form-item label="公众号名称">
                   <el-input v-model="form.name5_3" maxlength="15" placeholder="不超过15个字"></el-input>
                   <el-upload
-                    action="https://jsonplaceholder.typicode.com/posts/"
+                    action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                     list-type="picture-card_pic"
                     :on-preview="handlePictureCardPreview"
+                    :on-success="handleAvatarSuccess5_1"
                     :on-remove="handleRemove"
                   >
                     <span>上传公众号二维码</span>
                   </el-upload>
+                  <el-dialog :visible.sync="dialogVisible">
+                    <img width="100%" :src="dialogImageUrl4" alt="">
+                  </el-dialog>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
                   <el-input type="textarea" v-model="form.name5_4"></el-input>
@@ -585,21 +622,21 @@
 
               <div class="shop_info">
                 <el-form-item label="门店地址">
-                  <el-input v-model="form.address5" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.address5" maxlength="30" placeholder="请填写兑奖或者门店地址，不超过30个汉字"></el-input>
                 </el-form-item>
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.phone5_1" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone5_1" maxlength="15" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name5_4" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name5_4" maxlength="500" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.phone5_1" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone5_1" maxlength="15" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name5_4" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name5_4" maxlength="500" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
 
@@ -620,23 +657,25 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
-                <el-input maxlength="15"  :disabled="actName" v-model="form.name6_1" placeholder="不超过15个字"></el-input>
+                <el-input maxlength="15" :disabled="actName" v-model="form.name6_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
+                  :on-success="handleAvatarSuccess6"
+                  :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
                 <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
+                  <img width="100%" :src="imgData6" alt="">
                 </el-dialog>
 
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name6_2" :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
+                <el-input v-model="form.name6_2" :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"></el-input>
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio6_2">
@@ -688,13 +727,17 @@
                 <el-form-item label="公众号名称">
                   <el-input v-model="form.name6_3" maxlength="15" placeholder="不超过15个字"></el-input>
                   <el-upload
-                    action="https://jsonplaceholder.typicode.com/posts/"
+                    action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                     list-type="picture-card_pic"
                     :on-preview="handlePictureCardPreview"
+                    :on-success="handleAvatarSuccess6_1"
                     :on-remove="handleRemove"
                   >
                     <span>上传公众号二维码</span>
                   </el-upload>
+                  <el-dialog :visible.sync="dialogVisible">
+                    <img width="100%" :src="dialogImageUrl5" alt="">
+                  </el-dialog>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
                   <el-input type="textarea" v-model="form.name6_4"></el-input>
@@ -703,21 +746,21 @@
 
               <div class="shop_info">
                 <el-form-item label="门店地址">
-                  <el-input v-model="form.address6" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.address6" maxlength="30" placeholder="请填写兑奖或者门店地址，不超过30个汉字"></el-input>
                 </el-form-item>
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.phone6_1" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone6_1" maxlength="15" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name6_4" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name6_4" maxlength="500" placeholder="不超过500个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.phone6_1" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone6_1" maxlength="15" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name6_4" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name6_4" maxlength="500" placeholder="不超过500个字"></el-input>
                 </el-form-item>
               </div>
 
@@ -742,20 +785,21 @@
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                   list-type="picture-card"
-
+                  :on-success="handleAvatarSuccess7"
+                  :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove">
                   <i class="el-icon-plus"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
                 <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
+                  <img width="100%" :src="imgData7" alt="">
                 </el-dialog>
 
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name7_2" :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
+                <el-input v-model="form.name7_2"  :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"></el-input>
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio7_2">
@@ -807,36 +851,40 @@
                 <el-form-item label="公众号名称">
                   <el-input v-model="form.name7_3" maxlength="15" placeholder="不超过15个字"></el-input>
                   <el-upload
-                    action="https://jsonplaceholder.typicode.com/posts/"
+                    action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
                     list-type="picture-card_pic"
                     :on-preview="handlePictureCardPreview"
+                    :on-success="handleAvatarSuccess7_1"
                     :on-remove="handleRemove"
                   >
                     <span>上传公众号二维码</span>
                   </el-upload>
+                  <el-dialog :visible.sync="dialogVisible">
+                    <img width="100%" :src="dialogImageUrl6" alt="">
+                  </el-dialog>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input type="textarea" v-model="form.name7_4"></el-input>
+                  <el-input type="textarea" maxlength="500" v-model="form.name7_4"></el-input>
                 </el-form-item>
               </div>
 
               <div class="shop_info">
                 <el-form-item label="门店地址">
-                  <el-input v-model="form.address7" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.address7" maxlength="30" placeholder="请填写兑奖或者门店地址，不超过30个汉字"></el-input>
                 </el-form-item>
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.phone7_1" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone7_1" maxlength="15" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name7_4" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name7_4" maxlength="500" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
                 <el-form-item label="客服电话">
-                  <el-input v-model="form.phone7_1" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.phone7_1" maxlength="15" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name7_4" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name7_4" maxlength="500" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
 
@@ -964,8 +1012,8 @@
             <!--</el-tab-pane>-->
           </el-tabs>
           <!--<div class="cddd">-->
-            <!--<span class="reword_num" @click="addgift()">+</span>-->
-            <!--<span class="reword_num" @click="reducegift()">-</span>-->
+          <!--<span class="reword_num" @click="addgift()">+</span>-->
+          <!--<span class="reword_num" @click="reducegift()">-</span>-->
           <!--</div>-->
         </div>
       </el-form>
@@ -986,8 +1034,7 @@
         actName:false,
         startTime:false,
         rewordCount:false,
-        ticket:false,
-        dataStatus:0,
+        ticket:false,//券码
         list:[],
         dialogImageUrl: '',//微信公众号
         dialogImageUrl1: '',
@@ -1182,7 +1229,8 @@
         reword_type8:'',//奖品八类型
 
         reword_data:'',//接口数据保存
-        reword_send:''//奖品数据回调
+        reword_send:'',//奖品数据回调
+        dataStatus:0,
       }
     },
     created(){
@@ -1242,26 +1290,82 @@
 
     },
     computed:{
-      ...mapState(['setting_dtData']),
-      ...mapActions(['saveDatadt'])
+      ...mapState(['setting_data']),
+      ...mapActions(['saveData']),
+      sdata(){
+        return this.setting_data
+      }
     },
     updated(){
       //this.partReword()//
-      if(this.dataStatus===undefined){
-        this.saveReword()
-      }else if (this.dataStatus==='1') {
-        this.saveReword1()
-      }
+      this.saveReword()
+      // if(this.dataStatus===undefined){
+      //   this.saveReword()
+      // }else if (this.dataStatus==='1') {
+      //   this.saveReword1()
+      // }
     },
     methods: {
 
       handlePictureCardPreview(file) {
 
-        this.dialogImageUrl = file.url;
+        // this.dialogImageUrl = file.url;
         this.dialogVisible = true;
       },
-      handleAvatarSuccess(res, file,fileList) {
-        this.imgData=file.response.data
+      handleAvatarSuccess1_1(res, file) {
+        this.dialogImageUrl = file.response.data
+        this.saveReword()
+      },
+      handleAvatarSuccess2_1(res, file) {
+        this.dialogImageUrl1 = file.response.data
+      },
+      handleAvatarSuccess3_1(res, file) {
+        this.dialogImageUrl2 = file.response.data
+      },
+      handleAvatarSuccess4_1(res, file) {
+        this.dialogImageUrl3 = file.response.data
+      },
+      handleAvatarSuccess5_1(res, file) {
+        this.dialogImageUrl4 = file.response.data
+      },
+      handleAvatarSuccess6_1(res, file) {
+        this.dialogImageUrl5 = file.response.data
+      },
+      handleAvatarSuccess7_1(res, file) {
+        this.dialogImageUrl6 = file.response.data
+      },
+      handleAvatarSuccess1(res, file, fileList) {
+        this.imgData1 = file.response.data
+        // this.imageUrl = URL.createObjectURL(file.raw);
+        this.saveReword()
+      },
+      handleAvatarSuccess2(res, file, fileList) {
+        this.imgData2 = file.response.data
+        // this.imageUrl = URL.createObjectURL(file.raw);
+        this.saveReword()
+      },
+      handleAvatarSuccess3(res, file, fileList) {
+        this.imgData3 = file.response.data
+        // this.imageUrl = URL.createObjectURL(file.raw);
+        this.saveReword()
+      },
+      handleAvatarSuccess4(res, file, fileList) {
+        this.imgData4 = file.response.data
+        // this.imageUrl = URL.createObjectURL(file.raw);
+        this.saveReword()
+      },
+      handleAvatarSuccess5(res, file, fileList) {
+        this.imgData5 = file.response.data
+        // this.imageUrl = URL.createObjectURL(file.raw);
+        this.saveReword()
+      },
+      handleAvatarSuccess6(res, file, fileList) {
+        this.imgData6 = file.response.data
+        // this.imageUrl = URL.createObjectURL(file.raw);
+        this.saveReword()
+      },
+      handleAvatarSuccess7(res, file, fileList) {
+        this.imgData7 = file.response.data
         // this.imageUrl = URL.createObjectURL(file.raw);
         this.saveReword()
       },
@@ -1270,18 +1374,18 @@
         console.log(file.response.data);
       },
 
-      beforeAvatarUpload(file){
-        const isJPG = file.type === 'image/jpeg';
-        const isPNG=file.type==='image/png';
-        const isLt1M = file.size / 100 < 1;
-
-        if (!isJPG&&!isPNG) {
-          this.$message.error('上传头像图片只能是 JPG 或 PNG 格式!');
-        }
-        if (!isLt1M) {
-          this.$message.error('上传头像图片大小不能超过 1MB!');
-        }
-        return isJPG|| isPNG && isLt1M;
+      beforeAvatarUpload(file) {
+        // const isJPG = file.type === 'image/jpeg';
+        // const isPNG=file.type==='image/png';
+        // const isLt100kb = file.size / 1024 < 0.1;
+        //
+        // if (!isJPG&&!isPNG) {
+        //   this.$message.error('上传头像图片只能是 JPG 或 PNG 格式!');
+        // }
+        // if (!isLt100kb) {
+        //   this.$message.error('上传头像图片大小不能超过 100kb!');
+        // }
+        // return isJPG  ||isPNG && isLt100kb ;
       },
       handleClick(tab, event) {
         console.log(tab, event);
@@ -1291,406 +1395,423 @@
       timestampToTime(timestamp) {
         var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
         var Y = date.getFullYear() + '-';
-        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
         var D = date.getDate() + ' ';
         var h = date.getHours() + ':';
         var m = date.getMinutes() + ':';
         var s = date.getSeconds();
-        return Y+M+D+h+m+s;
+        return Y + M + D + h + m + s;
       },
 
       //奖金设置部分的数据
-      partReword(){
+      partReword() {
         let Data = sessionStorage.getItem('Datadt')
         this.reword_data = JSON.parse(Data).dtAwardSetupExtendList
-        this.list=this.reword_data
+        this.list = this.reword_data
 
         console.log(this.reword_data)
         //  日期时间转换设置
-        this.start_date1 =this.reword_data[0].exchangeStartDate
-        this.end_date1=this.reword_data[0].exchangeEndDate//结束时间
+        this.start_date1 = this.reword_data[0].exchangeStartDate
+        this.end_date1 = this.reword_data[0].exchangeEndDate//结束时间
         let str1 = this.start_date1
-        let strend1=this.end_date1
+        let strend1 = this.end_date1
         //时间戳转换日期
-        let newStr1= this.timestampToTime(str1)
-        strend1=this.timestampToTime(strend1)
-        this.value5=[newStr1,strend1]
+        let newStr1 = this.timestampToTime(str1)
+        strend1 = this.timestampToTime(strend1)
+        this.value5 = [newStr1, strend1]
 
 
-        this.start_date2 =this.reword_data[1].exchangeStartDate
-        this.end_date2=this.reword_data[1].exchangeEndDate//结束时间
+        this.start_date2 = this.reword_data[1].exchangeStartDate
+        this.end_date2 = this.reword_data[1].exchangeEndDate//结束时间
         let str2 = this.start_date2
-        let strend2=this.end_date2
+        let strend2 = this.end_date2
         //时间戳转换日期
-        let newStr2= this.timestampToTime(str2)
-        strend2=this.timestampToTime(strend2)
-        this.value6=[newStr2,strend2]
+        let newStr2 = this.timestampToTime(str2)
+        strend2 = this.timestampToTime(strend2)
+        this.value6 = [newStr2, strend2]
 
 
-        this.start_date3 =this.reword_data[2].exchangeStartDate
-        this.end_date3=this.reword_data[2].exchangeEndDate//结束时间
+        this.start_date3 = this.reword_data[2].exchangeStartDate
+        this.end_date3 = this.reword_data[2].exchangeEndDate//结束时间
         let str3 = this.start_date3
-        let strend3=this.end_date3
+        let strend3 = this.end_date3
         //时间戳转换日期
-        let newStr3= this.timestampToTime(str3)
-        strend3=this.timestampToTime(strend3)
-        this.value7=[newStr3,strend3]
+        let newStr3 = this.timestampToTime(str3)
+        strend3 = this.timestampToTime(strend3)
+        this.value7 = [newStr3, strend3]
 
 
-        this.start_date4 =this.reword_data[3].exchangeStartDate
-        this.end_date4=this.reword_data[3].exchangeEndDate//结束时间
+        this.start_date4 = this.reword_data[3].exchangeStartDate
+        this.end_date4 = this.reword_data[3].exchangeEndDate//结束时间
         let str4 = this.start_date4
-        let strend4=this.end_date4
+        let strend4 = this.end_date4
         //时间戳转换日期
-        let newStr4= this.timestampToTime(str4)
-        strend4=this.timestampToTime(strend4)
-        this.value8=[newStr4,strend4]
+        let newStr4 = this.timestampToTime(str4)
+        strend4 = this.timestampToTime(strend4)
+        this.value8 = [newStr4, strend4]
 
 
-
-        this.start_date5 =this.reword_data[4].exchangeStartDate
-        this.end_date5=this.reword_data[4].exchangeEndDate//结束时间
+        this.start_date5 = this.reword_data[4].exchangeStartDate
+        this.end_date5 = this.reword_data[4].exchangeEndDate//结束时间
         let str5 = this.start_date5
-        let strend5=this.end_date5
+        let strend5 = this.end_date5
         //时间戳转换日期
-        let newStr5= this.timestampToTime(str5)
-        strend5=this.timestampToTime(strend5)
-        this.value9=[newStr5,strend5]
+        let newStr5 = this.timestampToTime(str5)
+        strend5 = this.timestampToTime(strend5)
+        this.value9 = [newStr5, strend5]
 
 
-        this.start_date6 =this.reword_data[5].exchangeStartDate
-        this.end_date6=this.reword_data[5].exchangeEndDate//结束时间
+        this.start_date6 = this.reword_data[5].exchangeStartDate
+        this.end_date6 = this.reword_data[5].exchangeEndDate//结束时间
         let str6 = this.start_date6
-        let strend6=this.end_date6
+        let strend6 = this.end_date6
         //时间戳转换日期
-        let newStr6= this.timestampToTime(str6)
-        strend6=this.timestampToTime(strend6)
-        this.value10=[newStr6,strend6]
+        let newStr6 = this.timestampToTime(str6)
+        strend6 = this.timestampToTime(strend6)
+        this.value10 = [newStr6, strend6]
 
-        this.start_date7 =this.reword_data[6].exchangeStartDate
-        this.end_date7=this.reword_data[6].exchangeEndDate//结束时间
+        this.start_date7 = this.reword_data[6].exchangeStartDate
+        this.end_date7 = this.reword_data[6].exchangeEndDate//结束时间
         let str7 = this.start_date7
-        let strend7=this.end_date7
+        let strend7 = this.end_date7
         //时间戳转换日期
-        let newStr7= this.timestampToTime(str7)
-        strend7=this.timestampToTime(strend7)
-        this.value11=[newStr7,strend7]
+        let newStr7 = this.timestampToTime(str7)
+        strend7 = this.timestampToTime(strend7)
+        this.value11 = [newStr7, strend7]
 
         //奖品一
         this.form.name1_1 = this.reword_data[0].prizeName //奖品名称
         this.form.name1_2 = this.reword_data[0].prizeNum //奖品数量
         this.form.name1_3 = this.reword_data[0].wxPublicAccountName //微信公众号名称
-        this.form.name1_4=this.reword_data[0].exchangeDesc //兑奖说明
-        this.form.address1=this.reword_data[0].exchangeAddress//门店地址
-        this.form.phone1_1=this.reword_data[0].exchangeTelephone //客服电话
+        this.form.name1_4 = this.reword_data[0].exchangeDesc //兑奖说明
+        this.form.address1 = this.reword_data[0].exchangeAddress//门店地址
+        this.form.phone1_1 = this.reword_data[0].exchangeTelephone //客服电话
         this.radio1 = this.reword_data[0].prizeSource.toString() //奖品来源
         this.radio2 = this.reword_data[0].prizeCouponCodeType.toString() //导入券码
         this.radio3 = this.reword_data[0].prizeExchangeTypeId.toString() //兑奖方式
-        this.imgData1=this.reword_data[0].prizeImg //上传图片
-        this.reword_type1 = this.reword_data[0].dtAwardTypeList // 奖品类型
-        this.form.region1=this.reword_data[0].prizeType
+        this.imgData1 = this.reword_data[0].prizeImg //上传图片
+        this.reword_type1 = this.reword_data[0].jggAwardTypeList // 奖品类型
+        this.form.region1 = this.reword_data[0].prizeType
+        this.dialogImageUrl = this.reword_data[0].wxPublicAccountImg //微信公众号图片
 
-        this.dialogImageUrl=this.reword_data[0].wxPublicAccountImg //微信公众号图片
-
-        console.log(this.reword_data[0].dtAwardTypeList);
+        console.log(this.reword_data[0].jggAwardTypeList);
 
         //奖品二
         this.form.name2_1 = this.reword_data[1].prizeName //奖品名称
         this.form.name2_2 = this.reword_data[1].prizeNum //奖品数量
         this.form.name2_3 = this.reword_data[1].wxPublicAccountName //微信公众号名称
-        this.form.name2_4=this.reword_data[1].exchangeDesc //兑奖说明
-        this.form.address2=this.reword_data[1].exchangeAddress//门店地址
-        this.form.phone2_1=this.reword_data[1].exchangeTelephone //客服电话
+        this.form.name2_4 = this.reword_data[1].exchangeDesc //兑奖说明
+        this.form.address2 = this.reword_data[1].exchangeAddress//门店地址
+        this.form.phone2_1 = this.reword_data[1].exchangeTelephone //客服电话
         this.radio2_1 = this.reword_data[1].prizeSource.toString() //奖品来源
         this.radio2_2 = this.reword_data[1].prizeCouponCodeType.toString() //导入券码
         this.radio2_3 = this.reword_data[1].prizeExchangeTypeId.toString() //兑奖方式
-        this.imgData2=this.reword_data[1].prizeImg //上传图片
-        this.reword_type2 = this.reword_data[1].dtAwardTypeList // 奖品类型
-        this.form.region2=this.reword_data[1].prizeType
-        this.dialogImageUrl1=this.reword_data[1].wxPublicAccountImg //微信公众号图片
+        this.imgData2 = this.reword_data[1].prizeImg //上传图片
+        this.reword_type2 = this.reword_data[1].jggAwardTypeList // 奖品类型
+        this.form.region2 = this.reword_data[1].prizeType
+        this.dialogImageUrl1 = this.reword_data[1].wxPublicAccountImg //微信公众号图片
 
         //奖品三
 
         this.form.name3_1 = this.reword_data[2].prizeName //奖品名称
         this.form.name3_2 = this.reword_data[2].prizeNum //奖品数量
         this.form.name3_3 = this.reword_data[2].wxPublicAccountName //微信公众号名称
-        this.form.name3_4=this.reword_data[2].exchangeDesc //兑奖说明
-        this.form.address3=this.reword_data[2].exchangeAddress//门店地址
-        this.form.phone3_1=this.reword_data[2].exchangeTelephone //客服电话
+        this.form.name3_4 = this.reword_data[2].exchangeDesc //兑奖说明
+        this.form.address3 = this.reword_data[2].exchangeAddress//门店地址
+        this.form.phone3_1 = this.reword_data[2].exchangeTelephone //客服电话
         this.radio3_1 = this.reword_data[2].prizeSource.toString() //奖品来源
         this.radio3_2 = this.reword_data[2].prizeCouponCodeType.toString() //导入券码
         this.radio3_3 = this.reword_data[2].prizeExchangeTypeId.toString() //兑奖方式
-        this.imgData3=this.reword_data[2].prizeImg //上传图片
-        this.reword_type3 = this.reword_data[2].dtAwardTypeList // 奖品类型
-        this.form.region3=this.reword_data[2].prizeType
-        this.dialogImageUrl2=this.reword_data[2].wxPublicAccountImg //微信公众号图片
+        this.imgData3 = this.reword_data[2].prizeImg //上传图片
+        this.reword_type3 = this.reword_data[2].jggAwardTypeList // 奖品类型
+        this.form.region3 = this.reword_data[2].prizeType
+        this.dialogImageUrl2 = this.reword_data[2].wxPublicAccountImg //微信公众号图片
         //奖品四
         this.form.name4_1 = this.reword_data[3].prizeName //奖品名称
         this.form.name4_2 = this.reword_data[3].prizeNum //奖品数量
         this.form.name4_3 = this.reword_data[3].wxPublicAccountName //微信公众号名称
-        this.form.name4_4=this.reword_data[3].exchangeDesc //兑奖说明
-        this.form.address4=this.reword_data[3].exchangeAddress//门店地址
-        this.form.phone4_1=this.reword_data[3].exchangeTelephone //客服电话
+        this.form.name4_4 = this.reword_data[3].exchangeDesc //兑奖说明
+        this.form.address4 = this.reword_data[3].exchangeAddress//门店地址
+        this.form.phone4_1 = this.reword_data[3].exchangeTelephone //客服电话
         this.radio4_1 = this.reword_data[3].prizeSource.toString() //奖品来源
         this.radio4_2 = this.reword_data[3].prizeCouponCodeType.toString() //导入券码
         this.radio4_3 = this.reword_data[3].prizeExchangeTypeId.toString() //兑奖方式
-        this.imgData4=this.reword_data[3].prizeImg //上传图片
-        this.reword_type4 = this.reword_data[3].dtAwardTypeList // 奖品类型
-        this.form.region4=this.reword_data[3].prizeType
-        this.dialogImageUrl3=this.reword_data[3].wxPublicAccountImg //微信公众号图片
+        this.imgData4 = this.reword_data[3].prizeImg //上传图片
+        this.reword_type4 = this.reword_data[3].jggAwardTypeList // 奖品类型
+        this.form.region4 = this.reword_data[3].prizeType
+        this.dialogImageUrl3 = this.reword_data[3].wxPublicAccountImg //微信公众号图片
         //奖品五
         this.form.name5_1 = this.reword_data[4].prizeName //奖品名称
         this.form.name5_2 = this.reword_data[4].prizeNum //奖品数量
         this.form.name5_3 = this.reword_data[4].wxPublicAccountName //微信公众号名称
-        this.form.name5_4=this.reword_data[4].exchangeDesc //兑奖说明
-        this.form.address5=this.reword_data[4].exchangeAddress//门店地址
-        this.form.phone5_1=this.reword_data[4].exchangeTelephone //客服电话
+        this.form.name5_4 = this.reword_data[4].exchangeDesc //兑奖说明
+        this.form.address5 = this.reword_data[4].exchangeAddress//门店地址
+        this.form.phone5_1 = this.reword_data[4].exchangeTelephone //客服电话
         this.radio5_1 = this.reword_data[4].prizeSource.toString() //奖品来源
         this.radio5_2 = this.reword_data[4].prizeCouponCodeType.toString() //导入券码
         this.radio5_3 = this.reword_data[4].prizeExchangeTypeId.toString() //兑奖方式
-        this.imgData5=this.reword_data[4].prizeImg //上传图片
-        this.reword_type5 = this.reword_data[4].dtAwardTypeList // 奖品类型
-        this.form.region5=this.reword_data[4].prizeType
-        this.dialogImageUrl4=this.reword_data[4].wxPublicAccountImg //微信公众号图片
+        this.imgData5 = this.reword_data[4].prizeImg //上传图片
+        this.reword_type5 = this.reword_data[4].jggAwardTypeList // 奖品类型
+        this.form.region5 = this.reword_data[4].prizeType
+        this.dialogImageUrl4 = this.reword_data[4].wxPublicAccountImg //微信公众号图片
 
         //奖品六
         this.form.name6_1 = this.reword_data[5].prizeName //奖品名称
         this.form.name6_2 = this.reword_data[5].prizeNum //奖品数量
         this.form.name6_3 = this.reword_data[5].wxPublicAccountName //微信公众号名称
-        this.form.name6_4=this.reword_data[5].exchangeDesc //兑奖说明
-        this.form.address6=this.reword_data[5].exchangeAddress//门店地址
-        this.form.phone6_1=this.reword_data[5].exchangeTelephone //客服电话
+        this.form.name6_4 = this.reword_data[5].exchangeDesc //兑奖说明
+        this.form.address6 = this.reword_data[5].exchangeAddress//门店地址
+        this.form.phone6_1 = this.reword_data[5].exchangeTelephone //客服电话
         this.radio6_1 = this.reword_data[5].prizeSource.toString() //奖品来源
         this.radio6_2 = this.reword_data[5].prizeCouponCodeType.toString() //导入券码
         this.radio6_3 = this.reword_data[5].prizeExchangeTypeId.toString() //兑奖方式
-        this.imgData6=this.reword_data[5].prizeImg //上传图片
-        this.reword_type6 = this.reword_data[5].dtAwardTypeList // 奖品类型
-        this.form.region6=this.reword_data[5].prizeType
-        this.dialogImageUrl5=this.reword_data[5].wxPublicAccountImg //微信公众号图片
+        this.imgData6 = this.reword_data[5].prizeImg //上传图片
+        this.reword_type6 = this.reword_data[5].jggAwardTypeList // 奖品类型
+        this.form.region6 = this.reword_data[5].prizeType
+        this.dialogImageUrl5 = this.reword_data[5].wxPublicAccountImg //微信公众号图片
 
         //奖品七
         this.form.name7_1 = this.reword_data[6].prizeName //奖品名称
         this.form.name7_2 = this.reword_data[6].prizeNum //奖品数量
         this.form.name7_3 = this.reword_data[6].wxPublicAccountName //微信公众号名称
-        this.form.name7_4=this.reword_data[6].exchangeDesc //兑奖说明
-        this.form.address7=this.reword_data[6].exchangeAddress//门店地址
-        this.form.phone7_1=this.reword_data[6].exchangeTelephone //客服电话
+        this.form.name7_4 = this.reword_data[6].exchangeDesc //兑奖说明
+        this.form.address7 = this.reword_data[6].exchangeAddress//门店地址
+        this.form.phone7_1 = this.reword_data[6].exchangeTelephone //客服电话
         this.radio7_1 = this.reword_data[6].prizeSource.toString() //奖品来源
         this.radio7_2 = this.reword_data[6].prizeCouponCodeType.toString() //导入券码
         this.radio7_3 = this.reword_data[6].prizeExchangeTypeId.toString() //兑奖方式
-        this.imgData7=this.reword_data[6].prizeImg //上传图片
-        this.reword_type7 = this.reword_data[6].dtAwardTypeList // 奖品类型
-        this.form.region7=this.reword_data[6].prizeType
-        this.dialogImageUrl6=this.reword_data[6].wxPublicAccountImg //微信公众号图片
+        this.imgData7 = this.reword_data[6].prizeImg //上传图片
+        this.reword_type7 = this.reword_data[6].jggAwardTypeList // 奖品类型
+        this.form.region7 = this.reword_data[6].prizeType
+        this.dialogImageUrl6 = this.reword_data[6].wxPublicAccountImg //微信公众号图片
 
 
-
+        //奖品八
+        // this.form.name8_1 = this.reword_data[7].prizeName
+        // this.form.name8_2 = this.reword_data[7].prizeNum
+        // this.form.name8_3 = this.reword_data[7].wxPublicAccountName
+        // this.radio8_1 = this.reword_data[7].prizeType.toString()
+        // this.radio8_2 = this.reword_data[7].prizeSource.toString()
+        // this.radio8_3 = this.reword_data[7].prizeExchangeTypeId.toString()
+        // this.reword_type8 = this.reword_data[7].jggAwardTypeList
       },
-      partReword1(){
-
+      partReword1() {
         this.reword_data = this.$route.query.newdtData.dtAwardSetupExtendList
-        this.list=this.reword_data
+        this.list = this.reword_data
 
         console.log(this.reword_data)
         //  日期时间转换设置
-        this.start_date1 =this.reword_data[0].exchangeStartDate
-        this.end_date1=this.reword_data[0].exchangeEndDate//结束时间
+        this.start_date1 = this.reword_data[0].exchangeStartDate
+        this.end_date1 = this.reword_data[0].exchangeEndDate//结束时间
         let str1 = this.start_date1
-        let strend1=this.end_date1
+        let strend1 = this.end_date1
         //时间戳转换日期
-        let newStr1= this.timestampToTime(str1)
-        strend1=this.timestampToTime(strend1)
-        this.value5=[newStr1,strend1]
+        let newStr1 = this.timestampToTime(str1)
+        strend1 = this.timestampToTime(strend1)
+        this.value5 = [newStr1, strend1]
 
 
-        this.start_date2 =this.reword_data[1].exchangeStartDate
-        this.end_date2=this.reword_data[1].exchangeEndDate//结束时间
+        this.start_date2 = this.reword_data[1].exchangeStartDate
+        this.end_date2 = this.reword_data[1].exchangeEndDate//结束时间
         let str2 = this.start_date2
-        let strend2=this.end_date2
+        let strend2 = this.end_date2
         //时间戳转换日期
-        let newStr2= this.timestampToTime(str2)
-        strend2=this.timestampToTime(strend2)
-        this.value6=[newStr2,strend2]
+        let newStr2 = this.timestampToTime(str2)
+        strend2 = this.timestampToTime(strend2)
+        this.value6 = [newStr2, strend2]
 
 
-        this.start_date3 =this.reword_data[2].exchangeStartDate
-        this.end_date3=this.reword_data[2].exchangeEndDate//结束时间
+        this.start_date3 = this.reword_data[2].exchangeStartDate
+        this.end_date3 = this.reword_data[2].exchangeEndDate//结束时间
         let str3 = this.start_date3
-        let strend3=this.end_date3
+        let strend3 = this.end_date3
         //时间戳转换日期
-        let newStr3= this.timestampToTime(str3)
-        strend3=this.timestampToTime(strend3)
-        this.value7=[newStr3,strend3]
+        let newStr3 = this.timestampToTime(str3)
+        strend3 = this.timestampToTime(strend3)
+        this.value7 = [newStr3, strend3]
 
 
-        this.start_date4 =this.reword_data[3].exchangeStartDate
-        this.end_date4=this.reword_data[3].exchangeEndDate//结束时间
+        this.start_date4 = this.reword_data[3].exchangeStartDate
+        this.end_date4 = this.reword_data[3].exchangeEndDate//结束时间
         let str4 = this.start_date4
-        let strend4=this.end_date4
+        let strend4 = this.end_date4
         //时间戳转换日期
-        let newStr4= this.timestampToTime(str4)
-        strend4=this.timestampToTime(strend4)
-        this.value8=[newStr4,strend4]
+        let newStr4 = this.timestampToTime(str4)
+        strend4 = this.timestampToTime(strend4)
+        this.value8 = [newStr4, strend4]
 
 
-
-        this.start_date5 =this.reword_data[4].exchangeStartDate
-        this.end_date5=this.reword_data[4].exchangeEndDate//结束时间
+        this.start_date5 = this.reword_data[4].exchangeStartDate
+        this.end_date5 = this.reword_data[4].exchangeEndDate//结束时间
         let str5 = this.start_date5
-        let strend5=this.end_date5
+        let strend5 = this.end_date5
         //时间戳转换日期
-        let newStr5= this.timestampToTime(str5)
-        strend5=this.timestampToTime(strend5)
-        this.value9=[newStr5,strend5]
+        let newStr5 = this.timestampToTime(str5)
+        strend5 = this.timestampToTime(strend5)
+        this.value9 = [newStr5, strend5]
 
 
-        this.start_date6 =this.reword_data[5].exchangeStartDate
-        this.end_date6=this.reword_data[5].exchangeEndDate//结束时间
+        this.start_date6 = this.reword_data[5].exchangeStartDate
+        this.end_date6 = this.reword_data[5].exchangeEndDate//结束时间
         let str6 = this.start_date6
-        let strend6=this.end_date6
+        let strend6 = this.end_date6
         //时间戳转换日期
-        let newStr6= this.timestampToTime(str6)
-        strend6=this.timestampToTime(strend6)
-        this.value10=[newStr6,strend6]
+        let newStr6 = this.timestampToTime(str6)
+        strend6 = this.timestampToTime(strend6)
+        this.value10 = [newStr6, strend6]
 
-        this.start_date7 =this.reword_data[6].exchangeStartDate
-        this.end_date7=this.reword_data[6].exchangeEndDate//结束时间
+        this.start_date7 = this.reword_data[6].exchangeStartDate
+        this.end_date7 = this.reword_data[6].exchangeEndDate//结束时间
         let str7 = this.start_date7
-        let strend7=this.end_date7
+        let strend7 = this.end_date7
         //时间戳转换日期
-        let newStr7= this.timestampToTime(str7)
-        strend7=this.timestampToTime(strend7)
-        this.value11=[newStr7,strend7]
+        let newStr7 = this.timestampToTime(str7)
+        strend7 = this.timestampToTime(strend7)
+        this.value11 = [newStr7, strend7]
 
         //奖品一
         this.form.name1_1 = this.reword_data[0].prizeName //奖品名称
         this.form.name1_2 = this.reword_data[0].prizeNum //奖品数量
         this.form.name1_3 = this.reword_data[0].wxPublicAccountName //微信公众号名称
-        this.form.name1_4=this.reword_data[0].exchangeDesc //兑奖说明
-        this.form.address1=this.reword_data[0].exchangeAddress//门店地址
-        this.form.phone1_1=this.reword_data[0].exchangeTelephone //客服电话
-        this.radio1 = this.reword_data[0].prizeSource.toString() //奖品来源
+        this.form.name1_4 = this.reword_data[0].exchangeDesc //兑奖说明
+        this.form.address1 = this.reword_data[0].exchangeAddress//门店地址
+        this.form.phone1_1 = this.reword_data[0].exchangeTelephone //客服电话
+        this.radio1 = this.reword_data[0].prizeType.toString() //奖品来源
         this.radio2 = this.reword_data[0].prizeCouponCodeType.toString() //导入券码
         this.radio3 = this.reword_data[0].prizeExchangeTypeId.toString() //兑奖方式
-        this.imgData1=this.reword_data[0].prizeImg //上传图片
-        this.reword_type1 = this.reword_data[0].dtAwardTypeList // 奖品类型
-        this.form.region1=this.reword_data[0].prizeType
-        this.dialogImageUrl=this.reword_data[0].wxPublicAccountImg //微信公众号图片
+        this.imgData1 = this.reword_data[0].prizeImg //上传图片
+        this.reword_type1 = this.reword_data[0].jggAwardTypeList // 奖品类型
+        this.form.region1 = this.reword_data[0].prizeType
+        this.dialogImageUrl = this.reword_data[0].wxPublicAccountImg //微信公众号图片
 
-        console.log(this.reword_data[0].dtAwardTypeList);
 
         //奖品二
         this.form.name2_1 = this.reword_data[1].prizeName //奖品名称
         this.form.name2_2 = this.reword_data[1].prizeNum //奖品数量
         this.form.name2_3 = this.reword_data[1].wxPublicAccountName //微信公众号名称
-        this.form.name2_4=this.reword_data[1].exchangeDesc //兑奖说明
-        this.form.address2=this.reword_data[1].exchangeAddress//门店地址
-        this.form.phone2_1=this.reword_data[1].exchangeTelephone //客服电话
-        this.radio2_1 = this.reword_data[1].prizeSource.toString() //奖品来源
+        this.form.name2_4 = this.reword_data[1].exchangeDesc //兑奖说明
+        this.form.address2 = this.reword_data[1].exchangeAddress//门店地址
+        this.form.phone2_1 = this.reword_data[1].exchangeTelephone //客服电话
+        this.radio2_1 = this.reword_data[1].prizeType.toString() //奖品来源
         this.radio2_2 = this.reword_data[1].prizeCouponCodeType.toString() //导入券码
         this.radio2_3 = this.reword_data[1].prizeExchangeTypeId.toString() //兑奖方式
-        this.imgData2=this.reword_data[1].prizeImg //上传图片
-        this.reword_type2 = this.reword_data[1].dtAwardTypeList // 奖品类型
-        this.form.region2=this.reword_data[1].prizeType
-        this.dialogImageUrl1=this.reword_data[1].wxPublicAccountImg //微信公众号图片
+        this.imgData2 = this.reword_data[1].prizeImg //上传图片
+        this.reword_type2 = this.reword_data[1].jggAwardTypeList // 奖品类型
+        this.form.region2 = this.reword_data[1].prizeType
+        this.dialogImageUrl1 = this.reword_data[1].wxPublicAccountImg //微信公众号图片
 
         //奖品三
 
         this.form.name3_1 = this.reword_data[2].prizeName //奖品名称
         this.form.name3_2 = this.reword_data[2].prizeNum //奖品数量
         this.form.name3_3 = this.reword_data[2].wxPublicAccountName //微信公众号名称
-        this.form.name3_4=this.reword_data[2].exchangeDesc //兑奖说明
-        this.form.address3=this.reword_data[2].exchangeAddress//门店地址
-        this.form.phone3_1=this.reword_data[2].exchangeTelephone //客服电话
-        this.radio3_1 = this.reword_data[2].prizeSource.toString() //奖品来源
+        this.form.name3_4 = this.reword_data[2].exchangeDesc //兑奖说明
+        this.form.address3 = this.reword_data[2].exchangeAddress//门店地址
+        this.form.phone3_1 = this.reword_data[2].exchangeTelephone //客服电话
+        this.radio3_1 = this.reword_data[2].prizeType.toString() //奖品来源
         this.radio3_2 = this.reword_data[2].prizeCouponCodeType.toString() //导入券码
         this.radio3_3 = this.reword_data[2].prizeExchangeTypeId.toString() //兑奖方式
-        this.imgData3=this.reword_data[2].prizeImg //上传图片
-        this.reword_type3 = this.reword_data[2].dtAwardTypeList // 奖品类型
-        this.form.region3=this.reword_data[2].prizeType
-        this.dialogImageUrl2=this.reword_data[2].wxPublicAccountImg //微信公众号图片
+        this.imgData3 = this.reword_data[2].prizeImg //上传图片
+        this.reword_type3 = this.reword_data[2].jggAwardTypeList // 奖品类型
+        this.form.region3 = this.reword_data[2].prizeType
+        this.dialogImageUrl2 = this.reword_data[2].wxPublicAccountImg //微信公众号图片
         //奖品四
         this.form.name4_1 = this.reword_data[3].prizeName //奖品名称
         this.form.name4_2 = this.reword_data[3].prizeNum //奖品数量
         this.form.name4_3 = this.reword_data[3].wxPublicAccountName //微信公众号名称
-        this.form.name4_4=this.reword_data[3].exchangeDesc //兑奖说明
-        this.form.address4=this.reword_data[3].exchangeAddress//门店地址
-        this.form.phone4_1=this.reword_data[3].exchangeTelephone //客服电话
-        this.radio4_1 = this.reword_data[3].prizeSource.toString() //奖品来源
+        this.form.name4_4 = this.reword_data[3].exchangeDesc //兑奖说明
+        this.form.address4 = this.reword_data[3].exchangeAddress//门店地址
+        this.form.phone4_1 = this.reword_data[3].exchangeTelephone //客服电话
+        this.radio4_1 = this.reword_data[3].prizeType.toString() //奖品来源
         this.radio4_2 = this.reword_data[3].prizeCouponCodeType.toString() //导入券码
         this.radio4_3 = this.reword_data[3].prizeExchangeTypeId.toString() //兑奖方式
-        this.imgData4=this.reword_data[3].prizeImg //上传图片
-        this.reword_type4 = this.reword_data[3].dtAwardTypeList // 奖品类型
-        this.form.region4=this.reword_data[3].prizeType
-        this.dialogImageUrl3=this.reword_data[3].wxPublicAccountImg //微信公众号图片
+        this.imgData4 = this.reword_data[3].prizeImg //上传图片
+        this.reword_type4 = this.reword_data[3].jggAwardTypeList // 奖品类型
+        this.form.region4 = this.reword_data[3].prizeType
+        this.dialogImageUrl3 = this.reword_data[3].wxPublicAccountImg //微信公众号图片
         //奖品五
         this.form.name5_1 = this.reword_data[4].prizeName //奖品名称
         this.form.name5_2 = this.reword_data[4].prizeNum //奖品数量
         this.form.name5_3 = this.reword_data[4].wxPublicAccountName //微信公众号名称
-        this.form.name5_4=this.reword_data[4].exchangeDesc //兑奖说明
-        this.form.address5=this.reword_data[4].exchangeAddress//门店地址
-        this.form.phone5_1=this.reword_data[4].exchangeTelephone //客服电话
-        this.radio5_1 = this.reword_data[4].prizeSource.toString() //奖品来源
+        this.form.name5_4 = this.reword_data[4].exchangeDesc //兑奖说明
+        this.form.address5 = this.reword_data[4].exchangeAddress//门店地址
+        this.form.phone5_1 = this.reword_data[4].exchangeTelephone //客服电话
+        this.radio5_1 = this.reword_data[4].prizeType.toString() //奖品来源
         this.radio5_2 = this.reword_data[4].prizeCouponCodeType.toString() //导入券码
         this.radio5_3 = this.reword_data[4].prizeExchangeTypeId.toString() //兑奖方式
-        this.imgData5=this.reword_data[4].prizeImg //上传图片
-        this.reword_type5 = this.reword_data[4].dtAwardTypeList // 奖品类型
-        this.form.region5=this.reword_data[4].prizeType
-        this.dialogImageUrl4=this.reword_data[4].wxPublicAccountImg //微信公众号图片
+        this.imgData5 = this.reword_data[4].prizeImg //上传图片
+        this.reword_type5 = this.reword_data[4].jggAwardTypeList // 奖品类型
+        this.form.region5 = this.reword_data[4].prizeType
+        this.dialogImageUrl4 = this.reword_data[4].wxPublicAccountImg //微信公众号图片
 
         //奖品六
         this.form.name6_1 = this.reword_data[5].prizeName //奖品名称
         this.form.name6_2 = this.reword_data[5].prizeNum //奖品数量
         this.form.name6_3 = this.reword_data[5].wxPublicAccountName //微信公众号名称
-        this.form.name6_4=this.reword_data[5].exchangeDesc //兑奖说明
-        this.form.address6=this.reword_data[5].exchangeAddress//门店地址
-        this.form.phone6_1=this.reword_data[5].exchangeTelephone //客服电话
-        this.radio6_1 = this.reword_data[5].prizeSource.toString() //奖品来源
+        this.form.name6_4 = this.reword_data[5].exchangeDesc //兑奖说明
+        this.form.address6 = this.reword_data[5].exchangeAddress//门店地址
+        this.form.phone6_1 = this.reword_data[5].exchangeTelephone //客服电话
+        this.radio6_1 = this.reword_data[5].prizeType.toString() //奖品来源
         this.radio6_2 = this.reword_data[5].prizeCouponCodeType.toString() //导入券码
         this.radio6_3 = this.reword_data[5].prizeExchangeTypeId.toString() //兑奖方式
-        this.imgData6=this.reword_data[5].prizeImg //上传图片
-        this.reword_type6 = this.reword_data[5].dtAwardTypeList // 奖品类型
-        this.form.region6=this.reword_data[5].prizeType
-        this.dialogImageUrl5=this.reword_data[5].wxPublicAccountImg //微信公众号图片
+        this.imgData6 = this.reword_data[5].prizeImg //上传图片
+        this.reword_type6 = this.reword_data[5].jggAwardTypeList // 奖品类型
+        this.form.region6 = this.reword_data[5].prizeType
+        this.dialogImageUrl5 = this.reword_data[5].wxPublicAccountImg //微信公众号图片
 
         //奖品七
         this.form.name7_1 = this.reword_data[6].prizeName //奖品名称
         this.form.name7_2 = this.reword_data[6].prizeNum //奖品数量
         this.form.name7_3 = this.reword_data[6].wxPublicAccountName //微信公众号名称
-        this.form.name7_4=this.reword_data[6].exchangeDesc //兑奖说明
-        this.form.address7=this.reword_data[6].exchangeAddress//门店地址
-        this.form.phone7_1=this.reword_data[6].exchangeTelephone //客服电话
-        this.radio7_1 = this.reword_data[6].prizeSource.toString() //奖品来源
+        this.form.name7_4 = this.reword_data[6].exchangeDesc //兑奖说明
+        this.form.address7 = this.reword_data[6].exchangeAddress//门店地址
+        this.form.phone7_1 = this.reword_data[6].exchangeTelephone //客服电话
+        this.radio7_1 = this.reword_data[6].prizeType.toString() //奖品来源
         this.radio7_2 = this.reword_data[6].prizeCouponCodeType.toString() //导入券码
         this.radio7_3 = this.reword_data[6].prizeExchangeTypeId.toString() //兑奖方式
-        this.imgData7=this.reword_data[6].prizeImg //上传图片
-        this.reword_type7 = this.reword_data[6].dtAwardTypeList // 奖品类型
-        this.form.region7=this.reword_data[6].prizeType
-        this.dialogImageUrl6=this.reword_data[6].wxPublicAccountImg //微信公众号图片
+        this.imgData7 = this.reword_data[6].prizeImg //上传图片
+        this.reword_type7 = this.reword_data[6].jggAwardTypeList // 奖品类型
+        this.form.region7 = this.reword_data[6].prizeType
+        this.dialogImageUrl6 = this.reword_data[6].wxPublicAccountImg //微信公众号图片
 
 
+        //奖品八
+        // this.form.name8_1 = this.reword_data[7].prizeName
+        // this.form.name8_2 = this.reword_data[7].prizeNum
+        // this.form.name8_3 = this.reword_data[7].wxPublicAccountName
+        // this.radio8_1 = this.reword_data[7].prizeType.toString()
+        // this.radio8_2 = this.reword_data[7].prizeSource.toString()
+        // this.radio8_3 = this.reword_data[7].prizeExchangeTypeId.toString()
+        // this.reword_type8 = this.reword_data[7].jggAwardTypeList
       },
       //保存奖品数据
-      saveReword(){
+      saveReword() {
         // this.$store.dispatch("saveData")
-
-        let Data = sessionStorage.getItem('Datadt')
-        console.log(Data+"555");
+        if (this.dataStatus === undefined) {
+          let Data = sessionStorage.getItem('Datadt')
+          this.reword_send = JSON.parse(Data).dtAwardSetupExtendList
+        } else if (this.dataStatus === '1') {
+          this.reword_send = this.$route.query.newjggData.dtAwardSetupExtendList
+        }
         // let Data1=sessionStorage.setItem('Data')
-        this.reword_send = JSON.parse(Data).dtAwardSetupExtendList
+
+        //奖品一
+
         this.reword_send[0].prizeName = this.form.name1_1 //奖品名称
         this.reword_send[0].prizeNum = this.form.name1_2 //奖品数量
         this.reword_send[0].wxPublicAccountName = this.form.name1_3  //微信公众号名称
         this.reword_send[0].exchangeDesc = this.form.name1_4 //兑奖说明
         this.reword_send[0].exchangeAddress = this.form.address1//门店地址
-        this.reword_send[0].exchangeTelephone =this.form.phone1_1//客服电话
+        this.reword_send[0].exchangeTelephone = this.form.phone1_1//客服电话
         this.reword_send[0].prizeSource = this.radio1  //奖品来源
         this.reword_send[0].prizeCouponCodeType = this.radio2  //导入券码
         this.reword_send[0].prizeExchangeTypeId = this.radio3//兑奖方式
-        this.reword_send[0].prizeImg =this.imgData1 //上传图片
-        this.reword_send[0].dtAwardTypeList = this.reword_type1 // 奖品类型
-        this.reword_send[0].prizeType=this.form.region1
-        this.reword_send[0].wxPublicAccountImg =this.dialogImageUrl//微信公众号图片
+        this.reword_send[0].prizeImg = this.imgData //上传图片
+        this.reword_send[0].jggAwardTypeList = this.reword_type1 // 奖品类型
+        this.reword_send[0].prizeType = this.form.region1
+        this.reword_send[0].wxPublicAccountImg = this.dialogImageUrl//微信公众号图片
+        console.log(this.dialogImageUrl);
+        console.log(this.reword_send[0].wxPublicAccountImg);
 
         //奖品二
         this.reword_send[1].prizeName = this.form.name2_1 //奖品名称
@@ -1698,14 +1819,14 @@
         this.reword_send[1].wxPublicAccountName = this.form.name2_3  //微信公众号名称
         this.reword_send[1].exchangeDesc = this.form.name2_4 //兑奖说明
         this.reword_send[1].exchangeAddress = this.form.address2//门店地址
-        this.reword_send[1].exchangeTelephone =this.form.phone2_1//客服电话
+        this.reword_send[1].exchangeTelephone = this.form.phone2_1//客服电话
         this.reword_send[1].prizeSource = this.radio2_1  //奖品来源
         this.reword_send[1].prizeCouponCodeType = this.radio2_2  //导入券码
         this.reword_send[1].prizeExchangeTypeId = this.radio2_3//兑奖方式
-        this.reword_send[1].prizeImg =this.imgData2 //上传图片
-        this.reword_send[1].dtAwardTypeList = this.reword_type2 // 奖品类型
-        this.reword_send[1].prizeType=this.form.region2
-        this.reword_send[1].wxPublicAccountImg =this.dialogImageUrl1//微信公众号图片
+        this.reword_send[1].prizeImg = this.imgData2 //上传图片
+        this.reword_send[1].jggAwardTypeList = this.reword_type2 // 奖品类型
+        this.reword_send[1].prizeType = this.form.region2
+        this.reword_send[1].wxPublicAccountImg = this.dialogImageUrl1//微信公众号图片
 
         //奖品三
         this.reword_send[2].prizeName = this.form.name3_1 //奖品名称
@@ -1713,14 +1834,14 @@
         this.reword_send[2].wxPublicAccountName = this.form.name3_3  //微信公众号名称
         this.reword_send[2].exchangeDesc = this.form.name3_4 //兑奖说明
         this.reword_send[2].exchangeAddress = this.form.address3//门店地址
-        this.reword_send[2].exchangeTelephone =this.form.phone3_1//客服电话
+        this.reword_send[2].exchangeTelephone = this.form.phone3_1//客服电话
         this.reword_send[2].prizeSource = this.radio3_1  //奖品来源
         this.reword_send[2].prizeCouponCodeType = this.radio3_2  //导入券码
         this.reword_send[2].prizeExchangeTypeId = this.radio3_3//兑奖方式
-        this.reword_send[2].prizeImg =this.imgData3 //上传图片
-        this.reword_send[2].dtAwardTypeList = this.reword_type3 // 奖品类型
-        this.reword_send[2].prizeType=this.form.region3
-        this.reword_send[2].wxPublicAccountImg =this.dialogImageUrl2//微信公众号图片
+        this.reword_send[2].prizeImg = this.imgData3 //上传图片
+        this.reword_send[2].jggAwardTypeList = this.reword_type3 // 奖品类型
+        this.reword_send[2].prizeType = this.form.region3
+        this.reword_send[2].wxPublicAccountImg = this.dialogImageUrl2//微信公众号图片
 
         //奖品四
         this.reword_send[3].prizeName = this.form.name4_1 //奖品名称
@@ -1728,14 +1849,14 @@
         this.reword_send[3].wxPublicAccountName = this.form.name4_3  //微信公众号名称
         this.reword_send[3].exchangeDesc = this.form.name4_4 //兑奖说明
         this.reword_send[3].exchangeAddress = this.form.address4//门店地址
-        this.reword_send[3].exchangeTelephone =this.form.phone4_1//客服电话
+        this.reword_send[3].exchangeTelephone = this.form.phone4_1//客服电话
         this.reword_send[3].prizeSource = this.radio4_1  //奖品来源
         this.reword_send[3].prizeCouponCodeType = this.radio4_2  //导入券码
         this.reword_send[3].prizeExchangeTypeId = this.radio4_3//兑奖方式
-        this.reword_send[3].prizeImg =this.imgData4 //上传图片
-        this.reword_send[3].dtAwardTypeList = this.reword_type4 // 奖品类型
-        this.reword_send[3].prizeType=this.form.region4
-        this.reword_send[3].wxPublicAccountImg =this.dialogImageUrl3//微信公众号图片
+        this.reword_send[3].prizeImg = this.imgData4 //上传图片
+        this.reword_send[3].jggAwardTypeList = this.reword_type4 // 奖品类型
+        this.reword_send[3].prizeType = this.form.region4
+        this.reword_send[3].wxPublicAccountImg = this.dialogImageUrl3//微信公众号图片
 
         //奖品五
         this.reword_send[4].prizeName = this.form.name5_1 //奖品名称
@@ -1743,14 +1864,14 @@
         this.reword_send[4].wxPublicAccountName = this.form.name5_3  //微信公众号名称
         this.reword_send[4].exchangeDesc = this.form.name5_4 //兑奖说明
         this.reword_send[4].exchangeAddress = this.form.address5//门店地址
-        this.reword_send[4].exchangeTelephone =this.form.phone5_1//客服电话
+        this.reword_send[4].exchangeTelephone = this.form.phone5_1//客服电话
         this.reword_send[4].prizeSource = this.radio5_1  //奖品来源
         this.reword_send[4].prizeCouponCodeType = this.radio5_2  //导入券码
         this.reword_send[4].prizeExchangeTypeId = this.radio5_3//兑奖方式
-        this.reword_send[4].prizeImg =this.imgData5 //上传图片
-        this.reword_send[4].dtAwardTypeList = this.reword_type5 // 奖品类型
-        this.reword_send[4].prizeType=this.form.region5
-        this.reword_send[4].wxPublicAccountImg =this.dialogImageUrl4//微信公众号图片
+        this.reword_send[4].prizeImg = this.imgData5 //上传图片
+        this.reword_send[4].jggAwardTypeList = this.reword_type5 // 奖品类型
+        this.reword_send[4].prizeType = this.form.region5
+        this.reword_send[4].wxPublicAccountImg = this.dialogImageUrl4//微信公众号图片
 
 
         //奖品六
@@ -1759,14 +1880,14 @@
         this.reword_send[5].wxPublicAccountName = this.form.name6_3  //微信公众号名称
         this.reword_send[5].exchangeDesc = this.form.name6_4 //兑奖说明
         this.reword_send[5].exchangeAddress = this.form.address6//门店地址
-        this.reword_send[5].exchangeTelephone =this.form.phone6_1//客服电话
+        this.reword_send[5].exchangeTelephone = this.form.phone6_1//客服电话
         this.reword_send[5].prizeSource = this.radio6_1  //奖品来源
         this.reword_send[5].prizeCouponCodeType = this.radio6_2  //导入券码
         this.reword_send[5].prizeExchangeTypeId = this.radio6_3//兑奖方式
-        this.reword_send[5].prizeImg =this.imgData6 //上传图片
-        this.reword_send[5].dtAwardTypeList = this.reword_type6 // 奖品类型
-        this.reword_send[5].prizeType=this.form.region6
-        this.reword_send[5].wxPublicAccountImg =this.dialogImageUrl5//微信公众号图片
+        this.reword_send[5].prizeImg = this.imgData6 //上传图片
+        this.reword_send[5].jggAwardTypeList = this.reword_type6 // 奖品类型
+        this.reword_send[5].prizeType = this.form.region6
+        this.reword_send[5].wxPublicAccountImg = this.dialogImageUrl5//微信公众号图片
 
 
         //奖品七
@@ -1775,153 +1896,45 @@
         this.reword_send[6].wxPublicAccountName = this.form.name7_3  //微信公众号名称
         this.reword_send[6].exchangeDesc = this.form.name7_4 //兑奖说明
         this.reword_send[6].exchangeAddress = this.form.address7//门店地址
-        this.reword_send[6].exchangeTelephone =this.form.phone7_1//客服电话
+        this.reword_send[6].exchangeTelephone = this.form.phone7_1//客服电话
         this.reword_send[6].prizeSource = this.radio7_1  //奖品来源
         this.reword_send[6].prizeCouponCodeType = this.radio7_2  //导入券码
         this.reword_send[6].prizeExchangeTypeId = this.radio7_3//兑奖方式
-        this.reword_send[6].prizeImg =this.imgData7 //上传图片
-        this.reword_send[6].dtAwardTypeList = this.reword_type7 // 奖品类型
-        this.reword_send[6].prizeType=this.form.region7
-        this.reword_send[6].wxPublicAccountImg =this.dialogImageUrl6//微信公众号图片
+        this.reword_send[6].prizeImg = this.imgData7 //上传图片
+        this.reword_send[6].jggAwardTypeList = this.reword_type7 // 奖品类型
+        this.reword_send[6].prizeType = this.form.region7
+        this.reword_send[6].wxPublicAccountImg = this.dialogImageUrl6//微信公众号图片
 
+        // 奖品八
+        // this.reword_send[7].prizeName = this.form.name7_1
+        // this.reword_send[7].prizeNum = this.form.name7_2
+        // this.reword_send[7].wxPublicAccountName = this.form.name7_3
+        // this.reword_send[7].prizeType = Number(this.radio7_1)
+        // this.reword_send[7].prizeSource = Number(this.radio7_2)
+        // this.reword_send[7].prizeExchangeTypeId = Number(this.radio7_3)
+        // this.reword_type8 = this.reword_data.jggAwardTypeList
 
-        this.$store.state.setting_dtData.dtAwardSetupExtendList = this.reword_send
-        this.$bus.emit("send_reword",this.reword_send)
-        console.log(this.reword_data)
-      },
-      saveReword1(){
-        // this.$store.dispatch("saveData")
-
-        // let Data1=sessionStorage.setItem('Data')
-        this.reword_send =this.$route.query.newdtData.dtAwardSetupExtendList
-        this.reword_send[0].prizeName = this.form.name1_1 //奖品名称
-        this.reword_send[0].prizeNum = this.form.name1_2 //奖品数量
-        this.reword_send[0].wxPublicAccountName = this.form.name1_3  //微信公众号名称
-        this.reword_send[0].exchangeDesc = this.form.name1_4 //兑奖说明
-        this.reword_send[0].exchangeAddress = this.form.address1//门店地址
-        this.reword_send[0].exchangeTelephone =this.form.phone1_1//客服电话
-        this.reword_send[0].prizeSource = this.radio1  //奖品来源
-        this.reword_send[0].prizeCouponCodeType = this.radio2  //导入券码
-        this.reword_send[0].prizeExchangeTypeId = this.radio3//兑奖方式
-        this.reword_send[0].prizeImg =this.imgData1 //上传图片
-        this.reword_send[0].dtAwardTypeList = this.reword_type1 // 奖品类型
-        this.reword_send[0].prizeType=this.form.region1
-        this.reword_send[0].wxPublicAccountImg =this.dialogImageUrl//微信公众号图片
-
-        //奖品二
-        this.reword_send[1].prizeName = this.form.name2_1 //奖品名称
-        this.reword_send[1].prizeNum = this.form.name2_2 //奖品数量
-        this.reword_send[1].wxPublicAccountName = this.form.name2_3  //微信公众号名称
-        this.reword_send[1].exchangeDesc = this.form.name2_4 //兑奖说明
-        this.reword_send[1].exchangeAddress = this.form.address2//门店地址
-        this.reword_send[1].exchangeTelephone =this.form.phone2_1//客服电话
-        this.reword_send[1].prizeSource = this.radio2_1  //奖品来源
-        this.reword_send[1].prizeCouponCodeType = this.radio2_2  //导入券码
-        this.reword_send[1].prizeExchangeTypeId = this.radio2_3//兑奖方式
-        this.reword_send[1].prizeImg =this.imgData2 //上传图片
-        this.reword_send[1].dtAwardTypeList = this.reword_type2 // 奖品类型
-        this.reword_send[1].prizeType=this.form.region2
-        this.reword_send[1].wxPublicAccountImg =this.dialogImageUrl1//微信公众号图片
-
-        //奖品三
-        this.reword_send[2].prizeName = this.form.name3_1 //奖品名称
-        this.reword_send[2].prizeNum = this.form.name3_2 //奖品数量
-        this.reword_send[2].wxPublicAccountName = this.form.name3_3  //微信公众号名称
-        this.reword_send[2].exchangeDesc = this.form.name3_4 //兑奖说明
-        this.reword_send[2].exchangeAddress = this.form.address3//门店地址
-        this.reword_send[2].exchangeTelephone =this.form.phone3_1//客服电话
-        this.reword_send[2].prizeSource = this.radio3_1  //奖品来源
-        this.reword_send[2].prizeCouponCodeType = this.radio3_2  //导入券码
-        this.reword_send[2].prizeExchangeTypeId = this.radio3_3//兑奖方式
-        this.reword_send[2].prizeImg =this.imgData3 //上传图片
-        this.reword_send[2].dtAwardTypeList = this.reword_type3 // 奖品类型
-        this.reword_send[2].prizeType=this.form.region3
-        this.reword_send[2].wxPublicAccountImg =this.dialogImageUrl2//微信公众号图片
-
-        //奖品四
-        this.reword_send[3].prizeName = this.form.name4_1 //奖品名称
-        this.reword_send[3].prizeNum = this.form.name4_2 //奖品数量
-        this.reword_send[3].wxPublicAccountName = this.form.name4_3  //微信公众号名称
-        this.reword_send[3].exchangeDesc = this.form.name4_4 //兑奖说明
-        this.reword_send[3].exchangeAddress = this.form.address4//门店地址
-        this.reword_send[3].exchangeTelephone =this.form.phone4_1//客服电话
-        this.reword_send[3].prizeSource = this.radio4_1  //奖品来源
-        this.reword_send[3].prizeCouponCodeType = this.radio4_2  //导入券码
-        this.reword_send[3].prizeExchangeTypeId = this.radio4_3//兑奖方式
-        this.reword_send[3].prizeImg =this.imgData4 //上传图片
-        this.reword_send[3].dtAwardTypeList = this.reword_type4 // 奖品类型
-        this.reword_send[3].prizeType=this.form.region4
-        this.reword_send[3].wxPublicAccountImg =this.dialogImageUrl3//微信公众号图片
-
-        //奖品五
-        this.reword_send[4].prizeName = this.form.name5_1 //奖品名称
-        this.reword_send[4].prizeNum = this.form.name5_2 //奖品数量
-        this.reword_send[4].wxPublicAccountName = this.form.name5_3  //微信公众号名称
-        this.reword_send[4].exchangeDesc = this.form.name5_4 //兑奖说明
-        this.reword_send[4].exchangeAddress = this.form.address5//门店地址
-        this.reword_send[4].exchangeTelephone =this.form.phone5_1//客服电话
-        this.reword_send[4].prizeSource = this.radio5_1  //奖品来源
-        this.reword_send[4].prizeCouponCodeType = this.radio5_2  //导入券码
-        this.reword_send[4].prizeExchangeTypeId = this.radio5_3//兑奖方式
-        this.reword_send[4].prizeImg =this.imgData5 //上传图片
-        this.reword_send[4].dtAwardTypeList = this.reword_type5 // 奖品类型
-        this.reword_send[4].prizeType=this.form.region5
-        this.reword_send[4].wxPublicAccountImg =this.dialogImageUrl4//微信公众号图片
-
-
-        //奖品六
-        this.reword_send[5].prizeName = this.form.name6_1 //奖品名称
-        this.reword_send[5].prizeNum = this.form.name6_2 //奖品数量
-        this.reword_send[5].wxPublicAccountName = this.form.name6_3  //微信公众号名称
-        this.reword_send[5].exchangeDesc = this.form.name6_4 //兑奖说明
-        this.reword_send[5].exchangeAddress = this.form.address6//门店地址
-        this.reword_send[5].exchangeTelephone =this.form.phone6_1//客服电话
-        this.reword_send[5].prizeSource = this.radio6_1  //奖品来源
-        this.reword_send[5].prizeCouponCodeType = this.radio6_2  //导入券码
-        this.reword_send[5].prizeExchangeTypeId = this.radio6_3//兑奖方式
-        this.reword_send[5].prizeImg =this.imgData6 //上传图片
-        this.reword_send[5].dtAwardTypeList = this.reword_type6 // 奖品类型
-        this.reword_send[5].prizeType=this.form.region6
-        this.reword_send[5].wxPublicAccountImg =this.dialogImageUrl5//微信公众号图片
-
-
-        //奖品七
-        this.reword_send[6].prizeName = this.form.name7_1 //奖品名称
-        this.reword_send[6].prizeNum = this.form.name7_2 //奖品数量
-        this.reword_send[6].wxPublicAccountName = this.form.name7_3  //微信公众号名称
-        this.reword_send[6].exchangeDesc = this.form.name7_4 //兑奖说明
-        this.reword_send[6].exchangeAddress = this.form.address7//门店地址
-        this.reword_send[6].exchangeTelephone =this.form.phone7_1//客服电话
-        this.reword_send[6].prizeSource = this.radio7_1  //奖品来源
-        this.reword_send[6].prizeCouponCodeType = this.radio7_2  //导入券码
-        this.reword_send[6].prizeExchangeTypeId = this.radio7_3//兑奖方式
-        this.reword_send[6].prizeImg =this.imgData7 //上传图片
-        this.reword_send[6].dtAwardTypeList = this.reword_type7 // 奖品类型
-        this.reword_send[6].prizeType=this.form.region7
-        this.reword_send[6].wxPublicAccountImg =this.dialogImageUrl6//微信公众号图片
-
-        this.$store.state.setting_dtData.dtAwardSetupExtendList = this.reword_send
-        this.$bus.emit("send_reword",this.reword_send)
+        this.$store.state.setting_data.jggAwardSetupExtendList = this.reword_send
+        this.$bus.emit("send_reword", this.reword_send)
         console.log(this.reword_data)
       },
       //添加奖品
-      addgift(){
-        $("#tab-first").css({"display":"none"})
-        if(this.reword.length==7){
+      addgift() {
+        $("#tab-first").css({"display": "none"})
+        if (this.reword.length == 7) {
           this.reword.push('奖金八')
 
-
-        }else{
+        } else {
           alert("最多添加8个奖品")
         }
 
 
       },
       //删除奖品
-      reducegift(){
-        if(this.reword.length==8){
-          this.reword.splice(7,1)
-        }else{
+      reducegift() {
+        if (this.reword.length == 8) {
+          this.reword.splice(7, 1)
+        } else {
           alert("至少添加7个奖品")
         }
       },
@@ -1929,14 +1942,14 @@
         console.log('submit!');
       },
 
-      back(){
+      back() {
         this.$router.go(-1)
       },
-      handlead(){
-        this.handShow=!this.handShow
+      handlead() {
+        this.handShow = !this.handShow
       },
-    }
 
+    }
   })
 </script>
 

@@ -8,7 +8,7 @@
                   <p>
                     <span class="host">主办单位</span>
                     <span>
-                      <el-input v-model="input" maxlength="20" placeholder="不超过20个汉字" name="first" style="width:40%;size:30%" ></el-input>
+                      <el-input v-model="input" maxlength="20 " placeholder="不超过20个汉字" name="first" style="width:40%;size:30%" ></el-input>
                     </span>
                   </p>
                   <p>

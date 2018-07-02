@@ -47,7 +47,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item v-show="shareTitl">
-          <el-input height="6rem" type="textarea" v-model="form.desc1"></el-input>
+          <el-input height="6rem" type="textarea" v-model="form.desc1" maxlength="50"></el-input>
         </el-form-item>
 
         <el-form-item label="微信分享内容">
@@ -57,7 +57,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item v-show="shareContent">
-          <el-input height="6rem" type="textarea" v-model="form.desc2"></el-input>
+          <el-input height="6rem" type="textarea" v-model="form.desc2" maxlength="500"></el-input>
         </el-form-item>
 
 

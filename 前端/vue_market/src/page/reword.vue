@@ -302,7 +302,7 @@
 
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name3_2" :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></el-input>
+                <el-input v-model="form.name3_2" :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"></el-input>
               </el-form-item>
               <el-form-item label="导入券码">
                 <el-radio-group v-model="radio3_2">

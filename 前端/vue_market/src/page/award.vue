@@ -18,7 +18,7 @@
           <el-radio v-model="radio1" label="2">不限制</el-radio>
           <span class="more" v-show="limitCount" >每人最多有
             <span>
-              <el-input class="ipt" v-model="input1" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
+              <el-input class="ipt" v-model="input1" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" maxlength="3">
               </el-input>
             </span>
             <span>次</span>
