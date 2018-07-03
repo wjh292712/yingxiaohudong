@@ -28,7 +28,7 @@
                       </el-radio-group>
                     </span>
                 <span class="logo_up" v-show="logoShow">
-                <el-upload class="avatar-uploader" action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+                <el-upload class="avatar-uploader" action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"> 上传logo</i>
               </el-upload>
@@ -45,7 +45,7 @@
                       </el-radio-group>
                     </span>
                 <span class="image_up" v-show="imgLoa">
-                    <el-upload class="avatar-uploader" action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg" :show-file-list="false" :on-success="handleAvatarSuccess1" :before-upload="beforeAvatarUpload">
+                    <el-upload class="avatar-uploader" action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg" :show-file-list="false" :on-success="handleAvatarSuccess1" :before-upload="beforeAvatarUpload">
                       <img v-if="imageUrl1" :src="imageUrl1" class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon">上传图片</i>
                     </el-upload>
@@ -82,10 +82,10 @@
     class="avatar-uploader"
     action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg"
     :show-file-list="false"
-    :on-success="handleAvatarSuccess"
+    :on-success="handleAvatarSuccess2"
     :before-upload="beforeAvatarUpload">
-                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-more">上传图标</i>
+                    <img v-if="imageUrl2" :src="imageUrl2" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon">上传图标</i>
                   </el-upload>
                     </span>
                       </span>
@@ -200,6 +200,7 @@
         radio11: '',
         imageUrl: '',
         imageUrl1:'',
+        imageUrl2:'',
         centerDialogVisible: false,
         imgLoa:false,
         company:'',//企业设置
@@ -490,6 +491,9 @@
       handleAvatarSuccess1(res, file) {
         this.imageUrl1 = file.response.data
       },
+      handleAvatarSuccess2(res, file) {
+        this.imageUrl2 = file.response.data
+      },
       beforeAvatarUpload(file) {
         // const isJPG = file.type === 'image/jpeg';
         // const isLt2M = file.size / 1024 / 1024 < 2;
@@ -624,7 +628,6 @@
   }
 
   .wxic{
-    display: inline-block;
     margin-left: 20px;
   }
   .safety p .preserve .hold {
@@ -663,6 +666,13 @@
       margin-top: 10px;
     }
   }
+  .wxic{
+    display: block;
+    color: blue;
+    font-size: 14px;
+    margin-left:120px;
+    margin-top: 10px;
+  }
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;
@@ -687,6 +697,8 @@
     text-align: center;
     background: #f2f2f2;
     border: 1px dashed #2b85e4;
+    /*margin-left: 150px;*/
+    margin-top: 10px;
   }
 
   .avatar {
