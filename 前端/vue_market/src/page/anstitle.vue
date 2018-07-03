@@ -51,9 +51,11 @@
             <h3>编辑题库</h3>
             <!--<span class="del" @click="del()">X</span>-->
           </div>
-          <div class="ansConent">
-            <el-form label-width="60px">
-              <el-form-item label="题目1:">
+          <div class="ansConent" :data-id=index>
+            <el-form label-width="60px" :data-id=index>
+              <h3>第{{count}}题</h3>
+              <el-button size="mini" class="delBtn" @click="delTitle()">删除题目</el-button>
+              <el-form-item label="题目:">
                 <el-input size="mini" v-model="ansName">
                 </el-input>
                 <el-upload
@@ -68,7 +70,7 @@
                   <img width="100%" :src="imageUrl" alt="">
                 </el-dialog>
               </el-form-item>
-              <p> 只能上传jpg/png文件，且不超过500kb</p>
+              <p class="imgInfo"> 只能上传jpg/png文件，且不超过500kb</p>
               <el-form-item label="正确答案:" label-width="80px">
                 <el-input size="mini" v-model="ansCorrect">
                 </el-input>
@@ -84,243 +86,11 @@
             </el-form>
 
           </div>
-          <div class="ansConent">
-            <el-form label-width="60px">
-              <el-form-item label="题目2:">
-                <el-input size="mini" v-model="ansName">
-                </el-input>
-                <el-upload
-                  action="http://center.marketing.yunpaas.cn/dt/upImg/upActivityImg"
-                  list-type="picture-card"
-                  :on-success="handleAvatarSuccess"
-                  :before-upload="beforeAvatarUpload"
-                  :on-remove="handleRemove" class="upLoad">
-                  <i class="el-icon-plus"></i>
-                </el-upload>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="imageUrl" alt="">
-                </el-dialog>
-              </el-form-item>
-              <p> 只能上传jpg/png文件，且不超过100kb</p>
-              <el-form-item label="正确答案:" label-width="80px">
-                <el-input size="mini" v-model="ansCorrect">
-                </el-input>
-              </el-form-item>
-              <el-form-item label="错误答案:" label-width="80px">
-                <el-input size="mini" v-model="ansError1">
-                </el-input>
-              </el-form-item>
-              <el-form-item label="错误答案:" label-width="80px">
-                <el-input size="mini" v-model="ansError2">
-                </el-input>
-              </el-form-item>
-            </el-form>
-
-          </div>
-          <div class="ansConent">
-            <el-form label-width="60px">
-              <el-form-item label="题目3:">
-                <el-input size="mini" v-model="ansName">
-                </el-input>
-                <el-upload
-                  action="http://center.marketing.yunpaas.cn/dt/upImg/upActivityImg"
-                  list-type="picture-card"
-                  :on-success="handleAvatarSuccess"
-                  :before-upload="beforeAvatarUpload"
-                  :on-remove="handleRemove" class="upLoad">
-                  <i class="el-icon-plus"></i>
-                </el-upload>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="imageUrl" alt="">
-                </el-dialog>
-              </el-form-item>
-              <p> 只能上传jpg/png文件，且不超过100kb</p>
-              <el-form-item label="正确答案:" label-width="80px">
-                <el-input size="mini" v-model="ansCorrect">
-                </el-input>
-              </el-form-item>
-              <el-form-item label="错误答案:" label-width="80px">
-                <el-input size="mini" v-model="ansError1">
-                </el-input>
-              </el-form-item>
-              <el-form-item label="错误答案:" label-width="80px">
-                <el-input size="mini" v-model="ansError2">
-                </el-input>
-              </el-form-item>
-            </el-form>
-
-          </div>
-          <!--<div class="ansConent">-->
-            <!--<el-form label-width="60px">-->
-              <!--<el-form-item label="题目4:">-->
-                <!--<el-input size="mini" v-model="ansName">-->
-                <!--</el-input>-->
-                <!--<el-upload-->
-                  <!--action="http://center.marketing.yunpaas.cn/dt/upImg/upActivityImg"-->
-                  <!--list-type="picture-card"-->
-                  <!--:on-success="handleAvatarSuccess"-->
-                  <!--:before-upload="beforeAvatarUpload"-->
-                  <!--:on-remove="handleRemove" class="upLoad">-->
-                  <!--<i class="el-icon-plus"></i>-->
-                <!--</el-upload>-->
-                <!--<el-dialog :visible.sync="dialogVisible">-->
-                  <!--<img width="100%" :src="imageUrl" alt="">-->
-                <!--</el-dialog>-->
-              <!--</el-form-item>-->
-              <!--<p> 只能上传jpg/png文件，且不超过100kb</p>-->
-              <!--<el-form-item label="正确答案:" label-width="80px">-->
-                <!--<el-input size="mini" v-model="ansCorrect">-->
-                <!--</el-input>-->
-              <!--</el-form-item>-->
-              <!--<el-form-item label="错误答案:" label-width="80px">-->
-                <!--<el-input size="mini" v-model="ansError1">-->
-                <!--</el-input>-->
-              <!--</el-form-item>-->
-              <!--<el-form-item label="错误答案:" label-width="80px">-->
-                <!--<el-input size="mini" v-model="ansError2">-->
-                <!--</el-input>-->
-              <!--</el-form-item>-->
-            <!--</el-form>-->
-
-          <!--</div>-->
-          <!--<div class="ansConent">-->
-            <!--<el-form label-width="60px">-->
-              <!--<el-form-item label="题目5:">-->
-                <!--<el-input size="mini" v-model="ansName">-->
-                <!--</el-input>-->
-                <!--<el-upload-->
-                  <!--action="http://center.marketing.yunpaas.cn/dt/upImg/upActivityImg"-->
-                  <!--list-type="picture-card"-->
-                  <!--:on-success="handleAvatarSuccess"-->
-                  <!--:before-upload="beforeAvatarUpload"-->
-                  <!--:on-remove="handleRemove" class="upLoad">-->
-                  <!--<i class="el-icon-plus"></i>-->
-                <!--</el-upload>-->
-                <!--<el-dialog :visible.sync="dialogVisible">-->
-                  <!--<img width="100%" :src="imageUrl" alt="">-->
-                <!--</el-dialog>-->
-              <!--</el-form-item>-->
-              <!--<p> 只能上传jpg/png文件，且不超过100kb</p>-->
-              <!--<el-form-item label="正确答案:" label-width="80px">-->
-                <!--<el-input size="mini" v-model="ansCorrect">-->
-                <!--</el-input>-->
-              <!--</el-form-item>-->
-              <!--<el-form-item label="错误答案:" label-width="80px">-->
-                <!--<el-input size="mini" v-model="ansError1">-->
-                <!--</el-input>-->
-              <!--</el-form-item>-->
-              <!--<el-form-item label="错误答案:" label-width="80px">-->
-                <!--<el-input size="mini" v-model="ansError2">-->
-                <!--</el-input>-->
-              <!--</el-form-item>-->
-            <!--</el-form>-->
-
-          <!--</div>-->
-          <!--<div class="ansConent">-->
-            <!--<el-form label-width="60px">-->
-              <!--<el-form-item label="题目6:">-->
-                <!--<el-input size="mini" v-model="ansName">-->
-                <!--</el-input>-->
-                <!--<el-upload-->
-                  <!--action="http://center.marketing.yunpaas.cn/dt/upImg/upActivityImg"-->
-                  <!--list-type="picture-card"-->
-                  <!--:on-success="handleAvatarSuccess"-->
-                  <!--:before-upload="beforeAvatarUpload"-->
-                  <!--:on-remove="handleRemove" class="upLoad">-->
-                  <!--<i class="el-icon-plus"></i>-->
-                <!--</el-upload>-->
-                <!--<el-dialog :visible.sync="dialogVisible">-->
-                  <!--<img width="100%" :src="imageUrl" alt="">-->
-                <!--</el-dialog>-->
-              <!--</el-form-item>-->
-              <!--<p> 只能上传jpg/png文件，且不超过100kb</p>-->
-              <!--<el-form-item label="正确答案:" label-width="80px">-->
-                <!--<el-input size="mini" v-model="ansCorrect">-->
-                <!--</el-input>-->
-              <!--</el-form-item>-->
-              <!--<el-form-item label="错误答案:" label-width="80px">-->
-                <!--<el-input size="mini" v-model="ansError1">-->
-                <!--</el-input>-->
-              <!--</el-form-item>-->
-              <!--<el-form-item label="错误答案:" label-width="80px">-->
-                <!--<el-input size="mini" v-model="ansError2">-->
-                <!--</el-input>-->
-              <!--</el-form-item>-->
-            <!--</el-form>-->
-
-          <!--</div>-->
-          <!--<div class="ansConent">-->
-            <!--<el-form label-width="60px">-->
-              <!--<el-form-item label="题目7:">-->
-                <!--<el-input size="mini" v-model="ansName">-->
-                <!--</el-input>-->
-                <!--<el-upload-->
-                  <!--action="http://center.marketing.yunpaas.cn/dt/upImg/upActivityImg"-->
-                  <!--list-type="picture-card"-->
-                  <!--:on-success="handleAvatarSuccess"-->
-                  <!--:before-upload="beforeAvatarUpload"-->
-                  <!--:on-remove="handleRemove" class="upLoad">-->
-                  <!--<i class="el-icon-plus"></i>-->
-                <!--</el-upload>-->
-                <!--<el-dialog :visible.sync="dialogVisible">-->
-                  <!--<img width="100%" :src="imageUrl" alt="">-->
-                <!--</el-dialog>-->
-              <!--</el-form-item>-->
-              <!--<p> 只能上传jpg/png文件，且不超过100kb</p>-->
-              <!--<el-form-item label="正确答案:" label-width="80px">-->
-                <!--<el-input size="mini" v-model="ansCorrect">-->
-                <!--</el-input>-->
-              <!--</el-form-item>-->
-              <!--<el-form-item label="错误答案:" label-width="80px">-->
-                <!--<el-input size="mini" v-model="ansError1">-->
-                <!--</el-input>-->
-              <!--</el-form-item>-->
-              <!--<el-form-item label="错误答案:" label-width="80px">-->
-                <!--<el-input size="mini" v-model="ansError2">-->
-                <!--</el-input>-->
-              <!--</el-form-item>-->
-            <!--</el-form>-->
-
-          <!--</div>-->
-          <!--<div class="ansConent">-->
-            <!--<el-form label-width="60px">-->
-              <!--<el-form-item label="题目8:">-->
-                <!--<el-input size="mini" v-model="ansName">-->
-                <!--</el-input>-->
-                <!--<el-upload-->
-                  <!--action="http://center.marketing.yunpaas.cn/dt/upImg/upActivityImg"-->
-                  <!--list-type="picture-card"-->
-                  <!--:on-success="handleAvatarSuccess"-->
-                  <!--:before-upload="beforeAvatarUpload"-->
-                  <!--:on-remove="handleRemove" class="upLoad">-->
-                  <!--<i class="el-icon-plus"></i>-->
-                <!--</el-upload>-->
-                <!--<el-dialog :visible.sync="dialogVisible">-->
-                  <!--<img width="100%" :src="imageUrl" alt="">-->
-                <!--</el-dialog>-->
-              <!--</el-form-item>-->
-              <!--<p> 只能上传jpg/png文件，且不超过100kb</p>-->
-              <!--<el-form-item label="正确答案:" label-width="80px">-->
-                <!--<el-input size="mini" v-model="ansCorrect">-->
-                <!--</el-input>-->
-              <!--</el-form-item>-->
-              <!--<el-form-item label="错误答案:" label-width="80px">-->
-                <!--<el-input size="mini" v-model="ansError1">-->
-                <!--</el-input>-->
-              <!--</el-form-item>-->
-              <!--<el-form-item label="错误答案:" label-width="80px">-->
-                <!--<el-input size="mini" v-model="ansError2">-->
-                <!--</el-input>-->
-              <!--</el-form-item>-->
-            <!--</el-form>-->
-
-          <!--</div>-->
         </div>
-        <div class="acsFooter">
-          <span>上一题</span>
-          <span>下一题</span>
+        <div class="footerDati">
+         <el-button size="mini" @click="addTitle()">新增题目</el-button>
           <span>共{{count}}题</span>
-          <el-button size="mini" class="btn" @click="saveTitle()">保存</el-button>
+          <el-button size="mini">保存</el-button>
         </div>
       </div>
     </div>
@@ -348,10 +118,11 @@
         ansCorrect: '',//正确答案
         ansError1: '',//错误答案1
         ansError2: '',//错误答案2
-        count: '12',//总题数
+        count: '1',//总题数
         title_data: '',//数据渲染接口
         title_send: "",//数据保存接口
         dataStatus: 0,
+        index:1,//第几题
       }
     },
     created() {
@@ -601,6 +372,19 @@
       tilTime() {
         this.tileTime = !this.tileTime
       },
+      addTitle(){
+        var htmlToAdd ="";
+        htmlToAdd = $(".ansConent:eq()").html();
+        $(".ansConent").html($(".ansConent").html()+htmlToAdd );
+        var list=document.getElementsByClassName("el-form")
+        var a=list.length
+        console.log(a);
+        this.index++;
+        this.count=this.index
+      },
+      delTitle(){
+
+      },
       // del() {
       //   if(this.radio1==1){
       //     this.ok = false;
@@ -664,6 +448,7 @@
     z-index: 888;
     border: 1px solid #c0c4cc;
     overflow-y: auto;
+    z-index: 999;
     .ansTitle {
       width: 100%;
       height: 45px;
@@ -674,21 +459,22 @@
       h3 {
         color: #010101;
       }
-      .del {
-        position: absolute;
-        top: 0;
-        right: 20px;
-        font-size: 20px;
 
-      }
     }
     .ansConent {
       width: 100%;
-      height: 460px;
+      /*height: 460px;*/
       padding: 10px 10px 0px 20px;
       background: #fff;
       background: rgba(255, 255, 255, 255);
-
+      overflow: hidden;
+.delBtn{
+  margin-left: 82%;
+}
+      .delBtn:hover{
+        color: #2b85e4;
+        cursor: pointer;
+      }
       .upLoad {
         .el-upload-list--picture-card {
           width: 10px !important;
@@ -698,30 +484,25 @@
       .el-icon-plus {
         font-size: 50px;
       }
-      .acsFooter {
-        width: 100%;
-        height: 30px;
-        line-height: 30px;
-        padding: 0 20px;
-        text-align: left;
-        span:nth-child(1) {
-          display: inline-block;
-          margin-right: 30px;
-          color: #fe4d1e;
-        }
-        span:nth-child(2) {
-          margin-right: 100px;
-          color: #fe4d1e;
-        }
-        span:nth-child(3) {
-          margin-right: 150px;
-        }
-        .btn {
-          background: #fe4d1e;
-          color: #fff;
-        }
-      }
+
+    }
+
+  }
+  .answ1 .footerDati {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    margin: 0 auto;
+    text-align: center;
+color: #2b85e4;
+
+
+    .btn {
+      background: #fe4d1e;
+      color: #fff;
     }
   }
-
+.imgInfo{
+  margin-left: 12%;
+}
 </style>

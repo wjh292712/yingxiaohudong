@@ -129,7 +129,8 @@
                   <i>详情</i>
                 </el-dropdown-item>
                 <el-dropdown-item class="clearfix">
-                  <i @click="copyContent($event,scope.row.activityId,scope.row.templateUuid,scope.row.stateForMyActivity)">复制</i>
+                  <i
+                    @click="copyContent($event,scope.row.activityId,scope.row.templateUuid,scope.row.stateForMyActivity)">复制</i>
                 </el-dropdown-item>
                 <el-dropdown-item class="clearfix">
                   <i @click="del(scope.row.activityId,scope.row.templateUuid)">删除</i>
@@ -169,7 +170,6 @@
           <a href="#">升级粉丝流量></a>
           <p class="text_c">活动派奖方式：抽奖派发</p>
         </div>
-
         <div class="formContent">
           <el-table
             :data="rewdata"
@@ -196,6 +196,10 @@
             <!--</template>-->
             <!--</el-table-column>-->
           </el-table>
+        </div>
+        <div class="activePublic">
+          <span class="publicName">承办活动公众号:</span>
+          <el-input size="mini" style="width:60%" v-model="public" class="pub_inp" readonly="true"></el-input>
         </div>
         <div class="btn_all">
           <el-button type="primary" class="btn_aa" @click="goOut()">取消</el-button>
@@ -334,6 +338,7 @@
         endPrice: false,//商品底价
         ticket: false,//券码
         btnsave: false,//保存
+        public: '',//公众号
         newjggData: '',//编辑数据接口
         newkjData: '',//编辑数据接口
         newdtData: '',//编辑数据接口
@@ -426,7 +431,7 @@
           // url: 'http://192.168.2.112:8085/center/activity/findMyActivity?token=' + token,
           headers: {'Content-Type': 'application/json'},
           params: {
-            activityName:this.activename,
+            activityName: this.activename,
             startTime1: this.value4[0] === undefined || null ? '' : this.value4[0].getTime(),
             startTime2: this.value4[1] === undefined || null ? '' : this.value4[1].getTime(),
             endTime1: this.value5[0] === undefined || null ? '' : this.value5[0].getTime(),
@@ -502,10 +507,18 @@
         return row[property] === value;
       },
       handleEdit(e, index, templ) {
-
         $('.publish').css({"display": "block"})
         this.activeId = index
         this.templateUuid = templ
+        this.$axios({
+          method: "post",
+          url: "http://center.marketing.yunpaas.cn/center/activity/wxList",
+          params: {}
+        }).then(res => {
+          console.log(res);
+          console.log(res.data.data);
+          this. public=res.data.data
+        })
         if (this.templateUuid == 1) {//九宫格发布奖品
           this.$axios({
             method: 'post',
@@ -549,6 +562,7 @@
         }
 
       },
+
       redact(e, index, templ, states) {
         this.activeId = index
         this.templateUuid = templ
@@ -570,12 +584,12 @@
               this.$router.push({
                 path: '/activeslide/activelist',
                 query: {
-                  startTime:true,
-                  actName:true,
-                  rewordCount:true,
-                  ticket:true,
-                  newjggData:newJggData,
-                  dataStatus:'1'
+                  startTime: true,
+                  actName: true,
+                  rewordCount: true,
+                  ticket: true,
+                  newjggData: newJggData,
+                  dataStatus: '1'
                 }
               })
             } else if (this.states === 4) {
@@ -583,11 +597,11 @@
               this.$router.push({
                 path: '/activeslide/activelist',
                 query: {
-                  startTime:true,
-                  actName:true,
-                  rewordCount:true,
-                  ticket:true,
-                  btnsave:true,
+                  startTime: true,
+                  actName: true,
+                  rewordCount: true,
+                  ticket: true,
+                  btnsave: true,
                   newjggData: newJggData,
                   dataStatus: '1'
                 }
@@ -613,11 +627,11 @@
               this.$router.push({
                 path: '/activeslide/bargainlist',
                 query: {
-                  startTime:true,
-                  actName:true,
-                  startPrice:true,
-                  endPrice:true,
-                  newkjData:newKjData,
+                  startTime: true,
+                  actName: true,
+                  startPrice: true,
+                  endPrice: true,
+                  newkjData: newKjData,
                   dataStatus: '1'
                 }
               })
@@ -626,13 +640,13 @@
               this.$router.push({
                 path: '/activeslide/bargainlist',
                 query: {
-                  startTime:true,
-                  actName:true,
-                  startPrice:true,
-                  endPrice:true,
-                  btnsave:true,
-                  newkjData:newKjData,
-                  dataStatus:'1'
+                  startTime: true,
+                  actName: true,
+                  startPrice: true,
+                  endPrice: true,
+                  btnsave: true,
+                  newkjData: newKjData,
+                  dataStatus: '1'
                 }
               })
             }
@@ -656,10 +670,10 @@
               this.$router.push({
                 path: '/activeslide/answerlist',
                 query: {
-                  startTime:true,
-                  actName:true,
-                  rewordCount:true,
-                  ticket:true,
+                  startTime: true,
+                  actName: true,
+                  rewordCount: true,
+                  ticket: true,
                   newdtData: newDtData,
                   dataStatus: '1',
                 }
@@ -669,18 +683,18 @@
               this.$router.push({
                 path: '/activeslide/answerlist',
                 query: {
-                  startTime:true,
-                  actName:true,
-                  rewordCount:true,
-                  ticket:true,
-                  btnsave:true,
-                  newdtData:newDtData,
+                  startTime: true,
+                  actName: true,
+                  rewordCount: true,
+                  ticket: true,
+                  btnsave: true,
+                  newdtData: newDtData,
                   dataStatus: '1',
                 }
               })
             }
             else {
-              this.$router.push({path: '/activeslide/answerlist',query: {newdtData: newDtData, dataStatus: '1'}})
+              this.$router.push({path: '/activeslide/answerlist', query: {newdtData: newDtData, dataStatus: '1'}})
             }
           })
 
@@ -710,12 +724,12 @@
               this.$router.push({
                 path: '/activeslide/activelist',
                 query: {
-                  startTime:false,
-                  actName:false,
-                  rewordCount:false,
-                  ticket:false,
-                  newjggData:newJggData,
-                  dataStatus:'1'
+                  startTime: false,
+                  actName: false,
+                  rewordCount: false,
+                  ticket: false,
+                  newjggData: newJggData,
+                  dataStatus: '1'
                 }
               })
             } else if (this.states === 4) {
@@ -723,11 +737,11 @@
               this.$router.push({
                 path: '/activeslide/activelist',
                 query: {
-                  startTime:false,
-                  actName:false,
-                  rewordCount:false,
-                  ticket:false,
-                  btnsave:false,
+                  startTime: false,
+                  actName: false,
+                  rewordCount: false,
+                  ticket: false,
+                  btnsave: false,
                   newjggData: newJggData,
                   dataStatus: '1'
                 }
@@ -753,11 +767,11 @@
               this.$router.push({
                 path: '/activeslide/bargainlist',
                 query: {
-                  startTime:false,
-                  actName:false,
-                  startPrice:false,
-                  endPrice:false,
-                  newkjData:newKjData,
+                  startTime: false,
+                  actName: false,
+                  startPrice: false,
+                  endPrice: false,
+                  newkjData: newKjData,
                   dataStatus: '1'
                 }
               })
@@ -766,13 +780,13 @@
               this.$router.push({
                 path: '/activeslide/bargainlist',
                 query: {
-                  startTime:false,
-                  actName:false,
-                  startPrice:false,
-                  endPrice:false,
-                  btnsave:false,
-                  newkjData:newKjData,
-                  dataStatus:'1'
+                  startTime: false,
+                  actName: false,
+                  startPrice: false,
+                  endPrice: false,
+                  btnsave: false,
+                  newkjData: newKjData,
+                  dataStatus: '1'
                 }
               })
             }
@@ -796,10 +810,10 @@
               this.$router.push({
                 path: '/activeslide/answerlist',
                 query: {
-                  startTime:false,
-                  actName:false,
-                  rewordCount:false,
-                  ticket:false,
+                  startTime: false,
+                  actName: false,
+                  rewordCount: false,
+                  ticket: false,
                   newdtData: newDtData,
                   dataStatus: '1',
                 }
@@ -809,18 +823,18 @@
               this.$router.push({
                 path: '/activeslide/answerlist',
                 query: {
-                  startTime:false,
-                  actName:false,
-                  rewordCount:false,
-                  ticket:false,
-                  btnsave:false,
-                  newdtData:newDtData,
+                  startTime: false,
+                  actName: false,
+                  rewordCount: false,
+                  ticket: false,
+                  btnsave: false,
+                  newdtData: newDtData,
                   dataStatus: '1',
                 }
               })
             }
             else {
-              this.$router.push({path: '/activeslide/answerlist',query: {newdtData: newDtData, dataStatus: '1'}})
+              this.$router.push({path: '/activeslide/answerlist', query: {newdtData: newDtData, dataStatus: '1'}})
             }
           })
 
@@ -872,6 +886,7 @@
             $('.publish').css({"display": "none"})
 
             this.handleCurrentChange()
+
           }).catch(res => {
             console.log(res)
           })
@@ -927,7 +942,7 @@
           method: 'post',
           url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,
           params: {
-            activityName:this.activename,
+            activityName: this.activename,
             startTime1: this.value4[0] === undefined || null ? '' : this.value4[0].getTime(),
             startTime2: this.value4[1] === undefined || null ? '' : this.value4[1].getTime(),
             endTime1: this.value5[0] === undefined || null ? '' : this.value5[0].getTime(),
@@ -1006,7 +1021,7 @@
 
   .publish {
     width: 529px;
-    height: 485px;
+    height: 520px;
     background: #FFFFFF;
     box-shadow: 0 6px 12px 0 rgba(0, 35, 85, 0.17);
     border-radius: 2px;
@@ -1164,6 +1179,23 @@
 
   .active_input > p {
     margin-top: 20px;
+  }
+
+  .activePublic {
+    margin-top: 1rem;
+    font-size: 15px;
+  }
+
+  .activePublic .publicName {
+    display: block;
+    float: left;
+    padding-left: 30px;
+    color: #6d6d72;
+
+  }
+
+  .pub_inp {
+    margin-left: -50px;
   }
 
 </style>
