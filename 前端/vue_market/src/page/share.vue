@@ -27,15 +27,26 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item v-show="shareIcon">
+          <!--<el-upload-->
+            <!--action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"-->
+            <!--list-type="picture-card"-->
+            <!--:on-preview="handlePictureCardPreview"-->
+            <!--:on-success="handleAvatarSuccess"-->
+            <!--:on-remove="handleRemove">-->
+            <!--<i class="el-icon-plus"></i>-->
+            <!--<span>上传图标</span>-->
+          <!--</el-upload>-->
           <el-upload
-            action="https://jsonplaceholder.typicode.com/posts/"
+            class="avatar-uploader"
+            action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
             list-type="picture-card"
-            :on-preview="handlePictureCardPreview"
+            :show-file-list="false"
             :on-success="handleAvatarSuccess"
-            :on-remove="handleRemove">
-            <i class="el-icon-plus"></i>
-            <span>上传图标</span>
+            :before-upload="beforeAvatarUpload">
+            <img v-if="dialogImageUrl" :src="dialogImageUrl" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon">上传图标</i>
           </el-upload>
+
           <el-dialog :visible.sync="dialogVisible">
             <img width="100%" :src="dialogImageUrl" alt="">
           </el-dialog>
@@ -59,7 +70,7 @@
         <el-form-item v-show="shareContent">
           <el-input height="6rem" type="textarea" v-model="form.desc2" maxlength="500"></el-input>
         </el-form-item>
-
+        <p>分享信息请遵守微信管理规定，禁止出现诱导分享等违规信息，后果由活动发布企业自担，部分敏感词系统会自动屏蔽。</p>
 
         <!--<el-form-item>-->
         <!--<el-button type="primary" @click="savedShare()">保存</el-button>-->
@@ -267,6 +278,9 @@
       change() {
         this.sendShare()
       },
+      beforeAvatarUpload(){
+
+      },
 
       // back(){
       //     this.$router.go(-1)
@@ -292,5 +306,35 @@
 
   .el-form-item__label {
     text-align: left;
+  }
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+
+  .avatar-uploader-icon {
+    font-size: 14px;
+    color: #c5c5c5;
+    width: 145px;
+    height: 145px;
+    line-height: 145px;
+    text-align: center;
+    background: #f2f2f2;
+  }
+
+  .avatar {
+    width: 145px;
+    height: 145px;
+    display: block;
   }
 </style>

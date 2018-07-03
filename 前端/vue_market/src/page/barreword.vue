@@ -21,74 +21,84 @@
 
               </el-form-item>
               <el-form-item label="商品名称:">
-                <el-input v-model="form.name1"  :disabled="actName" placeholder="不超过15个字"></el-input>
+                <el-input v-model="form.name1" :disabled="actName" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item label="商品图片:">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess1"
                   :before-upload="beforeAvatarUpload">
-                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <img v-if="imageUrl1" :src="imageUrl1" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-form-item>
 
               <el-form-item label="商品原价:">
-                <el-input v-model="form.price1" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.price1" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位</span>
               </el-form-item>
               <el-form-item label="商品底价:">
-                <el-input v-model="form.priceLow1" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px" ></el-input>
+                <el-input v-model="form.priceLow1" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
-                <el-input v-model="form.input1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="form.input2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+                <el-input v-model="form.input1" placeholder="请输入内容" class="nns"
+                          onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"/>
+                ——
+                <el-input v-model="form.input2" placeholder="请输入内容" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          class="nns" style="width: 200px"/>
               </el-form-item>
               <el-form-item label="砍到底价成功概率:" label-width="140px">
-                <el-input v-model="form.input3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <el-input v-model="form.input3" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容"
+                          class="nns" style="width: 200px"/>
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存:">
-                <el-input v-model="form.count1" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px" ></el-input>
+                <el-input v-model="form.count1" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量:">
-                <el-input v-model="form.countsales1" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.countsales1" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <span class="xlcontent">展示销量 = 虚拟销量 + 实际销量</span>
               </el-form-item>
               <el-form-item label="商品详情:">
                 <span class="scccc">
-                <el-upload
-                  class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
-                  :before-upload="beforeAvatarUpload">
+                  <el-upload
+                    class="avatar-uploader"
+                    action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
+                    :show-file-list="false"
+                    :on-success="handleAvatarSuccess1_1"
+                    :before-upload="beforeAvatarUpload">
                   <img v-if="form.imageUrl1_1" :src="form.imageUrl1_1" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+
 </span>
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess1_2"
                   :before-upload="beforeAvatarUpload">
-                  <img v-if="form.imageUrl1_2" :src="iform.imageUrl1_2" class="avatar">
+                  <img v-if="form.imageUrl1_2" :src="form.imageUrl1_2" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
 </span>
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess1_3"
                   :before-upload="beforeAvatarUpload">
                   <img v-if="form.imageUrl1_3" :src="form.imageUrl1_3" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -99,12 +109,14 @@
 
 
               <el-form-item label="配送方式:" style="width:26rem;">
-                <el-input type="textarea" v-model="form.deliveryType1" size="mini"></el-input>
+                <el-input type="textarea" maxlength="10" placeholder="不超过10个汉字" v-model="form.deliveryType1"
+                          size="mini"></el-input>
               </el-form-item>
 
 
               <el-form-item label="发货说明:">
-                <el-input type="textarea" v-model="form.deliveryInfo1" size="mini"></el-input>
+                <el-input type="textarea" maxlength="500" placeholder="0/500字" v-model="form.deliveryInfo1"
+                          size="mini"></el-input>
               </el-form-item>
 
 
@@ -123,52 +135,61 @@
 
               </el-form-item>
               <el-form-item label="商品名称:">
-                <el-input v-model="form.name2"  :disabled="actName"  placeholder="不超过15个字"></el-input>
+                <el-input v-model="form.name2" :disabled="actName" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item label="商品图片:">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess2"
                   :before-upload="beforeAvatarUpload">
-                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <img v-if="imageUrl2" :src="imageUrl2" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-form-item>
 
               <el-form-item label="商品原价:">
-                <el-input v-model="form.price2" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.price2" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位</span>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow2" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.priceLow2" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
-                <el-input v-model="form.input2_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="form.input2_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+                <el-input v-model="form.input2_1" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容"
+                          class="nns" style="width: 200px"/>
+                ——
+                <el-input v-model="form.input2_2" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容"
+                          class="nns" style="width: 200px"/>
               </el-form-item>
               <el-form-item label="砍到底价成功概率:" label-width="140px">
-                <el-input v-model="form.input2_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <el-input v-model="form.input2_3" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容"
+                          class="nns" style="width: 200px"/>
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存">
-                <el-input  v-model="form.count2" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.count2" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量">
-                <el-input  v-model="form.countsales2" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.countsales2" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <span class="xlcontent">展示销量 = 虚拟销量 + 实际销量</span>
               </el-form-item>
               <el-form-item label="商品详情">
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess2_1"
                   :before-upload="beforeAvatarUpload">
                   <img v-if="form.imageUrl2_1" :src="form.imageUrl2_1" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -177,20 +198,20 @@
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess2_2"
                   :before-upload="beforeAvatarUpload">
-                  <img v-if="form.imageUrl2_2" :src="iform.imageUrl2_2" class="avatar">
+                  <img v-if="form.imageUrl2_2" :src="form.imageUrl2_2" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
 </span>
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess2_3"
                   :before-upload="beforeAvatarUpload">
                   <img v-if="form.imageUrl2_3" :src="form.imageUrl2_3" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -201,14 +222,15 @@
 
 
               <el-form-item label="配送方式" style="width:26rem;">
-                <el-input type="textarea" v-model="form.deliveryType2" size="mini"></el-input>
+                <el-input type="textarea" maxlegnth="10" placeholder="不超过10个汉字" v-model="form.deliveryType2"
+                          size="mini"></el-input>
               </el-form-item>
 
 
               <el-form-item label="发货说明">
-                <el-input type="textarea" v-model="form.deliveryInfo2" size="mini"></el-input>
+                <el-input type="textarea" maxlength="500" placeholder="0／500字" v-model="form.deliveryInfo2"
+                          size="mini"></el-input>
               </el-form-item>
-
 
 
             </el-tab-pane>
@@ -226,52 +248,61 @@
 
               </el-form-item>
               <el-form-item label="商品名称">
-                <el-input v-model="form.name3"  :disabled="actName"  placeholder="不超过15个字"></el-input>
+                <el-input v-model="form.name3" :disabled="actName" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item label="商品图片">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess3"
                   :before-upload="beforeAvatarUpload">
-                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <img v-if="imageUrl3" :src="imageUrl3" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price3" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.price3" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位</span>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow3" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.priceLow3" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
-                <el-input v-model="form.input3_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="form.input3_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+                <el-input v-model="form.input3_1" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容"
+                          class="nns" style="width: 200px"/>
+                ——
+                <el-input v-model="form.input3_2" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容"
+                          class="nns" style="width: 200px"/>
               </el-form-item>
               <el-form-item label="砍到底价成功概率:" label-width="140px">
-                <el-input v-model="form.input3_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <el-input v-model="form.input3_3" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容"
+                          class="nns" style="width: 200px"/>
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存">
-                <el-input  v-model="form.count3" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.count3" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量">
-                <el-input  v-model="form.countsales3" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.countsales3" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <span class="xlcontent">展示销量 = 虚拟销量 + 实际销量</span>
               </el-form-item>
               <el-form-item label="商品详情">
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess3_1"
                   :before-upload="beforeAvatarUpload">
                   <img v-if="form.imageUrl3_1" :src="form.imageUrl3_1" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -280,20 +311,20 @@
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess3_2"
                   :before-upload="beforeAvatarUpload">
-                  <img v-if="form.imageUrl3_2" :src="iform.imageUrl3_2" class="avatar">
+                  <img v-if="form.imageUrl3_2" :src="form.imageUrl3_2" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
 </span>
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess3_3"
                   :before-upload="beforeAvatarUpload">
                   <img v-if="form.imageUrl3_3" :src="form.imageUrl3_3" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -304,15 +335,15 @@
 
 
               <el-form-item label="配送方式" style="width:26rem;">
-                <el-input type="textarea" v-model="form.deliveryType3" size="mini"></el-input>
+                <el-input type="textarea" maxlength="10" placeholder="不超过10个汉字" v-model="form.deliveryType3"
+                          size="mini"></el-input>
               </el-form-item>
 
 
               <el-form-item label="发货说明">
-                <el-input type="textarea" v-model="form.deliveryInfo3" size="mini"></el-input>
+                <el-input type="textarea" maxlength="500" placeholder="0/500字" v-model="form.deliveryInfo3"
+                          size="mini"></el-input>
               </el-form-item>
-
-
 
 
             </el-tab-pane>
@@ -331,52 +362,61 @@
 
               </el-form-item>
               <el-form-item label="商品名称">
-                <el-input v-model="form.name4"  :disabled="actName"  placeholder="不超过15个字"></el-input>
+                <el-input v-model="form.name4" :disabled="actName" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item label="商品图片">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess4"
                   :before-upload="beforeAvatarUpload">
-                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <img v-if="imageUrl4" :src="imageUrl4" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price4" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.price4" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位</span>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow4" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.priceLow4" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
-                <el-input v-model="form.input4_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="form.input4_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+                <el-input v-model="form.input4_1" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容"
+                          class="nns" style="width: 200px"/>
+                ——
+                <el-input v-model="form.input4_2" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容"
+                          class="nns" style="width: 200px"/>
               </el-form-item>
               <el-form-item label="砍到底价成功概率:" label-width="140px">
-                <el-input v-model="form.input4_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <el-input v-model="form.input4_3" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容"
+                          class="nns" style="width: 200px"/>
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存">
-                <el-input  v-model="form.count4" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.count4" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量">
-                <el-input  v-model="form.countsales4" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.countsales4" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <span class="xlcontent">展示销量 = 虚拟销量 + 实际销量</span>
               </el-form-item>
               <el-form-item label="商品详情">
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess4_1"
                   :before-upload="beforeAvatarUpload">
                   <img v-if="form.imageUrl4_1" :src="form.imageUrl4_1" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -385,20 +425,20 @@
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess4_2"
                   :before-upload="beforeAvatarUpload">
-                  <img v-if="form.imageUrl4_2" :src="iform.imageUrl4_2" class="avatar">
+                  <img v-if="form.imageUrl4_2" :src="form.imageUrl4_2" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
 </span>
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess4_3"
                   :before-upload="beforeAvatarUpload">
                   <img v-if="form.imageUrl4_3" :src="form.imageUrl4_3" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -409,14 +449,15 @@
 
 
               <el-form-item label="配送方式" style="width:26rem;">
-                <el-input type="textarea" v-model="form.deliveryType4" size="mini"></el-input>
+                <el-input type="textarea" maxlength="10" placeholder="不超过10个汉字" v-model="form.deliveryType4"
+                          size="mini"></el-input>
               </el-form-item>
 
 
               <el-form-item label="发货说明">
-                <el-input type="textarea" v-model="form.deliveryInfo4" size="mini"></el-input>
+                <el-input type="textarea" maxlength="500" placeholder="0/500字" v-model="form.deliveryInfo4"
+                          size="mini"></el-input>
               </el-form-item>
-
 
 
             </el-tab-pane>
@@ -435,52 +476,61 @@
 
               </el-form-item>
               <el-form-item label="商品名称">
-                <el-input v-model="form.name5"  :disabled="actName"  placeholder="不超过15个字"></el-input>
+                <el-input v-model="form.name5" :disabled="actName" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item label="商品图片">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess5"
                   :before-upload="beforeAvatarUpload">
-                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <img v-if="imageUrl5" :src="imageUrl5" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price5" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.price5" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位</span>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow5" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.priceLow5" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
-                <el-input v-model="form.input5_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="form.input5_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+                <el-input v-model="form.input5_1" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容"
+                          class="nns" style="width: 200px"/>
+                ——
+                <el-input v-model="form.input5_2" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容"
+                          class="nns" style="width: 200px"/>
               </el-form-item>
               <el-form-item label="砍到底价成功概率:" label-width="140px">
-                <el-input v-model="form.input5_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <el-input v-model="form.input5_3" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容"
+                          class="nns" style="width: 200px"/>
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存">
-                <el-input v-model="form.count5" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.count5" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量">
-                <el-input  v-model="form.countsales5" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.countsales5" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <span class="xlcontent">展示销量 = 虚拟销量 + 实际销量</span>
               </el-form-item>
               <el-form-item label="商品详情">
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess5_1"
                   :before-upload="beforeAvatarUpload">
                   <img v-if="form.imageUrl5_1" :src="form.imageUrl5_1" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -489,20 +539,20 @@
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess5_2"
                   :before-upload="beforeAvatarUpload">
-                  <img v-if="form.imageUrl5_2" :src="iform.imageUrl5_2" class="avatar">
+                  <img v-if="form.imageUrl5_2" :src="form.imageUrl5_2" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
 </span>
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess5_3"
                   :before-upload="beforeAvatarUpload">
                   <img v-if="form.imageUrl5_3" :src="form.imageUrl5_3" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -513,12 +563,14 @@
 
 
               <el-form-item label="配送方式" style="width:26rem;">
-                <el-input type="textarea" v-model="form.deliveryType5" size="mini"></el-input>
+                <el-input type="textarea" maxlength="10" placeholder="不超过10个汉字" v-model="form.deliveryType5"
+                          size="mini"></el-input>
               </el-form-item>
 
 
               <el-form-item label="发货说明">
-                <el-input type="textarea" v-model="form.deliveryInfo5" size="mini"></el-input>
+                <el-input type="textarea" maxlength="500" placeholder="0/500字" v-model="form.deliveryInfo5"
+                          size="mini"></el-input>
               </el-form-item>
 
 
@@ -538,52 +590,61 @@
 
               </el-form-item>
               <el-form-item label="商品名称">
-                <el-input v-model="form.name6"  :disabled="actName"  placeholder="不超过15个字"></el-input>
+                <el-input v-model="form.name6" :disabled="actName" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item label="商品图片">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess6"
                   :before-upload="beforeAvatarUpload">
-                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <img v-if="imageUrl6" :src="imageUrl6" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-form-item>
 
               <el-form-item label="商品原价">
-                <el-input v-model="form.price6" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.price6" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位</span>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow6" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.priceLow6" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
-                <el-input v-model="form.input6_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="form.input6_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+                <el-input v-model="form.input6_1" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容"
+                          class="nns" style="width: 200px"/>
+                ——
+                <el-input v-model="form.input6_2" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容"
+                          class="nns" style="width: 200px"/>
               </el-form-item>
               <el-form-item label="砍到底价成功概率:" label-width="140px">
-                <el-input v-model="form.input6_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <el-input v-model="form.input6_3" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容"
+                          class="nns" style="width: 200px"/>
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存">
-                <el-input v-model="form.count6" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.count6" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量">
-                <el-input  v-model="form.countsales1" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.countsales1" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <span class="xlcontent">展示销量 = 虚拟销量 + 实际销量</span>
               </el-form-item>
               <el-form-item label="商品详情">
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess6_1"
                   :before-upload="beforeAvatarUpload">
                   <img v-if="form.imageUrl6_1" :src="form.imageUrl6_1" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -592,20 +653,20 @@
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess6_2"
                   :before-upload="beforeAvatarUpload">
-                  <img v-if="form.imageUrl6_2" :src="iform.imageUrl6_2" class="avatar">
+                  <img v-if="form.imageUrl6_2" :src="form.imageUrl6_2" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
 </span>
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess6_3"
                   :before-upload="beforeAvatarUpload">
                   <img v-if="form.imageUrl6_3" :src="form.imageUrl6_3" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -616,14 +677,15 @@
 
 
               <el-form-item label="配送方式" style="width:26rem;">
-                <el-input type="textarea" v-model="form.deliveryType6" size="mini"></el-input>
+                <el-input type="textarea" maxlength="10" placeholder="不超过10个汉字" v-model="form.deliveryType6"
+                          size="mini"></el-input>
               </el-form-item>
 
 
               <el-form-item label="发货说明">
-                <el-input type="textarea" v-model="form.deliveryInfo6" size="mini"></el-input>
+                <el-input type="textarea" maxlength="500" placeholder="0/500字" v-model="form.deliveryInfo6"
+                          size="mini"></el-input>
               </el-form-item>
-
 
 
             </el-tab-pane>
@@ -642,52 +704,60 @@
 
               </el-form-item>
               <el-form-item label="商品名称">
-                <el-input v-model="form.name7"  :disabled="actName"  placeholder="不超过15个字"></el-input>
+                <el-input v-model="form.name7" :disabled="actName" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item label="商品图片">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess7"
                   :before-upload="beforeAvatarUpload">
-                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <img v-if="imageUrl7" :src="imageUrl7" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-form-item>
-
               <el-form-item label="商品原价">
-                <el-input v-model="form.price7" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.price7" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位</span>
               </el-form-item>
               <el-form-item label="商品底价">
-                <el-input v-model="form.priceLow7" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.priceLow7" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
                 </el-tooltip>
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位活动发布后不允许修改</span>
               </el-form-item>
               <el-form-item label="砍价金额范围(元):" label-width="140px">
-                <el-input v-model="form.input7_1" placeholder="请输入内容" class="nns" style="width: 200px"/>——<el-input v-model="form.input7_2" placeholder="请输入内容"  class="nns" style="width: 200px"/>
+                <el-input v-model="form.input7_1" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容"
+                          class="nns" style="width: 200px"/>
+                ——
+                <el-input v-model="form.input7_2" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容"
+                          class="nns" style="width: 200px"/>
               </el-form-item>
               <el-form-item label="砍到底价成功概率:" label-width="140px">
-                <el-input v-model="form.input7_3" placeholder="请输入内容" class="nns" style="width: 200px"/>
+                <el-input v-model="form.input7_3" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容"
+                          class="nns" style="width: 200px"/>
                 <span>%</span>
               </el-form-item>
               <el-form-item label="商品库存">
-                <el-input v-model="form.count7" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.count7" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
               </el-form-item>
               <el-form-item label="虚拟销量">
-                <el-input  v-model="form.countsales7" onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 200px"></el-input>
+                <el-input v-model="form.countsales7" onkeyup="value=value.replace(/[^\d]/g,'')"
+                          style="width: 200px"></el-input>
                 <span class="xlcontent">展示销量 = 虚拟销量 + 实际销量</span>
               </el-form-item>
               <el-form-item label="商品详情">
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess7_1"
                   :before-upload="beforeAvatarUpload">
                   <img v-if="form.imageUrl7_1" :src="form.imageUrl7_1" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -696,20 +766,20 @@
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess7_2"
                   :before-upload="beforeAvatarUpload">
-                  <img v-if="form.imageUrl7_2" :src="iform.imageUrl7_2" class="avatar">
+                  <img v-if="form.imageUrl7_2" :src="form.imageUrl7_2" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
 </span>
                 <span class="scccc">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
                   :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="handleAvatarSuccess7_3"
                   :before-upload="beforeAvatarUpload">
                   <img v-if="form.imageUrl7_3" :src="form.imageUrl7_3" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -720,22 +790,23 @@
 
 
               <el-form-item label="配送方式" style="width:26rem;">
-                <el-input type="textarea" v-model="form.deliveryType7" size="mini"></el-input>
+                <el-input type="textarea" maxlength="10" placeholder="不超过10个汉字" v-model="form.deliveryType7"
+                          size="mini"></el-input>
               </el-form-item>
 
 
               <el-form-item label="发货说明">
-                <el-input type="textarea" v-model="form.deliveryInfo7" size="mini"></el-input>
+                <el-input type="textarea" maxlenght="500" placeholder="0/500字" v-model="form.deliveryInfo7"
+                          size="mini"></el-input>
               </el-form-item>
-
 
 
             </el-tab-pane>
 
           </el-tabs>
           <!--<div class="cddd">-->
-            <!--<span class="reword_num" @click="addgift()">+</span>-->
-            <!--<span class="reword_num" @click="reducegift()">-</span>-->
+          <!--<span class="reword_num" @click="addgift()">+</span>-->
+          <!--<span class="reword_num" @click="reducegift()">-</span>-->
           <!--</div>-->
         </div>
       </el-form>
@@ -750,20 +821,27 @@
     data() {
       return {
         //dialogImageUrl: '',
-         actName:false,//商品名称
-         startPrice:false,//商品原价
-           endPrice:false,//商品底价
-        dataStatus:0,
-        imageUrl: '',
+        actName: false,//商品名称
+        startPrice: false,//商品原价
+        endPrice: false,//商品底价
+        dataStatus: 0,
+        imageUrl1: '',//商品图片
+        imageUrl2: '',//商品图片
+        imageUrl3: '',
+        imageUrl4: '',
+        imageUrl5: '',
+        imageUrl6: '',
+        imageUrl7: '',
+
         dialogVisible: false,
         reword: "",
-        region1:'',
-        region2:'',
-        region3:'',
-        region4:'',
-        region5:'',
-        region6:'',
-        region7:'',
+        region1: '',
+        region2: '',
+        region3: '',
+        region4: '',
+        region5: '',
+        region6: '',
+        region7: '',
         reword_type1: [],//商品一类型
         reword_type2: [],//商品二类型
         reword_type3: [],//商品三类型
@@ -784,9 +862,9 @@
           imageUrl1_3: '',//商品详情3
           deliveryType1: '',//配送方式
           deliveryInfo1: '',//发货说明
-          input1:'',//商品底价范围
-          input2:'',//商品底价范围
-          input3:'',//砍价概率
+          input1: '',//商品底价范围
+          input2: '',//商品底价范围
+          input3: '',//砍价概率
 
           // 商品二
           name2: '',//商品名称
@@ -799,9 +877,9 @@
           imageUrl2_3: '',//商品详情3
           deliveryType2: '',//配送方式
           deliveryInfo2: '',//发货说明
-          input2_1:'',//商品底价范围
-          input2_2:'',//商品底价范围
-          input2_3:'',//砍价概率
+          input2_1: '',//商品底价范围
+          input2_2: '',//商品底价范围
+          input2_3: '',//砍价概率
 
           // 商品三
           name3: '',//商品名称
@@ -814,9 +892,9 @@
           imageUrl3_3: '',//商品详情3
           deliveryType3: '',//配送方式
           deliveryInfo3: '',//发货说明
-          input3_1:'',//商品底价范围
-          input3_2:'',//商品底价范围
-          input3_3:'',//砍价概率
+          input3_1: '',//商品底价范围
+          input3_2: '',//商品底价范围
+          input3_3: '',//砍价概率
 
           // 商品四
           name4: '',//商品名称
@@ -829,9 +907,9 @@
           imageUrl4_3: '',//商品详情3
           deliveryType4: '',//配送方式
           deliveryInfo4: '',//发货说明
-          input4_1:'',//商品底价范围
-          input4_2:'',//商品底价范围
-          input4_3:'',//砍价概率
+          input4_1: '',//商品底价范围
+          input4_2: '',//商品底价范围
+          input4_3: '',//砍价概率
 
           // 商品五
           name5: '',//商品名称
@@ -844,9 +922,9 @@
           imageUrl5_3: '',//商品详情3
           deliveryType5: '',//配送方式
           deliveryInfo5: '',//发货说明
-          input5_1:'',//商品底价范围
-          input5_2:'',//商品底价范围
-          input5_3:'',//砍价概率
+          input5_1: '',//商品底价范围
+          input5_2: '',//商品底价范围
+          input5_3: '',//砍价概率
 
           // 商品六
           name6: '',//商品名称
@@ -859,9 +937,9 @@
           imageUrl6_3: '',//商品详情3
           deliveryType6: '',//配送方式
           deliveryInfo6: '',//发货说明
-          input6_1:'',//商品底价范围
-          input6_2:'',//商品底价范围
-          input6_3:'',//砍价概率
+          input6_1: '',//商品底价范围
+          input6_2: '',//商品底价范围
+          input6_3: '',//砍价概率
 
           // 商品七
           name7: '',//商品名称
@@ -874,9 +952,9 @@
           imageUrl7_3: '',//商品详情3
           deliveryType7: '',//配送方式
           deliveryInfo7: '',//发货说明
-          input7_1:'',//商品底价范围
-          input7_2:'',//商品底价范围
-          input7_3:'',//砍价概率
+          input7_1: '',//商品底价范围
+          input7_2: '',//商品底价范围
+          input7_3: '',//砍价概率
 
           // 商品八
           // name8: '',//商品名称
@@ -908,15 +986,15 @@
         params: {},
       }).then(res => {
 
-        let setting_kjData=JSON.stringify(res.data.data)
-        sessionStorage.setItem("Datakj",setting_kjData)
-        this.actName=this.$route.query.actName
-        this.startPrice=this.$route.query.startPrice
-        this.endPrice=this.$route.query.endPrice
-        this.dataStatus=this.$route.query.dataStatus
-        if(this.dataStatus===undefined){
+        let setting_kjData = JSON.stringify(res.data.data)
+        sessionStorage.setItem("Datakj", setting_kjData)
+        this.actName = this.$route.query.actName
+        this.startPrice = this.$route.query.startPrice
+        this.endPrice = this.$route.query.endPrice
+        this.dataStatus = this.$route.query.dataStatus
+        if (this.dataStatus === undefined) {
           this.partReword()
-        }else if (this.dataStatus==='1') {
+        } else if (this.dataStatus === '1') {
           this.partReword1()
         }
       })
@@ -929,30 +1007,118 @@
         return this.setting_kjData
       }
     },
-    updated(){
+    updated() {
       this.saveReword()
-      if(this.dataStatus===undefined){
+      if (this.dataStatus === undefined) {
         this.saveReword()
-      }else if (this.dataStatus==='1') {
+      } else if (this.dataStatus === '1') {
         this.saveReword1()
       }
     },
     methods: {
-
-      handleAvatarSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
+      handlePictureCardPreview(file) {
+        //this.imgData1 = file.url;
+        this.dialogVisible = true;
       },
-      beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
+      handleAvatarSuccess1(res, file) {
+        this.imageUrl1 = file.response.data
 
-        if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!');
-        }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
-        }
-        return isJPG && isLt2M;
+      },
+      handleAvatarSuccess2(res, file) {
+        this.imageUrl2 = file.response.data
+      },
+      handleAvatarSuccess3(res, file) {
+        this.imageUrl3 = file.response.data
+      },
+      handleAvatarSuccess4(res, file) {
+        this.imageUrl4 = file.response.data
+      },
+      handleAvatarSuccess5(res, file) {
+        this.imageUrl5 = file.response.data
+      },
+      handleAvatarSuccess6(res, file) {
+        this.imageUrl6 = file.response.data
+      },
+      handleAvatarSuccess7(res, file) {
+        this.imageUrl7 = file.response.data
+      },
+
+
+      handleAvatarSuccess1_1(res, file) {
+        this.form.imageUrl1_1 = file.response.data
+
+      }, handleAvatarSuccess1_2(res, file) {
+        this.form.imageUrl1_2 = file.response.data
+
+      }, handleAvatarSuccess1_3(res, file) {
+        this.form.imageUrl1_3 = file.response.data
+
+      }, handleAvatarSuccess2_1(res, file) {
+        this.form.imageUrl2_1 = file.response.data
+
+      }, handleAvatarSuccess2_2(res, file) {
+        this.form.imageUrl2_2 = file.response.data
+
+      }, handleAvatarSuccess2_3(res, file) {
+        this.form.imageUrl2_3 = file.response.data
+
+      }, handleAvatarSuccess3_1(res, file) {
+        this.form.imageUrl3_1 = file.response.data
+
+      }, handleAvatarSuccess3_2(res, file) {
+        this.form.imageUrl3_2 = file.response.data
+      }, handleAvatarSuccess3_3(res, file) {
+        this.form.imageUrl3_3 = file.response.data
+
+      }, handleAvatarSuccess4_1(res, file) {
+        this.form.imageUrl4_1 = file.response.data
+
+      }, handleAvatarSuccess4_2(res, file) {
+        this.form.imageUrl4_2 = file.response.data
+
+      }, handleAvatarSuccess4_3(res, file) {
+        this.form.imageUrl4_3 = file.response.data
+
+      }, handleAvatarSuccess5_1(res, file) {
+        this.form.imageUrl5_1 = file.response.data
+
+      }, handleAvatarSuccess5_2(res, file) {
+        this.form.imageUrl5_2 = file.response.data
+
+      }, handleAvatarSuccess5_3(res, file) {
+        this.form.imageUrl5_3 = file.response.data
+
+      }, handleAvatarSuccess6_1(res, file) {
+        this.form.imageUrl6_1 = file.response.data
+      }, handleAvatarSuccess6_2(res, file) {
+        this.form.imageUrl6_2 = file.response.data
+
+      }, handleAvatarSuccess6_3(res, file) {
+        this.form.imageUrl6_3 = file.response.data
+
+      }, handleAvatarSuccess7_1(res, file) {
+        this.form.imageUrl7_1 = file.response.data
+
+      }, handleAvatarSuccess7_2(res, file) {
+        this.form.imageUrl7_2 = file.response.data
+
+      }, handleAvatarSuccess7_3(res, file) {
+        this.form.imageUrl7_3 = file.response.data
+
+      },
+
+
+      beforeAvatarUpload(file) {
+        // const isJPG = file.type === 'image/jpeg';
+        // const isLt2M = file.size / 1024 / 1024 < 2;
+        //
+        // if (!isJPG) {
+        //   this.$message.error('上传头像图片只能是 JPG 格式!');
+        // }
+        // if (!isLt2M) {
+        //   this.$message.error('上传头像图片大小不能超过 2MB!');
+        // }
+        // return isJPG && isLt2M;
       },
 
 
@@ -967,15 +1133,16 @@
         console.log(this.reword_data)//奖品数据
         //商品一
         this.reword_type1 = this.reword_data[0].kjGoodsTypeList//商品类型
-        this.region1=this.reword_data[0].goodsType
+        this.region1 = this.reword_data[0].goodsType
         this.form.name1 = this.reword_data[0].goodsName//商品名称
         this.form.price1 = this.reword_data[0].goodsMarketPrice//商品原价
         this.form.priceLow1 = this.reword_data[0].goodsCostPrice//商品底价
-        this.form.input1=this.reword_data[0].hiPrice
-        this.form.input2=this.reword_data[0].lowPrice
-        this.form.input3=this.reword_data[0].probability
+        this.form.input1 = this.reword_data[0].hiPrice
+        this.form.input2 = this.reword_data[0].lowPrice
+        this.form.input3 = this.reword_data[0].probability
         this.form.count1 = this.reword_data[0].goodsStockNum//商品库存
         this.form.countsales1 = this.reword_data[0].goodsSalesNum//虚拟销量
+        this.imageUrl1 = this.reword_data[0].goodsImg
         this.form.imageUrl1_1 = this.reword_data[0].goodsImg1//商品详情图片1
         this.form.imageUrl1_2 = this.reword_data[0].goodsImg2//商品详情图片2
         this.form.imageUrl1_3 = this.reword_data[0].goodsImg3//商品详情图片3
@@ -984,92 +1151,98 @@
 
         // 商品二
         this.reword_type2 = this.reword_data[1].kjGoodsTypeList//商品类型
-        this.region2=this.reword_data[1].goodsType
+        this.region2 = this.reword_data[1].goodsType
         this.form.name2 = this.reword_data[1].goodsName//商品名称
         this.form.price2 = this.reword_data[1].goodsMarketPrice//商品原价
         this.form.priceLow2 = this.reword_data[1].goodsCostPrice//商品底价
-        this.form.input2_1=this.reword_data[1].hiPrice
-        this.form.input2_2=this.reword_data[1].lowPrice
-        this.form.input2_3=this.reword_data[1].probability
+        this.form.input2_1 = this.reword_data[1].hiPrice
+        this.form.input2_2 = this.reword_data[1].lowPrice
+        this.form.input2_3 = this.reword_data[1].probability
         this.form.count2 = this.reword_data[1].goodsStockNum//商品库存
         this.form.countsales2 = this.reword_data[1].goodsSalesNum//虚拟销量
+        this.imageUrl2 = this.reword_data[1].goodsImg
         this.form.imageUrl2_1 = this.reword_data[1].goodsImg1//商品详情图片1
         this.form.imageUrl2_2 = this.reword_data[1].goodsImg2//商品详情图片2
         this.form.imageUrl2_3 = this.reword_data[1].goodsImg3//商品详情图片3
         this.form.deliveryType2 = this.reword_data[1].deliveryType//配送方式
         this.form.deliveryInfo2 = this.reword_data[1].deliveryInfo//发货说明        // 商品三
         this.reword_type3 = this.reword_data[2].kjGoodsTypeList//商品类型
-        this.region3=this.reword_data[2].goodsType
+        this.region3 = this.reword_data[2].goodsType
         this.form.name3 = this.reword_data[2].goodsName//商品名称
         this.form.price3 = this.reword_data[2].goodsMarketPrice//商品原价
         this.form.priceLow3 = this.reword_data[2].goodsCostPrice//商品底价
-        this.form.input3_1=this.reword_data[3].hiPrice
-        this.form.input3_2=this.reword_data[3].lowPrice
-        this.form.input3_3=this.reword_data[3].probability
+        this.form.input3_1 = this.reword_data[2].hiPrice
+        this.form.input3_2 = this.reword_data[2].lowPrice
+        this.form.input3_3 = this.reword_data[2].probability
         this.form.count3 = this.reword_data[2].goodsStockNum//商品库存
         this.form.countsales3 = this.reword_data[2].goodsSalesNum//虚拟销量
+        this.imageUrl3 = this.reword_data[2].goodsImg
         this.form.imageUrl3_1 = this.reword_data[2].goodsImg1//商品详情图片1
         this.form.imageUrl3_2 = this.reword_data[2].goodsImg2//商品详情图片2
         this.form.imageUrl3_3 = this.reword_data[2].goodsImg3//商品详情图片3
         this.form.deliveryType3 = this.reword_data[2].deliveryType//配送方式
         this.form.deliveryInfo3 = this.reword_data[2].deliveryInfo//发货说明
-         // 商品四
+        // 商品四
         this.reword_type4 = this.reword_data[3].kjGoodsTypeList//商品类型
-        this.region4=this.reword_data[3].goodsType
+        this.region4 = this.reword_data[3].goodsType
         this.form.name4 = this.reword_data[3].goodsName//商品名称
         this.form.price4 = this.reword_data[3].goodsMarketPrice//商品原价
         this.form.priceLow4 = this.reword_data[3].goodsCostPrice//商品底价
-        this.form.input4_1=this.reword_data[3].hiPrice
-        this.form.input4_2=this.reword_data[3].lowPrice
-        this.form.input4_3=this.reword_data[3].probability
+        this.form.input4_1 = this.reword_data[3].hiPrice
+        this.form.input4_2 = this.reword_data[3].lowPrice
+        this.form.input4_3 = this.reword_data[3].probability
         this.form.count4 = this.reword_data[3].goodsStockNum//商品库存
         this.form.countsales4 = this.reword_data[3].goodsSalesNum//虚拟销量
+        this.imageUrl4 = this.reword_data[3].goodsImg
         this.form.imageUrl4_1 = this.reword_data[3].goodsImg1//商品详情图片1
         this.form.imageUrl4_2 = this.reword_data[3].goodsImg2//商品详情图片2
         this.form.imageUrl4_3 = this.reword_data[3].goodsImg3//商品详情图片3
         this.form.deliveryType4 = this.reword_data[3].deliveryType//配送方式
         this.form.deliveryInfo4 = this.reword_data[3].deliveryInfo//发货说明
-         // 商品五
+        // 商品五
         this.reword_type5 = this.reword_data[4].kjGoodsTypeList//商品类型
         this.form.name5 = this.reword_data[4].goodsName//商品名称
-        this.region5=this.reword_data[4].goodsType
+        this.region5 = this.reword_data[4].goodsType
         this.form.price5 = this.reword_data[4].goodsMarketPrice//商品原价
         this.form.priceLow5 = this.reword_data[4].goodsCostPrice//商品底价
-        this.form.input5_1=this.reword_data[4].hiPrice
-        this.form.input5_2=this.reword_data[4].lowPrice
-        this.form.input5_3=this.reword_data[4].probability
+        this.form.input5_1 = this.reword_data[4].hiPrice
+        this.form.input5_2 = this.reword_data[4].lowPrice
+        this.form.input5_3 = this.reword_data[4].probability
         this.form.count5 = this.reword_data[4].goodsStockNum//商品库存
         this.form.countsales5 = this.reword_data[4].goodsSalesNum//虚拟销量
+        this.imageUrl5 = this.reword_data[4].goodsImg
         this.form.imageUrl5_1 = this.reword_data[4].goodsImg1//商品详情图片1
         this.form.imageUrl5_2 = this.reword_data[4].goodsImg2//商品详情图片2
         this.form.imageUrl5_3 = this.reword_data[4].goodsImg3//商品详情图片3
         this.form.deliveryType5 = this.reword_data[4].deliveryType//配送方式
         this.form.deliveryInfo5 = this.reword_data[4].deliveryInfo//发货说明         // 商品六
         this.reword_type6 = this.reword_data[5].kjGoodsTypeList//商品类型
-        this.region6=this.reword_data[5].goodsType
+        this.region6 = this.reword_data[5].goodsType
         this.form.name6 = this.reword_data[5].goodsName//商品名称
         this.form.price6 = this.reword_data[5].goodsMarketPrice//商品原价
         this.form.priceLow6 = this.reword_data[5].goodsCostPrice//商品底价
-        this.form.input6_1=this.reword_data[5].hiPrice
-        this.form.input6_2=this.reword_data[5].lowPrice
-        this.form.input6_3=this.reword_data[5].probability
+        this.form.input6_1 = this.reword_data[5].hiPrice
+        this.form.input6_2 = this.reword_data[5].lowPrice
+        this.form.input6_3 = this.reword_data[5].probability
         this.form.count6 = this.reword_data[5].goodsStockNum//商品库存
         this.form.countsales6 = this.reword_data[5].goodsSalesNum//虚拟销量
+        this.imageUrl6 = this.reword_data[5].goodsImg
         this.form.imageUrl6_1 = this.reword_data[5].goodsImg1//商品详情图片1
         this.form.imageUrl6_2 = this.reword_data[5].goodsImg2//商品详情图片2
         this.form.imageUrl6_3 = this.reword_data[5].goodsImg3//商品详情图片3
         this.form.deliveryType6 = this.reword_data[5].deliveryType//配送方式
         this.form.deliveryInfo6 = this.reword_data[5].deliveryInfo//发货说明         // 商品七
         this.reword_type7 = this.reword_data[6].kjGoodsTypeList//商品类型
-        this.region7=this.reword_data[6].goodsType
+        this.region7 = this.reword_data[6].goodsType
         this.form.name7 = this.reword_data[6].goodsName//商品名称
         this.form.price7 = this.reword_data[6].goodsMarketPrice//商品原价
         this.form.priceLow7 = this.reword_data[6].goodsCostPrice//商品底价
-        this.form.input7_1=this.reword_data[6].hiPrice
-        this.form.input7_2=this.reword_data[6].lowPrice
-        this.form.input7_3=this.reword_data[6].probability
+        this.form.input7_1 = this.reword_data[6].hiPrice
+        this.form.input7_2 = this.reword_data[6].lowPrice
+        this.form.input7_3 = this.reword_data[6].probability
         this.form.count7 = this.reword_data[6].goodsStockNum//商品库存
         this.form.countsales7 = this.reword_data[6].goodsSalesNum//虚拟销量
+        this.imageUrl7 = this.reword_data[6].goodsImg
         this.form.imageUrl7_1 = this.reword_data[6].goodsImg1//商品详情图片1
         this.form.imageUrl7_2 = this.reword_data[6].goodsImg2//商品详情图片2
         this.form.imageUrl7_3 = this.reword_data[6].goodsImg3//商品详情图片3
@@ -1083,15 +1256,16 @@
         // console.log(this.reword_data)//奖品数据
         //商品一
         this.reword_type1 = this.reword_data[0].kjGoodsTypeList//商品类型
-        this.region1=this.reword_data[0].goodsType
+        this.region1 = this.reword_data[0].goodsType
         this.form.name1 = this.reword_data[0].goodsName//商品名称
         this.form.price1 = this.reword_data[0].goodsMarketPrice//商品原价
         this.form.priceLow1 = this.reword_data[0].goodsCostPrice//商品底价
-        this.form.input1=this.reword_data[0].hiPrice
-        this.form.input2=this.reword_data[0].lowPrice
-        this.form.input3=this.reword_data[0].probability
+        this.form.input1 = this.reword_data[0].hiPrice
+        this.form.input2 = this.reword_data[0].lowPrice
+        this.form.input3 = this.reword_data[0].probability
         this.form.count1 = this.reword_data[0].goodsStockNum//商品库存
         this.form.countsales1 = this.reword_data[0].goodsSalesNum//虚拟销量
+        this.imageUrl1 = this.reword_data[0].goodsImg
         this.form.imageUrl1_1 = this.reword_data[0].goodsImg1//商品详情图片1
         this.form.imageUrl1_2 = this.reword_data[0].goodsImg2//商品详情图片2
         this.form.imageUrl1_3 = this.reword_data[0].goodsImg3//商品详情图片3
@@ -1100,30 +1274,32 @@
 
         // 商品二
         this.reword_type2 = this.reword_data[1].kjGoodsTypeList//商品类型
-        this.region2=this.reword_data[1].goodsType
+        this.region2 = this.reword_data[1].goodsType
         this.form.name2 = this.reword_data[1].goodsName//商品名称
         this.form.price2 = this.reword_data[1].goodsMarketPrice//商品原价
         this.form.priceLow2 = this.reword_data[1].goodsCostPrice//商品底价
-        this.form.input2_1=this.reword_data[1].hiPrice
-        this.form.input2_2=this.reword_data[1].lowPrice
-        this.form.input2_3=this.reword_data[1].probability
+        this.form.input2_1 = this.reword_data[1].hiPrice
+        this.form.input2_2 = this.reword_data[1].lowPrice
+        this.form.input2_3 = this.reword_data[1].probability
         this.form.count2 = this.reword_data[1].goodsStockNum//商品库存
         this.form.countsales2 = this.reword_data[1].goodsSalesNum//虚拟销量
+        this.imageUrl2 = this.reword_data[1].goodsImg
         this.form.imageUrl2_1 = this.reword_data[1].goodsImg1//商品详情图片1
         this.form.imageUrl2_2 = this.reword_data[1].goodsImg2//商品详情图片2
         this.form.imageUrl2_3 = this.reword_data[1].goodsImg3//商品详情图片3
         this.form.deliveryType2 = this.reword_data[1].deliveryType//配送方式
         this.form.deliveryInfo2 = this.reword_data[1].deliveryInfo//发货说明        // 商品三
         this.reword_type3 = this.reword_data[2].kjGoodsTypeList//商品类型
-        this.region3=this.reword_data[2].goodsType
+        this.region3 = this.reword_data[2].goodsType
         this.form.name3 = this.reword_data[2].goodsName//商品名称
         this.form.price3 = this.reword_data[2].goodsMarketPrice//商品原价
         this.form.priceLow3 = this.reword_data[2].goodsCostPrice//商品底价
-        this.form.input3_1=this.reword_data[3].hiPrice
-        this.form.input3_2=this.reword_data[3].lowPrice
-        this.form.input3_3=this.reword_data[3].probability
+        this.form.input3_1 = this.reword_data[2].hiPrice
+        this.form.input3_2 = this.reword_data[2].lowPrice
+        this.form.input3_3 = this.reword_data[2].probability
         this.form.count3 = this.reword_data[2].goodsStockNum//商品库存
         this.form.countsales3 = this.reword_data[2].goodsSalesNum//虚拟销量
+        this.imageUrl3 = this.reword_data[2].goodsImg
         this.form.imageUrl3_1 = this.reword_data[2].goodsImg1//商品详情图片1
         this.form.imageUrl3_2 = this.reword_data[2].goodsImg2//商品详情图片2
         this.form.imageUrl3_3 = this.reword_data[2].goodsImg3//商品详情图片3
@@ -1131,15 +1307,16 @@
         this.form.deliveryInfo3 = this.reword_data[2].deliveryInfo//发货说明
         // 商品四
         this.reword_type4 = this.reword_data[3].kjGoodsTypeList//商品类型
-        this.region4=this.reword_data[3].goodsType
+        this.region4 = this.reword_data[3].goodsType
         this.form.name4 = this.reword_data[3].goodsName//商品名称
         this.form.price4 = this.reword_data[3].goodsMarketPrice//商品原价
         this.form.priceLow4 = this.reword_data[3].goodsCostPrice//商品底价
-        this.form.input4_1=this.reword_data[3].hiPrice
-        this.form.input4_2=this.reword_data[3].lowPrice
-        this.form.input4_3=this.reword_data[3].probability
+        this.form.input4_1 = this.reword_data[3].hiPrice
+        this.form.input4_2 = this.reword_data[3].lowPrice
+        this.form.input4_3 = this.reword_data[3].probability
         this.form.count4 = this.reword_data[3].goodsStockNum//商品库存
         this.form.countsales4 = this.reword_data[3].goodsSalesNum//虚拟销量
+        this.imageUrl4 = this.reword_data[3].goodsImg
         this.form.imageUrl4_1 = this.reword_data[3].goodsImg1//商品详情图片1
         this.form.imageUrl4_2 = this.reword_data[3].goodsImg2//商品详情图片2
         this.form.imageUrl4_3 = this.reword_data[3].goodsImg3//商品详情图片3
@@ -1147,45 +1324,48 @@
         this.form.deliveryInfo4 = this.reword_data[3].deliveryInfo//发货说明
         // 商品五
         this.reword_type5 = this.reword_data[4].kjGoodsTypeList//商品类型
-        this.region5=this.reword_data[4].goodsType
+        this.region5 = this.reword_data[4].goodsType
         this.form.name5 = this.reword_data[4].goodsName//商品名称
         this.form.price5 = this.reword_data[4].goodsMarketPrice//商品原价
         this.form.priceLow5 = this.reword_data[4].goodsCostPrice//商品底价
-        this.form.input5_1=this.reword_data[4].hiPrice
-        this.form.input5_2=this.reword_data[4].lowPrice
-        this.form.input5_3=this.reword_data[4].probability
+        this.form.input5_1 = this.reword_data[4].hiPrice
+        this.form.input5_2 = this.reword_data[4].lowPrice
+        this.form.input5_3 = this.reword_data[4].probability
         this.form.count5 = this.reword_data[4].goodsStockNum//商品库存
         this.form.countsales5 = this.reword_data[4].goodsSalesNum//虚拟销量
+        this.imageUrl5 = this.reword_data[4].goodsImg
         this.form.imageUrl5_1 = this.reword_data[4].goodsImg1//商品详情图片1
         this.form.imageUrl5_2 = this.reword_data[4].goodsImg2//商品详情图片2
         this.form.imageUrl5_3 = this.reword_data[4].goodsImg3//商品详情图片3
         this.form.deliveryType5 = this.reword_data[4].deliveryType//配送方式
         this.form.deliveryInfo5 = this.reword_data[4].deliveryInfo//发货说明         // 商品六
         this.reword_type6 = this.reword_data[5].kjGoodsTypeList//商品类型
-        this.region6=this.reword_data[5].goodsType
+        this.region6 = this.reword_data[5].goodsType
         this.form.name6 = this.reword_data[5].goodsName//商品名称
         this.form.price6 = this.reword_data[5].goodsMarketPrice//商品原价
         this.form.priceLow6 = this.reword_data[5].goodsCostPrice//商品底价
-        this.form.input6_1=this.reword_data[5].hiPrice
-        this.form.input6_2=this.reword_data[5].lowPrice
-        this.form.input6_3=this.reword_data[5].probability
+        this.form.input6_1 = this.reword_data[5].hiPrice
+        this.form.input6_2 = this.reword_data[5].lowPrice
+        this.form.input6_3 = this.reword_data[5].probability
         this.form.count6 = this.reword_data[5].goodsStockNum//商品库存
         this.form.countsales6 = this.reword_data[5].goodsSalesNum//虚拟销量
+        this.imageUrl6 = this.reword_data[5].goodsImg
         this.form.imageUrl6_1 = this.reword_data[5].goodsImg1//商品详情图片1
         this.form.imageUrl6_2 = this.reword_data[5].goodsImg2//商品详情图片2
         this.form.imageUrl6_3 = this.reword_data[5].goodsImg3//商品详情图片3
         this.form.deliveryType6 = this.reword_data[5].deliveryType//配送方式
         this.form.deliveryInfo6 = this.reword_data[5].deliveryInfo//发货说明         // 商品七
         this.reword_type7 = this.reword_data[6].kjGoodsTypeList//商品类型
-        this.region7=this.reword_data[6].goodsType
+        this.region7 = this.reword_data[6].goodsType
         this.form.name7 = this.reword_data[6].goodsName//商品名称
         this.form.price7 = this.reword_data[6].goodsMarketPrice//商品原价
         this.form.priceLow7 = this.reword_data[6].goodsCostPrice//商品底价
-        this.form.input7_1=this.reword_data[6].hiPrice
-        this.form.input7_2=this.reword_data[6].lowPrice
-        this.form.input7_3=this.reword_data[6].probability
+        this.form.input7_1 = this.reword_data[6].hiPrice
+        this.form.input7_2 = this.reword_data[6].lowPrice
+        this.form.input7_3 = this.reword_data[6].probability
         this.form.count7 = this.reword_data[6].goodsStockNum//商品库存
         this.form.countsales7 = this.reword_data[6].goodsSalesNum//虚拟销量
+        this.imageUrl7 = this.reword_data[6].goodsImg
         this.form.imageUrl7_1 = this.reword_data[6].goodsImg1//商品详情图片1
         this.form.imageUrl7_2 = this.reword_data[6].goodsImg2//商品详情图片2
         this.form.imageUrl7_3 = this.reword_data[6].goodsImg3//商品详情图片3
@@ -1200,15 +1380,16 @@
         this.reword_send = JSON.parse(Data).kjGoodsSetupExtendList
         //商品一
         this.reword_send[0].kjGoodsTypeList = this.reword_type1//商品类型
-        this.reword_send[0].goodsType=this.region1
+        this.reword_send[0].goodsType = this.region1
         this.reword_send[0].goodsName = this.form.name1 //商品名称
         this.reword_send[0].goodsMarketPrice = this.form.price1//商品原价
         this.reword_send[0].goodsCostPrice = this.form.priceLow1 //商品底价
-        this.reword_send[0].hiPrice=this.form.input1
-        this.reword_send[0].lowPrice=this.form.input2
-        this.reword_send[0].probability=this.form.input3
+        this.reword_send[0].hiPrice = this.form.input1
+        this.reword_send[0].lowPrice = this.form.input2
+        this.reword_send[0].probability = this.form.input3
         this.reword_send[0].goodsStockNum = this.form.count1//商品库存
         this.reword_send[0].goodsSalesNum = this.form.countsales1//虚拟销量
+        this.reword_send[0].goodsImg = this.imageUrl1
         this.reword_send[0].goodsImg1 = this.form.imageUrl1_1//商品详情图片1
         this.reword_send[0].goodsImg2 = this.form.imageUrl1_2//商品详情图片2
         this.reword_send[0].goodsImg3 = this.form.imageUrl1_3//商品详情图片3
@@ -1216,15 +1397,16 @@
         this.reword_send[0].deliveryInfo = this.form.deliveryInfo1//发货说明
         // 商品二
         this.reword_send[1].kjGoodsTypeList = this.reword_type2
-        this.reword_send[1].goodsType=this.region2
+        this.reword_send[1].goodsType = this.region2
         this.reword_send[1].goodsName = this.form.name2
         this.reword_send[1].goodsMarketPrice = this.form.price2
         this.reword_send[1].goodsCostPrice = this.form.priceLow2
-        this.reword_send[1].hiPrice=this.form.input2_1
-        this.reword_send[1].lowPrice=this.form.input2_2
-        this.reword_send[1].probability=this.form.input2_3
+        this.reword_send[1].hiPrice = this.form.input2_1
+        this.reword_send[1].lowPrice = this.form.input2_2
+        this.reword_send[1].probability = this.form.input2_3
         this.reword_send[1].goodsStockNum = this.form.count2
         this.reword_send[1].goodsSalesNum = this.form.countsales2
+        this.reword_send[1].goodsImg = this.imageUrl2
         this.reword_send[1].goodsImg1 = this.form.imageUrl2_1
         this.reword_send[1].goodsImg2 = this.form.imageUrl2_2
         this.reword_send[1].goodsImg3 = this.form.imageUrl2_3
@@ -1233,15 +1415,16 @@
 
         //商品三
         this.reword_send[2].kjGoodsTypeList = this.reword_type3
-        this.reword_send[2].goodsType=this.region3
+        this.reword_send[2].goodsType = this.region3
         this.reword_send[2].goodsName = this.form.name3
         this.reword_send[2].goodsMarketPrice = this.form.price3
         this.reword_send[2].goodsCostPrice = this.form.priceLow3
-        this.reword_send[2].hiPrice=this.form.input3_1
-        this.reword_send[2].lowPrice=this.form.input3_2
-        this.reword_send[2].probability=this.form.input3_3
+        this.reword_send[2].hiPrice = this.form.input3_1
+        this.reword_send[2].lowPrice = this.form.input3_2
+        this.reword_send[2].probability = this.form.input3_3
         this.reword_send[2].goodsStockNum = this.form.count3
         this.reword_send[2].goodsSalesNum = this.form.countsales3
+        this.reword_send[2].goodsImg = this.imageUrl3
         this.reword_send[2].goodsImg1 = this.form.imageUrl3_1
         this.reword_send[2].goodsImg2 = this.form.imageUrl3_2
         this.reword_send[2].goodsImg3 = this.form.imageUrl3_3
@@ -1250,15 +1433,16 @@
 
         //商品四
         this.reword_send[3].kjGoodsTypeList = this.reword_type4
-        this.reword_send[3].goodsType=this.region4
+        this.reword_send[3].goodsType = this.region4
         this.reword_send[3].goodsName = this.form.name4
         this.reword_send[3].goodsMarketPrice = this.form.price4
         this.reword_send[3].goodsCostPrice = this.form.priceLow4
-        this.reword_send[3].hiPrice=this.form.input4_1
-        this.reword_send[3].lowPrice=this.form.input4_2
-        this.reword_send[3].probability=this.form.input4_3
+        this.reword_send[3].hiPrice = this.form.input4_1
+        this.reword_send[3].lowPrice = this.form.input4_2
+        this.reword_send[3].probability = this.form.input4_3
         this.reword_send[3].goodsStockNum = this.form.count4
         this.reword_send[3].goodsSalesNum = this.form.countsales4
+        this.reword_send[3].goodsImg = this.imageUrl4
         this.reword_send[3].goodsImg1 = this.form.imageUrl4_1
         this.reword_send[3].goodsImg2 = this.form.imageUrl4_2
         this.reword_send[3].goodsImg3 = this.form.imageUrl4_3
@@ -1267,15 +1451,16 @@
 
         //商品五
         this.reword_send[4].kjGoodsTypeList = this.reword_type5
-        this.reword_send[4].goodsType=this.region5
+        this.reword_send[4].goodsType = this.region5
         this.reword_send[4].goodsName = this.form.name5
         this.reword_send[4].goodsMarketPrice = this.form.price5
         this.reword_send[4].goodsCostPrice = this.form.priceLow5
-        this.reword_send[4].hiPrice=this.form.input5_1
-        this.reword_send[4].lowPrice=this.form.input5_2
-        this.reword_send[4].probability=this.form.input5_3
+        this.reword_send[4].hiPrice = this.form.input5_1
+        this.reword_send[4].lowPrice = this.form.input5_2
+        this.reword_send[4].probability = this.form.input5_3
         this.reword_send[4].goodsStockNum = this.form.count5
         this.reword_send[4].goodsSalesNum = this.form.countsales5
+        this.reword_send[4].goodsImg = this.imageUrl5
         this.reword_send[4].goodsImg1 = this.form.imageUrl5_1
         this.reword_send[4].goodsImg2 = this.form.imageUrl5_2
         this.reword_send[4].goodsImg3 = this.form.imageUrl5_3
@@ -1284,15 +1469,16 @@
 
         //商品六
         this.reword_send[5].kjGoodsTypeList = this.reword_type6
-        this.reword_send[5].goodsType=this.region6
+        this.reword_send[5].goodsType = this.region6
         this.reword_send[5].goodsName = this.form.name6
         this.reword_send[5].goodsMarketPrice = this.form.price6
         this.reword_send[5].goodsCostPrice = this.form.priceLow6
-        this.reword_send[5].hiPrice=this.form.input6_1
-        this.reword_send[5].lowPrice=this.form.input6_2
-        this.reword_send[5].probability=this.form.input6_3
+        this.reword_send[5].hiPrice = this.form.input6_1
+        this.reword_send[5].lowPrice = this.form.input6_2
+        this.reword_send[5].probability = this.form.input6_3
         this.reword_send[5].goodsStockNum = this.form.count6
         this.reword_send[5].goodsSalesNum = this.form.countsales6
+        this.reword_send[5].goodsImg = this.imageUrl6
         this.reword_send[5].goodsImg1 = this.form.imageUrl6_1
         this.reword_send[5].goodsImg2 = this.form.imageUrl6_2
         this.reword_send[5].goodsImg3 = this.form.imageUrl6_3
@@ -1301,15 +1487,16 @@
 
         //商品七
         this.reword_send[6].kjGoodsTypeList = this.reword_type7
-        this.reword_send[6].goodsType=this.region7
+        this.reword_send[6].goodsType = this.region7
         this.reword_send[6].goodsName = this.form.name7
         this.reword_send[6].goodsMarketPrice = this.form.price7
         this.reword_send[6].goodsCostPrice = this.form.priceLow7
-        this.reword_send[6].hiPrice=this.form.input7_1
-        this.reword_send[6].lowPrice=this.form.input7_2
-        this.reword_send[6].probability=this.form.input7_3
+        this.reword_send[6].hiPrice = this.form.input7_1
+        this.reword_send[6].lowPrice = this.form.input7_2
+        this.reword_send[6].probability = this.form.input7_3
         this.reword_send[6].goodsStockNum = this.form.count7
         this.reword_send[6].goodsSalesNum = this.form.countsales7
+        this.reword_send[6].goodsImg = this.imageUrl7
         this.reword_send[6].goodsImg1 = this.form.imageUrl7_1
         this.reword_send[6].goodsImg2 = this.form.imageUrl7_2
         this.reword_send[6].goodsImg3 = this.form.imageUrl7_3
@@ -1325,13 +1512,13 @@
         this.reword_send = this.$route.query.newkjData.kjGoodsSetupExtendList
         //商品一
         this.reword_send[0].kjGoodsTypeList = this.reword_type1//商品类型
-        this.reword_send[0].goodsType=this.region1
+        this.reword_send[0].goodsType = this.region1
         this.reword_send[0].goodsName = this.form.name1 //商品名称
         this.reword_send[0].goodsMarketPrice = this.form.price1//商品原价
         this.reword_send[0].goodsCostPrice = this.form.priceLow1 //商品底价
-        this.reword_send[0].hiPrice=this.form.input1
-        this.reword_send[0].lowPrice=this.form.input2
-        this.reword_send[0].probability=this.form.input3
+        this.reword_send[0].hiPrice = this.form.input1
+        this.reword_send[0].lowPrice = this.form.input2
+        this.reword_send[0].probability = this.form.input3
         this.reword_send[0].goodsStockNum = this.form.count1//商品库存
         this.reword_send[0].goodsSalesNum = this.form.countsales1//虚拟销量
         this.reword_send[0].goodsImg1 = this.form.imageUrl1_1//商品详情图片1
@@ -1341,13 +1528,13 @@
         this.reword_send[0].deliveryInfo = this.form.deliveryInfo1//发货说明
         // 商品二
         this.reword_send[1].kjGoodsTypeList = this.reword_type2
-        this.reword_send[1].goodsType=this.region2
+        this.reword_send[1].goodsType = this.region2
         this.reword_send[1].goodsName = this.form.name2
         this.reword_send[1].goodsMarketPrice = this.form.price2
         this.reword_send[1].goodsCostPrice = this.form.priceLow2
-        this.reword_send[1].hiPrice=this.form.input2_1
-        this.reword_send[1].lowPrice=this.form.input2_2
-        this.reword_send[1].probability=this.form.input2_3
+        this.reword_send[1].hiPrice = this.form.input2_1
+        this.reword_send[1].lowPrice = this.form.input2_2
+        this.reword_send[1].probability = this.form.input2_3
         this.reword_send[1].goodsStockNum = this.form.count2
         this.reword_send[1].goodsSalesNum = this.form.countsales2
         this.reword_send[1].goodsImg1 = this.form.imageUrl2_1
@@ -1358,13 +1545,13 @@
 
         //商品三
         this.reword_send[2].kjGoodsTypeList = this.reword_type3
-        this.reword_send[2].goodsType=this.region3
+        this.reword_send[2].goodsType = this.region3
         this.reword_send[2].goodsName = this.form.name3
         this.reword_send[2].goodsMarketPrice = this.form.price3
         this.reword_send[2].goodsCostPrice = this.form.priceLow3
-        this.reword_send[2].hiPrice=this.form.input3_1
-        this.reword_send[2].lowPrice=this.form.input3_2
-        this.reword_send[2].probability=this.form.input3_3
+        this.reword_send[2].hiPrice = this.form.input3_1
+        this.reword_send[2].lowPrice = this.form.input3_2
+        this.reword_send[2].probability = this.form.input3_3
         this.reword_send[2].goodsStockNum = this.form.count3
         this.reword_send[2].goodsSalesNum = this.form.countsales3
         this.reword_send[2].goodsImg1 = this.form.imageUrl3_1
@@ -1375,13 +1562,13 @@
 
         //商品四
         this.reword_send[3].kjGoodsTypeList = this.reword_type4
-        this.reword_send[3].goodsType=this.region4
+        this.reword_send[3].goodsType = this.region4
         this.reword_send[3].goodsName = this.form.name4
         this.reword_send[3].goodsMarketPrice = this.form.price4
         this.reword_send[3].goodsCostPrice = this.form.priceLow4
-        this.reword_send[3].hiPrice=this.form.input4_1
-        this.reword_send[3].lowPrice=this.form.input4_2
-        this.reword_send[3].probability=this.form.input4_3
+        this.reword_send[3].hiPrice = this.form.input4_1
+        this.reword_send[3].lowPrice = this.form.input4_2
+        this.reword_send[3].probability = this.form.input4_3
         this.reword_send[3].goodsStockNum = this.form.count4
         this.reword_send[3].goodsSalesNum = this.form.countsales4
         this.reword_send[3].goodsImg1 = this.form.imageUrl4_1
@@ -1392,13 +1579,13 @@
 
         //商品五
         this.reword_send[4].kjGoodsTypeList = this.reword_type5
-        this.reword_send[4].goodsType=this.region5
+        this.reword_send[4].goodsType = this.region5
         this.reword_send[4].goodsName = this.form.name5
         this.reword_send[4].goodsMarketPrice = this.form.price5
         this.reword_send[4].goodsCostPrice = this.form.priceLow5
-        this.reword_send[4].hiPrice=this.form.input5_1
-        this.reword_send[4].lowPrice=this.form.input5_2
-        this.reword_send[4].probability=this.form.input5_3
+        this.reword_send[4].hiPrice = this.form.input5_1
+        this.reword_send[4].lowPrice = this.form.input5_2
+        this.reword_send[4].probability = this.form.input5_3
         this.reword_send[4].goodsStockNum = this.form.count5
         this.reword_send[4].goodsSalesNum = this.form.countsales5
         this.reword_send[4].goodsImg1 = this.form.imageUrl5_1
@@ -1409,13 +1596,13 @@
 
         //商品六
         this.reword_send[5].kjGoodsTypeList = this.reword_type6
-        this.reword_send[5].goodsType=this.region6
+        this.reword_send[5].goodsType = this.region6
         this.reword_send[5].goodsName = this.form.name6
         this.reword_send[5].goodsMarketPrice = this.form.price6
         this.reword_send[5].goodsCostPrice = this.form.priceLow6
-        this.reword_send[5].hiPrice=this.form.input6_1
-        this.reword_send[5].lowPrice=this.form.input6_2
-        this.reword_send[5].probability=this.form.input6_3
+        this.reword_send[5].hiPrice = this.form.input6_1
+        this.reword_send[5].lowPrice = this.form.input6_2
+        this.reword_send[5].probability = this.form.input6_3
         this.reword_send[5].goodsStockNum = this.form.count6
         this.reword_send[5].goodsSalesNum = this.form.countsales6
         this.reword_send[5].goodsImg1 = this.form.imageUrl6_1
@@ -1426,13 +1613,13 @@
 
         //商品七
         this.reword_send[6].kjGoodsTypeList = this.reword_type7
-        this.reword_send[6].goodsType=this.region7
+        this.reword_send[6].goodsType = this.region7
         this.reword_send[6].goodsName = this.form.name7
         this.reword_send[6].goodsMarketPrice = this.form.price7
         this.reword_send[6].goodsCostPrice = this.form.priceLow7
-        this.reword_send[6].hiPrice=this.form.input7_1
-        this.reword_send[6].lowPrice=this.form.input7_2
-        this.reword_send[6].probability=this.form.input7_3
+        this.reword_send[6].hiPrice = this.form.input7_1
+        this.reword_send[6].lowPrice = this.form.input7_2
+        this.reword_send[6].probability = this.form.input7_3
         this.reword_send[6].goodsStockNum = this.form.count7
         this.reword_send[6].goodsSalesNum = this.form.countsales7
         this.reword_send[6].goodsImg1 = this.form.imageUrl7_1
@@ -1555,7 +1742,8 @@
     height: 150px;
     display: block;
   }
-  .xlcontent{
+
+  .xlcontent {
     display: inline-block;
     color: #a1a1a1;
   }

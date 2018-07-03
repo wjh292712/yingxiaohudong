@@ -8,7 +8,7 @@
                   <p>
                     <span class="host">主办单位</span>
                     <span>
-                      <el-input v-model="input" maxlength="20 " placeholder="不超过20个汉字" name="first" style="width:40%;size:30%" ></el-input>
+                      <el-input v-model="input" maxlength="20 " placeholder="不超过20个汉字" name="first" style="width:40%;size:30%;" ></el-input>
                     </span>
                   </p>
                   <p>
@@ -24,35 +24,34 @@
                     <span>
                       <el-radio-group v-model="radio2">
                         <el-radio label="1">隐藏</el-radio>
-                        <el-radio label="2">
-                         <span @click="logo()">显示</span>
-                        </el-radio>
+                        <el-radio label="2">显示</el-radio>
                       </el-radio-group>
                     </span>
                     <span class="logo_up" v-show="logoShow">
-                <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-               上传logo
+                <el-upload class="avatar-uploader" action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+                   <img v-if="imageUrl" :src="imageUrl" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"> 上传logo</i>
               </el-upload>
               </span>
                   </p>
-                  <p>
+
+                  <p class="imageLoad">
                     <span class="host">加载页面图片:</span>
                     <span>
                       <el-radio-group v-model="radio3">
-                        <el-radio label="1">默认</el-radio>
-                        <el-radio label="2">
-                          <span @click="imgLoad()">自定义</span>
-                        </el-radio>
+                        <el-radio label="0">默认</el-radio>
+                        <el-radio label="1">自定义</el-radio>
                         <!-- <el-radio>上传LOGO</el-radio> -->
                       </el-radio-group>
                     </span>
-                  </p>
-                  <p v-show="imgLoa">
-                    <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-                      <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                    <span class="image_up" v-show="imgLoa">
+                    <el-upload class="avatar-uploader" action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg" :show-file-list="false" :on-success="handleAvatarSuccess1" :before-upload="beforeAvatarUpload">
+                      <img v-if="imageUrl1" :src="imageUrl1" class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon">上传图片</i>
                     </el-upload>
+                  </span>
                   </p>
+
                   <!-- <p>
                     <span class="keep">
                       <el-button plain class="save">保存</el-button>
@@ -174,7 +173,8 @@
             radio8: '',
             radio9: '',
             radio10: '',
-            imageUrl: '',
+            imageUrl:'',//上传logo
+            imageUrl1: '',//上传图片
             centerDialogVisible: false,
             logoShow:false,
             imgLoa:false,
@@ -229,11 +229,24 @@
             // this.$store.dispatch('saveData')
             let Data = sessionStorage.getItem('Data')
             this.company = JSON.parse(Data).jggHighCompanySetup
-            this.radio2 = this.company.companyLogoType.toString()
-            // console.log(this.company.companyLogoType)
-            if(!this.company.loadImgType){
-              this.radio3 = "1"
+            this.input=this.company.company
+            this.input3=this.company.url
+            this.radio2 = Number(this.company.companyLogoType).toString()
+            if(this.radio2==1){
+              this.logoShow=false
+            }else {
+              this.logoShow=true
             }
+            // console.log(this.company.companyLogoType)
+            this.radio3=Number(this.company.loadImgType).toString()
+            if(this.radio3==0){
+              this.imgLoa=false
+            }else {
+              this.imgLoa=true
+            }
+            this.imageUrl=this.company.companyLogo
+            this.imageUrl1=this.company.loadSelfImg
+alert(this.imageUrl1)
 
           // 安全设置
 
@@ -264,12 +277,25 @@
           partHight1(){
             // this.$store.dispatch('saveData')
             this.company = this.$route.query.newjggData.jggHighCompanySetup
+            this.input=this.company.company
+            this.input3=this.company.url
             this.radio2 = this.company.companyLogoType.toString()
-            // console.log(this.company.companyLogoType)
-            if(!this.company.loadImgType){
-              this.radio3 = "1"
+            if(this.radio2==1){
+              this.logoShow=false
+            }else {
+              this.logoShow=true
             }
+            this.radio3=this.company.loadImgType.toString()
+            if(this.radio3==0){
+              this.imgLoa=false
+            }else {
+              this.imgLoa=true
+            }
+            // console.log(this.company.companyLogoType)
 
+
+            this.imageUrl=this.company.companyLogo
+            this.imageUrl1=this.company.loadSelfImg
           // 安全设置
 
 
@@ -302,9 +328,25 @@
             // this.$store.dispatch('saveData')
             let Data = sessionStorage.getItem('Data')
             this.company_send = JSON.parse(Data).jggHighCompanySetup
+            this.company_send.company= this.input
+            this.company_send.url=this.input3
+
             this.company_send.companyLogoType = Number(this.radio2)
-            this.company_send.loadImgType = this.radio3 == 1 ? 0 : ''
+            if(this.radio2==1){
+              this.logoShow=false
+            }else {
+              this.logoShow=true
+            }
+            this.company_send.loadImgType = this.radio3
+
+            if(this.radio3==0){
+              this.imgLoa=false
+            }else {
+              this.imgLoa=true
+            }
             this.$store.state.setting_data.jggHighCompanySetup = this.company_send
+            this.company_send.companyLogo=this.imageUrl
+            this.company_send.loadSelfImg=this.imageUrl1
 
           // 安全设置
 
@@ -329,10 +371,24 @@
           saveHight1(){
 
             this.company_send =this.$route.query.newjggData.jggHighCompanySetup
+            this.company_send.company= this.input
+            this.company_send.url=this.input3
             this.company_send.companyLogoType = Number(this.radio2)
-            this.company_send.loadImgType = this.radio3 == 1 ? 0 : ''
-            this.$store.state.setting_data.jggHighCompanySetup = this.company_send
+            if(this.radio2==1){
+              this.logoShow=false
+            }else {
+              this.logoShow=true
+            }
+            this.company_send.loadImgType = this.radio3
 
+            if(this.radio3==0){
+              this.imgLoa=false
+            }else {
+              this.imgLoa=true
+            }
+            this.$store.state.setting_data.jggHighCompanySetup = this.company_send
+            this.company_send.companyLogo=this.imageUrl
+            this.company_send.loadSelfImg=this.imageUrl1
           // 安全设置
 
 
@@ -359,25 +415,23 @@
             // console.log(tab, event);
           },
           handleAvatarSuccess(res, file) {
-            this.imageUrl = URL.createObjectURL(file.raw);
+            this.imageUrl = file.response.data
           },
-          logo(){
-            this.logoShow=!this.logoShow
+          handleAvatarSuccess1(res, file) {
+            this.imageUrl1 = file.response.data
           },
-          imgLoad(){
-            this.imgLoa=!this.imgLoa
-          },
-          beforeAvatarUpload(file) {
-            const isJPG = file.type === 'image/jpeg';
-            const isLt2M = file.size / 1024 / 1024 < 2;
 
-            if (!isJPG) {
-              this.$message.error('上传头像图片只能是 JPG 格式!');
-            }
-            if (!isLt2M) {
-              this.$message.error('上传头像图片大小不能超过 2MB!');
-            }
-            return isJPG && isLt2M;
+          beforeAvatarUpload(file) {
+            // const isJPG = file.type === 'image/jpeg';
+            // const isLt2M = file.size / 1024 / 1024 < 2;
+            //
+            // if (!isJPG) {
+            //   this.$message.error('上传头像图片只能是 JPG 格式!');
+            // }
+            // if (!isLt2M) {
+            //   this.$message.error('上传头像图片大小不能超过 2MB!');
+            // }
+            // return isJPG && isLt2M;
           }
         }
       };
@@ -401,52 +455,6 @@
       }
       .message p .keep .save {
         margin-top: 4rem;
-      }
-
-      .message p .avatar-uploader-icon[data-v-67a687b9] {
-        font-size: .4rem;
-        color: #8c939d;
-        width: 5rem;
-        height: 3rem;
-        line-height: 3rem;
-        text-align: center;
-        border: 1px solid #d9d9d9;
-      }
-
-      .message p .avatar-uploader {
-        margin-left: 2rem;
-      }
-
-      .message p .save {
-        color: #fff;
-        background: #409EFF;
-      }
-
-       /* .message p .avatar-uploader .el-upload {
-         border: 1px dashed #d9d9d9;
-        border-radius: 6px;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-      } */
-      .message p .avatar-uploader .el-upload:hover {
-        border-color: #409EFF;
-      }
-
-      .message p .avatar-uploader-icon {
-        font-size: 14px;
-        color: #8c939d;
-        border: 1px solid  #8c939d;
-        width: 5rem;
-        height: 5rem;
-        line-height: 5rem;
-        text-align: center;
-      }
-
-      .avatar {
-        width: 178px;
-        height: 178px;
-        display: block;
       }
 
       .safety p {
@@ -484,10 +492,52 @@
       }
       .logo{
         .logo_up{
-          text-align: center;
-          display: inline-block;
+          /*text-align: center;*/
+         display: block;
           color: blue;
           font-size: 14px;
+          margin-left:120px;
+          margin-top: 10px;
         }
+      }
+      .imageLoad{
+        .image_up{
+          display: block;
+          color: blue;
+          font-size: 14px;
+          margin-left:120px;
+          margin-top: 10px;
+        }
+      }
+      .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+      }
+
+      .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+      }
+
+      .avatar-uploader-icon {
+        font-size: 14px;
+        color: #c5c5c5;
+        width: 85px;
+        height: 85px;
+        line-height: 85px;
+        text-align: center;
+        background: #f2f2f2;
+        border: 1px dashed #2b85e4;
+      }
+
+      .avatar {
+        width: 80px;
+        height: 80px;
+        display: block;
       }
       </style>

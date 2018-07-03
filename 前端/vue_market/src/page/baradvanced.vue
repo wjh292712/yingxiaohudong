@@ -8,7 +8,7 @@
             <p>
               <span class="host">主办单位</span>
               <span>
-                      <el-input v-model="input" placeholder="不超过20个汉字" name="first" style="width:40%"></el-input>
+                      <el-input v-model="input" maxlength="20" placeholder="不超过20个汉字" name="first" style="width:40%"></el-input>
                     </span>
             </p>
             <p>
@@ -30,7 +30,7 @@
                       </el-radio-group>
                     </span>
               <span class="logo_up" v-show="logoShow">
-                <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+                <el-upload class="avatar-uploader" action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
                上传logo
               </el-upload>
               </span>
@@ -48,7 +48,7 @@
                     </span>
             </p>
             <p v-show="imgLoa">
-              <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+              <el-upload class="avatar-uploader" action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
                 <img v-if="imageUrl" :src="imageUrl" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 <span class="pic_in">上传图片</span>
@@ -76,7 +76,7 @@
                 <span v-show="wxicon" class="wxic">
 <el-upload
   class="avatar-uploader"
-  action="https://jsonplaceholder.typicode.com/posts/"
+  action="http://center.marketing.yunpaas.cn/kj/activitySetup/upActivityImg"
   :show-file-list="false"
   :on-success="handleAvatarSuccess"
   :before-upload="beforeAvatarUpload">
@@ -379,7 +379,8 @@
         // console.log(tab, event);
       },
       handleAvatarSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
+        // this.imageUrl = URL.createObjectURL(file.raw);
+        this.imageUrl=file.response.data
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';

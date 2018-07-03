@@ -3,7 +3,7 @@
     <div class="base_con">
       <el-form ref="form" :model="form" label-width="100px" class="ffom">
         <el-form-item label="活动名称">
-          <el-input v-model="formName" @input='inputData'></el-input>
+          <el-input v-model="formName" maxlength="10" @input='inputData' placeholder="不超过10格汉字"></el-input>
 
         </el-form-item>
         <el-form-item label="活动日期">
@@ -47,16 +47,16 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="活动说明">
-          <el-input style="height:3rem;" type="textarea" v-model="form.explain"></el-input>
+          <el-input style="height:3rem;" type="textarea" maxlength="500" placeholder="0/500字" v-model="form.explain"></el-input>
         </el-form-item>
         <el-form-item label="商家简介">
-          <el-input style="height:3rem;" type="textarea" v-model="form.intro"></el-input>
+          <el-input style="height:3rem;" type="textarea" maxlength="500" placeholder="0/500字" v-model="form.intro"></el-input>
         </el-form-item>
         <el-form-item label="商家地址">
-          <el-input style="height:3rem;" type="textarea" v-model="form.address"></el-input>
+          <el-input style="height:3rem;" type="textarea" maxlength="50" placeholder="不超过50个汉字" v-model="form.address"></el-input>
         </el-form-item>
         <el-form-item label="商家电话">
-          <el-input style="height:3rem;" type="textarea" v-model="form.phone" maxlength="11" onkeyup="value=value.replace(/[^\d]/g,'')">
+          <el-input style="height:3rem;" type="textarea"  placeholder="手机号、座机或400电话"  v-model="form.phone" maxlength="15" onkeyup="value=value.replace(/[^\d]/g,'')">
           </el-input>
         </el-form-item>
 

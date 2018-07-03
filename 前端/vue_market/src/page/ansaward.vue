@@ -6,7 +6,7 @@
         <p class="content1">
           <span>抽奖门槛：</span>
           游戏成绩达到
-          <el-input v-model="input1" placeholder="请输入内容" class="nns" />分，极为挑战成功，获得抽奖机会。
+          <el-input v-model="input1" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" placeholder="请输入内容" class="nns" />分，极为挑战成功，获得抽奖机会。
           <span class="ansInfo1">游戏成绩最高为100分</span>
         </p>
         <p class="content2">
@@ -23,21 +23,21 @@
             <el-radio label="0">不限制</el-radio>
           </el-radio-group>
           <span v-show="limit" class="lim">
-             每人最多有 <el-input class="counts" v-model="input2"></el-input>次
+             每人最多有 <el-input class="counts" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" v-model="input2"></el-input>次
           </span>
         </p>
         <p class="content4">
           <span>每人每日抽奖机会：</span>
-          <el-input class="counta" v-model="input3"></el-input>次
+          <el-input class="counta" v-model="input3" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"></el-input>次
         </p>
         <p class="content4">
           <span>每人中奖机会：</span>
 
-          <span>每人最多中奖 <el-input class="counta" v-model="input4 "></el-input>次</span>
+          <span>每人最多中奖 <el-input class="counta" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" v-model="input4 "></el-input>次</span>
         </p>
         <p class="content4">
           <span>总中奖率：</span>
-          <el-input class="counta" v-model="input5"></el-input>%
+          <el-input class="counta" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" v-model="input5"></el-input>%
         </p>
       </el-form>
 

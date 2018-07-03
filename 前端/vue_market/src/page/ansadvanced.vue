@@ -1,178 +1,183 @@
 
-<template>
-  <div class="setup_wrap">
-    <div class="setup_con">
-      <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="企业信息" name="first">
-          <div class="message">
-            <p>
-              <span class="host">主办单位</span>
-              <span>
-                      <el-input v-model="input" placeholder="不超过20个汉字" name="first" style="width:40%"></el-input>
+  <template>
+    <div class="setup_wrap">
+      <div class="setup_con">
+        <el-tabs v-model="activeName" @tab-click="handleClick">
+          <el-tab-pane label="企业信息" name="first">
+            <div class="message">
+              <p>
+                <span class="host">主办单位</span>
+                <span>
+                      <el-input v-model="input" maxlength="20 " placeholder="不超过20个汉字" name="first" style="width:40%;size:30%;" ></el-input>
                     </span>
-            </p>
-            <p>
-              <span class="host">链接地址:</span>
-              <span>
+              </p>
+              <p>
+                <span class="host">链接地址:</span>
+                <span>
                       <el-input placeholder="请输入内容" v-model="input3" style="width:60%;height:10px">
                         <template slot="prepend">Http://</template>
                       </el-input>
                     </span>
-            </p>
-            <p class="logo">
-              <span class="host">主办单位LOGO:</span>
-              <span>
+              </p>
+              <p class="logo">
+                <span class="host">主办单位LOGO:</span>
+                <span>
                       <el-radio-group v-model="radio2">
                         <el-radio label="1">隐藏</el-radio>
-                        <el-radio label="2">
-                         <span @click="logo()">显示</span>
-                        </el-radio>
+                        <el-radio label="2">显示</el-radio>
                       </el-radio-group>
                     </span>
-              <span class="logo_up" v-show="logoShow">
-                <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-               上传logo
+                <span class="logo_up" v-show="logoShow">
+                <el-upload class="avatar-uploader" action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+                   <img v-if="imageUrl" :src="imageUrl" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"> 上传logo</i>
               </el-upload>
               </span>
-            </p>
-            <p>
-              <span class="host">加载页面图片:</span>
-              <span>
+              </p>
+
+              <p class="imageLoad">
+                <span class="host">加载页面图片:</span>
+                <span>
                       <el-radio-group v-model="radio3">
-                        <el-radio label="1">默认</el-radio>
-                        <el-radio label="2">
-                      <span @click="imgLoad()">自定义</span>
-                        </el-radio>
+                        <el-radio label="0">默认</el-radio>
+                        <el-radio label="1">自定义</el-radio>
                         <!-- <el-radio>上传LOGO</el-radio> -->
                       </el-radio-group>
                     </span>
-            </p>
-            <p v-show="imgLoa">
-              <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-                <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                <span class="pic_in">上传图片</span>
-              </el-upload>
-            </p>
-          </div>
-        </el-tab-pane>
-
-        <el-tab-pane label="分享设置" name="second">
-          <div class="safety">
-            <p>
-              <span class="open">分享形式:</span>
-              <span>
-                      <el-radio v-model="radio4" label="1">短图文分享</el-radio>
-                      <el-radio v-model="radio4" label="2">图片分享</el-radio>
-                    </span>
-            </p>
-            <p>
-              <span class="open">微信分享图标:</span>
-              <span>
-                      <el-radio v-model="radio5" label="1">默认</el-radio>
-                      <el-radio v-model="radio5" label="2">
-                       <span @click="wxiconShow()">自定义</span>
-                      </el-radio>
-                <span v-show="wxicon" class="wxic">
-<el-upload
-  class="avatar-uploader"
-  action="https://jsonplaceholder.typicode.com/posts/"
-  :show-file-list="false"
-  :on-success="handleAvatarSuccess"
-  :before-upload="beforeAvatarUpload">
-                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                  <i v-else class="el-icon-plus avatar-uploader-more">上传图标</i>
-                </el-upload>
+                <span class="image_up" v-show="imgLoa">
+                    <el-upload class="avatar-uploader" action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg" :show-file-list="false" :on-success="handleAvatarSuccess1" :before-upload="beforeAvatarUpload">
+                      <img v-if="imageUrl1" :src="imageUrl1" class="avatar">
+                      <i v-else class="el-icon-plus avatar-uploader-icon">上传图片</i>
+                    </el-upload>
                   </span>
-                    </span>
-            </p>
-            <p>
-              <span class="open">微信分享标题:</span>
-              <span>
-                      <el-radio v-model="radio6" label="1">默认</el-radio>
-                      <el-radio v-model="radio6" label="2">
-                        <span @click="wxTitle()">自定义</span></el-radio>
-                    </span>
-              <span v-show="wxTil">
-              <el-input
-                type="textarea"
-                :rows="2"
-                placeholder="0/25字"
-                v-model="textarea">
-              </el-input>
+              </p>
+
+              <!-- <p>
+                <span class="keep">
+                  <el-button plain class="save">保存</el-button>
                 </span>
-            </p>
-
-            <p>
-              <span class="open">微信分享内容:</span>
-              <span>
-                      <el-radio v-model="radio7" label="1">默认</el-radio>
-                      <el-radio v-model="radio7" label="2">
-                        <span @click="wxcontent()">自定义</span></el-radio>
-                    </span>
-              <span v-show="wxsharcontent">
-              <el-input
-                type="textarea"
-                :rows="2"
-                placeholder="0/50字"
-                v-model="textarea">
-              </el-input>
+                <span>  <el-button plain>返回</el-button>
                 </span>
-            </p>
-            <p>分享信息请遵守微信管理规定，禁止出现诱导分享等违规信息，后果由活动发布企业自担，部分敏感词系统会自动屏蔽。</p>
 
-          </div>
-        </el-tab-pane>
+              </p> -->
+            </div>
+          </el-tab-pane>
 
-        <el-tab-pane label="其他设置" name="third">
-          <div class="rests">
-            <p>
-              <span>广告:</span>
-              <span>
-                      <el-radio v-model="radio8" label="1">显示</el-radio>
-                      <el-radio v-model="radio8" label="2">隐藏</el-radio>
+          <el-tab-pane label="分享设置" name="second">
+            <div class="safety">
+              <p>
+                <span class="open">分享活动:</span>
+                 <el-radio-group v-model="radio4">
+                <el-radio  label="1">开启</el-radio>
+                <el-radio  label="0">关闭</el-radio>
+                 </el-radio-group>
+              </p>
+              <p>
+                <span class="open">微信分享图标:</span>
+                <span>
+                        <el-radio v-model="radio5" label="1">默认</el-radio>
+                        <el-radio v-model="radio5" label="2">自定义</el-radio>
+                  <span v-show="wxicon" class="wxic">
+  <el-upload
+    class="avatar-uploader"
+    action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg"
+    :show-file-list="false"
+    :on-success="handleAvatarSuccess"
+    :before-upload="beforeAvatarUpload">
+                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-more">上传图标</i>
+                  </el-upload>
                     </span>
-            </p>
-            <p>
-              <span>轮播中奖信息：</span>
-              <span>
-                      <el-radio v-model="radio9" label="1">开启</el-radio>
-                      <el-radio v-model="radio9" label="2">关闭</el-radio>
-                    </span>
-            </p>
-            <p>
-              <span>是否需要填写表单兑奖:</span>
-              <span>
-                      <el-radio v-model="radio10" label="1">否</el-radio>
-                      <el-radio v-model="radio10" label="2">是</el-radio>
-                    </span>
-            </p>
-            <p>
-              <span>参与地区限制:</span>
-              <span>
-                      <el-radio v-model="radio11" label="1">
-                        <span @click="centerDialogVisible = true">全部</span>
-                      </el-radio>
-                      <el-radio v-model="radio11" label="2">
-                        <span @click="centerDialogVisible = true">部分</span>
-                      </el-radio>
-                      <el-dialog title="表单字段" :visible.sync="centerDialogVisible" width="30%" center>
+                      </span>
+              </p>
+              <p>
+                <span class="open">微信分享标题:</span>
+                <span>
+                        <el-radio v-model="radio6" label="1">默认</el-radio>
+                        <el-radio v-model="radio6" label="2">自定义</el-radio>
+                      </span>
+                <span v-show="wxTil">
+                <el-input
+                  type="textarea"
+                  :rows="2"
+                  maxlength="25"
+                  placeholder="0/25字"
+                  v-model="textarea">
+                </el-input>
+                  </span>
+              </p>
 
-                      </el-dialog>
+              <p>
+                <span class="open">微信分享内容:</span>
+                <span>
+                        <el-radio v-model="radio7" label="1">默认</el-radio>
+                        <el-radio v-model="radio7" label="2">
+                          <span @click="wxcontent()">自定义</span></el-radio>
+                      </span>
+                <span v-show="wxsharcontent">
+                <el-input
+                  type="textarea"
+                  :rows="2"
+                  maxlength="50"
+                  placeholder="0/50字"
+                  v-model="textarea">
+                </el-input>
+                  </span>
+              </p>
+              <p>分享信息请遵守微信管理规定，禁止出现诱导分享等违规信息，后果由活动发布企业自担，部分敏感词系统会自动屏蔽。</p>
 
-                    </span>
-            </p>
+            </div>
+          </el-tab-pane>
 
-          </div>
-          <div>
-            <!-- <el-button type="button" >点击打开 Dialog</el-button> -->
+          <el-tab-pane label="其他设置" name="third">
+            <div class="rests">
+              <p>
+                <span>广告:</span>
+                <span>
+                        <el-radio v-model="radio8" label="1">显示</el-radio>
+                        <el-radio v-model="radio8" label="2">隐藏</el-radio>
+                      </span>
+              </p>
+              <p>
+                <span>轮播中奖信息：</span>
+                <span>
+                        <el-radio v-model="radio9" label="1">开启</el-radio>
+                        <el-radio v-model="radio9" label="2">关闭</el-radio>
+                      </span>
+              </p>
+              <p>
+                <span>是否需要填写表单兑奖:</span>
+                <span>
+                        <el-radio v-model="radio10" label="1">否</el-radio>
+                        <el-radio v-model="radio10" label="2">是</el-radio>
+                      </span>
+              </p>
+              <p>
+                <span>参与地区限制:</span>
+                <span>
+                        <el-radio v-model="radio11" label="1">
+                          <span @click="centerDialogVisible = true">全部</span>
+                        </el-radio>
+                        <el-radio v-model="radio11" label="2">
+                          <span @click="centerDialogVisible = true">部分</span>
+                        </el-radio>
+                        <el-dialog title="表单字段" :visible.sync="centerDialogVisible" width="30%" center>
 
-          </div>
-        </el-tab-pane>
-      </el-tabs>
+                        </el-dialog>
+
+                      </span>
+              </p>
+
+            </div>
+            <div>
+              <!-- <el-button type="button" >点击打开 Dialog</el-button> -->
+
+            </div>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
     </div>
-  </div>
-</template>
+  </template>
 
 <script>
   import {mapState, mapMutations, mapActions} from 'vuex';
@@ -194,6 +199,7 @@
         radio10: '',
         radio11: '',
         imageUrl: '',
+        imageUrl1:'',
         centerDialogVisible: false,
         imgLoa:false,
         company:'',//企业设置
@@ -255,17 +261,40 @@
         this.input=this.company.company //主办单位
         this.input3=this.company.url   //链接地址
         this.radio2 = this.company.companyLogoType.toString()//主办单位logo
-        if(!this.company.loadImgType){ //加载页面图片
-          this.radio3 = "1"
+        if(this.radio2==1){
+          this.logoShow=false
         }else {
-          this.radio3 = "2"
+          this.logoShow=true
+        }
+        this.radio3=this.company.loadImgType.toString()
+        if(this.radio3==0){
+          this.imgLoa=false
+        }else {
+          this.imgLoa=true
         }
 
         // 分享设置
         this.share = JSON.parse(Data).dtShareSetup
+        this.imageUrl = this.share.wxShareSelfLogo
+        this.radio4=Number(this.share.share).toString()
         this.radio5 = this.share.wxShareLogoType.toString()
+        if(this.radio5==1){
+          this.wxicon=false
+        }else {
+          this.wxicon=true
+        }
         this.radio6 = this.share.wxShareTitleType.toString()
+        if(this.radio6==1){
+          this.wxTil=false
+        }else {
+          this.wxTil=true
+        }
         this.radio7 = this.share.wxShareContentType.toString()
+        if(this.radio7==1){
+          this.wxsharcontent=false
+        }else {
+          this.wxsharcontent=true
+        }
 
         // 其它设置
         this.other = JSON.parse(Data).dtHighOtherSetup
@@ -290,17 +319,39 @@
         this.input=this.company.company //主办单位
         this.input3=this.company.url   //链接地址
         this.radio2 = this.company.companyLogoType.toString()//主办单位logo
-        if(!this.company.loadImgType){ //加载页面图片
-          this.radio3 = "1"
+        if(this.radio2==1){
+          this.logoShow=false
         }else {
-          this.radio3 = "2"
+          this.logoShow=true
         }
-
+        this.radio3=this.company.loadImgType.toString()
+        if(this.radio3==0){
+          this.imgLoa=false
+        }else {
+          this.imgLoa=true
+        }
         // 分享设置
         this.share = this.$route.query.newdtData.dtShareSetup
+        this.imageUrl = this.share.wxShareSelfLogo
+        this.radio4=Number(this.share.share).toString()
         this.radio5 = this.share.wxShareLogoType.toString()
+        if(this.radio5==1){
+          this.wxicon=false
+        }else {
+          this.wxicon=true
+        }
         this.radio6 = this.share.wxShareTitleType.toString()
+        if(this.radio6==1){
+          this.wxTil=false
+        }else {
+          this.wxTil=true
+        }
         this.radio7 = this.share.wxShareContentType.toString()
+        if(this.radio7==1){
+          this.wxsharcontent=false
+        }else {
+          this.wxsharcontent=true
+        }
 
         // 其它设置
         this.other = this.$route.query.newdtData.dtHighOtherSetup
@@ -328,14 +379,41 @@
         this.company_send.company = this.input
         this.company_send.url = this.input3
         this.company_send.companyLogoType = Number(this.radio2)
-        this.company_send.loadImgType = this.radio3 == 1 ? 0 : ''
+        if(this.radio2==1){
+          this.logoShow=false
+        }else {
+          this.logoShow=true
+        }
+        this.company_send.loadImgType = this.radio3
+
+        if(this.radio3==0){
+          this.imgLoa=false
+        }else {
+          this.imgLoa=true
+        }
         this.$store.state.setting_dtData.dtHighCompanySetup = this.company_send
 
         // 分享保存设置
         this.share_send = JSON.parse(Data).dtShareSetup
+        this.share_send.share =  this.radio4 == 1 ? true : false
         this.share_send.wxShareLogoType = this.radio5
+        if(this.radio5==1){
+          this.wxicon=false
+        }else {
+          this.wxicon=true
+        }
         this.share_send.wxShareTitleType = this.radio6
+        if(this.radio6==1){
+          this.wxTil=false
+        }else {
+          this.wxTil=true
+        }
         this.share_send.wxShareContentType = this.radio7
+        if(this.radio7==1){
+          this.wxsharcontent=false
+        }else {
+          this.wxsharcontent=true
+        }
         this.$store.state.setting_dtData.dtShareSetup = this.share_send
 
         // 其它保存设置
@@ -356,14 +434,41 @@
         this.company_send.company = this.input
         this.company_send.url = this.input3
         this.company_send.companyLogoType = Number(this.radio2)
-        this.company_send.loadImgType = this.radio3 == 1 ? 0 : ''
+        if(this.radio2==1){
+          this.logoShow=false
+        }else {
+          this.logoShow=true
+        }
+        this.company_send.loadImgType = this.radio3
+
+        if(this.radio3==0){
+          this.imgLoa=false
+        }else {
+          this.imgLoa=true
+        }
         this.$store.state.setting_dtData.dtHighCompanySetup = this.company_send
 
         // 分享保存设置
         this.share_send =this.$route.query.newdtData.dtShareSetup
+        this.share_send.share =  this.radio4 == 1 ? true : false
         this.share_send.wxShareLogoType = this.radio5
+        if(this.radio5==1){
+          this.wxicon=false
+        }else {
+          this.wxicon=true
+        }
         this.share_send.wxShareTitleType = this.radio6
+        if(this.radio6==1){
+          this.wxTil=false
+        }else {
+          this.wxTil=true
+        }
         this.share_send.wxShareContentType = this.radio7
+        if(this.radio7==1){
+          this.wxsharcontent=false
+        }else {
+          this.wxsharcontent=true
+        }
         this.$store.state.setting_dtData.dtShareSetup = this.share_send
 
         // 其它保存设置
@@ -380,26 +485,24 @@
         // console.log(tab, event);
       },
       handleAvatarSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
+        this.imageUrl = file.response.data
+      },
+      handleAvatarSuccess1(res, file) {
+        this.imageUrl1 = file.response.data
       },
       beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
+        // const isJPG = file.type === 'image/jpeg';
+        // const isLt2M = file.size / 1024 / 1024 < 2;
+        //
+        // if (!isJPG) {
+        //   this.$message.error('上传头像图片只能是 JPG 格式!');
+        // }
+        // if (!isLt2M) {
+        //   this.$message.error('上传头像图片大小不能超过 2MB!');
+        // }
+        // return isJPG && isLt2M;
+      },
 
-        if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!');
-        }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
-        }
-        return isJPG && isLt2M;
-      },
-      logo(){
-        this.logoShow=!this.logoShow
-      },
-      imgLoad(){
-        this.imgLoa=!this.imgLoa
-      },
       wxiconShow(){
        this.wxicon=!this.wxicon
       },
@@ -459,51 +562,51 @@
    position: relative;
    overflow: hidden;
  } */
-  .message p .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
+  /*.message p .avatar-uploader .el-upload:hover {*/
+    /*border-color: #409EFF;*/
+  /*}*/
 
-  .message p .avatar-uploader-icon {
-    font-size: 60px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-    background: #f2f2f2;
-    position: relative;
-  }
-  .avatar-uploader-more{
-    display: inline-block;
-    font-size: 15px;
-    width: 100px;
-    height: 30px;
-    line-height: 30px;
-    background: #fbfbfb;
-    text-align: center;
-    border: 1px solid #9b9b9b;
-    color: #4a4a4a;
-    border-radius:3px;
-  }
-  .avatar-uploader-more:hover{
-    border: 1px solid #fc7132;
-    color: #fcb190;
-  }
+  /*.message p .avatar-uploader-icon {*/
+    /*font-size: 14px;*/
+    /*color: #8c939d;*/
+    /*width: 178px;*/
+    /*height: 178px;*/
+    /*line-height: 178px;*/
+    /*text-align: center;*/
+    /*background: #f2f2f2;*/
+    /*position: relative;*/
+  /*}*/
+  /*.avatar-uploader-more{*/
+    /*display: inline-block;*/
+    /*font-size: 15px;*/
+    /*width: 100px;*/
+    /*height: 30px;*/
+    /*line-height: 30px;*/
+    /*background: #fbfbfb;*/
+    /*text-align: center;*/
+    /*border: 1px solid #9b9b9b;*/
+    /*color: #4a4a4a;*/
+    /*border-radius:3px;*/
+  /*}*/
+  /*.avatar-uploader-more:hover{*/
+    /*border: 1px solid #fc7132;*/
+    /*color: #fcb190;*/
+  /*}*/
 
 
 
-  .pic_in{
-    position: absolute;
-    left: 14%;
-    bottom: 6%;
-    font-size: 20px;
-  }
+  /*.pic_in{*/
+    /*position: absolute;*/
+    /*left: 14%;*/
+    /*bottom: 6%;*/
+    /*font-size: 20px;*/
+  /*}*/
 
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
+  /*.avatar {*/
+    /*width: 178px;*/
+    /*height: 178px;*/
+    /*display: block;*/
+  /*}*/
 
   .safety p {
     margin-top: 1rem;
@@ -544,10 +647,51 @@
   }
   .logo{
     .logo_up{
-      text-align: center;
-      display: inline-block;
+      display: block;
       color: blue;
       font-size: 14px;
+      margin-left:120px;
+      margin-top: 10px;
     }
+  }
+  .imageLoad{
+    .image_up{
+      display: block;
+      color: blue;
+      font-size: 14px;
+      margin-left:120px;
+      margin-top: 10px;
+    }
+  }
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+
+  .avatar-uploader-icon {
+    font-size: 14px;
+    color: #c5c5c5;
+    width: 85px;
+    height: 85px;
+    line-height: 85px;
+    text-align: center;
+    background: #f2f2f2;
+    border: 1px dashed #2b85e4;
+  }
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+    display: block;
   }
 </style>

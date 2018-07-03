@@ -24,34 +24,17 @@
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
+                  class="avatar-uploader"
+                  action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg"
                   list-type="picture-card"
+                  :show-file-list="false"
                   :on-success="handleAvatarSuccess1"
-                  :before-upload="beforeAvatarUpload"
-                  :on-remove="handleRemove">
-                  <i class="el-icon-plus"></i>
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imgData1" :src="imgData1" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="imgData1" alt="">
-                </el-dialog>
               </el-form-item>
-              <!--<el-form-item>-->
-              <!--<el-upload-->
-              <!--class="avatar-uploader"-->
-              <!--:show-file-list="false"-->
-              <!--name="file"-->
-              <!--:action="uploadUrl()"-->
-              <!--:on-error="uploadError"-->
-              <!--:on-success="handleAvatarSuccess"-->
-              <!--:before-upload="beforeAvatarUpload"-->
-              <!--enctype="multipart/form-data">-->
-              <!--<img v-if="imageUrl" :src="noticeImageUrl" class="avatar">-->
-              <!--<i v-else class="el-icon-plus avatar-uploader-icon"></i>-->
-              <!--</el-upload>-->
-              <!--</el-form-item>-->
-
-
 
               <el-form-item label="奖品数量">
                 <el-input v-model="form.name1_2"  :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" ></el-input>
@@ -105,22 +88,20 @@
               <div class="public">
                 <el-form-item label="公众号名称">
                   <el-input v-model="form.name1_3" maxlength="15" placeholder="不超过15个字"></el-input>
+                  <span>上传公众号二维码</span>
                   <el-upload
-                    action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
-                    list-type="picture-card_pic"
-                    :on-preview="handlePictureCardPreview"
+                    class="avatar-uploader"
+                    action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg"
+                    list-type="picture-card"
+                    :show-file-list="false"
                     :on-success="handleAvatarSuccess1_1"
-                    :on-remove="handleRemove"
-                    :file-list="fileList"
-                  >
-                    <span>上传公众号二维码</span>
+                    :before-upload="beforeAvatarUpload">
+                    <img v-if="dialogImageUrl" :src="dialogImageUrl" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
-                  <el-dialog :visible.sync="dialogVisible">
-                    <img width="100%" :src="dialogImageUrl" alt="">
-                  </el-dialog>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input type="textarea" v-model="form.name1_4" placehoder="0/50字"  maxlength="50"></el-input>
+                  <el-input type="textarea" v-model="form.name1_4" placeholder="0/500字"  maxlength="500"></el-input>
                 </el-form-item>
               </div>
 
@@ -132,7 +113,7 @@
                   <el-input v-model="form.phone1_1" maxlength="15" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" ></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name1_4" maxlenght="15" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name1_4" maxlenght="15" placeholder="0/500字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
@@ -140,7 +121,7 @@
                   <el-input v-model="form.phone1_1" maxlength="15" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" ></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name1_4" maxlength="15"  placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name1_4" maxlength="15"  placeholder="0/500字"></el-input>
                 </el-form-item>
               </div>
 
@@ -165,18 +146,19 @@
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
+                  class="avatar-uploader"
+                  action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg"
                   list-type="picture-card"
+                  :show-file-list="false"
                   :on-success="handleAvatarSuccess2"
-                  :before-upload="beforeAvatarUpload"
-                  :on-remove="handleRemove">
-                  <i class="el-icon-plus"></i>
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imgData2" :src="imgData2" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="imgData2" alt="">
-                </el-dialog>
-
+                <!--<el-dialog :visible.sync="dialogVisible">-->
+                <!--<img width="100%" :src="imgData2" alt="">-->
+                <!--</el-dialog>-->
               </el-form-item>
               <el-form-item label="奖品数量">
                 <el-input v-model="form.name2_2" :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" ></el-input>
@@ -230,21 +212,20 @@
               <div class="public">
                 <el-form-item label="公众号名称">
                   <el-input v-model="form.name2_3" maxlength="15" placeholder="不超过15个字"></el-input>
+                  <span>上传公众号二维码</span>
                   <el-upload
-                    action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
-                    list-type="picture-card_pic"
-                    :on-preview="handlePictureCardPreview"
+                    class="avatar-uploader"
+                    action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg"
+                    list-type="picture-card"
+                    :show-file-list="false"
                     :on-success="handleAvatarSuccess2_1"
-                    :on-remove="handleRemove"
-                  >
-                    <span>上传公众号二维码</span>
+                    :before-upload="beforeAvatarUpload">
+                    <img v-if="dialogImageUrl1" :src="dialogImageUrl1" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
-                  <el-dialog :visible.sync="dialogVisible">
-                    <img width="100%" :src="dialogImageUrl1" alt="">
-                  </el-dialog>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input type="textarea" v-model="form.name2_4"></el-input>
+                  <el-input type="textarea" placeholder="0/500字" v-model="form.name2_4"></el-input>
                 </el-form-item>
               </div>
 
@@ -256,7 +237,7 @@
                   <el-input v-model="form.phone2_1" maxlength="15" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" ></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2_4" maxlength="500" placeholder="不超过500个字"></el-input>
+                  <el-input v-model="form.name2_4" maxlength="500" placeholder="0/500字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
@@ -264,7 +245,7 @@
                   <el-input v-model="form.phone2_1" maxlength="15" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"  placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name2_4" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name2_4" placeholder="0/500字"></el-input>
                 </el-form-item>
               </div>
 
@@ -288,18 +269,19 @@
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
+                  class="avatar-uploader"
+                  action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg"
                   list-type="picture-card"
+                  :show-file-list="false"
                   :on-success="handleAvatarSuccess3"
-                  :before-upload="beforeAvatarUpload"
-                  :on-remove="handleRemove">
-                  <i class="el-icon-plus"></i>
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imgData3" :src="imgData3" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="imgData3" alt="">
-                </el-dialog>
-
+                <!--<el-dialog :visible.sync="dialogVisible">-->
+                <!--<img width="100%" :src="imgData3" alt="">-->
+                <!--</el-dialog>-->
               </el-form-item>
               <el-form-item label="奖品数量">
                 <el-input v-model="form.name3_2" :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"></el-input>
@@ -353,21 +335,21 @@
               <div class="public">
                 <el-form-item label="公众号名称">
                   <el-input v-model="form.name3_3"  maxlength="15" placeholder="不超过15个字"></el-input>
+                  <span>上传公众号二维码</span>
                   <el-upload
-                    action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
-                    list-type="picture-card_pic"
-                    :on-preview="handlePictureCardPreview"
+                    class="avatar-uploader"
+                    action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg"
+                    list-type="picture-card"
+                    :show-file-list="false"
                     :on-success="handleAvatarSuccess3_1"
-                    :on-remove="handleRemove"
-                  >
-                    <span>上传公众号二维码</span>
+                    :before-upload="beforeAvatarUpload">
+                    <img v-if="dialogImageUrl2" :src="dialogImageUrl2" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
-                  <el-dialog :visible.sync="dialogVisible">
-                    <img width="100%" :src="dialogImageUrl2" alt="">
-                  </el-dialog>
+
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input type="textarea" maxlength="500" v-model="form.name3_4"></el-input>
+                  <el-input type="textarea" maxlength="500" placeholder="0/500字" v-model="form.name3_4"></el-input>
                 </el-form-item>
               </div>
 
@@ -379,7 +361,7 @@
                   <el-input v-model="form.phone3_1" maxlength="15" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name3_4" maxlength="500" placeholder="不超过500个字"></el-input>
+                  <el-input v-model="form.name3_4" maxlength="500" placeholder="0/500字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
@@ -387,7 +369,7 @@
                   <el-input v-model="form.phone3_1" maxlength="15" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name3_4" maxlength="500" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name3_4" maxlength="500" placeholder="0/500字"></el-input>
                 </el-form-item>
               </div>
 
@@ -413,17 +395,19 @@
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
+                  class="avatar-uploader"
+                  action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg"
                   list-type="picture-card"
+                  :show-file-list="false"
                   :on-success="handleAvatarSuccess4"
-                  :before-upload="beforeAvatarUpload"
-                  :on-remove="handleRemove">
-                  <i class="el-icon-plus"></i>
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imgData4" :src="imgData4" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="imgData4" alt="">
-                </el-dialog>
+                <!--<el-dialog :visible.sync="dialogVisible">-->
+                <!--<img width="100%" :src="imgData4" alt="">-->
+                <!--</el-dialog>-->
 
               </el-form-item>
               <el-form-item label="奖品数量">
@@ -478,21 +462,20 @@
               <div class="public">
                 <el-form-item label="公众号名称">
                   <el-input v-model="form.name4_3" maxlength="15" placeholder="不超过15个字"></el-input>
+                  <span>上传公众号二维码</span>
                   <el-upload
-                    action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
-                    list-type="picture-card_pic"
-                    :on-preview="handlePictureCardPreview"
+                    class="avatar-uploader"
+                    action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg"
+                    list-type="picture-card"
+                    :show-file-list="false"
                     :on-success="handleAvatarSuccess4_1"
-                    :on-remove="handleRemove"
-                  >
-                    <span>上传公众号二维码</span>
+                    :before-upload="beforeAvatarUpload">
+                    <img v-if="dialogImageUrl3" :src="dialogImageUrl3" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
-                  <el-dialog :visible.sync="dialogVisible">
-                    <img width="100%" :src="dialogImageUrl3" alt="">
-                  </el-dialog>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input type="textarea" maxlength="500" v-model="form.name4_4"></el-input>
+                  <el-input type="textarea" maxlength="500" placeholder="0/500字" v-model="form.name4_4"></el-input>
                 </el-form-item>
               </div>
 
@@ -504,7 +487,7 @@
                   <el-input v-model="form.phone4_1" maxlength="15" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name4_4" maxlength="500" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name4_4" maxlength="500" placeholder="0/500字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
@@ -512,7 +495,7 @@
                   <el-input v-model="form.phone4_1" maxlength="15" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name4_4" maxlength="500" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name4_4" maxlength="500" placeholder="0/500字"></el-input>
                 </el-form-item>
               </div>
 
@@ -537,17 +520,19 @@
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
+                  class="avatar-uploader"
+                  action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg"
                   list-type="picture-card"
+                  :show-file-list="false"
                   :on-success="handleAvatarSuccess5"
-                  :before-upload="beforeAvatarUpload"
-                  :on-remove="handleRemove">
-                  <i class="el-icon-plus"></i>
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imgData5" :src="imgData5" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="imgData5" alt="">
-                </el-dialog>
+                <!--<el-dialog :visible.sync="dialogVisible">-->
+                <!--<img width="100%" :src="imgData5" alt="">-->
+                <!--</el-dialog>-->
 
               </el-form-item>
               <el-form-item label="奖品数量">
@@ -602,21 +587,21 @@
               <div class="public">
                 <el-form-item label="公众号名称">
                   <el-input v-model="form.name5_3" maxlength="15" placeholder="不超过15个字"></el-input>
+                  <span>上传公众号二维码</span>
                   <el-upload
-                    action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
-                    list-type="picture-card_pic"
-                    :on-preview="handlePictureCardPreview"
+                    class="avatar-uploader"
+                    action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg"
+                    list-type="picture-card"
+                    :show-file-list="false"
                     :on-success="handleAvatarSuccess5_1"
-                    :on-remove="handleRemove"
-                  >
-                    <span>上传公众号二维码</span>
+                    :before-upload="beforeAvatarUpload">
+                    <img v-if="dialogImageUrl4" :src="dialogImageUrl4" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
-                  <el-dialog :visible.sync="dialogVisible">
-                    <img width="100%" :src="dialogImageUrl4" alt="">
-                  </el-dialog>
+
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input type="textarea" v-model="form.name5_4"></el-input>
+                  <el-input type="textarea" placeholder="0/500字" v-model="form.name5_4"></el-input>
                 </el-form-item>
               </div>
 
@@ -628,7 +613,7 @@
                   <el-input v-model="form.phone5_1" maxlength="15" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name5_4" maxlength="500" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name5_4" maxlength="500" placeholder="0/500字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
@@ -636,7 +621,7 @@
                   <el-input v-model="form.phone5_1" maxlength="15" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name5_4" maxlength="500" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name5_4" maxlength="500" placeholder="0/500字"></el-input>
                 </el-form-item>
               </div>
 
@@ -661,17 +646,19 @@
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
+                  class="avatar-uploader"
+                  action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg"
                   list-type="picture-card"
+                  :show-file-list="false"
                   :on-success="handleAvatarSuccess6"
-                  :before-upload="beforeAvatarUpload"
-                  :on-remove="handleRemove">
-                  <i class="el-icon-plus"></i>
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imgData6" :src="imgData6" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="imgData6" alt="">
-                </el-dialog>
+                <!--<el-dialog :visible.sync="dialogVisible">-->
+                <!--<img width="100%" :src="imgData6" alt="">-->
+                <!--</el-dialog>-->
 
               </el-form-item>
               <el-form-item label="奖品数量">
@@ -726,21 +713,21 @@
               <div class="public">
                 <el-form-item label="公众号名称">
                   <el-input v-model="form.name6_3" maxlength="15" placeholder="不超过15个字"></el-input>
+                  <span>上传公众号二维码</span>
                   <el-upload
-                    action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
-                    list-type="picture-card_pic"
-                    :on-preview="handlePictureCardPreview"
+                    class="avatar-uploader"
+                    action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg"
+                    list-type="picture-card"
+                    :show-file-list="false"
                     :on-success="handleAvatarSuccess6_1"
-                    :on-remove="handleRemove"
-                  >
-                    <span>上传公众号二维码</span>
+                    :before-upload="beforeAvatarUpload">
+                    <img v-if="dialogImageUrl5" :src="dialogImageUrl5" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
-                  <el-dialog :visible.sync="dialogVisible">
-                    <img width="100%" :src="dialogImageUrl5" alt="">
-                  </el-dialog>
+
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input type="textarea" v-model="form.name6_4"></el-input>
+                  <el-input type="textarea" v-model="form.name6_4" placeholder="0/500字"></el-input>
                 </el-form-item>
               </div>
 
@@ -785,18 +772,19 @@
               </el-form-item>
               <el-form-item>
                 <el-upload
-                  action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
+                  class="avatar-uploader"
+                  action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg"
                   list-type="picture-card"
+                  :show-file-list="false"
                   :on-success="handleAvatarSuccess7"
-                  :before-upload="beforeAvatarUpload"
-                  :on-remove="handleRemove">
-                  <i class="el-icon-plus"></i>
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imgData7" :src="imgData7" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
                 <span class="load_text">奖品图片将在九宫格中显示</span>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="imgData7" alt="">
-                </el-dialog>
-
+                <!--<el-dialog :visible.sync="dialogVisible">-->
+                <!--<img width="100%" :src="imgData7" alt="">-->
+                <!--</el-dialog>-->
               </el-form-item>
               <el-form-item label="奖品数量">
                 <el-input v-model="form.name7_2"  :disabled="rewordCount" maxlength="15" type="text" placeholder="不超过15个字" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();"></el-input>
@@ -850,21 +838,20 @@
               <div class="public">
                 <el-form-item label="公众号名称">
                   <el-input v-model="form.name7_3" maxlength="15" placeholder="不超过15个字"></el-input>
+                  <span>上传公众号二维码</span>
                   <el-upload
-                    action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
-                    list-type="picture-card_pic"
-                    :on-preview="handlePictureCardPreview"
+                    class="avatar-uploader"
+                    action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg"
+                    list-type="picture-card"
+                    :show-file-list="false"
                     :on-success="handleAvatarSuccess7_1"
-                    :on-remove="handleRemove"
-                  >
-                    <span>上传公众号二维码</span>
+                    :before-upload="beforeAvatarUpload">
+                    <img v-if="dialogImageUrl6" :src="dialogImageUrl6" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
-                  <el-dialog :visible.sync="dialogVisible">
-                    <img width="100%" :src="dialogImageUrl6" alt="">
-                  </el-dialog>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input type="textarea" maxlength="500" v-model="form.name7_4"></el-input>
+                  <el-input type="textarea" maxlength="500" placeholder="0/500字" v-model="form.name7_4"></el-input>
                 </el-form-item>
               </div>
 
@@ -876,7 +863,7 @@
                   <el-input v-model="form.phone7_1" maxlength="15" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name7_4" maxlength="500" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name7_4" maxlength="500" placeholder="0/500字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info">
@@ -884,7 +871,7 @@
                   <el-input v-model="form.phone7_1" maxlength="15" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
                 <el-form-item label="兑奖说明">
-                  <el-input v-model="form.name7_4" maxlength="500" placeholder="不超过15个字"></el-input>
+                  <el-input v-model="form.name7_4" maxlength="500" placeholder="0/500字"></el-input>
                 </el-form-item>
               </div>
 
@@ -1680,6 +1667,7 @@
         this.radio2 = this.reword_data[0].prizeCouponCodeType.toString() //导入券码
         this.radio3 = this.reword_data[0].prizeExchangeTypeId.toString() //兑奖方式
         this.imgData1 = this.reword_data[0].prizeImg //上传图片
+        console.log(this.imgData1);
         this.reword_type1 = this.reword_data[0].jggAwardTypeList // 奖品类型
         this.form.region1 = this.reword_data[0].prizeType
         this.dialogImageUrl = this.reword_data[0].wxPublicAccountImg //微信公众号图片
@@ -1806,7 +1794,7 @@
         this.reword_send[0].prizeSource = this.radio1  //奖品来源
         this.reword_send[0].prizeCouponCodeType = this.radio2  //导入券码
         this.reword_send[0].prizeExchangeTypeId = this.radio3//兑奖方式
-        this.reword_send[0].prizeImg = this.imgData //上传图片
+        this.reword_send[0].prizeImg = this.imgData1 //上传图片
         this.reword_send[0].jggAwardTypeList = this.reword_type1 // 奖品类型
         this.reword_send[0].prizeType = this.form.region1
         this.reword_send[0].wxPublicAccountImg = this.dialogImageUrl//微信公众号图片
@@ -1999,5 +1987,35 @@
   }
   .el-tabs__nav .el-tabs__item{
     padding: 0px 15px;
+  }
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+
+  .avatar-uploader-icon {
+    font-size: 60px;
+    color: #c5c5c5;
+    width: 145px;
+    height: 145px;
+    line-height: 145px;
+    text-align: center;
+    background: #f2f2f2;
+  }
+
+  .avatar {
+    width: 145px;
+    height: 145px;
+    display: block;
   }
 </style>
