@@ -10,7 +10,7 @@
             <!-- <div class="right_list">
               <i class="right_icon icon1"></i>
               <span>消息</span>
-            </div>
+            </div> 
             <i class="line"></i>-->
             <div class="right_list">
               <i class="right_icon icon2"></i>
@@ -20,17 +20,17 @@
             <div class="right_list">
                 <i class="right_icon icon3"></i>
               <el-menu :default-active="activeIndex" class="el-menu-demo border_none1"  mode="horizontal" @select="handleSelect" >
-                <el-submenu index="2" >
+                <el-submenu index="2" > 
                   <template slot="title" class="border_none ">{{name}}</template>
-                  <el-menu-item index="2-1">系统设置</el-menu-item>
-                  <el-menu-item index="2-1">退出</el-menu-item>
+                  <el-menu-item index="2-1"    @click="xitong">系统设置</el-menu-item>
+                  <el-menu-item index="2-1" @click="exit">退出</el-menu-item>
                 </el-submenu>
               </el-menu>
             </div>
           </div>
         </div>
     </div>
-</template>
+</template>  
 <script>
   import {mapState,mapMutations,mapActions} from 'vuex'
    export default {
@@ -49,10 +49,19 @@
       })
     },
     methods: {
+      exit(){
+        this.$http.get("http://center.marketing.yunpaas.cn/center/enterpriseuser/logout").then(data => {
+       this.$router.replace("/")
+        })
+      },
+      xitong(){
+        this.$router.push("/xitongSetMenuList")
+      },
       handleSelect(key, keyPath) {
+
           console.log(key, keyPath);
       }
-
+      
     },
     computed:{
       ...mapState(['user_name'])
@@ -71,7 +80,6 @@
    width:100%;
    background:#fff;
    border-bottom:1px solid #ccc;
-
    .line {
      width:0.05rem;
      height:.5rem;
@@ -113,7 +121,7 @@
         color: #4A4A4A;
         @include same_corner;
         position:relative;
-
+        
         .el-menu-demo {
           height:100%;
           line-height:100%;

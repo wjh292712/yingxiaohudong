@@ -147,6 +147,10 @@
         var sendNew =JSON.stringify(this.sendData)
         console.log(sendNew)
         var token=sessionStorage.getItem('token')
+        if(JSON.parse(sendNew).kjBaseSetup.activityName===""){
+          alert("用户名不能为空")
+          return
+        }
         let _this=this;
         $.ajax({
           type:"POST",//砍价保存数据

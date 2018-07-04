@@ -51,9 +51,9 @@
             <h3>编辑题库</h3>
             <!--<span class="del" @click="del()">X</span>-->
           </div>
-          <div class="ansConent" :data-id=index>
-            <el-form label-width="60px" :data-id=index>
-              <h3>第{{count}}题</h3>
+          <div class="ansConent">
+            <el-form label-width="60px" :data-id=index class="ans_title">
+              <h3 v-model="count">第{{count}}题</h3>
               <el-button size="mini" class="delBtn" @click="delTitle()">删除题目</el-button>
               <el-form-item label="题目:">
                 <el-input size="mini" v-model="ansName">
@@ -88,7 +88,7 @@
           </div>
         </div>
         <div class="footerDati">
-         <el-button size="mini" @click="addTitle()">新增题目</el-button>
+          <el-button size="mini" @click="addTitle()">新增题目</el-button>
           <span>共{{count}}题</span>
           <el-button size="mini">保存</el-button>
         </div>
@@ -122,7 +122,7 @@
         title_data: '',//数据渲染接口
         title_send: "",//数据保存接口
         dataStatus: 0,
-        index:1,//第几题
+        index: 1,//第几题
       }
     },
     created() {
@@ -206,7 +206,6 @@
         this.radomCount = this.title_data.questionRadomNum
         this.ansName = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.title
         this.imageUrl = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.img
-        alert(this.imageUrl)
         // if (this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight === true) {
         //   this.ansCorrect = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent
         // } else if (this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight === false) {
@@ -246,8 +245,8 @@
         this.title_send.questionRadomNum = this.radomCount
         this.title_send.answerTimeLimit = this.radio2 == 0 ? false : true
         this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.title = this.ansName
-        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.img= this.imageUrl
-            this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight = true
+        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.img = this.imageUrl
+        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight = true
         this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent = this.ansCorrect
         this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[1].isRight = false
         this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[1].answerContent = this.ansError1
@@ -315,7 +314,7 @@
         console.log(file);
         console.log(res);
         // this.imageUrl = URL.createObjectURL(file.raw);
-        this.imageUrl=file.response.data
+        this.imageUrl = file.response.data
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
@@ -372,17 +371,22 @@
       tilTime() {
         this.tileTime = !this.tileTime
       },
-      addTitle(){
-        var htmlToAdd ="";
-        htmlToAdd = $(".ansConent:eq()").html();
-        $(".ansConent").html($(".ansConent").html()+htmlToAdd );
-        var list=document.getElementsByClassName("el-form")
-        var a=list.length
-        console.log(a);
+      addTitle() {
         this.index++;
-        this.count=this.index
+
+        var htmlToAdd = "";
+        // htmlToAdd = $(".ansConent").html();
+        // $(".ansConent").html($(".ansConent").html()+htmlToAdd );
+        htmlToAdd = $(".title").html();
+        //$(".title").html($(".ansConent").html()+htmlToAdd );
+        $(".title").html(htmlToAdd + $(".ansConent").html());
+        console.log($(".title").children(".ans_title").length);
+        this.count = this.index
+        // $(".ansConent").html(htmlToAdd+$(".ansConent").html() );
+        //$(".ansConent").html($(".title").html()+htmlToAdd );
+
       },
-      delTitle(){
+      delTitle() {
 
       },
       // del() {
@@ -448,7 +452,6 @@
     z-index: 888;
     border: 1px solid #c0c4cc;
     overflow-y: auto;
-    z-index: 999;
     .ansTitle {
       width: 100%;
       height: 45px;
@@ -461,6 +464,31 @@
       }
 
     }
+    .el-form{
+      width: 100%;
+      /*height: 460px;*/
+      padding: 10px 10px 0px 20px;
+      background: #fff;
+      background: rgba(255, 255, 255, 255);
+      overflow: hidden;
+      .delBtn {
+        margin-left: 82%;
+      }
+      .delBtn:hover {
+        color: #2b85e4;
+        cursor: pointer;
+      }
+      .upLoad {
+        .el-upload-list--picture-card {
+          width: 10px !important;
+          height: 10px !important;
+        }
+      }
+      .el-icon-plus {
+        font-size: 50px;
+      }
+
+    }
     .ansConent {
       width: 100%;
       /*height: 460px;*/
@@ -468,10 +496,10 @@
       background: #fff;
       background: rgba(255, 255, 255, 255);
       overflow: hidden;
-.delBtn{
-  margin-left: 82%;
-}
-      .delBtn:hover{
+      .delBtn {
+        margin-left: 82%;
+      }
+      .delBtn:hover {
         color: #2b85e4;
         cursor: pointer;
       }
@@ -488,21 +516,22 @@
     }
 
   }
+
   .answ1 .footerDati {
     width: 100%;
     height: 30px;
     line-height: 30px;
     margin: 0 auto;
     text-align: center;
-color: #2b85e4;
-
+    color: #2b85e4;
 
     .btn {
       background: #fe4d1e;
       color: #fff;
     }
   }
-.imgInfo{
-  margin-left: 12%;
-}
+
+  .imgInfo {
+    margin-left: 12%;
+  }
 </style>

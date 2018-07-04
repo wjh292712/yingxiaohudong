@@ -255,7 +255,14 @@
 
       partHight(){
         // this.$store.dispatch('saveData')
-        let Data = sessionStorage.getItem('Datakj')
+        if(this.dataStatus===undefined){
+          let Data = sessionStorage.getItem('Datakj')
+          this.company = JSON.parse(Data).kjHighCompanySetup
+          this.share = JSON.parse(Data).kjShareSetup
+          this.other = JSON.parse(Data).kjHighOtherSetup
+        }else if (this.dataStatus==='1') {
+          this.saveHight1()
+        }
 
         // 企业设置
         this.company = JSON.parse(Data).kjHighCompanySetup
@@ -333,21 +340,22 @@
         }
 
         // 分享设置
+        this.share = this.$route.query.newkjData.kjShareSetup
         this.imageUrl = this.share.wxShareSelfLogo
         this.radio4=Number(this.share.share).toString()
-        this.radio5 = this.share.wxShareLogoType.toString()
+        this.radio5 =Number(this.share.wxShareLogoType).toString()
         if(this.radio5==1){
           this.wxicon=false
         }else {
           this.wxicon=true
         }
-        this.radio6 = this.share.wxShareTitleType.toString()
+        this.radio6 = Number(this.share.wxShareTitleType).toString()
         if(this.radio6==1){
           this.wxTil=false
         }else {
           this.wxTil=true
         }
-        this.radio7 = this.share.wxShareContentType.toString()
+        this.radio7 = Number(this.share.wxShareContentType).toString()
         if(this.radio7==1){
           this.wxsharcontent=false
         }else {

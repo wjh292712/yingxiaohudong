@@ -12,7 +12,7 @@
   <label>到期时间:</label>
 <span>无</span>
 <span id="ssp">
-<span><a href="javascript:void(0)">立即升级&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
+<span><a href="javascript:void(0)" @click="versionGo()">立即升级&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
 <span><a  href="javascript:void(0)">了解更多</a></span>
 </span>
 </p>
@@ -27,25 +27,42 @@
 <span>已授权</span>
     </p>
     <div class="bks">
-       
+
          <p id="logo_p">
         Logo
     </p>
     </div>
     <div id="rrt">
-         <p class="names">趣充</p>   
+         <p class="names">趣充</p>
 <p id="kkk"><span id="nns">服务号</span><span id="renzheng">已认证</span></p>
 
 <el-button type="primary" id="shouquan_btn">授权其他公众号</el-button>
     </div>
 <el-button type="primary" id="jiechu_btn">解除授权</el-button>
-  
+
 </div>
-</div>    
+</div>
 </template>
 
 <script>
 export default {
+  data(){
+    return{}
+  },
+  methods:{
+    versionGo(){
+      this.$router.push({path:"/xitongSetMenuList/versionCart"})
+      this.$axios({
+        method:"post",
+        url:'',
+        params:{
+
+        }
+      }).then(res =>{
+
+      })
+    }
+  }
 
 }
 </script>
@@ -72,7 +89,7 @@ export default {
     color: #bebebe
 }
 .names{
-  
+
     font-size: 14px;
 }
 .container{

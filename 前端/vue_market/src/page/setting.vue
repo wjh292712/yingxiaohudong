@@ -37,7 +37,7 @@
     </div>
     <div id="active_AllBtn">
       <el-button @click="goBack()">返回</el-button>
-      <el-button @click="onSave()">保存</el-button>
+      <el-button @click="onSave()" :disabled="saveAll">保存</el-button>
     </div>
   </div>
 </template>
@@ -60,6 +60,7 @@
         classActive: 0,
         activeName2: 'first',
         msg: "this is parent data",
+        saveAll:false,
         save: {
           share: "",
           reword: "",
@@ -174,6 +175,10 @@
         console.log(sendNew)
         var token = sessionStorage.getItem('token')
         console.log(token);
+        if(JSON.parse(sendNew).jggBaseSetup.activityName===""){
+          alert("用户名不能为空")
+        return
+        }
         let _this = this;
         $.ajax({
           type: "POST",

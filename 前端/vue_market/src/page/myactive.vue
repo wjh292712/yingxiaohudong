@@ -199,7 +199,14 @@
         </div>
         <div class="activePublic">
           <span class="publicName">承办活动公众号:</span>
-          <el-input size="mini" style="width:60%" v-model="public" class="pub_inp" readonly="true"></el-input>
+          <el-select v-model="value" placeholder="请选择" style="min-width: 300px">
+            <el-option
+              v-for="item in public"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
         </div>
         <div class="btn_all">
           <el-button type="primary" class="btn_aa" @click="goOut()">取消</el-button>
@@ -277,6 +284,7 @@
         activeState: '',
         activeFindState: '',
         states: '',
+        dda:['111','3333'],
         tableData: [
           {
             activityName: '信用大转盘',
@@ -338,7 +346,10 @@
         endPrice: false,//商品底价
         ticket: false,//券码
         btnsave: false,//保存
-        public: '',//公众号
+        public:[],
+        value:'',
+        //公众号
+        publicN:'',//公众号名
         newjggData: '',//编辑数据接口
         newkjData: '',//编辑数据接口
         newdtData: '',//编辑数据接口
@@ -379,15 +390,17 @@
       this.state()
       this.pagedata()
 
+
+
     },
-    // updated(){
+     updated(){
     //   let date1=this.value4[0]
     //   let date2=this.value4[1]
     //   var time1 = date1.getTime();
     //   var time2 = date2.valueOf();
     //   alert(time1)
     //   alert(time2)
-    // },
+     },
 
     methods: {
 
@@ -507,17 +520,49 @@
         return row[property] === value;
       },
       handleEdit(e, index, templ) {
+
         $('.publish').css({"display": "block"})
         this.activeId = index
         this.templateUuid = templ
+        var options=$("#wxname")
+        this.publicN=options.val();
         this.$axios({
           method: "post",
           url: "http://center.marketing.yunpaas.cn/center/activity/wxList",
           params: {}
         }).then(res => {
           console.log(res);
-          console.log(res.data.data);
-          this. public=res.data.data
+          console.log(res.data);
+          //this. public=res.data.data
+          let _this=this
+          var step=1
+          var ary=res.data.data
+          var obj={}
+          // for (var i = 0; i < ary.length; i++) {
+          //   var cur = ary[i];
+          //   console.log(cur);
+          //   step++
+          //   obj={
+          //     label:cur,
+          //     value:step
+          //
+          //   }
+          //   _this.public.push(obj)
+          //   console.log(_this.public);
+          // }
+          for (var key in ary) {
+            console.log(key);
+            var cur=ary[key]
+            console.log(cur);
+            step++
+            obj={
+                   label:cur,
+                   value:key
+
+                 }
+                 this.public.push(obj)
+          }
+          console.log(this.public);
         })
         if (this.templateUuid == 1) {//九宫格发布奖品
           this.$axios({
@@ -525,6 +570,7 @@
             url: 'http://center.marketing.yunpaas.cn/jgg/awardSetup/list',
             params: {
               activityId: this.activeId,
+
             }
           }).then(res => {
             console.log(res);
@@ -859,14 +905,22 @@
       activeShow() {
         $('.linkActive').css({"display": "none"})
       },
+
       publish() {//发布活动
+
+        if(this.value==''){
+          alert("请选择承办活动公众号")
+          return
+        }
         let _this = this
+
         this.$axios({
           method: 'post',
           url: 'http://center.marketing.yunpaas.cn/center/activity/publish',
           params: {
             activityId: this.activeId,
-            templateUuid: this.templateUuid
+            templateUuid: this.templateUuid,
+            wxId:this.value,
           },
         }).then(res => {
           console.log(res);
@@ -884,7 +938,7 @@
             sessionStorage.setItem('activData', actD)
 
             $('.publish').css({"display": "none"})
-
+            this.public=[]
             this.handleCurrentChange()
 
           }).catch(res => {
@@ -895,6 +949,8 @@
       goOut() {
         // this.$router.go(0)
         $('.publish').css({"display": "none"})
+        this.public=[];
+        this.value=''
       },
       download() {
         console.log(this);
@@ -964,7 +1020,6 @@
         this.currentPage = currentPage;
       }
     },
-//11
 
     components: {Button,},
     computed: {}

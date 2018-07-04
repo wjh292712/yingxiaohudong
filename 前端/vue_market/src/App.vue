@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <Header ></Header>
+    <Header v-show="hides"></Header>
     <div class="app_down">
-      <div class="app_left">
+      <div class="app_left" v-show="hides">
         <nav-left ></nav-left>
       </div>
       <div class="app_right">
-        <router-view/>
+        <router-view @hides="hde"/>
       </div>
     </div>
   </div>
@@ -20,11 +20,24 @@ export default {
   name: 'App',
   components: {
     Header,
-    navLeft
+    navLeft,
+   
   },
+data(){
+return{
+   hides:true
+}
+},
   methods:{
-    ...mapActions(['disappear'])
-
+    ...mapActions(['disappear']),
+    hde(el){
+     
+      this.hides=el
+    },
+  
+  str(flag){
+      this.hides=flag
+  }
   },
   // watch:{
   //   $route(to,from){
@@ -45,7 +58,7 @@ export default {
 }
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 #app {
   background: #F2F2F2;
 }
@@ -57,7 +70,6 @@ export default {
   justify-content: space-between;
   .app_left {
     width: 6%;
-
   }
   .app_right {
     width: 94%;

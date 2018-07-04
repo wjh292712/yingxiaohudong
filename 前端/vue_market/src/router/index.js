@@ -75,6 +75,9 @@ import trophy from '@/page/trophy'
 import testimonial from '@/page/testimonial'
 import xitongSetMenuList from '@/components/xitongSetMenuList'
 import shouquanSuccess from '@/page/shouquanSuccess'
+
+import versionCart from '@/version/versionCart'
+
 // import raffle from '@/page/raffle'
 Vue.use(Router)
 
@@ -101,6 +104,9 @@ export default new Router({
         {
           path: 'xitongSet',
           component:xitongSet
+        },{
+        path:'versionCart',
+          component:versionCart
         }
       ]
     },
