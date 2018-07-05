@@ -55,7 +55,7 @@
             </p>
             <p>价格：<span>¥3920</span></p>
             <p>促销价: <span>￥10</span></p>
-            <p>请选择：
+            <p id="select">请选择：
               <span class="selected">一年</span>
               <span>二年</span>
               <span>三年</span>
@@ -64,7 +64,7 @@
             </p>
           </div>
           <div class="version_cart">
-           <span class="ver_cart">立即购买</span>
+           <span class="ver_cart" @click="cartPrice()">立即购买</span>
 <span class="pepole"><i class="iconfont icon-kefu"></i>咨询客服</span>
           </div>
           <div class="goodsDetail">
@@ -90,9 +90,17 @@
 
     },
     mounted() {
-
+$("#select span").click(function () {
+  $(this).addClass("selected").siblings().removeClass("selected")
+})
+      $(html,body).css("background","white")
     },
-    methods: {},
+
+    methods: {
+      cartPrice(){
+        this.$router.push({path:'/xitongSetMenuList/versionPrice'})
+      }
+    },
     components: {},
     computed: {}
   }
@@ -101,9 +109,12 @@
 <style lang="scss" scoped>
   .version_wrap {
     width: 100%;
-    height: 100%;
+    /*height: 100%;*/
+    height: 2200px;
     min-width: 1309px;
     background: #fff;
+    position: relative;
+    left: -11%;
     .version_content {
       width: 100%;
       padding: 2rem 2rem 1rem 2rem;

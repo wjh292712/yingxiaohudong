@@ -77,6 +77,7 @@ import xitongSetMenuList from '@/components/xitongSetMenuList'
 import shouquanSuccess from '@/page/shouquanSuccess'
 
 import versionCart from '@/version/versionCart'
+import versionPrice from '@/version/versionPrice'
 
 // import raffle from '@/page/raffle'
 Vue.use(Router)
@@ -107,6 +108,9 @@ export default new Router({
         },{
         path:'versionCart',
           component:versionCart
+        },{
+        path:'versionPrice',
+          component:versionPrice
         }
       ]
     },

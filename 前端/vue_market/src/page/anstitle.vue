@@ -54,7 +54,7 @@
           <div class="ansConent">
             <el-form label-width="60px" :data-id=index class="ans_title">
               <h3 v-model="count">第{{count}}题</h3>
-              <el-button size="mini" class="delBtn" @click="delTitle()">删除题目</el-button>
+              <button size="mini" class="delBtn" @click="delTitle()">删除题目</button>
               <el-form-item label="题目:">
                 <el-input size="mini" v-model="ansName">
                 </el-input>
@@ -84,12 +84,11 @@
                 </el-input>
               </el-form-item>
             </el-form>
-
           </div>
         </div>
         <div class="footerDati">
           <el-button size="mini" @click="addTitle()">新增题目</el-button>
-          <span>共{{count}}题</span>
+          <!--<span>共{{index}}题</span>-->
           <el-button size="mini">保存</el-button>
         </div>
       </div>
@@ -146,10 +145,12 @@
         }
       })
 
+
     },
     computed: {
       ...mapState(['setting_dtData']),
       ...mapActions(['saveDatadt'])
+
     },
     updated() {
 
@@ -159,6 +160,14 @@
       // } else if (this.dataStatus === '1') {
       //   this.savaTitleBase1()
       // }
+
+      let _this=this
+      $('.delBtn').click(function(){
+        $(this).parent().remove();
+        _this.index-=1
+        _this.count = _this.index
+      })
+
     },
     methods: {
       titleBase() {
@@ -372,30 +381,23 @@
         this.tileTime = !this.tileTime
       },
       addTitle() {
+        // var htmlToAdd = "";
+        // htmlToAdd = $(".title").html();
+        // $(".title").html(htmlToAdd + $(".ansConent").html());
+        // console.log($(".title").children(".ans_title").length);
+        //$(".ansConent").eq(0).clone(true).appendTo(".title")
+        $(".title").after($(".ansConent").eq(0).clone(true))
+var  aa=document.getElementsByClassName("ansConent")
+        console.log(aa.length);
+        //$(".ansConent").after($(".ansConent").eq(0).clone(true))
+        //$(".ans_title").eq(0).clone(true).insertBefore(".ansConent")
         this.index++;
-
-        var htmlToAdd = "";
-        // htmlToAdd = $(".ansConent").html();
-        // $(".ansConent").html($(".ansConent").html()+htmlToAdd );
-        htmlToAdd = $(".title").html();
-        //$(".title").html($(".ansConent").html()+htmlToAdd );
-        $(".title").html(htmlToAdd + $(".ansConent").html());
-        console.log($(".title").children(".ans_title").length);
         this.count = this.index
-        // $(".ansConent").html(htmlToAdd+$(".ansConent").html() );
-        //$(".ansConent").html($(".title").html()+htmlToAdd );
-
       },
       delTitle() {
-
+        $("p").detach(".hello");
       },
-      // del() {
-      //   if(this.radio1==1){
-      //     this.ok = false;
-      //   }else {
-      //     this.ok = false;
-      //   }
-      // }
+
     }
 
   })
