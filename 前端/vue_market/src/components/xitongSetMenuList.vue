@@ -69,7 +69,7 @@ width: 100%;
 .container{
     height: 100%;
     margin-top:0px !important;
-    min-height:26rem
+    
 }
 #menu_list{
     width: 10%;

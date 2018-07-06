@@ -5,14 +5,23 @@
 </template>
 
 <script>
-export default {
 
+export default {
+mounted(){
+    	
+}
 }
 </script>
 
 <style>
 body,html{
-    height: 100%
+    height: 100%;
+    width: 100%;
+    background: #fff;
+}
+.mui-content{
+    height: 100%;
+     background: #fff;
 }
 #ddvss{
     height: 100%
@@ -27,5 +36,9 @@ ul li{
 p{
     margin: 0px 0px;
     padding: 0px 0px
+}
+.split{
+    height: .2rem;
+    background: #f2f2f2
 }
 </style>

@@ -12,7 +12,7 @@
   <label>到期时间:</label>
 <span>无</span>
 <span id="ssp">
-<span><a href="javascript:void(0)" @click="versionGo()">立即升级&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
+<span><a href="javascript:void(0)" @click="versionGo">立即升级&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
 <span><a  href="javascript:void(0)">了解更多</a></span>
 </span>
 </p>
@@ -51,15 +51,17 @@ export default {
   },
   methods:{
     versionGo(){
-      this.$router.push({path:"/xitongSetMenuList/versionCart"})
+
       this.$axios({
         method:"post",
-        url:'',
+        url:'http://center.marketing.yunpaas.cn/center/versionInfo/getAllVersionInfo',
         params:{
 
         }
       }).then(res =>{
+        console.log(res);
 
+        this.$router.push({path:"/indexHome/versionCart"})
       })
     }
   }

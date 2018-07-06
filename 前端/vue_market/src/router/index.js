@@ -10,6 +10,11 @@ import activelist from '@/page/activelist'
 import activeslide from '@/page/activeslide'
 import company from '@/components/company'
 
+
+//活动数据
+import dataslide from '@/activeData/dataslide'
+
+
 //我的活动详情页
 import myactive from '@/page/myactive'
 import myActiveDatail from '@/page/myActiveDatail'
@@ -75,16 +80,74 @@ import trophy from '@/page/trophy'
 import testimonial from '@/page/testimonial'
 import xitongSetMenuList from '@/components/xitongSetMenuList'
 import shouquanSuccess from '@/page/shouquanSuccess'
-
+import AuthorizationSuccess from '@/page/AuthorizationSuccess'
+//版本购买
 import versionCart from '@/version/versionCart'
 import versionPrice from '@/version/versionPrice'
 
+import MallHome from '@/new_page/Mall/MallHome'
+import indexHome from '@/new_page/index'
+import MallDesc from '@/new_page/MallDesc/MallDesc'
+import OderInfo from '@/new_page/Payment/OderInfo'
 // import raffle from '@/page/raffle'
 Vue.use(Router)
 
 export default new Router({
 
   routes: [
+    {
+      path: "/AuthorizationSuccess",
+      component: AuthorizationSuccess,
+      meta:{requireAuth:true}
+    },
+    {
+      path: "/indexHome",
+      component: indexHome,
+      meta:{requireAuth:true},
+      children:[
+        {
+          path: "MallDesc",
+          component: MallDesc,
+
+        },
+        {
+          path: "MallHome",
+          component: MallHome,
+
+        },
+        {
+          path: "OderInfo",
+          component: OderInfo,
+
+        },
+        {
+          path:'versionCart',
+          component:versionCart
+        },{
+          path:'versionPrice',
+          component:versionPrice
+        }
+      ]
+    },
+
+    //数据分析
+
+    {
+      path:"dataslide",
+      component:dataslide,
+      meta:{requireAuth:true},
+      children:[
+        {
+        path:"/dataslide/activeFirst",
+        component:activeFirst,
+      },
+      ]
+    },
+
+
+
+
+
     // 活动端
     {
       path: '/',
@@ -94,6 +157,7 @@ export default new Router({
       //   component:activeslide,
       // }]
     },
+
     {
       path:'/shouquanSuccess',
       component:shouquanSuccess
@@ -101,44 +165,49 @@ export default new Router({
     {
       path: '/xitongSetMenuList',
       component:xitongSetMenuList,
+      meta:{requireAuth:true},
       children:[
         {
           path: 'xitongSet',
           component:xitongSet
-        },{
-        path:'versionCart',
-          component:versionCart
-        },{
-        path:'versionPrice',
-          component:versionPrice
         }
       ]
     },
     {
       path:'/company',
       name:'company',
-      component:company
+      component:company,
+      meta:{requireAuth:true}
     },
     {
       path: "/navleft",
       component: navleft,
+      meta:{requireAuth:true},
       children: [{
         path: "/navleft/mainPage",
-        component: mainPage
-      }]
+        component: mainPage,
+
+      },]
 
     },
+
+
+
+
     //活动列表
     {
       path: "/activeslide",
       component: activeslide,
+      meta:{requireAuth:true},
       children: [{
         path: "/activeslide/activeFirst",
+
         component: activeFirst,
       },
       {
         path: "/activeslide/activelist",
         component: activelist,
+
       },
       // {
       //       path: "/activeslide/setting",
@@ -163,12 +232,16 @@ export default new Router({
     {
       path: "/activeslide",
       component: activeslide,
+      meta:{requireAuth:true},
       children: [{
         path: "/activeslide/activeFirst",
+
         component: activeFirst,
       },
+
         {
           path: "/activeslide/bargainlist",
+
           component: bargainlist,
         }]
     },
@@ -177,36 +250,44 @@ export default new Router({
     {
       path: "/bargainset",
       component: resolve => void(require(['@/page/bargainset'],resolve)),
+      meta:{requireAuth:true},
       children: [
         {
           path: "/bargainset/barsettingbase",
-          component: barsettingbase
+          component: barsettingbase,
+
         },
         {
           path: "/bargainset/barreword",//商品设置
-          component: barreword
+          component: barreword,
+
         },
 
         {
           path: "/bargainset/baraward ",
-          component: baraward
+          component: baraward,
+
         },
 
         {
           path: "/bargainset/baradvanced",
-          component: baradvanced
+          component: baradvanced,
+
         },
         {
           path:'/bargainset/barpage',
-          component:barpage
+          component:barpage,
+
         },
         {
           path:'/bargainset/barplainpage',
-          component:barplainpage
+          component:barplainpage,
+
         },
         {
           path:'/bargainset/bardraw',
-          component:bardraw
+          component:bardraw,
+
         },
       ]
     },
@@ -216,6 +297,7 @@ export default new Router({
     {
       path: "/activeslide",
       component: activeslide,
+      meta:{requireAuth:true},
       children: [{
         path: "/activeslide/activeFirst",
         component: activeFirst,
@@ -229,6 +311,7 @@ export default new Router({
 
     {
       path: "/answerset",
+      meta:{requireAuth:true},
       component: resolve => void(require(['@/page/answerset'],resolve)),
       children: [
         {
@@ -265,16 +348,17 @@ export default new Router({
 //九宫格商户设置
     {
       path: "/setting",
+      meta:{requireAuth:true},
       component: resolve => void(require(['@/page/setting'],resolve)),
       children: [
-        {
-          path: "/setting/settingbase",
-          component: settingbase
-        },
         // {
-        //   path: "/setting/settingbaseEdit",
-        //   component: settingbaseEdit
+        //   path: "/setting/settingbase",
+        //   component: settingbase
         // },
+        {
+          path: "/setting/settingbaseEdit",
+          component: settingbaseEdit
+        },
         {
           path: "/setting/share",
           component: share
@@ -320,7 +404,8 @@ export default new Router({
     {
       path: "/mainPage",
       name:"mainPage",
-      component: mainPage
+      component: mainPage,
+      meta:{requireAuth:true}
     },
     // {
     //   path:"/activeFirst",
@@ -338,6 +423,7 @@ export default new Router({
     //我的活动页面
     {
       path: "/activeslide",
+      meta:{requireAuth:true},
       component: activeslide,
       children: [{
         path: "activeFirst",
@@ -366,77 +452,92 @@ export default new Router({
     {
       path: '/details',
       name: 'details',
+      meta:{requireAuth:true},
       component: details
     },
     {
       path: '/shouye',
       name: 'shouye',
+      meta:{requireAuth:true},
       component: shouye
     },
 
     {
       path: '/notwin',
       name: 'notwin',
+      meta:{requireAuth:true},
       component: notwin
     },
     {
       path: '/drawwin',
       name: 'drawwin',
+      meta:{requireAuth:true},
       component: drawwin
     },
     {
       path: '/cash',
       name: 'cash',
+      meta:{requireAuth:true},
       component: cash
     },
     {
       path: '/trophy',
       name: 'trophy',
+      meta:{requireAuth:true},
       component: trophy
     },
     {
       path: '/testimonial',
       name: 'testimonial',
+      meta:{requireAuth:true},
       component: testimonial
     },
     {
       path: '/shiwan',
       name: 'shiwan',
+      meta:{requireAuth:true},
       component: shiwan
     },
     {
       path: '/choujiang',
       name: 'choujiang',
+      meta:{requireAuth:true},
       component: choujiang
     },
     {
       path: '/active',
       name: 'active',
+      meta:{requireAuth:true},
       component: active
     },
     {
       path: '/dialog',
       name: 'dialog',
+      meta:{requireAuth:true},
       component: dialog
     },
     {
       path: '/dialogs',
       name: 'dialogs',
+      meta:{requireAuth:true},
       component: dialogs
     },
     {
       path: '/add',
       name: 'add',
+      meta:{requireAuth:true},
       component: add
     },
     {
       path: '/compile',
       name: 'compile',
+      meta:{requireAuth:true},
       component: compile
     },
     {
       path: '/activity',
       name: 'activity',
+      meta:{requireAuth:true},
       component: activity
     }
 

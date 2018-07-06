@@ -1334,16 +1334,12 @@
       },
       handleAvatarSuccess1(res, file,fileList) {
       this.imgData1=file.response.data
-         this.imgData1 = URL.createObjectURL(file.raw);
       },
       handleAvatarSuccess2(res, file,fileList) {
       this.imgData2=file.response.data
-         this.imgData2 = URL.createObjectURL(file.raw);
-
       },
       handleAvatarSuccess3(res, file,fileList) {
       this.imgData3=file.response.data
-         this.imgData3 = URL.createObjectURL(file.raw);
       },
       handleAvatarSuccess4(res, file,fileList) {
       this.imgData4=file.response.data

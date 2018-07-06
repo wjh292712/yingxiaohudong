@@ -8,41 +8,41 @@
         <div class="ver_title">
           <p>slogan展示slogan展示slogan展示slogan展示</p>
         </div>
-        <div class="ver_img">
-          <div class="ver_img_info">
+        <ul class="ver_img">
+          <li class="ver_img_info" v-for="item in versionList">
             <div class="version_A">
-              <p>标准版</p>
-              <p>498元/年</p>
+              <p>{{item.name}}</p>
+              <p>{{item.oriPrice}}/年</p>
               <div class="version_b">
-                <span class="versInfo">商城网站+小程序</span>
-                <span> 微信支付、积分系统</span>
-                <span>打折、满减等促销</span>
+                <span class="versInfo">{{item.instruction}}</span>
+                <!--<span> 微信支付、积分系统</span>-->
+                <!--<span>打折、满减等促销</span>-->
               </div>
             </div>
-          </div>
-          <div class="ver_img_info">
-            <div class="version_B">
-              <p>白银版</p>
-              <p>498元/年</p>
-              <div class="version_b">
-                <span class="versInfo">商城网站+小程序</span>
-                <span> 微信支付、积分系统</span>
-                <span>打折、满减等促销</span>
-              </div>
-            </div>
-          </div>
-          <div class="ver_img_info">
-            <div class="version_C">
-              <p>尊享版</p>
-              <p>498元/年</p>
-              <div class="version_b">
-                <span class="versInfo">商城网站+小程序</span>
-                <span> 微信支付、积分系统</span>
-                <span>打折、满减等促销</span>
-              </div>
-            </div>
-          </div>
-        </div>
+          </li>
+          <!--<li class="ver_img_info">-->
+            <!--<div class="version_B">-->
+              <!--<p>白银版</p>-->
+              <!--<p>498元/年</p>-->
+              <!--<div class="version_b">-->
+                <!--<span class="versInfo">商城网站+小程序</span>-->
+                <!--<span> 微信支付、积分系统</span>-->
+                <!--<span>打折、满减等促销</span>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li class="ver_img_info">-->
+            <!--<div class="version_C">-->
+              <!--<p>尊享版</p>-->
+              <!--<p>498元/年</p>-->
+              <!--<div class="version_b">-->
+                <!--<span class="versInfo">商城网站+小程序</span>-->
+                <!--<span> 微信支付、积分系统</span>-->
+                <!--<span>打折、满减等促销</span>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</li>-->
+        </ul>
       </div>
       <div class="version_Price">
         <div class="ver_Price_info">
@@ -84,21 +84,44 @@
 
   export default {
     data() {
-      return {}
+      return {
+versionList:[],
+      }
     },
     created() {
 
     },
     mounted() {
+
+      this.$axios({
+        method:"post",
+        url:'http://center.marketing.yunpaas.cn/center/versionInfo/getAllVersionInfo',
+        params:{
+
+        }
+      }).then(res =>{
+        console.log(res);
+        this.versionList=res.data.data
+
+      })
+
 $("#select span").click(function () {
   $(this).addClass("selected").siblings().removeClass("selected")
 })
-      $(html,body).css("background","white")
     },
 
     methods: {
       cartPrice(){
-        this.$router.push({path:'/xitongSetMenuList/versionPrice'})
+        this.$router.push({path:'/indexHome/versionPrice'})
+
+        this.$axios({
+          method:"post",
+          url:"http://center.marketing.yunpaas.cn/center/versionInfo/getPayInfo",
+          params:{
+            versionId:'',
+            versionYearId:'',
+          }
+        })
       }
     },
     components: {},
@@ -108,13 +131,13 @@ $("#select span").click(function () {
 
 <style lang="scss" scoped>
   .version_wrap {
-    width: 100%;
-    /*height: 100%;*/
-    height: 2200px;
-    min-width: 1309px;
+    width: 90%;
+    height: 100%;
+   /*height: 2200px;*/
+    /*min-width: 1309px;*/
     background: #fff;
-    position: relative;
-    left: -11%;
+    /*position: relative;*/
+   // left: -11%;
     .version_content {
       width: 100%;
       padding: 2rem 2rem 1rem 2rem;
@@ -140,13 +163,13 @@ $("#select span").click(function () {
           overflow: hidden;
 
           .ver_img_info {
-            width: 357px;
+            width: 320px;
             height: 241px;
             float: left;
             background: #FFFFFF;
             border: 1px solid #FC7132;
             box-shadow: 0 0 15px 0 rgba(255, 102, 8, 0.22);
-            margin-right: 50px;
+            margin-right: 20px;
 
             .version_A {
               width: 100%;

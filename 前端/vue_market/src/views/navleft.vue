@@ -29,16 +29,22 @@
             {text:"商城"}],
             classActive:0,
             icon:0,
-            slideRouter:["/mainPage","/activeslide/activeFirst"],
+            slideRouter:["/mainPage","/activeslide/activeFirst","","/dataslide/activeFirst","/indexHome/MallHome"],
             ascny:true
           }
         },
+
         methods:{
           changeClick(index){
-            this.classActive = index
+
+              //  this.$emit("hides", false);
+
+             this.classActive = index
             this.$router.push({path:this.slideRouter[index]})
           }
+
         },
+
         components:{
           mainPage,
           activeSlide
@@ -88,19 +94,19 @@
         }
 
         .icon1 {
-          background:url(../../static/firstimage/首页.png)
+          background:url(../../static\firstimage\首页.png)
         }
         .icon2 {
-          background:url(../../static/firstimage/活动.png)
+          background:url(../../static\firstimage\活动.png)
         }
         .icon3 {
-          background:url(../../static/firstimage/核销.png)
+          background:url(../../static\firstimage\核销.png)
         }
         .icon4 {
-          background:url(../../static/firstimage/数据.png)
+          background:url(../../static\firstimage\数据.png)
         }
         .icon5 {
-          background:url(../../static/firstimage/商城.png)
+          background:url(../../static\firstimage\商城.png)
         }
       }
     }

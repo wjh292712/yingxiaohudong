@@ -16,7 +16,7 @@
         <!--</p>-->
         <p>
           <span>底价保留时长：</span>
-          <el-input v-model="input4" placeholder="请输入内容" onkeyup="value=value.replace(/[^\d]/g,'')" class="nns" />
+          <el-input v-model="input4" placeholder="请输入内容" class="nns" />
           <span>小时</span>
         </p>
         <!--<p>-->
@@ -26,7 +26,7 @@
         <!--</p>-->
         <p>
           <span>每人可为其他玩家帮砍：</span>
-          <el-input v-model="input6" placeholder="请输入内容" onkeyup="value=value.replace(/[^\d]/g,'')" class="nns" />
+          <el-input v-model="input6" placeholder="请输入内容" class="nns" />
           <span>次</span>
         </p>
         <p>

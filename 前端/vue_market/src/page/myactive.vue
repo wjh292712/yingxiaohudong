@@ -536,7 +536,7 @@
           //this. public=res.data.data
           let _this=this
           var step=1
-          var ary=res.data.data
+          var ary=res.data.data.wxList
           var obj={}
           // for (var i = 0; i < ary.length; i++) {
           //   var cur = ary[i];
@@ -942,7 +942,7 @@
             this.handleCurrentChange()
 
           }).catch(res => {
-            console.log(res)
+            alert(res.data.msg)
           })
         })
       },

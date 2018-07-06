@@ -10,8 +10,6 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
-//引入jQuery
-import 'jquery/dist/jquery.js'
 //引入iview
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
@@ -23,8 +21,7 @@ axios.defaults.baseURL = apiConfig.baseUrl
 //
 import apiConfig from '../config/api.config'
 Vue.use(apiConfig)
-// 引入bootstrap
-//  import 'bootstrap/dist/css/bootstrap.css'
+
 // 引入vue-bus
 import vueBus from 'vue-bus'
 Vue.use(vueBus)
@@ -36,12 +33,11 @@ import store from '@/store/state'
 import doAction from "@/js/doAction"
 
 //引入jquery
-import $ from 'jquery'
-
+import   '@/plugins/sudoku/jquery-1.11.0.js'
 //引入cookie
-
+import  "@/js/jquery.cookie.js"
 import {addCookie, getCookie, delCookie} from '@/js/cookie';
-
+// import "@/plugins/sudoku/jquery.cookie.js"
 Vue.prototype.$cookieStore = {
   addCookie,
   getCookie,
@@ -51,6 +47,22 @@ Vue.prototype.$cookieStore = {
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
+//防止横向越权
+
+router.beforeEach(function(to, from, next) {
+
+  if(to.meta.requireAuth==true){
+       if($.cookie("users")!=undefined){
+      next()
+    }else{
+
+      next({path:'/'})
+    }
+    }else{
+    next()
+  }
+})
+
 new Vue({
   el: '#app',
   router,
@@ -58,3 +70,9 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+
+
+
+
+

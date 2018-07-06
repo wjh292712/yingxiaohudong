@@ -1301,7 +1301,7 @@
       },
       handleAvatarSuccess1_1(res, file) {
         this.dialogImageUrl = file.response.data
-        this.saveReword()
+
       },
       handleAvatarSuccess2_1(res, file) {
         this.dialogImageUrl1 = file.response.data
@@ -1324,37 +1324,36 @@
       handleAvatarSuccess1(res, file, fileList) {
         this.imgData1 = file.response.data
         // this.imageUrl = URL.createObjectURL(file.raw);
-        this.saveReword()
       },
       handleAvatarSuccess2(res, file, fileList) {
         this.imgData2 = file.response.data
         // this.imageUrl = URL.createObjectURL(file.raw);
-        this.saveReword()
+
       },
       handleAvatarSuccess3(res, file, fileList) {
         this.imgData3 = file.response.data
         // this.imageUrl = URL.createObjectURL(file.raw);
-        this.saveReword()
+
       },
       handleAvatarSuccess4(res, file, fileList) {
         this.imgData4 = file.response.data
         // this.imageUrl = URL.createObjectURL(file.raw);
-        this.saveReword()
+
       },
       handleAvatarSuccess5(res, file, fileList) {
         this.imgData5 = file.response.data
         // this.imageUrl = URL.createObjectURL(file.raw);
-        this.saveReword()
+
       },
       handleAvatarSuccess6(res, file, fileList) {
         this.imgData6 = file.response.data
         // this.imageUrl = URL.createObjectURL(file.raw);
-        this.saveReword()
+
       },
       handleAvatarSuccess7(res, file, fileList) {
         this.imgData7 = file.response.data
         // this.imageUrl = URL.createObjectURL(file.raw);
-        this.saveReword()
+
       },
       handleRemove(file, fileList) {
         console.log(file, fileList);

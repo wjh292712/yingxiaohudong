@@ -36,82 +36,83 @@
   </div>
 </template>
 <script>
-import "../plugins/sudoku/jquery-1.11.0.js";
-  import {mapState,mapMutations,mapActions} from 'vuex'
-export default ({
-  data(){
-    return{
-        username:"",
-        userName:null,
-        userPwd:null,
-    }
+import "@/js/jquery.cookie.js";
+import { mapState, mapMutations, mapActions } from "vuex";
+export default {
+  data() {
+    return {
+      username: "",
+      userName: null,
+      userPwd: null
+    };
   },
-  methods:{
+  methods: {
     ...mapActions(["undisapear"]),
-    ...mapActions({login:'undisapear'}),
-    ...mapMutations(['show']),
-    time(){
-      console.log(111)
+    ...mapActions({ login: "undisapear" }),
+    ...mapMutations(["show"]),
+    time() {
+      console.log(111);
     },
-    login(){
-      sessionStorage.setItem('userName',this.userName)
-      sessionStorage.setItem('userPwd',this.userPwd)
-      sessionStorage.setItem('companyId',this.companyId)
-      sessionStorage.setItem('userId',this.userId)
+    login() {
+      sessionStorage.setItem("userName", this.userName);
+      sessionStorage.setItem("userPwd", this.userPwd);
+      sessionStorage.setItem("companyId", this.companyId);
+      sessionStorage.setItem("userId", this.userId);
 
-      sessionStorage.getItem('userName',this.userName)
-      console.log(this.userName)
-      console.log(this.userPwd)
-      var _this = this
+      sessionStorage.getItem("userName", this.userName);
+      console.log(this.userName);
+      console.log(this.userPwd);
+      var _this = this;
 
       this.$axios({
-                    method: "post",
-                    url: "http://center.marketing.yunpaas.cn/center/enterpriseuser/login_step1?",
-                    params: {
-                      userName:this.userName,
-                      password:this.userPwd
-                    }
-                }).then(res => {
-                  const token =res.data.data.token
-          const id= res.data.data.id
-        sessionStorage.setItem('token',token);//存储token
-sessionStorage.setItem('id', id);//存储id
-        console.log(res);
-        console.log(res.data);
-        if(res.data.status===true){
-
-          // this.username = res.data.data.name
-          // this.$bus.emit('name',this.username)
-          this.$store.dispatch('undisappear')
-          // this.$store.commit('show'),
-          if(res.data.code===200){
-                    this.$emit("hides",true)
-
-             this.$router.push({path:"/mainPage"})//跳转主页
-
-          }else if(res.data.code===201){
-            this.$router.push({path:'/company'})
+        method: "post",
+        url:
+          "http://center.marketing.yunpaas.cn/center/enterpriseuser/login_step1?",
+        params: {
+          userName: this.userName,
+          password: this.userPwd
+        }
+      })
+        .then(res => {
+          const token = res.data.data.token;
+          const id = res.data.data.id;
+          sessionStorage.setItem("token", token); //存储token
+          sessionStorage.setItem("id", id); //存储id
+          console.log(res);
+          console.log(res.data);
+          if (res.data.status === true) {
+            // this.username = res.data.data.name
+            // this.$bus.emit('name',this.username)
+            this.$store.dispatch("undisappear");
+            // this.$store.commit('show'),
+            if (res.data.code === 200) {
+              this.$emit("hides", true);
+              $.cookie("users", JSON.stringify(res.data.data), { expires: 1 });
+              this.$router.push({ path: "/mainPage" }); //跳转主页
+            } else if (res.data.code === 201) {
+              this.$router.push({ path: "/company" });
+            }
+          } else {
+            alert("用户名或密码错误");
           }
-
-}
-        //商户选择
-                }).catch(res => {
-        alert("用户名或密码错误")
-                    console.log(res)
-                })
+          //商户选择
+        })
+        .catch(res => {
+          console.log(res);
+        });
     }
   },
-  computed:{
+  computed: {
     // ...mapActions(["undisapear"])
   },
 
-mounted(){
-  this.$emit("hides",false)
-}
-});
+  mounted() {
+    this.$emit("hides", false);
+  }
+};
 </script>
 <style scoped>
-#ccks{
+#ccks {
   position: relative;
   top: 2px;
 }
@@ -121,9 +122,9 @@ mounted(){
 .section {
   width: 100%;
   height: 100%;
-  position:absolute;
-  left:0;
-  top:0;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .wrapper {
@@ -160,7 +161,22 @@ mounted(){
   transform: translate3d(-50%, -50%, 0);
   background: #fff;
 }
-input[type=color], input[type=date], input[type=datetime-local], input[type=datetime], input[type=email], input[type=month], input[type=number], input[type=password], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week], select, textarea{
+input[type="color"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="datetime"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+select,
+textarea {
   margin-bottom: 0px;
 }
 .inps form {
@@ -213,7 +229,7 @@ input[type=color], input[type=date], input[type=datetime-local], input[type=date
   width: 100%;
   margin: 0 auto;
   height: 2rem;
-  background: #079BD3;
+  background: #079bd3;
   border: none;
   outline: none;
   cursor: pointer;
@@ -227,7 +243,7 @@ input[type=color], input[type=date], input[type=datetime-local], input[type=date
   height: 1rem;
   text-align: center;
   outline: none;
-  color: #079BD3;
+  color: #079bd3;
   margin-top: 1rem;
   position: relative;
   left: 50%;
@@ -237,7 +253,7 @@ input[type=color], input[type=date], input[type=datetime-local], input[type=date
 
 .sign a {
   text-decoration: none;
-  color: #079BD3;
+  color: #079bd3;
   font-size: 0.75rem;
 }
 </style>

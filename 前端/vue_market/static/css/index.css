@@ -2,9 +2,9 @@
     margin: 20px auto;
     padding-left: 10px;
     padding-top: 10px;
-    width: 63%;
+    width: 80%;
     height: 143px;
-    background-color: red;
+  
     position: absolute;
     top:0;
 }
@@ -15,7 +15,8 @@
 
 .ten img {
     float: left;
-   height: 28%;
+   height: 100%;
+   width: 100%;
     margin-right: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
