@@ -29,6 +29,10 @@ Vue.use(vueBus)
 // 引入vuex
 import store from '@/store/state'
 
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
+
+
 // 引入代理
 import doAction from "@/js/doAction"
 

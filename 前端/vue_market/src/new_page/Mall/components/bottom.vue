@@ -35,6 +35,7 @@ data(){
 },
 methods:{
     desc(id){
+
         this.$router.push({path:"MallDesc",query:{id:id}})
     }
 }

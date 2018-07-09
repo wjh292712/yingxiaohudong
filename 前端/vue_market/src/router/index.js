@@ -10,11 +10,6 @@ import activelist from '@/page/activelist'
 import activeslide from '@/page/activeslide'
 import company from '@/components/company'
 
-
-//活动数据
-import dataslide from '@/activeData/dataslide'
-
-
 //我的活动详情页
 import myactive from '@/page/myactive'
 import myActiveDatail from '@/page/myActiveDatail'
@@ -57,6 +52,9 @@ import share from '@/page/share'
 import advanced from '@/page/advanced'
 import award from '@/page/award'
 
+//版本购买
+import versionCart from '@/version/versionCart'
+import versionPrice from '@/version/versionPrice'
 //shouye
 import activepage from '@/page/activepage'
 import barpage from  '@/page/barpage'
@@ -81,14 +79,24 @@ import testimonial from '@/page/testimonial'
 import xitongSetMenuList from '@/components/xitongSetMenuList'
 import shouquanSuccess from '@/page/shouquanSuccess'
 import AuthorizationSuccess from '@/page/AuthorizationSuccess'
-//版本购买
-import versionCart from '@/version/versionCart'
-import versionPrice from '@/version/versionPrice'
 
 import MallHome from '@/new_page/Mall/MallHome'
 import indexHome from '@/new_page/index'
 import MallDesc from '@/new_page/MallDesc/MallDesc'
 import OderInfo from '@/new_page/Payment/OderInfo'
+
+import BuySuccess from '@/new_page/BuySuccess/BuySuccess'
+import personal from '@/newPage/personal/personal_information'
+
+import chartIndex from '@/chart/chartIndex'
+import Fanchart from '@/chart/fan/Fan_chart'
+
+import Basicdata from '@/chart/fan/Basicdata'
+import Spreaddata from '@/chart/fan/Spreaddata'
+
+
+
+
 // import raffle from '@/page/raffle'
 Vue.use(Router)
 
@@ -100,6 +108,26 @@ export default new Router({
       component: AuthorizationSuccess,
       meta:{requireAuth:true}
     },
+    {
+      path:"/chartIndex",
+      component:chartIndex,
+      meta:{requireAuth:true},
+      children:[
+        {
+          path:"Fanchart",
+          component:Fanchart
+        },
+        {
+          path:"Basicdata",
+          component:Basicdata
+        },
+        {
+          path:"Spreaddata",
+          component:Spreaddata
+        },
+      ]
+    },
+
     {
       path: "/indexHome",
       component: indexHome,
@@ -121,6 +149,11 @@ export default new Router({
 
         },
         {
+          path: "BuySuccess",
+          component: BuySuccess,
+
+        },
+        {
           path:'versionCart',
           component:versionCart
         },{
@@ -129,25 +162,6 @@ export default new Router({
         }
       ]
     },
-
-    //数据分析
-
-    {
-      path:"dataslide",
-      component:dataslide,
-      meta:{requireAuth:true},
-      children:[
-        {
-        path:"/dataslide/activeFirst",
-        component:activeFirst,
-      },
-      ]
-    },
-
-
-
-
-
     // 活动端
     {
       path: '/',
@@ -180,6 +194,11 @@ export default new Router({
       meta:{requireAuth:true}
     },
     {
+      path:'/personal',
+      component:personal,
+      meta:{requireAuth:true}
+    },
+    {
       path: "/navleft",
       component: navleft,
       meta:{requireAuth:true},
@@ -187,13 +206,12 @@ export default new Router({
         path: "/navleft/mainPage",
         component: mainPage,
 
-      },]
+      },
+
+
+    ]
 
     },
-
-
-
-
     //活动列表
     {
       path: "/activeslide",

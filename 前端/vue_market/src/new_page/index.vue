@@ -1,7 +1,7 @@
 <template>
 <div class="main">
     
-  <alert-message name="账户余额支付" v-if="zanghu_flag">
+  <alert-message name="账户余额支付" v-if="zanghu_flag" @close-flag="close">
     <div class="contents">
       <p class="p-tit">
         购买商品：聚通达MCM 系统  标准版
@@ -25,7 +25,7 @@
       </div>
     </div>
 </alert-message>
-<alert-message name="微信支付" v-if="weixin_flag">
+<alert-message name="微信支付" v-if="weixin_flag"  @close-flag="close">
 <div class="content_weixin">
 <p class="p-content">
   <label>购买商品:</label>
@@ -80,7 +80,17 @@ components:{
 
 },
 methods:{
+zhanghu(){
+this.zanghu_flag=true
+},
+close(){
+this.zanghu_flag=false
+this.weixin_flag=false
 
+},
+weixin(){
+this.weixin_flag=true
+}
 },
 
   created() {
@@ -90,6 +100,14 @@ methods:{
   mounted(){
        this.$emit("mallflag", false);
          pub.mall_styles_update();
+
+         this.$bus.on("zhanghu", content => {
+            this.zanghu_flag=content
+         })
+         
+          this.$bus.on("weixin", content => {
+            this.weixin_flag=content
+         })
   },
    destroyed() {
     this.$emit("mallflag", true);
@@ -156,6 +174,7 @@ margin-left 25px
 }
 .switch-div{
   margin-left 118px
+  height 100%
 }
 .contents{
   width 100%

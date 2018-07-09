@@ -10,19 +10,19 @@
             <div class="right_list">
               <i class="right_icon icon1"></i>
               <span>消息</span>
-            </div>
+            </div> 
             <i class="line"></i>
             <div class="right_list">
               <i class="right_icon icon2"></i>
               <span>帮助</span>
             </div>
             <i class="line"></i>
-
+           
             <div class="right_list">
                 <i class="right_icon icon3"></i>
-
+           
               <el-menu :default-active="activeIndex" class="el-menu-demo border_none1"  mode="horizontal" @select="handleSelect" >
-                <el-submenu index="2" >
+                <el-submenu index="2" > 
                   <template slot="title" class="border_none ">{{name}}</template>
                   <el-menu-item index="2-1"    @click="xitong">系统设置</el-menu-item>
                   <el-menu-item index="2-1" @click="exit">退出</el-menu-item>
@@ -32,7 +32,7 @@
           </div>
         </div>
     </div>
-</template>
+</template>  
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
 export default {
@@ -45,13 +45,13 @@ export default {
     };
   },
 
-
+ 
   mounted() {
     this.$bus.on("name", content => {
       console.log(content);
       this.name = content;
     });
-
+  
   },
   methods: {
     exit() {
@@ -105,7 +105,7 @@ export default {
         width: 3.75rem;
         height: 1.35rem;
         display: inline-block;
-        background: url(../../static/firstimage/logo.png);
+        background: url(../../static\firstimage\logo去.png);
         background-size: 100%;
         vertical-align: top;
       }

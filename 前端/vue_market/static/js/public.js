@@ -69,6 +69,7 @@ function formatDateTime(inputTime) {//日期格式化方法年月日时分秒
       d.substring(d.length - 2, d.length)
     );
 }
+
 function loadings(el){//加载loading
 loading = el.$loading({
  lock: true,
@@ -147,11 +148,11 @@ export default{
 // WEBPACK FOOTER
 // ./static/js/public.js
 // module id = null
-// module chunks = 
+// module chunks =
 
 
 //////////////////
 // WEBPACK FOOTER
 // ./static/js/public.js
 // module id = null
-// module chunks = 
+// module chunks =

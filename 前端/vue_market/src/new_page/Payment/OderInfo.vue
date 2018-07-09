@@ -6,7 +6,7 @@
         <span class="oder-info-text">订单信息</span>
     </div>
     <div class="sp"></div>
-    <div class="oderList" v-for="(item,key) in 1">
+    <div class="oderList" v-for="(item,key) in list">
         <div class="title-info">
             <div class="t_text">
                 商品名称
@@ -20,16 +20,16 @@
         </div>
         <div class="info">
             <div class="ttle-div">
-                100元流量卷
+                {{item.shopGoods.name}}
             </div>
             <div class="ttle-div">
-                <span>￥10</span>
+                <span>￥{{item.shopGoods.salePrice}}</span>
             </div>
             <div class="ttle-div">
             <el-input-number v-model="num1" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
             <div class="bot-div">
               <p class="pps">
-                优惠:<span class="offer-price">￥3000</span>
+                优惠:<span class="offer-price">￥{{(item.shopGoods.oriPrice-item.shopGoods.salePrice)}}</span>
             </p>  
              <p class="pps">
                 小计:<span class="offer-price">￥200</span>
@@ -45,15 +45,15 @@
     </div>
     <div class="sp"></div>
     <div class="buy-type">
-        <div class="buy-one dvs">
+        <div class="buy-one dvs" @click="styles('a')" :class="{boxShows:style_flag=='a'}">
             账户余额支付
         </div>
-         <div class="buy-two dvs">
-             <img src="@/assets/weixin.png">
+         <div class="buy-two dvs" @click="styles('b')" :class="{boxShows:style_flag=='b'}">
+             <img src="@/assets/weixin.png" >
                 微信支付
         </div>
-          <div class="buy-three dvs">
-               <img src="@/assets/zhifubao.png">
+          <div class="buy-three dvs" @click="styles('c')" :class="{boxShows:style_flag=='c'}">
+               <img src="@/assets/zhifubao.png" >
                 支付宝支付
         </div>
     </div>
@@ -63,7 +63,7 @@
               应付金额:<span class="price">￥100</span>
           </p>
       </div>
-        <el-button class="payment">立即支付</el-button>
+        <el-button class="payment" @click="buy_sub">立即支付</el-button>
 
         <div class="botmm">
 
@@ -72,6 +72,9 @@
 </template>
 
 <script>
+import axios from "axios";
+import pub from "static/public.js";
+import {log} from "static/public.js";
 import AlertMessage from "@/components/PcAlertMessage";
 export default {
     components:{
@@ -79,26 +82,52 @@ AlertMessage
     },
   data() {
     return {
+        list:[],
       num1: 1,
-      zhanghu:false
+      zhanghu:false,
+      style_flag:""
     };
   },
   methods: {
     handleChange(value) {
       console.log(value);
     },
+    styles(el){
+        this.style_flag=el
+    },
+    buy_sub(){
+    if(this.style_flag=='a'){
+        this.$bus.$emit("zhanghu",true)
+    }else if(this.style_flag=='b'){
+          this.$bus.$emit("weixin",true)
+    }else{
+        alert("请选择支付类型")
+    }
+    },
         close(msg) {//关闭自定义弹出框
       this.AlertMessage = msg;
         $("body").css("overflow", "auto");//出现弹框禁止滚动
     }
   },
+  mounted(){
+      let thi_s = this
+      let id = this.$route.query.id
+        axios.get(pub.oderdesc+"?orderId="+id).then(function(response) {
+        let arr = response.data.data.shopOrderGoodsList
+        thi_s.list = arr
+        })
+  },
   activated() {
     this.$bus.$emit("titleName", "");
   }
 };
+//  box-shadow: darkgrey 0px 0px 30px 5px ; 
 </script>
 
 <style lang="stylus" scoped>
+.boxShows{
+     box-shadow: #2d8cf0 0px 0px 10px 5px
+}
 .buy-type {
     height: 90px;
     width: 90%;
@@ -111,6 +140,7 @@ AlertMessage
         line-height: 40px;
         cursor: pointer;
         float left
+       
         img{
             position relative
             top 5px

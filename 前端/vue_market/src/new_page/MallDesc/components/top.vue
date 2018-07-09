@@ -25,7 +25,7 @@
 <p class="p-title">{{name}}</p>
 <div class="desc-div">
   <p>
-    {{remark}}
+    {{desc}}
   </p>
 </div>
 <div class="prices-div">
@@ -63,9 +63,11 @@ export default {
       desc:"",//详情描述
       offer_price:"",//售价
       oriPrice:"",//原价
+      id:0,
       list_img: [
       
-      ]
+      ],
+      data:[]
     };
   },
   methods: {
@@ -92,7 +94,31 @@ export default {
       }
     },
     buy(){
-      this.$router.push("OderInfo")
+let data=[]
+var params = new URLSearchParams();
+ let id = this.$route.query.id
+params.append("goodsId",id)
+params.append("goodsNum",this.num1)
+data = [
+  {
+      goodsId:id,
+  goodsNum:this.num1
+  }
+]
+let thi_s = this
+
+    $.ajax({
+      url:pub.oderInput,
+       dataType: 'json',  
+      type:"post",
+      contentType:"application/json;charset=utf-8",
+      data:JSON.stringify(data),
+      success:function(data){
+
+           thi_s.$router.push({path:"OderInfo",query:{id:data.data}})
+      }
+
+    })   
     }
   },
   created() {
@@ -104,7 +130,8 @@ export default {
   },
   mounted() {
     let thi_s = this
-       let id = this.$route.id
+     let id = this.$route.query.id
+     
     this.$emit("mallflag", false);
     pub.mall_styles_update();
 

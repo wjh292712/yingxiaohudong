@@ -17,7 +17,8 @@ data(){
   return{
 
   }
-}
+},
+
 }
 </script>
 

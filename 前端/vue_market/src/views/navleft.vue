@@ -24,27 +24,28 @@
           return{
             nav:[{text:"首页"},
             {text:"活动"},
-            {text:"核销"},
+            {text:"修改密码"},
+            // {text:"核销"},
             {text:"数据"},
             {text:"商城"}],
             classActive:0,
             icon:0,
-            slideRouter:["/mainPage","/activeslide/activeFirst","","/dataslide/activeFirst","/indexHome/MallHome"],
+            slideRouter:["/mainPage","/activeslide/activeFirst","/personal","/chartIndex","/indexHome/MallHome"],
             ascny:true
           }
         },
-
+      
         methods:{
           changeClick(index){
-
-              //  this.$emit("hides", false);
-
+        
+              //  this.$emit("hides", false);        
+          
              this.classActive = index
             this.$router.push({path:this.slideRouter[index]})
           }
-
+     
         },
-
+        
         components:{
           mainPage,
           activeSlide

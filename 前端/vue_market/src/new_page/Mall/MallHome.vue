@@ -35,7 +35,8 @@ export default {
             imgUrl:response.data.data.list[key].homeImg,
             desc:response.data.data.list[key].name,
             lowprice:response.data.data.list[key].salePrice,
-             price:response.data.data.list[key].oriPrice,   
+             price:response.data.data.list[key].oriPrice, 
+             id:response.data.data.list[key].id
 
         })
         pub.close_loadings(); //关闭loading

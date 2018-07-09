@@ -292,9 +292,9 @@
         this.tableData = Datalist
       })
       this.$store.dispatch('activePull')
-      // this.currentPage = activeData.pageNum
-      // this.total = activeData.total
-      // this.pagesize = activeData.pageSize
+      // this.currentPage = spread.pageNum
+      // this.total = spread.total
+      // this.pagesize = spread.pageSize
       this.state()
       //this.pagedata()
 
