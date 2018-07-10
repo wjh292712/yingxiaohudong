@@ -85,7 +85,9 @@
         list:[],
         num1: 1,
         zhanghu:false,
-        style_flag:""
+        style_flag:"",
+        versionId:'',
+        versionYearId:'',
       };
     },
     methods: {
@@ -111,11 +113,26 @@
     },
     mounted(){
       let thi_s = this
-      let id = this.$route.query.id
-      axios.get(pub.oderdesc+"?orderId="+id).then(function(response) {
-        let arr = response.data.data.shopOrderGoodsList
-        thi_s.list = arr
+     this.versionId = this.$route.query.versionId
+      this.versionYearId=this.$route.query.versionYearId
+
+      this.$axios({
+        method:'post',
+        url:'http://center.marketing.yunpaas.cn/center/versionInfo/getPayInfo',
+        params:{
+          versionId:this.versionId,
+          versionYearId:this.versionYearId
+        }
+      }).then(res=>{
+
+
+        console.log(res);
+
       })
+      // axios.get(pub.oderdesc+"?orderId="+id).then(function(response) {
+      //   let arr = response.data.data.shopOrderGoodsList
+      //   thi_s.list = arr
+      // })
     },
     activated() {
       this.$bus.$emit("titleName", "");

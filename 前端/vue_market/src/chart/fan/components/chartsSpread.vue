@@ -62,6 +62,58 @@
         </div>
       </div>
       </div>
+      <div class="detonate">
+        <div class="basic_left3">
+          <i class="icon"></i>
+          <span class="basic_title">引爆点</span>
+        </div>
+        <div class="table-view">
+          <el-table
+            :data="tableData"
+            style="width: 100%;text-align: center">
+            <el-table-column
+              prop="name"
+              label="综合排名"
+              width="150"
+             >
+            </el-table-column>
+            <el-table-column
+              prop="date"
+              label="昵称"
+              width="150"
+             >
+            </el-table-column>
+            <el-table-column
+              prop="status"
+              label="地区"
+              width="150">
+            </el-table-column>
+            <el-table-column
+              prop="number"
+              label="下级浏览次数"
+              width="150">
+            </el-table-column>
+            <el-table-column
+              prop="shuliang"
+              label="下级参与次数"
+              width="150">
+            </el-table-column>
+            <el-table-column
+              prop="chuanbo_num"
+              label="下级分享次数"
+              width="150">
+            </el-table-column>
+            <el-table-column
+              prop="active_caveat"
+              label="综合指数"
+              width="150">
+            </el-table-column>
+          </el-table>
+        </div>
+        <div>
+
+        </div>
+      </div>
     </div>
 
   </div>
@@ -318,10 +370,16 @@
 </script>
 
 <style lang="scss" scoped>
+ .detonate{
+   .table-view >>> .el-table th{
+     background:#FBFBFB
+   }
+ }
   .basic_charts {
     width: 100%;
     margin-top: 20px;
     .basic_chartDay {
+      overflow: hidden;
       .spe_con{
         .basic_left {
           .icon {
@@ -515,8 +573,33 @@
           }
         }
       }
-
-
+      .detonate{
+        float: left;
+        .basic_left3 {
+          .icon {
+            display: inline-block;
+            width: 4px;
+            height: 15px;
+            background: #FC7132;
+          }
+          .basic_title {
+            font-family: MicrosoftYaHei;
+            font-size: 18px;
+            color: #000000;
+            letter-spacing: 0;
+            margin-left: 20px;
+          }
+        }
+        .table-view{
+          margin-top :30px;
+          width :95%;
+          margin: 30px auto;
+          height: 40px;
+          table{
+          width: 100%;
+        }
+        }
+      }
     }
 
   }

@@ -9,67 +9,70 @@
           <p>slogan展示slogan展示slogan展示slogan展示</p>
         </div>
         <ul class="ver_img">
-          <li class="ver_img_info" v-for="item in versionList">
+          <li class="ver_img_info" v-for="(item,index) in versionList" v-bind:class="{'active':!index}" @click="versionCart(item.id,item.logPicPath,item.oriPrice
+,item.proPrice,item.versionInfoYearList)" >
             <div class="version_A">
-              <p>{{item.name}}</p>
-              <p>{{item.oriPrice}}/年</p>
-              <div class="version_b">
-                <span class="versInfo">{{item.instruction}}</span>
-                <!--<span> 微信支付、积分系统</span>-->
-                <!--<span>打折、满减等促销</span>-->
-              </div>
+              <img :src=item.logPicPath alt="">
+              <!--<p>{{item.name}}</p>-->
+              <!--<p>{{item.oriPrice}}/年</p>-->
+              <!--<div class="version_b">-->
+                <!--<span class="versInfo">{{item.instruction}}</span>-->
+                <!--&lt;!&ndash;<span> 微信支付、积分系统</span>&ndash;&gt;-->
+                <!--&lt;!&ndash;<span>打折、满减等促销</span>&ndash;&gt;-->
+              <!--</div>-->
             </div>
           </li>
           <!--<li class="ver_img_info">-->
-            <!--<div class="version_B">-->
-              <!--<p>白银版</p>-->
-              <!--<p>498元/年</p>-->
-              <!--<div class="version_b">-->
-                <!--<span class="versInfo">商城网站+小程序</span>-->
-                <!--<span> 微信支付、积分系统</span>-->
-                <!--<span>打折、满减等促销</span>-->
-              <!--</div>-->
-            <!--</div>-->
+          <!--<div class="version_B">-->
+          <!--<p>白银版</p>-->
+          <!--<p>498元/年</p>-->
+          <!--<div class="version_b">-->
+          <!--<span class="versInfo">商城网站+小程序</span>-->
+          <!--<span> 微信支付、积分系统</span>-->
+          <!--<span>打折、满减等促销</span>-->
+          <!--</div>-->
+          <!--</div>-->
           <!--</li>-->
           <!--<li class="ver_img_info">-->
-            <!--<div class="version_C">-->
-              <!--<p>尊享版</p>-->
-              <!--<p>498元/年</p>-->
-              <!--<div class="version_b">-->
-                <!--<span class="versInfo">商城网站+小程序</span>-->
-                <!--<span> 微信支付、积分系统</span>-->
-                <!--<span>打折、满减等促销</span>-->
-              <!--</div>-->
-            <!--</div>-->
+          <!--<div class="version_C">-->
+          <!--<p>尊享版</p>-->
+          <!--<p>498元/年</p>-->
+          <!--<div class="version_b">-->
+          <!--<span class="versInfo">商城网站+小程序</span>-->
+          <!--<span> 微信支付、积分系统</span>-->
+          <!--<span>打折、满减等促销</span>-->
+          <!--</div>-->
+          <!--</div>-->
           <!--</li>-->
         </ul>
       </div>
       <div class="version_Price">
         <div class="ver_Price_info">
           <div class="ver_Price_img">
+            <img :src=imgUrl alt="">
             <h1>标准版</h1>
           </div>
           <div class="ver_Prive_commodity">
-            <p>聚通达MCM  标准版
+            <p>聚通达MCM 标准版
               <a href="#">了解详情></a>
             </p>
-            <p>价格：<span>¥3920</span></p>
-            <p>促销价: <span>￥10</span></p>
+            <p>价格：<span>{{oriPrice}}</span></p>
+            <p>促销价: <span>{{proPrice}}</span></p>
             <p id="select">请选择：
-              <span class="selected">一年</span>
-              <span>二年</span>
-              <span>三年</span>
-              <span>四年</span>
-              <span>五年</span>
+              <span  v-for="(item,index) in this.yearList" @click="cartVers(item.id)"  v-bind:class="{'selected':!index}">{{item.name}}</span>
+              <!--<span>二年</span>-->
+              <!--<span>三年</span>-->
+              <!--<span>四年</span>-->
+              <!--<span>五年</span>-->
             </p>
           </div>
           <div class="version_cart">
-           <span class="ver_cart" @click="cartPrice()">立即购买</span>
-<span class="pepole"><i class="iconfont icon-kefu"></i>咨询客服</span>
+            <span class="ver_cart" @click="cartPrice()">立即购买</span>
+            <span class="pepole"><i class="iconfont icon-kefu"></i>咨询客服</span>
           </div>
           <div class="goodsDetail">
             <i></i>
-           <span>商品详情</span>
+            <span>商品详情</span>
           </div>
         </div>
       </div>
@@ -85,7 +88,13 @@
   export default {
     data() {
       return {
-versionList:[],
+        versionList: [],
+        versionId: '',
+        versionYearId: '',
+        imgUrl: '',
+        oriPrice:'',
+        proPrice:'',
+        yearList:''
       }
     },
     created() {
@@ -94,35 +103,41 @@ versionList:[],
     mounted() {
 
       this.$axios({
-        method:"post",
-        url:'http://center.marketing.yunpaas.cn/center/versionInfo/getAllVersionInfo',
-        params:{
-
-        }
-      }).then(res =>{
+        method: "post",
+        url: 'http://center.marketing.yunpaas.cn/center/versionInfo/getAllVersionInfo',
+        params: {}
+      }).then(res => {
         console.log(res);
-        this.versionList=res.data.data
+        this.versionList = res.data.data
 
       })
 
-$("#select span").click(function () {
-  $(this).addClass("selected").siblings().removeClass("selected")
-})
+      $("#select span").click(function () {
+        $(this).addClass("selected").siblings().removeClass("selected")
+      })
+      $("ul li").click(function () {
+        $(this).addClass("active").siblings().removeClass("active")
+      })
     },
 
     methods: {
-      cartPrice(){
-        this.$router.push({path:'/indexHome/versionPrice'})
-
-        this.$axios({
-          method:"post",
-          url:"http://center.marketing.yunpaas.cn/center/versionInfo/getPayInfo",
-          params:{
-            versionId:'',
-            versionYearId:'',
-          }
+      cartPrice() {
+        this.$router.push({
+          path: '/indexHome/versionPrice',
+          query: {versionId: this.versionId, versionYearId: this.versionYearId}
         })
-      }
+
+      },
+      versionCart(id, url,op,prp,list) {
+        this.versionId = id
+        this.imgUrl = url
+        this.oriPrice=op
+        this.proPrice=prp
+        this.yearList=list
+      },
+      cartVers(){
+
+      },
     },
     components: {},
     computed: {}
@@ -133,11 +148,11 @@ $("#select span").click(function () {
   .version_wrap {
     width: 90%;
     height: 100%;
-   /*height: 2200px;*/
+    /*height: 2200px;*/
     /*min-width: 1309px;*/
     background: #fff;
     /*position: relative;*/
-   // left: -11%;
+    // left: -11%;
     .version_content {
       width: 100%;
       padding: 2rem 2rem 1rem 2rem;
@@ -177,6 +192,10 @@ $("#select span").click(function () {
               text-align: center;
               background-image: linear-gradient(-224deg, #F5F5F5 0%, #E1DFDF 100%);
               border: 10px solid #FFFFFF;
+              img{
+                width: 100%;
+                height: 100%;
+              }
               p:nth-child(1) {
                 margin-top: 26px;
                 font-family: MicrosoftYaHei-Bold;
@@ -280,6 +299,12 @@ $("#select span").click(function () {
               }
             }
           }
+
+          .active{
+
+            background: red;
+            border: 2px solid blue;
+          }
         }
       }
       .version_Price {
@@ -299,56 +324,60 @@ $("#select span").click(function () {
             background-image: linear-gradient(-224deg, #F4F4F4 0%, #E1DFDF 100%);
             text-align: center;
             float: left;
+            img{
+              width: 100%;
+              height: 100%;
+            }
           }
           .ver_Prive_commodity {
             width: 806px;
             height: 139px;
             padding-left: 180px;
-            p:nth-child(1){
+            p:nth-child(1) {
               font-family: MicrosoftYaHei;
               font-size: 18px;
               color: #4A4A4A;
               letter-spacing: 0;
-a{
-  margin-left: 89px;
-  text-decoration: underline;
-}
+              a {
+                margin-left: 89px;
+                text-decoration: underline;
+              }
             }
-            p:nth-child(2){
+            p:nth-child(2) {
               margin-top: 12px;
               font-family: MicrosoftYaHei;
               font-size: 12px;
               color: #9B9B9B;
               letter-spacing: 0;
-              span{
+              span {
                 font-family: MicrosoftYaHei;
                 font-size: 14px;
                 color: #000000;
                 letter-spacing: 0;
                 line-height: 16px;
-                text-decoration:line-through
+                text-decoration: line-through
               }
             }
-            p:nth-child(3){
+            p:nth-child(3) {
               font-family: MicrosoftYaHei;
               font-size: 12px;
               color: #9B9B9B;
               letter-spacing: 0;
-              span{
+              span {
                 font-family: MicrosoftYaHei;
                 font-size: 28px;
                 color: red;
                 letter-spacing: 0;
               }
             }
-            p:nth-child(4){
+            p:nth-child(4) {
               margin-top: 10px;
               overflow: hidden;
               font-family: MicrosoftYaHei;
               font-size: 12px;
               color: #9B9B9B;
               letter-spacing: 0;
-              span{
+              span {
                 display: inline-block;
                 width: 67px;
                 height: 28px;
@@ -362,7 +391,7 @@ a{
                 letter-spacing: 0;
                 margin-right: 9px;
               }
-              .selected{
+              .selected {
                 font-family: MicrosoftYaHei;
                 font-size: 14px;
                 color: #FF822E;
@@ -372,9 +401,9 @@ a{
               }
             }
           }
-          .version_cart{
+          .version_cart {
 
-            .ver_cart{
+            .ver_cart {
               display: inline-block;
               width: 146px;
               height: 47px;
@@ -388,30 +417,30 @@ a{
               margin-top: 30px;
               margin-left: 180px;
             }
-            .pepole{
+            .pepole {
               display: inline-block;
-             margin-left: 30px;
+              margin-left: 30px;
               font-family: MicrosoftYaHei;
               font-size: 14px;
               color: #000000;
               letter-spacing: 0;
-              i{
+              i {
                 margin-right: 10px;
               }
             }
           }
-          .goodsDetail{
+          .goodsDetail {
             width: 100%;
             height: 79px;
             line-height: 79px;
-            i{
+            i {
               display: inline-block;
-             width: 4px;
+              width: 4px;
               height: 16px;
               line-height: 16px;
               background: #FC7132;
             }
-            span{
+            span {
               display: inline-block;
               font-family: MicrosoftYaHei;
               font-size: 16px;
@@ -422,9 +451,9 @@ a{
           }
         }
       }
-      .version_goodsDetail{
+      .version_goodsDetail {
         width: 100%;
-        img{
+        img {
           width: 100%;
         }
       }
