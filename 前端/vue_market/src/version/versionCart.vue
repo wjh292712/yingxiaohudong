@@ -9,16 +9,16 @@
           <p>slogan展示slogan展示slogan展示slogan展示</p>
         </div>
         <ul class="ver_img">
-          <li class="ver_img_info" v-for="(item,index) in versionList" v-bind:class="{'active':!index}" @click="versionCart(item.id,item.logPicPath,item.oriPrice
-,item.proPrice,item.versionInfoYearList)" >
+          <li class="ver_img_info" v-for="(item,index) in versionList" v-bind:class="{ active:index==selectItem}"
+              @click="versionCart(index,item.id,item.logPicPath,item.oriPrice,item.proPrice,item.versionInfoYearList)" :key="index">
             <div class="version_A">
               <img :src=item.logPicPath alt="">
               <!--<p>{{item.name}}</p>-->
               <!--<p>{{item.oriPrice}}/年</p>-->
               <!--<div class="version_b">-->
-                <!--<span class="versInfo">{{item.instruction}}</span>-->
-                <!--&lt;!&ndash;<span> 微信支付、积分系统</span>&ndash;&gt;-->
-                <!--&lt;!&ndash;<span>打折、满减等促销</span>&ndash;&gt;-->
+              <!--<span class="versInfo">{{item.instruction}}</span>-->
+              <!--&lt;!&ndash;<span> 微信支付、积分系统</span>&ndash;&gt;-->
+              <!--&lt;!&ndash;<span>打折、满减等促销</span>&ndash;&gt;-->
               <!--</div>-->
             </div>
           </li>
@@ -50,7 +50,7 @@
         <div class="ver_Price_info">
           <div class="ver_Price_img">
             <img :src=imgUrl alt="">
-            <h1>标准版</h1>
+              <!--<h1>标准版</h1>-->
           </div>
           <div class="ver_Prive_commodity">
             <p>聚通达MCM 标准版
@@ -59,7 +59,8 @@
             <p>价格：<span>{{oriPrice}}</span></p>
             <p>促销价: <span>{{proPrice}}</span></p>
             <p id="select">请选择：
-              <span  v-for="(item,index) in this.yearList" @click="cartVers(item.id)"  v-bind:class="{'selected':!index}">{{item.name}}</span>
+              <span v-for="(item,index) in this.yearList" @click="cartVers(item.id,index)"
+                    v-bind:class="{ selected:index==selectItemCart}" :key="index">{{item.name}}</span>
               <!--<span>二年</span>-->
               <!--<span>三年</span>-->
               <!--<span>四年</span>-->
@@ -92,15 +93,18 @@
         versionId: '',
         versionYearId: '',
         imgUrl: '',
-        oriPrice:'',
-        proPrice:'',
-        yearList:''
+        oriPrice: '',
+        proPrice: '',
+        yearList: '',
+        selectItem: 0,
+        selectItemCart: 0,
       }
     },
     created() {
 
     },
     mounted() {
+
 
       this.$axios({
         method: "post",
@@ -109,34 +113,30 @@
       }).then(res => {
         console.log(res);
         this.versionList = res.data.data
-
-      })
-
-      $("#select span").click(function () {
-        $(this).addClass("selected").siblings().removeClass("selected")
-      })
-      $("ul li").click(function () {
-        $(this).addClass("active").siblings().removeClass("active")
+        this.versionCart(0,this.versionList[0].id,this.versionList[0].logPicPath,this.versionList[0].oriPrice,this.versionList[0].proPrice,this.versionList[0].versionInfoYearList)
+        this.cartVers(this.versionList[0].versionInfoYearList[0].id,0)
       })
     },
 
     methods: {
+
+      versionCart(idx, id, url, op, prp, list) {
+        this.versionId = id
+        this.imgUrl = url
+        this.oriPrice = op
+        this.proPrice = prp
+        this.yearList = list
+        this.selectItem = idx
+      },
+      cartVers(id, idx) {
+        this.versionYearId = id
+        this.selectItemCart = idx
+      },
       cartPrice() {
         this.$router.push({
           path: '/indexHome/versionPrice',
           query: {versionId: this.versionId, versionYearId: this.versionYearId}
         })
-
-      },
-      versionCart(id, url,op,prp,list) {
-        this.versionId = id
-        this.imgUrl = url
-        this.oriPrice=op
-        this.proPrice=prp
-        this.yearList=list
-      },
-      cartVers(){
-
       },
     },
     components: {},
@@ -182,8 +182,8 @@
             height: 241px;
             float: left;
             background: #FFFFFF;
-            border: 1px solid #FC7132;
-            box-shadow: 0 0 15px 0 rgba(255, 102, 8, 0.22);
+            /*border: 1px solid #FC7132;*/
+            /*box-shadow: 0 0 15px 0 rgba(255, 102, 8, 0.22);*/
             margin-right: 20px;
 
             .version_A {
@@ -192,7 +192,7 @@
               text-align: center;
               background-image: linear-gradient(-224deg, #F5F5F5 0%, #E1DFDF 100%);
               border: 10px solid #FFFFFF;
-              img{
+              img {
                 width: 100%;
                 height: 100%;
               }
@@ -300,10 +300,9 @@
             }
           }
 
-          .active{
-
-            background: red;
-            border: 2px solid blue;
+          .active {
+            border: 1px solid #FC7132;
+            box-shadow: 0 0 15px 0 rgba(255, 102, 8, 0.22);
           }
         }
       }
@@ -324,7 +323,7 @@
             background-image: linear-gradient(-224deg, #F4F4F4 0%, #E1DFDF 100%);
             text-align: center;
             float: left;
-            img{
+            img {
               width: 100%;
               height: 100%;
             }

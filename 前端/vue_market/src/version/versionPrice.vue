@@ -6,7 +6,7 @@
       <span class="oder-info-text">订单信息</span>
     </div>
     <div class="sp"></div>
-    <div class="oderList" v-for="(item,key) in list">
+    <div class="oderList">
       <div class="title-info">
         <div class="t_text">
           商品名称
@@ -15,24 +15,33 @@
           单价
         </div>
         <div class="t_text">
-          数量
+          购买年份
         </div>
       </div>
       <div class="info">
         <div class="ttle-div">
-          {{item.shopGoods.name}}
+          {{name}}
         </div>
         <div class="ttle-div">
-          <span>￥{{item.shopGoods.salePrice}}</span>
+          <span>￥{{oriPrice}}</span>
         </div>
         <div class="ttle-div">
-          <el-input-number v-model="num1" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
+          <!--<el-input-number v-model="num1" @change="handleChange" :min="1" :max="5" label="描述文字"></el-input-number>-->
+
+          <el-select v-model="num1" placeholder="请选择" style="min-width: 100px" @change="handleChange" class="selcc">
+            <el-option
+              v-for="item in yearList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
           <div class="bot-div">
             <p class="pps">
-              优惠:<span class="offer-price">￥{{(item.shopGoods.oriPrice-item.shopGoods.salePrice)}}</span>
+              优惠:<span class="offer-price">￥{{(goodsPrePrice)}}</span>
             </p>
             <p class="pps">
-              小计:<span class="offer-price">￥200</span>
+              小计:<span class="offer-price">￥{{goodsPrice}}</span>
             </p>
           </div>
 
@@ -49,18 +58,18 @@
         账户余额支付
       </div>
       <div class="buy-two dvs" @click="styles('b')" :class="{boxShows:style_flag=='b'}">
-        <img src="@/assets/weixin.png" >
+        <img src="@/assets/weixin.png">
         微信支付
       </div>
       <div class="buy-three dvs" @click="styles('c')" :class="{boxShows:style_flag=='c'}">
-        <img src="@/assets/zhifubao.png" >
+        <img src="@/assets/zhifubao.png">
         支付宝支付
       </div>
     </div>
     <div class="sp"></div>
     <div class="payment-div">
       <p class="payment-price">
-        应付金额:<span class="price">￥100</span>
+        应付金额:<span class="price"> {{goodsPrice}}</span>
       </p>
     </div>
     <el-button class="payment" @click="buy_sub">立即支付</el-button>
@@ -76,33 +85,61 @@
   import pub from "static/public.js";
   import {log} from "static/public.js";
   import AlertMessage from "@/components/PcAlertMessage";
+
   export default {
-    components:{
+    components: {
       AlertMessage
     },
     data() {
       return {
-        list:[],
+        list: [],
         num1: 1,
-        zhanghu:false,
-        style_flag:"",
-        versionId:'',
-        versionYearId:'',
+        zhanghu: false,
+        style_flag: "",
+        versionId: '',
+        versionYearId: '',
+        name: '',
+        oriPrice: '',
+        proPrice: '',
+        goodsPrePrice:'',
+        goodsPrice:'',
+        yearId:'',
+        yearList:''
       };
     },
     methods: {
       handleChange(value) {
-        console.log(value);
+        alert(value)
+        this.versionId = this.$route.query.versionId
+        this.versionYearId = value
+        this.$axios({
+          method: 'post',
+          url: 'http://center.marketing.yunpaas.cn/center/versionInfo/getPayInfo',
+          params: {
+            versionId: this.versionId,
+            versionYearId: this.versionYearId
+          }
+        }).then(res => {
+          this.list = res.data.data.goodsInfo
+          this.name = this.list.name
+          this.oriPrice = this.list.oriPrice
+          this.proPrice = this.list.proPrice
+          this.goodsPrice = res.data.data.goodsPrice
+          this.goodsPrePrice=res.data.data.goodsPrePrice
+          this.num1=res.data.data.yearId
+          this.yearList=res.data.data.versionInfoYear
+        })
+
       },
-      styles(el){
-        this.style_flag=el
+      styles(el) {
+        this.style_flag = el
       },
-      buy_sub(){
-        if(this.style_flag=='a'){
-          this.$bus.$emit("zhanghu",true)
-        }else if(this.style_flag=='b'){
-          this.$bus.$emit("weixin",true)
-        }else{
+      buy_sub() {
+        if (this.style_flag == 'a') {
+          this.$bus.$emit("zhanghu", true)
+        } else if (this.style_flag == 'b') {
+          this.$bus.$emit("weixin", true)
+        } else {
           alert("请选择支付类型")
         }
       },
@@ -111,28 +148,27 @@
         $("body").css("overflow", "auto");//出现弹框禁止滚动
       }
     },
-    mounted(){
+    mounted() {
       let thi_s = this
-     this.versionId = this.$route.query.versionId
-      this.versionYearId=this.$route.query.versionYearId
-
+      this.versionId = this.$route.query.versionId
+      this.versionYearId = this.$route.query.versionYearId
       this.$axios({
-        method:'post',
-        url:'http://center.marketing.yunpaas.cn/center/versionInfo/getPayInfo',
-        params:{
-          versionId:this.versionId,
-          versionYearId:this.versionYearId
+        method: 'post',
+        url: 'http://center.marketing.yunpaas.cn/center/versionInfo/getPayInfo',
+        params: {
+          versionId: this.versionId,
+          versionYearId: this.versionYearId
         }
-      }).then(res=>{
-
-
-        console.log(res);
-
+      }).then(res => {
+        this.list = res.data.data.goodsInfo
+        this.name = this.list.name
+        this.oriPrice = this.list.oriPrice
+        this.proPrice = this.list.proPrice
+        this.goodsPrice = res.data.data.goodsPrice
+        this.goodsPrePrice=res.data.data.goodsPrePrice
+        this.num1=res.data.data.yearId
+        this.yearList=res.data.data.versionInfoYear
       })
-      // axios.get(pub.oderdesc+"?orderId="+id).then(function(response) {
-      //   let arr = response.data.data.shopOrderGoodsList
-      //   thi_s.list = arr
-      // })
     },
     activated() {
       this.$bus.$emit("titleName", "");
@@ -140,11 +176,11 @@
   };
   //  box-shadow: darkgrey 0px 0px 30px 5px ;
 </script>
-
 <style lang="stylus" scoped>
-  .boxShows{
+  .boxShows {
     box-shadow: #2d8cf0 0px 0px 10px 5px
   }
+
   .buy-type {
     height: 90px;
     width: 90%;
@@ -158,7 +194,7 @@
       cursor: pointer;
       float left
 
-      img{
+      img {
         position relative
         top 5px
       }
@@ -253,6 +289,9 @@
           margin-top: 20px;
           text-align: center;
           width: 100%;
+          .pps{
+            font-size 14px
+          }
 
           p {
             width: 100%;
@@ -269,25 +308,30 @@
     background-color: #E8E8E8;
     height 1px
   }
-  .payment-div{
+
+  .payment-div {
     margin-top 10px
     height 50px
     width 90%
-    .payment-price{
+    .payment-price {
       line-height 50px
-      .price{
+      font-size:14px
+      .price {
         color #ff0000
-        font-size 16px
+        font-size 18px
         fon-weight boild
       }
     }
   }
-  .payment{
+
+  .payment {
     background #FC7132
     color #fff
     width 129px
   }
-  .botmm{
+
+  .botmm {
     height 80px
   }
+
 </style>

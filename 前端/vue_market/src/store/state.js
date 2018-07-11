@@ -109,9 +109,10 @@ activePull(context){//我的活动请求数据
         saveData(context){  //九宫格初始化后台请求数据存储
             // var CancelToken = axios.CancelToken;
             // var source = CancelToken.source()
+          var token = sessionStorage.getItem('token')
             axios({
                 method: "post",
-                url: "http://center.marketing.yunpaas.cn/jgg/activitySetup/init",//数据初始化接口
+                url: "http://center.marketing.yunpaas.cn/jgg/activitySetup/init?token="+token,//数据初始化接口
                 params: {
 
                 },

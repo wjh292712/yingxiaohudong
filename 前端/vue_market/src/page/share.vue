@@ -23,7 +23,11 @@
         <el-form-item label="微信分享图标">
           <el-radio-group v-model="form.resource2">
             <el-radio label="1">默认</el-radio>
-            <el-radio label="2">自定义</el-radio>
+
+            <el-tooltip class="item" effect="light" content="权限不足请升级" placement="top-start">
+              <el-radio label="2" :disabled="shareLogoType">自定义</el-radio>
+            </el-tooltip>
+
           </el-radio-group>
         </el-form-item>
         <el-form-item v-show="shareIcon">
@@ -54,7 +58,10 @@
         <el-form-item label="微信分享标题">
           <el-radio-group v-model="form.resource3">
             <el-radio label="1">默认</el-radio>
-            <el-radio label="2">自定义</el-radio>
+            <el-tooltip class="item" effect="light" content="权限不足请升级" placement="top-start">
+              <el-radio label="2" :disabled="wxShareTitleType">自定义</el-radio>
+            </el-tooltip>
+
           </el-radio-group>
         </el-form-item>
         <el-form-item v-show="shareTitl">
@@ -64,7 +71,10 @@
         <el-form-item label="微信分享内容">
           <el-radio-group v-model="form.resource4">
             <el-radio label="1">默认</el-radio>
-            <el-radio label="2">自定义</el-radio>
+            <el-tooltip class="item" effect="light" content="权限不足请升级" placement="top-start">
+              <el-radio label="2" :disabled="shareContentType">自定义</el-radio>
+            </el-tooltip>
+
           </el-radio-group>
         </el-form-item>
         <el-form-item v-show="shareContent">
@@ -109,6 +119,10 @@
         share_data: '',//接口数据保存
         share_send: '',
         dataStatus: 0,
+        shareContentType:false,
+        shareLogoType:false,
+        wxShareTitleType:false,
+
       }
     },
     created() {
@@ -120,9 +134,10 @@
       ...mapActions(['saveData']),
     },
     mounted() {
+      var token = sessionStorage.getItem('token')
       this.$axios({
         method: "post",
-        url: "http://center.marketing.yunpaas.cn/jgg/activitySetup/init",//数据初始化接口
+        url: "http://center.marketing.yunpaas.cn/jgg/activitySetup/init?token="+token,//数据初始化接口
         params: {},
       }).then(res => {
         console.log(res.data.data);
@@ -187,7 +202,24 @@
         }
         this.form.desc1=this.share_data.wxShareSelfTitle
         this.form.desc2=this.share_data.wxShareSelfContent
-
+        if(this.share_data.allowClickWxShareLogo==true){
+          this.shareLogoType=false
+        }else if (this.share_data.allowClickWxShareLogo==false
+        ){
+          this.shareLogoType=true
+        }
+        if(this.share_data.allowClickWxShareTitle==true){
+          this.wxShareTitleType=false
+        }else if (this.share_data.allowClickWxShareTitle==false
+        ){
+          this.wxShareTitleType=true
+        }
+        if(this.share_data.allowClickWxShareContent==true){
+          this.shareContentType=false
+        }else if (this.share_data.allowClickWxShareContent==false
+        ){
+          this.shareContentType=true
+        }
 
       },
       partShare1() {
@@ -215,6 +247,25 @@
         }
         this.form.desc1=this.share_data.wxShareSelfTitle
         this.form.desc2=this.share_data.wxShareSelfContent
+
+        if(this.share_data.allowClickWxShareLogo==true){
+          this.shareLogoType=false
+        }else if (this.share_data.allowClickWxShareLogo==false
+        ){
+          this.shareLogoType=true
+        }
+        if(this.this.share_data.allowClickWxShareTitle==true){
+          this.wxShareTitleType=false
+        }else if (this.this.share_data.allowClickWxShareTitle==false
+        ){
+          this.wxShareTitleType=true
+        }
+        if(this.share_data.allowClickWxShareContent==true){
+          this.shareContentType=false
+        }else if (this.share_data.allowClickWxShareContent==false
+        ){
+          this.shareContentType=true
+        }
       },
       //分享保存部分
       savedShare() {
@@ -244,6 +295,24 @@
         }
         this.share_send.wxShareSelfTitle=this.form.desc1
         this.share_data.wxShareSelfContent=this.form.desc2
+        if(this.share_data.allowClickWxShareLogo==true){
+          this.shareLogoType=false
+        }else if (this.share_data.allowClickWxShareLogo==false
+        ){
+          this.shareLogoType=true
+        }
+        if(this.share_data.allowClickWxShareTitle==true){
+          this.wxShareTitleType=false
+        }else if (this.share_data.allowClickWxShareTitle==false
+        ){
+          this.wxShareTitleType=true
+        }
+        if(this.share_data.allowClickWxShareContent==true){
+          this.shareContentType=false
+        }else if (this.share_data.allowClickWxShareContent==false
+        ){
+          this.shareContentType=true
+        }
 
         this.$store.state.setting_data.jggShareSetup = this.share_send
         this.$bus.emit("send_share", this.share_send)
@@ -271,6 +340,25 @@
           this.shareContent = false
         } else {
           this.shareContent = true
+        }
+
+        if(this.share_data.allowClickWxShareLogo==true){
+          this.shareLogoType=false
+        }else if (this.share_data.allowClickWxShareLogo==false
+        ){
+          this.shareLogoType=true
+        }
+        if(this.share_data.allowClickWxShareTitle==true){
+          this.wxShareTitleType=false
+        }else if (this.share_data.allowClickWxShareTitle==false
+        ){
+          this.wxShareTitleType=true
+        }
+        if(this.share_data.allowClickWxShareContent==true){
+          this.shareContentType=false
+        }else if (this.share_data.allowClickWxShareContent==false
+        ){
+          this.shareContentType=true
         }
         this.$store.state.setting_data.jggShareSetup = this.share_send
         this.$bus.emit("send_share", this.share_send)

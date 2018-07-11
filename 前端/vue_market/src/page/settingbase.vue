@@ -43,7 +43,9 @@
         </el-form-item>
         <el-form-item label="是否关注">
           <el-radio-group v-model="radio2">
-            <el-radio label="1" checked>是</el-radio>
+            <el-tooltip class="item" effect="light" content="权限不足请升级" placement="top-start">
+              <el-radio label="1" checked :disabled="follow" :hover="权限不足请升级">是</el-radio>
+            </el-tooltip>
             <el-radio label="2">否</el-radio>
 
           </el-radio-group>
@@ -131,6 +133,7 @@
         value2:'',
         startTime:false, //基础设置的开始时间
         endTime:false,//基础设置的结束时间
+        follow:false,//是否关注
       };
 
     },
@@ -138,10 +141,10 @@
 
     },
     mounted() {
-
+      var token = sessionStorage.getItem('token')
       this.$axios({
         method: "post",
-        url: "http://center.marketing.yunpaas.cn/jgg/activitySetup/init",//数据初始化接口
+        url: "http://center.marketing.yunpaas.cn/jgg/activitySetup/init?token="+token,//数据初始化接口
         params: {},
       }).then(res => {
         let setting_data=JSON.stringify(res.data.data)
@@ -211,7 +214,12 @@
         _this.value2=strend
         // console.log(_this.value4);
         _this.radio1 = Number(_this.base_data.shows).toString(),
-          _this.radio2 = Number(_this.base_data.subscribe).toString()
+          _this.radio2 = _this.base_data.subscribe==false?'2':'1'
+        if(_this.base_data.allowClickSubscribe==true){
+          this.follow=false
+        }else if(_this.base_data.allowClickSubscribe==false){
+          this.follow=true
+        }
 
       },
 
@@ -242,7 +250,12 @@
         // console.log(_this.value4);
 
         _this.radio1 = Number(_this.base_data.shows).toString(),
-          _this.radio2 = Number(_this.base_data.subscribe).toString()
+          _this.radio2 = _this.base_data.subscribe==false?'2':'1'
+        if(_this.base_data.allowClickSubscribe==true){
+          this.follow=false
+        }else if(_this.base_data.allowClickSubscribe==false){
+          this.follow=true
+        }
 
       },
       timestampToTime(timestamp) {
@@ -297,14 +310,13 @@
       //
       // },
       onSubmit() {
-        alert(this.activeTime.getTime());
+
         // this.activeTime = this.activeTime.getTime();
         // this.activeHour = this.activeHour.getTime();
         this.oneRadio = this.radio1;
         this.twoRadio = this.radio2;
 
-          alert(this.oneRadio)
-        alert(this.twoRadio)
+
         if (this.formName != '') {
           //   if(){
 

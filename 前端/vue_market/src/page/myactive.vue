@@ -166,7 +166,9 @@
             对应奖品数量</i>将不能修改。活动发布后，预览活动数据将被清空</p>
         </div>
         <div class="actie_explain">
-          <p>活动最大参与人数：<i>1000</i>人 <span> (达到该人数限制后，粉丝将不能参与活动)</span></p>
+          <p>活动发布总次数：<i>{{total}}</i> 次</p>
+          <p>活动发布剩余数：<i>{{residualActivity}}</i> 次</p>
+          <p>活动最大参与人数：<i>{{maxPerson}}</i> 人 <span> (达到该人数限制后，粉丝将不能参与活动)</span></p>
           <a href="#">升级粉丝流量></a>
           <p class="text_c">活动派奖方式：抽奖派发</p>
         </div>
@@ -354,6 +356,9 @@
         newkjData: '',//编辑数据接口
         newdtData: '',//编辑数据接口
         dataStatus: '',
+        maxPerson:'',//最大参与人数
+        residualActivity:'',//剩余活动次数
+        total:'',//活动发布总次数
       }
     },
     created() {
@@ -532,9 +537,12 @@
           params: {}
         }).then(res => {
           console.log(res);
-          console.log(res.data);
-          //this. public=res.data.data
           let _this=this
+        _this.maxPerson=res.data.data.maxPerson
+            _this.residualActivity=res.data.data.residualActivity
+            _this.total=res.data.data.total
+          //this. public=res.data.data
+
           var step=1
           var ary=res.data.data.wxList
           var obj={}
@@ -615,9 +623,10 @@
         this.states = states
 
         if (this.templateUuid == 1) {
+          var token = sessionStorage.getItem('token')
           this.$axios({
             method: 'post',
-            url: 'http://center.marketing.yunpaas.cn/jgg/activitySetup/getActivitySetupById',
+            url: 'http://center.marketing.yunpaas.cn/jgg/activitySetup/getActivitySetupById?token='+token,
             params: {
               activityId: this.activeId,
             }
@@ -657,11 +666,14 @@
               this.$router.push({path: '/activeslide/activelist', query: {newjggData: newJggData, dataStatus: '1'}})
             }
 
+          }).catch(res=>{
+            alert(res.data.msg)
           })
         } else if (this.templateUuid == 2) {
+          var token = sessionStorage.getItem('token')
           this.$axios({
             method: 'post',
-            url: 'http://center.marketing.yunpaas.cn/kj/activitySetup/getActivitySetupById',
+            url: 'http://center.marketing.yunpaas.cn/kj/activitySetup/getActivitySetupById?token='+token,
             params: {
               activityId: this.activeId,
             }
@@ -700,11 +712,15 @@
               this.$router.push({path: '/activeslide/bargainlist', query: {newkjData: newKjData, dataStatus: '1'}})
             }
 
+          }).catch(res=>{
+            alert(res.data.msg)
           })
+
         } else if (this.templateUuid == 3) {
+          var token = sessionStorage.getItem('token')
           this.$axios({
             method: 'post',
-            url: 'http://center.marketing.yunpaas.cn/dt/activitySetup/getActivitySetupById',
+            url: 'http://center.marketing.yunpaas.cn/dt/activitySetup/getActivitySetupById?token='+token,
             params: {
               activityId: this.activeId,
             }
@@ -742,9 +758,9 @@
             else {
               this.$router.push({path: '/activeslide/answerlist', query: {newdtData: newDtData, dataStatus: '1'}})
             }
+          }).catch(res=>{
+            alert(res.data.msg)
           })
-
-
         }
 
 
@@ -1076,7 +1092,7 @@
 
   .publish {
     width: 529px;
-    height: 520px;
+    height: 570px;
     background: #FFFFFF;
     box-shadow: 0 6px 12px 0 rgba(0, 35, 85, 0.17);
     border-radius: 2px;
@@ -1085,6 +1101,7 @@
     left: 20%;
     display: none;
     z-index: 888;
+    overflow-y: auto;
   }
 
   .linkActive {

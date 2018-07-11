@@ -78,10 +78,10 @@
       ...mapActions(['saveData'])
     },
     mounted() {
-
+      var token = sessionStorage.getItem('token')
       this.$axios({
         method: "post",
-        url: "http://center.marketing.yunpaas.cn/jgg/activitySetup/init",//数据初始化接口
+        url: "http://center.marketing.yunpaas.cn/jgg/activitySetup/init?token="+token,//数据初始化接口
         params: {},
       }).then(res => {
         let _this = this
@@ -171,7 +171,7 @@
       onSave() {//所有的数据设置保存大保存
 
         console.log('发送保存数据');
-        var sendNew = JSON.stringify(this.sendData)
+        var sendNew = this.sendData
         console.log(sendNew)
         var token = sessionStorage.getItem('token')
         console.log(token);
@@ -196,7 +196,7 @@
               alert(data.data)
               _this.$router.push({path: '/activeslide/myactive'})
             } else {
-              alert(data.data)
+              //alert(data.data)
             }
 
           }

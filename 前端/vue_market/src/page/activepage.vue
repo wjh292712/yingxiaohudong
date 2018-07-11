@@ -114,7 +114,7 @@ export default ({
       _this.activeName =_this.base_data.activityName
     },
     activeN1(){
-      alert("222")
+
       let _this = this
       _this.base_data = _this.$route.query.newjggData.jggBaseSetup
       _this.activeName = _this.formName=_this.base_data.activityName

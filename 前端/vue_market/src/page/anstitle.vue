@@ -52,11 +52,11 @@
             <!--<span class="del" @click="del()">X</span>-->
           </div>
           <div class="ansConent">
-            <el-form label-width="60px" :data-id=index class="ans_title">
-              <h3 v-model="count">第{{count}}题</h3>
-              <button size="mini" class="delBtn" @click="delTitle()">删除题目</button>
+            <el-form label-width="60px" class="ans_title" v-for="(item,indx) in listCount" :key="indx">
+              <h3 v-model="count">第{{indx+1}}题</h3>
+              <button size="mini" class="delBtn" @click="delTitle(indx+1)">删除题目</button>
               <el-form-item label="题目:">
-                <el-input size="mini" v-model="ansName">
+                <el-input size="mini" v-model="ansName[indx]">
                 </el-input>
                 <el-upload
                   action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg"
@@ -67,20 +67,20 @@
                   <i class="el-icon-plus"></i>
                 </el-upload>
                 <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="imageUrl" alt="">
+                  <img width="100%" :src="imageUrl[indx]" alt="">
                 </el-dialog>
               </el-form-item>
               <p class="imgInfo"> 只能上传jpg/png文件，且不超过500kb</p>
               <el-form-item label="正确答案:" label-width="80px">
-                <el-input size="mini" v-model="ansCorrect">
+                <el-input size="mini" v-model="ansCorrect[indx]">
                 </el-input>
               </el-form-item>
               <el-form-item label="错误答案:" label-width="80px">
-                <el-input size="mini" v-model="ansError1">
+                <el-input size="mini" v-model="ansError1[indx]">
                 </el-input>
               </el-form-item>
               <el-form-item label="错误答案:" label-width="80px">
-                <el-input size="mini" v-model="ansError2">
+                <el-input size="mini" v-model="ansError2[indx]">
                 </el-input>
               </el-form-item>
             </el-form>
@@ -88,7 +88,7 @@
         </div>
         <div class="footerDati">
           <el-button size="mini" @click="addTitle()">新增题目</el-button>
-          <!--<span>共{{index}}题</span>-->
+            <span>共{{count}}题</span>
           <el-button size="mini">保存</el-button>
         </div>
       </div>
@@ -103,25 +103,26 @@
   export default ({
     data() {
       return {
+        arrs:[],
         answerState: '',//题库内容
         value4: '',//题库选择
         radio1: '',//选择题库
         radio2: '',
         titleCount: '',//总题量
         radomCount: '',//随机题量
-        imageUrl: '',
+        imageUrl: [],
         ok: false,
         tileTime: false,
         dialogVisible: false,
-        ansName: '',//题目
-        ansCorrect: '',//正确答案
-        ansError1: '',//错误答案1
-        ansError2: '',//错误答案2
+        ansName: [],//题目
+        ansCorrect:[],//正确答案
+        ansError1: [],//错误答案1
+        ansError2: [],//错误答案2
         count: '1',//总题数
         title_data: '',//数据渲染接口
         title_send: "",//数据保存接口
         dataStatus: 0,
-        index: 1,//第几题
+        listCount:['1',],
       }
     },
     created() {
@@ -144,34 +145,16 @@
           this.titleBase1()
         }
       })
-
-
     },
     computed: {
       ...mapState(['setting_dtData']),
       ...mapActions(['saveDatadt'])
-
     },
     updated() {
-
       this.savaTitleBase()
-      // if (this.dataStatus === undefined) {
-      //   this.savaTitleBase()
-      // } else if (this.dataStatus === '1') {
-      //   this.savaTitleBase1()
-      // }
-
-      let _this=this
-      $('.delBtn').click(function(){
-        $(this).parent().remove();
-        _this.index-=1
-        _this.count = _this.index
-      })
-
     },
     methods: {
       titleBase() {
-
         let Data = JSON.parse(sessionStorage.getItem('Datadt'))
         this.title_data = Data.dtQuestionSetupExtend
         this.radio1 = Number(this.title_data.questionBank).toString()
@@ -184,9 +167,23 @@
         this.value4 = this.title_data.questionType
         this.titleCount = this.title_data.questionTotalNum
         this.radomCount = this.title_data.questionRadomNum
-        this.ansName = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.title
-        this.imageUrl = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.img
-        var ary = this.title_data.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList
+
+
+
+
+
+        for(let key in this.listCount){
+          for(let key1 in this.title_data.dtActivityQuestionExtendList){
+            this.ansName[key] = this.title_data.dtActivityQuestionExtendList[key1].dtQuestionExtend.title
+
+
+            this.imageUrl[key] = this.title_data.dtActivityQuestionExtendList[key1].dtQuestionExtend.img
+          }
+
+        }
+
+      for(let key in this.title_data.dtActivityQuestionExtendList){
+        var ary = this.title_data.dtActivityQuestionExtendList[key].dtQuestionExtend.dtAnswerList
         var a = []
         for (var i = 0; i < ary.length; i++) {
           var cur = ary[i]
@@ -194,10 +191,13 @@
             this.ansCorrect = cur.answerContent
           } else if (cur.isRight === false) {
             a.push(cur.answerContent)
+            this.ansError1[0] = a[0]
+            this.ansError2[1] = a[1]
           }
-          this.ansError1 = a[0]
-          this.ansError2 = a[1]
+
         }
+      }
+
 
         this.radio2 = Number(this.title_data.answerTimeLimit).toString()
       },
@@ -253,14 +253,41 @@
         this.title_send.questionTotalNum = this.titleCount
         this.title_send.questionRadomNum = this.radomCount
         this.title_send.answerTimeLimit = this.radio2 == 0 ? false : true
-        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.title = this.ansName
-        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.img = this.imageUrl
-        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight = true
-        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent = this.ansCorrect
-        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[1].isRight = false
-        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[1].answerContent = this.ansError1
-        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[2].isRight = false
-        this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[2].answerContent = this.ansError2
+
+        let obj = {
+          dtActivityQuestionExtendList:[
+            {
+              dtQuestionExtend:{
+                title:this.ansName,
+                img:this.arrs,
+                answerContent:[
+                  this.ansCorrect,
+                  this.ansError1,
+                  this.ansError2
+                ]
+              },
+
+            }
+
+          ],
+        }
+
+        this.title_send=obj
+
+        // this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.title = this.ansName
+        // this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.img = this.imageUrl
+        // this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].isRight = true
+        // this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[0].answerContent = this.ansCorrect
+        // this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[1].isRight = false
+        // this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[1].answerContent = this.ansError1
+        // this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[2].isRight = false
+        // this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList[2].answerContent = this.ansError2
+
+
+
+
+
+
 
 
         // var ary=this.title_send.dtActivityQuestionExtendList[0].dtQuestionExtend.dtAnswerList
@@ -323,7 +350,10 @@
         console.log(file);
         console.log(res);
         // this.imageUrl = URL.createObjectURL(file.raw);
-        this.imageUrl = file.response.data
+        this.arrs.push({
+          imageUrl :file.response.data
+        })
+
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
@@ -381,21 +411,25 @@
         this.tileTime = !this.tileTime
       },
       addTitle() {
-        // var htmlToAdd = "";
-        // htmlToAdd = $(".title").html();
-        // $(".title").html(htmlToAdd + $(".ansConent").html());
-        // console.log($(".title").children(".ans_title").length);
-        //$(".ansConent").eq(0).clone(true).appendTo(".title")
-        $(".title").after($(".ansConent").eq(0).clone(true))
-var  aa=document.getElementsByClassName("ansConent")
+ var  aa=document.getElementsByClassName("ansConent")
         console.log(aa.length);
-        //$(".ansConent").after($(".ansConent").eq(0).clone(true))
-        //$(".ans_title").eq(0).clone(true).insertBefore(".ansConent")
         this.index++;
-        this.count = this.index
+        this.listCount.push(this.index)
+        console.log(this.listCount);
+        this.count = this.listCount.length
       },
-      delTitle() {
+      delTitle(idx) {
         $("p").detach(".hello");
+       this.listCount.length
+        if(this.listCount.length>=2){
+          this.listCount.splice(idx-1,1)
+          this.count = this.listCount.length
+        }else {
+          alert("最少保留一题")
+        }
+
+
+
       },
 
     }
