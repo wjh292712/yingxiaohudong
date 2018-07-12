@@ -21,10 +21,12 @@ const lottery = "http://center.marketing.yunpaas.cn/dt/play/startDrawAward"//抽
 const answer_initActivity = "http://center.marketing.yunpaas.cn/dt/play/initActivity"
 const getMyAward = "http://center.marketing.yunpaas.cn/dt/play/getMyAward"
 
+
 //九宫格相关
 const turntable_Url ="http://center.marketing.yunpaas.cn/jgg/activity/getActivityById"//九宫格初始化
 const turntable_Prize_Url="http://center.marketing.yunpaas.cn/jgg/activity/getMyAwardList"//九宫格奖品信息
 const startDrawAward_url ="http://center.marketing.yunpaas.cn/jgg/activity/startDrawAward"
+
 
 
 //九宫格预览相关
@@ -34,6 +36,12 @@ const lottery_url = "http://center.marketing.yunpaas.cn/jgg/activity/startPrevie
 
 const mallHomeList="http://center.marketing.yunpaas.cn/center/shopGoods/getGoodsList"//商城首页列表
 const mallDescInit="http://center.marketing.yunpaas.cn/center/shopGoods/getGoodsById"//商城详情
+
+const oderInput="http://center.marketing.yunpaas.cn/center/webPageScanPay/makeOrder"//订单助力
+const oderdesc ="http://center.marketing.yunpaas.cn/center/webPageScanPay/getOrderInfo"//生成订单
+const buys = "http://center.marketing.yunpaas.cn/center/webPageScanPay/PayOrder"
+const updatePass = "http://center.marketing.yunpaas.cn/center/enterpriseuser/modify"//修改密码
+const refashOder = "http://center.marketing.yunpaas.cn/center/webPageScanPay/getOrderState"//定时刷新获取订单状态
 var loading=null
 import axios from "axios";//用于http请求
 function formatDateTime(inputTime) {//日期格式化方法年月日时分秒
@@ -49,7 +57,6 @@ function formatDateTime(inputTime) {//日期格式化方法年月日时分秒
     var second = date.getSeconds();
     minute = minute < 10 ? "0" + minute : minute;
     second = second < 10 ? "0" + second : second;
-
     return y + "-" + m + "-" + d + " " + h + ":" + minute + ":" + second;
   }
   function fmtDate(obj) {//日期格式化方法年月日
@@ -69,7 +76,6 @@ function formatDateTime(inputTime) {//日期格式化方法年月日时分秒
       d.substring(d.length - 2, d.length)
     );
 }
-
 function loadings(el){//加载loading
 loading = el.$loading({
  lock: true,
@@ -140,19 +146,35 @@ export default{
     mall_styles_update,
     mall_styles_noupdate,
     mallHomeList,
-    mallDescInit
+    mallDescInit,
+    oderInput,
+    oderdesc,
+    buys,
+    updatePass,
+    refashOder
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
 //////////////////
 // WEBPACK FOOTER
 // ./static/js/public.js
 // module id = null
-// module chunks =
+// module chunks = 
 
 
 //////////////////
 // WEBPACK FOOTER
 // ./static/js/public.js
 // module id = null
-// module chunks =
+// module chunks = 

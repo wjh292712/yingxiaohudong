@@ -54,14 +54,14 @@
     </div>
     <div class="sp"></div>
     <div class="buy-type">
-      <div class="buy-one dvs" @click="styles('a')" :class="{boxShows:style_flag=='a'}">
+      <div class="buy-one dvs" @click="styles('3')" :class="{boxShows:style_flag=='3'}">
         账户余额支付
       </div>
-      <div class="buy-two dvs" @click="styles('b')" :class="{boxShows:style_flag=='b'}">
+      <div class="buy-two dvs" @click="styles('1')" :class="{boxShows:style_flag=='1'}">
         <img src="@/assets/weixin.png">
         微信支付
       </div>
-      <div class="buy-three dvs" @click="styles('c')" :class="{boxShows:style_flag=='c'}">
+      <div class="buy-three dvs" @click="styles('2')" :class="{boxShows:style_flag=='2'}">
         <img src="@/assets/zhifubao.png">
         支付宝支付
       </div>
@@ -104,12 +104,13 @@
         goodsPrePrice:'',
         goodsPrice:'',
         yearId:'',
-        yearList:''
+        yearList:'',
+        orderId:'',
+        outTradeNo:'',
       };
     },
     methods: {
       handleChange(value) {
-        alert(value)
         this.versionId = this.$route.query.versionId
         this.versionYearId = value
         this.$axios({
@@ -135,13 +136,41 @@
         this.style_flag = el
       },
       buy_sub() {
-        if (this.style_flag == 'a') {
-          this.$bus.$emit("zhanghu", true)
-        } else if (this.style_flag == 'b') {
-          this.$bus.$emit("weixin", true)
-        } else {
-          alert("请选择支付类型")
-        }
+
+        this.$axios({
+          method:'post',
+          url:'http://center.marketing.yunpaas.cn/center/enterpriseRoleUp/makeOrder',
+          params:{
+            roleId:this.versionId,
+            years:this.versionYearId
+          }
+        }).then(res=>{
+          console.log(res);
+          this.orderId=res.data.data.orderId
+
+          this.$axios({
+            method:'post',
+            url:'http://center.marketing.yunpaas.cn/center/enterpriseRoleUp/OrderPay',
+            params:{
+              orderId:this.orderId,
+              payType:this.style_flag,
+            }
+          }).then(res=>{
+            if (this.style_flag == '3') {
+              this.$bus.$emit("zhanghu",this.orderId,this.goodsPrice,this.name, true)
+            } else if (this.style_flag == '1') {
+              this.$bus.$emit("weixin",this.orderId,this.goodsPrice,this.name,"http://center.marketing.yunpaas.cn/center/enterpriseRoleUp/OrderPay?orderId="+this.orderId+"&payType="+this.style_flag, true)
+            }else if(this.style_flag == '2'){
+              window.location.href="http://center.marketing.yunpaas.cn/center/enterpriseRoleUp/OrderPay?orderId="+this.orderId+"&payType="+this.style_flag
+            } else {
+              alert("请选择支付类型")
+            }
+
+          })
+        })
+
+
+
       },
       close(msg) {//关闭自定义弹出框
         this.AlertMessage = msg;
