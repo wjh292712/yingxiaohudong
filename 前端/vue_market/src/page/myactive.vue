@@ -728,7 +728,6 @@
             let newDtData = res.data.data
             this.newdtData = newDtData
             if (this.states === 3) {
-
               this.$router.push({
                 path: '/activeslide/answerlist',
                 query: {
@@ -750,13 +749,14 @@
                   rewordCount: true,
                   ticket: true,
                   btnsave: true,
-                  newdtData: newDtData,
+                  newdtData:newDtData,
                   dataStatus: '1',
                 }
               })
             }
             else {
               this.$router.push({path: '/activeslide/answerlist', query: {newdtData: newDtData, dataStatus: '1'}})
+              console.log(newDtData);
             }
           }).catch(res=>{
             alert(res.data.msg)

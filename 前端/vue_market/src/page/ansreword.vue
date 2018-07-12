@@ -1778,7 +1778,7 @@
           let Data = sessionStorage.getItem('Datadt')
           this.reword_send = JSON.parse(Data).dtAwardSetupExtendList
         } else if (this.dataStatus === '1') {
-          this.reword_send = this.$route.query.newjggData.dtAwardSetupExtendList
+          this.reword_send = this.$route.query.newdtData.dtAwardSetupExtendList
         }
         // let Data1=sessionStorage.setItem('Data')
 
