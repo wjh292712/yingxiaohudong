@@ -1,13 +1,13 @@
 <template>
 <div class="main">
-
+    
   <alert-message name="账户余额支付" v-if="zanghu_flag" @close-flag="close">
     <div class="contents">
       <p class="p-tit">
-        购买商品：{{name}}
+        购买商品：聚通达MCM 系统  标准版
       </p>
           <label class="lbss">应付金额：</label>
-        <span>{{price}}元</span>
+        <span>xxxxx元</span>
       </p>
       <p class="zhifu_pass">
          <label>支付密码：</label>
@@ -57,7 +57,7 @@
       </keep-alive>
     </div>
 
-</div>
+</div>    
 </template>
 
 <script>
@@ -104,17 +104,15 @@ export default {
     let thi_s = this;
     this.$emit("mallflag", false);
     pub.mall_styles_update();
-
-    this.$bus.on("zhanghu", (content, price, name,) => {
-      this.zanghu_flag = true;
-      this.price = price;
-      this.name = name;
+ 
+    this.$bus.on("zhanghu", content => {
+      this.zanghu_flag = content;
     });
     this.$bus.on("weixin", (content, price, name, outTradeNo) => {
       this.weixin_flag = true;
       this.price = price;
       this.name = name;
-      this.weicinImg = outTradeNo;
+      this.weicinImg = pub.buys + "?orderId=" + content + "&payType=1";
       this.timer = setInterval(function() {
         $.ajax({
           url: pub.refashOder,
@@ -130,7 +128,7 @@ export default {
           }
         });
       }, 1000);
-
+    
 })
     // this.$axios({
     //     method: "post",

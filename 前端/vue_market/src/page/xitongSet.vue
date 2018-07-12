@@ -61,7 +61,7 @@ export default {
       }).then(res =>{
         console.log(res);
 
-        this.$router.push({path:"/indexHome/versionCart"})
+        this.$router.push({path:"/indexVers/versionCart"})
       })
     }
   }

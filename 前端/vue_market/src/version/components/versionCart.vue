@@ -78,7 +78,7 @@
         </div>
       </div>
       <div class="version_goodsDetail">
-        <div><img src="../../static/active/goodsDetail.png" alt=""></div>
+        <div><img src="../../../static/active/goodsDetail.png" alt=""></div>
       </div>
     </div>
   </div>
@@ -134,7 +134,7 @@
       },
       cartPrice() {
         this.$router.push({
-          path: '/indexHome/versionPrice',
+          path: '/indexVers/versionPrice',
           query: {versionId: this.versionId, versionYearId: this.versionYearId}
         })
       },

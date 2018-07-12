@@ -53,8 +53,10 @@ import advanced from '@/page/advanced'
 import award from '@/page/award'
 
 //版本购买
-import versionCart from '@/version/versionCart'
-import versionPrice from '@/version/versionPrice'
+import indexVers from '@/version/index'
+import versionCart from '@/version/components/versionCart'
+import versionPrice from '@/version/components/versionPrice'
+
 //shouye
 import activepage from '@/page/activepage'
 import barpage from  '@/page/barpage'
@@ -153,6 +155,21 @@ export default new Router({
           component: BuySuccess,
 
         },
+        // {
+        //   path:'versionCart',
+        //   component:versionCart
+        // },{
+        //   path:'versionPrice',
+        //   component:versionPrice
+        // }
+      ]
+    },
+
+    {
+      path: "/indexVers",
+      component: indexVers,
+      meta:{requireAuth:true},
+      children:[
         {
           path:'versionCart',
           component:versionCart
