@@ -33,15 +33,17 @@
                   <img v-if="imageUrl1" :src="imageUrl1" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                <span>点击图片重新上传即可更换奖品图片</span>
               </el-form-item>
 
               <el-form-item label="商品原价:">
-                <el-input v-model="form.price1" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')"
-                          style="width: 200px"></el-input>
+                <el-input v-model="form.price1" :disabled="startPrice"   onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}$|\d{1,}]/g,'')"
+
+                        maxlength="9"  style="width: 200px"></el-input>
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位</span>
               </el-form-item>
               <el-form-item label="商品底价:">
-                <el-input v-model="form.priceLow1" :disabled="endPrice" onkeyup="value=value.replace(/[^\d]/g,'')"
+                <el-input v-model="form.priceLow1" :disabled="endPrice" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}$|\d{1,}]/g,'')"
                           style="width: 200px"></el-input>
                 <el-tooltip content="砍价商品的最低价格，砍到该价格后将不在降价" placement="bottom" effect="light">
                   <el-button>?</el-button>
@@ -80,6 +82,7 @@
                   <img v-if="form.imageUrl1_1" :src="form.imageUrl1_1" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 
 </span>
                 <span class="scccc">
@@ -92,6 +95,7 @@
                   <img v-if="form.imageUrl1_2" :src="form.imageUrl1_2" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
                 <span class="scccc">
                 <el-upload
@@ -103,6 +107,7 @@
                   <img v-if="form.imageUrl1_3" :src="form.imageUrl1_3" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
 
               </el-form-item>
@@ -147,6 +152,7 @@
                   <img v-if="imageUrl2" :src="imageUrl2" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                <span>点击图片重新上传即可更换奖品图片</span>
               </el-form-item>
 
               <el-form-item label="商品原价:">
@@ -194,6 +200,7 @@
                   <img v-if="form.imageUrl2_1" :src="form.imageUrl2_1" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
                 <span class="scccc">
                 <el-upload
@@ -205,6 +212,7 @@
                   <img v-if="form.imageUrl2_2" :src="form.imageUrl2_2" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
                 <span class="scccc">
                 <el-upload
@@ -216,6 +224,7 @@
                   <img v-if="form.imageUrl2_3" :src="form.imageUrl2_3" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
 
               </el-form-item>
@@ -260,6 +269,7 @@
                   <img v-if="imageUrl3" :src="imageUrl3" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                <span>点击图片重新上传即可更换奖品图片</span>
               </el-form-item>
 
               <el-form-item label="商品原价">
@@ -307,6 +317,7 @@
                   <img v-if="form.imageUrl3_1" :src="form.imageUrl3_1" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
                 <span class="scccc">
                 <el-upload
@@ -318,6 +329,7 @@
                   <img v-if="form.imageUrl3_2" :src="form.imageUrl3_2" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
                 <span class="scccc">
                 <el-upload
@@ -329,6 +341,7 @@
                   <img v-if="form.imageUrl3_3" :src="form.imageUrl3_3" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
 
               </el-form-item>
@@ -374,6 +387,7 @@
                   <img v-if="imageUrl4" :src="imageUrl4" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                <span>点击图片重新上传即可更换奖品图片</span>
               </el-form-item>
 
               <el-form-item label="商品原价">
@@ -421,6 +435,7 @@
                   <img v-if="form.imageUrl4_1" :src="form.imageUrl4_1" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
                 <span class="scccc">
                 <el-upload
@@ -432,6 +447,7 @@
                   <img v-if="form.imageUrl4_2" :src="form.imageUrl4_2" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
                 <span class="scccc">
                 <el-upload
@@ -443,6 +459,7 @@
                   <img v-if="form.imageUrl4_3" :src="form.imageUrl4_3" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
 
               </el-form-item>
@@ -488,6 +505,7 @@
                   <img v-if="imageUrl5" :src="imageUrl5" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                <span>点击图片重新上传即可更换奖品图片</span>
               </el-form-item>
 
               <el-form-item label="商品原价">
@@ -535,6 +553,7 @@
                   <img v-if="form.imageUrl5_1" :src="form.imageUrl5_1" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
                 <span class="scccc">
                 <el-upload
@@ -546,6 +565,7 @@
                   <img v-if="form.imageUrl5_2" :src="form.imageUrl5_2" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
                 <span class="scccc">
                 <el-upload
@@ -557,6 +577,7 @@
                   <img v-if="form.imageUrl5_3" :src="form.imageUrl5_3" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
 
               </el-form-item>
@@ -602,6 +623,7 @@
                   <img v-if="imageUrl6" :src="imageUrl6" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                <span>点击图片重新上传即可更换奖品图片</span>
               </el-form-item>
 
               <el-form-item label="商品原价">
@@ -649,6 +671,7 @@
                   <img v-if="form.imageUrl6_1" :src="form.imageUrl6_1" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
                 <span class="scccc">
                 <el-upload
@@ -660,6 +683,7 @@
                   <img v-if="form.imageUrl6_2" :src="form.imageUrl6_2" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
                 <span class="scccc">
                 <el-upload
@@ -671,6 +695,7 @@
                   <img v-if="form.imageUrl6_3" :src="form.imageUrl6_3" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
 
               </el-form-item>
@@ -716,10 +741,10 @@
                   <img v-if="imageUrl7" :src="imageUrl7" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                <span>点击图片重新上传即可更换奖品图片</span>
               </el-form-item>
               <el-form-item label="商品原价">
-                <el-input v-model="form.price7" :disabled="startPrice" onkeyup="value=value.replace(/[^\d]/g,'')"
-                          style="width: 200px"></el-input>
+                <el-input v-model="form.price7" type="text" :disabled="startPrice"  onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" style="width: 200px"></el-input>
                 <span class="xlcontent">必须是大于0的数，支持小数点后两位</span>
               </el-form-item>
               <el-form-item label="商品底价">
@@ -762,6 +787,7 @@
                   <img v-if="form.imageUrl7_1" :src="form.imageUrl7_1" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
                 <span class="scccc">
                 <el-upload
@@ -773,6 +799,7 @@
                   <img v-if="form.imageUrl7_2" :src="form.imageUrl7_2" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
                 <span class="scccc">
                 <el-upload
@@ -784,6 +811,7 @@
                   <img v-if="form.imageUrl7_3" :src="form.imageUrl7_3" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+                   <span>点击图片重新上传即可更换奖品图片</span>
 </span>
 
               </el-form-item>
@@ -980,9 +1008,10 @@
     },
     mounted() {
       // this.$store.dispatch("saveData")
+      var token = sessionStorage.getItem('token')
       this.$axios({
         method: "post",
-        url: "http://center.marketing.yunpaas.cn/kj/activitySetup/init",//数据初始化接口
+        url: "http://center.marketing.yunpaas.cn/kj/activitySetup/init?token="+token,//数据初始化接口
         params: {},
       }).then(res => {
 

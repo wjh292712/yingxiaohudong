@@ -52,11 +52,6 @@ import share from '@/page/share'
 import advanced from '@/page/advanced'
 import award from '@/page/award'
 
-//版本购买
-import indexVers from '@/version/index'
-import versionCart from '@/version/components/versionCart'
-import versionPrice from '@/version/components/versionPrice'
-
 //shouye
 import activepage from '@/page/activepage'
 import barpage from  '@/page/barpage'
@@ -72,6 +67,12 @@ import losing from '@/page/losing'
 import shouye from '@/page/shouye'
 import choujiang from '@/page/choujiang'
 import shiwan from '@/page/shiwan'
+//版本购买
+import indexVers from '@/version/index'
+import versionCart from '@/version/components/versionCart'
+import versionPrice from '@/version/components/versionPrice'
+
+
 
 import notwin from '@/page/notwin'
 import drawwin from '@/page/drawwin'
@@ -81,7 +82,7 @@ import testimonial from '@/page/testimonial'
 import xitongSetMenuList from '@/components/xitongSetMenuList'
 import shouquanSuccess from '@/page/shouquanSuccess'
 import AuthorizationSuccess from '@/page/AuthorizationSuccess'
-
+import AuthorizationSuccessError from '@/page/AuthorizationSuccessError'
 import MallHome from '@/new_page/Mall/MallHome'
 import indexHome from '@/new_page/index'
 import MallDesc from '@/new_page/MallDesc/MallDesc'
@@ -90,14 +91,19 @@ import OderInfo from '@/new_page/Payment/OderInfo'
 import BuySuccess from '@/new_page/BuySuccess/BuySuccess'
 import personal from '@/newPage/personal/personal_information'
 
+
+import verBuySuccess from '@/version/BuySuccess/verBuySuccess'
+
 import chartIndex from '@/chart/chartIndex'
 import Fanchart from '@/chart/fan/Fan_chart'
+
 
 import Basicdata from '@/chart/fan/Basicdata'
 import Spreaddata from '@/chart/fan/Spreaddata'
 
+import ceShi from '@/page/1111'
 
-
+import cartReword from '@/version/cartReword/cartReword'
 
 // import raffle from '@/page/raffle'
 Vue.use(Router)
@@ -108,6 +114,11 @@ export default new Router({
     {
       path: "/AuthorizationSuccess",
       component: AuthorizationSuccess,
+      meta:{requireAuth:true}
+    },
+    {
+      path: "/AuthorizationSuccessError",
+      component: AuthorizationSuccessError,
       meta:{requireAuth:true}
     },
     {
@@ -126,10 +137,26 @@ export default new Router({
         {
           path:"Spreaddata",
           component:Spreaddata
-        },
+        }
       ]
     },
-
+  {
+      path: "/indexVers",
+      component: indexVers,
+      meta:{requireAuth:true},
+      children:[
+        {
+          path:'versionCart',
+          component:versionCart
+        },{
+          path:'versionPrice',
+          component:versionPrice
+        },{
+          path: "verBuySuccess",
+          component: verBuySuccess,
+        }
+      ]
+    },
     {
       path: "/indexHome",
       component: indexHome,
@@ -155,28 +182,6 @@ export default new Router({
           component: BuySuccess,
 
         },
-        // {
-        //   path:'versionCart',
-        //   component:versionCart
-        // },{
-        //   path:'versionPrice',
-        //   component:versionPrice
-        // }
-      ]
-    },
-
-    {
-      path: "/indexVers",
-      component: indexVers,
-      meta:{requireAuth:true},
-      children:[
-        {
-          path:'versionCart',
-          component:versionCart
-        },{
-          path:'versionPrice',
-          component:versionPrice
-        }
       ]
     },
     // 活动端
@@ -402,6 +407,11 @@ export default new Router({
           path: "/setting/reword",
           component: reword
         },
+
+        {
+          path: "/setting/ceShi",
+          component: ceShi
+        },
         {
           path: "/setting/advanced",
           component: advanced
@@ -468,8 +478,8 @@ export default new Router({
           path: "myactive",
           component: myactive,
         },{
-        path:'myActiveDatail',
-          component:myActiveDatail
+        path:"cartReword",
+          component:cartReword
         }]
     },
 

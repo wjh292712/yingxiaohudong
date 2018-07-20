@@ -16,7 +16,6 @@
             start-placeholder="开始日期"
             end-placeholder="结束日期"
           >
-
           </el-date-picker>
         </div>
         <div class="Day_time">
@@ -34,6 +33,7 @@
           </div>
         </div>
       </div>
+      <br/>
       <div class="basic_left">
         <i class="icon"></i>
         <span class="basic_title">{{timeData}}</span>
@@ -41,23 +41,15 @@
       <div class="basic_Daytime">
         <div class="block">
           <el-date-picker
-            v-model="date"
-            type="daterange"
-            align="right"
-            unlink-panels
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
-          >
-
+            v-model="date1"
+            type="date"
+            placeholder="选择日期">
           </el-date-picker>
+
         </div>
         <div class="Day_time">
-          <ul>
-            <li v-for="(item,index) in pickerOptions2.shortcuts" class="data_Day" :key="index">
-              <el-button @click="str(item.text)">{{item.text}}</el-button>
-            </li>
-          </ul>
+
+         <span class="date_allDay"><el-checkbox v-model="checked" >全部日期</el-checkbox></span>
           <el-button class="btn_data">统计</el-button>
           <a href="#" class="outdata">导出数据</a>
         </div>
@@ -96,6 +88,8 @@
         value6: '',
         value7: '',
         date: '',
+        date1: '',
+        checked:true,
       }
     },
     created() {
@@ -333,6 +327,9 @@
         }
         .Day_time {
           overflow: hidden;
+          .date_allDay{
+            margin-left: 20px;
+          }
           ul {
             margin-left: 27px;
             .data_Day {
@@ -356,6 +353,7 @@
           }
           .btn_data {
             margin-left: 26px;
+            height: 38px;
           }
           .outdata {
             text-decoration: underline;

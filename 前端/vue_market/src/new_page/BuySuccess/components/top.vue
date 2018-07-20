@@ -37,7 +37,7 @@ export default {
         color #000
     }
     .bottom-div-view{
-        margin-top 80px
+        margin-top 44px
         height 50px
         text-align center
         position relative

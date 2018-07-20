@@ -66,9 +66,10 @@
       // this.saveAward()
     },
     mounted(){
+      var token = sessionStorage.getItem('token')
       this.$axios({
         method: "post",
-        url: "http://center.marketing.yunpaas.cn/dt/activitySetup/init",//数据初始化接口
+        url: "http://center.marketing.yunpaas.cn/dt/activitySetup/init?token="+token,//数据初始化接口
         params: {},
       }).then(res => {
         let setting_dtData=JSON.stringify(res.data.data)

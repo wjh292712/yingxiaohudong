@@ -367,7 +367,7 @@
 
 
             <!-- 奖品四 -->
-            <el-tab-pane label="奖品四" name="fourth" data-idx="3" >
+            <el-tab-pane label="奖品四" name="fourth" data-idx="3" v-if="num1">
               <el-form-item label="奖品来源">
                 <el-radio-group v-model="radio4_1">
                   <el-radio :disabled="ticket" label="1">自家商品</el-radio>
@@ -488,7 +488,7 @@
             </el-tab-pane>
 
             <!-- 奖品五 -->
-            <el-tab-pane label="奖品五" name="fifth" data-idx="4" >
+            <el-tab-pane label="奖品五" name="fifth" data-idx="4" v-if="num2">
               <el-form-item label="奖品来源">
                 <el-radio-group v-model="radio5_1">
                   <el-radio :disabled="ticket" label="1">自家商品</el-radio>
@@ -610,7 +610,7 @@
             </el-tab-pane>
 
             <!-- 奖品六 -->
-            <el-tab-pane label="奖品六" name="sixth" data-idx="5" >
+            <el-tab-pane label="奖品六" name="sixth" data-idx="5" v-if="num3">
               <el-form-item label="奖品来源">
                 <el-radio-group v-model="radio6_1">
                   <el-radio :disabled="ticket" label="1">自家商品</el-radio>
@@ -732,7 +732,7 @@
             </el-tab-pane>
 
             <!-- 奖品七 -->
-            <el-tab-pane label="奖品七" name="seventh" data-idx="6" >
+            <el-tab-pane label="奖品七" name="seventh" data-idx="6" v-if="num4">
               <el-form-item label="奖品来源">
                 <el-radio-group v-model="radio7_1">
                   <el-radio :disabled="ticket" label="1">自家商品</el-radio>
@@ -852,10 +852,10 @@
             </el-tab-pane>
 
           </el-tabs>
-          <!--<div class="cddd">-->
-          <!--<span class="reword_num" @click="addgift()" v-show="addcart">+</span>-->
-          <!--<span class="reword_num" @click="reducegift()" v-show="reduceCart">-</span>-->
-          <!--</div>-->
+          <div class="cddd">
+            <span class="reword_num" @click="addgift()" v-show="addcart">+</span>
+            <span class="reword_num" @click="reducegift()" v-show="reduceCart">-</span>
+          </div>
         </div>
       </el-form>
     </div>
@@ -1109,14 +1109,14 @@
         reword_data: '',//接口数据保存
         reword_send: '',//奖品数据回调
         dataStatus: 0,
-        // num1:false,
-        // num2:false,
-        // num3:false,
-        // num4:false,
-        // addState:0,
-        // addcart:true,
-        // reduceCart:false,
-        // saveState:[],
+        num1:false,
+        num2:false,
+        num3:false,
+        num4:false,
+        addState:0,
+        addcart:true,
+        reduceCart:false,
+        saveState:[],
       }
     },
     created() {
@@ -1345,9 +1345,9 @@
         this.radio3 = this.reword_data[0].prizeExchangeTypeId.toString() //兑奖方式
 
         if(this.radio3==1){
-            this.public=true,
+          this.public=true,
             this.shop_info=false
-            this.ser_info=false
+          this.ser_info=false
 
         }else if(this.radio3==2){
           this.public=false,
@@ -1944,43 +1944,43 @@
         this.$bus.emit("send_reword", this.reword_send,this.addState)
       },
       //添加奖品
-      // addgift() {
-      //   this.addState++
-      //   this.saveState.push(this.addState)
-      //   if(this.addState==1){
-      //     this.num1=true
-      //     this.reduceCart=true
-      //   }
-      //   if(this.addState==2){
-      //     this.num2=true
-      //   }
-      //   if(this.addState==3){
-      //     this.num3=true
-      //   }
-      //   if(this.addState==4) {
-      //     this.num4 = true
-      //     this.addcart=false
-      //   }
-      //   let abd=this.addState
-      // },
-      // //删除奖品
-      // reducegift() {
-      //   this.addState--
-      //   if(this.addState==3){
-      //     this.num4 = false
-      //     this.addcart=true
-      //   }
-      //   if(this.addState==2){
-      //     this.num3 = false
-      //   }
-      //   if(this.addState==1){
-      //     this.num2 = false
-      //   }
-      //   if(this.addState==0){
-      //     this.num1 = false
-      //     this.reduceCart=false
-      //   }
-      // },
+      addgift() {
+        this.addState++
+        this.saveState.push(this.addState)
+        if(this.addState==1){
+          this.num1=true
+          this.reduceCart=true
+        }
+        if(this.addState==2){
+          this.num2=true
+        }
+        if(this.addState==3){
+          this.num3=true
+        }
+        if(this.addState==4) {
+          this.num4 = true
+          this.addcart=false
+        }
+        let abd=this.addState
+      },
+      //删除奖品
+      reducegift() {
+        this.addState--
+        if(this.addState==3){
+          this.num4 = false
+          this.addcart=true
+        }
+        if(this.addState==2){
+          this.num3 = false
+        }
+        if(this.addState==1){
+          this.num2 = false
+        }
+        if(this.addState==0){
+          this.num1 = false
+          this.reduceCart=false
+        }
+      },
       onSubmit() {
         console.log('submit!');
       },

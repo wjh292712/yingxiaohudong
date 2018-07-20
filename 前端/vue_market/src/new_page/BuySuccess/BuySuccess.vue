@@ -12,6 +12,9 @@ export default {
 components:{
    TopView,
     BottomView
+},
+mounted(){
+
 }
 }
 </script>

@@ -28,14 +28,15 @@
         class="inline-input"
         v-model="activeState"
         :fetch-suggestions="querySearch"
-        placeholder="请输入内容"
+        placeholder="活动状态"
         @select="handleSelect"
+        AUTOCOMPLETE="OFF"
         style="width:140px;margin-right:5px">
       </el-autocomplete>
       <el-button @click="find()">查询</el-button>
     </div>
 
-    <div class="ddd" style="text-align: center">
+    <div class="ddd" style="text-align:center">
       <el-table
         :data="tableData"
         style="width: 100%;font-size:inherit;text-align: center">
@@ -46,7 +47,7 @@
         </el-table-column>
         <el-table-column
           label="活动开始时间"
-          width="130">
+          width="140">
           <template slot-scope="scope">
             {{timestampToTime(scope.row.startDate)}}
           </template>
@@ -167,7 +168,7 @@
         </div>
         <div class="actie_explain">
           <p>活动发布总次数：<i>{{total}}</i> 次</p>
-          <p>活动发布剩余数：<i>{{residualActivity}}</i> 次</p>
+          <p>活动发布剩余次数：<i>{{residualActivity}}</i> 次</p>
           <p>活动最大参与人数：<i>{{maxPerson}}</i> 人 <span> (达到该人数限制后，粉丝将不能参与活动)</span></p>
           <a href="#">升级粉丝流量></a>
           <p class="text_c">活动派奖方式：抽奖派发</p>
@@ -358,7 +359,8 @@
         dataStatus: '',
         maxPerson:'',//最大参与人数
         residualActivity:'',//剩余活动次数
-        total:'',//活动发布总次数
+        alltotal:'',//活动发布总次数
+        stateRew:'',
       }
     },
     created() {
@@ -539,8 +541,8 @@
           console.log(res);
           let _this=this
         _this.maxPerson=res.data.data.maxPerson
-            _this.residualActivity=res.data.data.residualActivity
-            _this.total=res.data.data.total
+            _this.residualActivity=res.data.data.residualActivity<=0?"无限":res.data.data.residualActivity
+            _this.alltotal=res.data.data.total
           //this. public=res.data.data
 
           var step=1
@@ -929,10 +931,10 @@
           return
         }
         let _this = this
-
+        var token = sessionStorage.getItem('token')
         this.$axios({
           method: 'post',
-          url: 'http://center.marketing.yunpaas.cn/center/activity/publish',
+          url: 'http://center.marketing.yunpaas.cn/center/activity/publish?token='+token,
           params: {
             activityId: this.activeId,
             templateUuid: this.templateUuid,
@@ -940,6 +942,7 @@
           },
         }).then(res => {
           console.log(res);
+          alert(res.data.data+"22e")
           var token = sessionStorage.getItem('token')
           this.$axios({
             method: 'post',
@@ -958,7 +961,7 @@
             this.handleCurrentChange()
 
           }).catch(res => {
-            alert(res.data.msg)
+            alert(res.data.msg+"nnn")
           })
         })
       },
@@ -1042,7 +1045,7 @@
   }
 </script>
 
-<style scoped>
+<style  scoped>
   .active_Info {
     width: 85%;
     margin: 0 auto;
@@ -1276,5 +1279,8 @@
     border-left: 0;
     background: #FC7132;
     color: #fff;
+  }
+  .el-table th{
+    text-align: center;
   }
 </style>

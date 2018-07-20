@@ -231,11 +231,7 @@
         let setting_data=JSON.stringify(res.data.data)
         sessionStorage.setItem("Data",setting_data)
         this.dataStatus=this.$route.query.dataStatus
-        if(this.dataStatus===undefined){
           this.partAward()
-        }else if (this.dataStatus==='1') {
-          this.partAward1()
-        }
       })
 
     },
@@ -244,19 +240,19 @@
       ...mapActions(['saveData']),
     },
     updated(){
-      if(this.dataStatus===undefined){
         this.saveAward()
-      }else if (this.dataStatus==='1') {
-        this.saveAward1()
-      }
     },
     methods: {
 
       //派奖设置
       partAward() {
         // this.$store.dispatch('saveData')
-        let Data = sessionStorage.getItem('Data')
-        this.award_data = JSON.parse(Data).jggAwardSendSetup
+        if(this.dataStatus===undefined){
+          let Data = sessionStorage.getItem('Data')
+          this.award_data = JSON.parse(Data).jggAwardSendSetup
+        }else if (this.dataStatus==='1') {
+          this.award_data = this.$route.query.newjggData.jggAwardSendSetup
+        }
         if (!this.award_data.singleTotalDrawLimit) {
           this.radio1 = '2'
         }
@@ -265,22 +261,16 @@
         this.input3 = this.award_data.singleWinCount
         this.radio2 = this.award_data.sendRule.toString()
       },
-      partAward1() {
-        // this.$store.dispatch('saveData')
-        this.award_data = this.$route.query.newjggData.jggAwardSendSetup
-        if (!this.award_data.singleTotalDrawLimit) {
-          this.radio1 = '2'
-        }
-        this.input1=this.award_data.singleDrawCount
-        this.input2 = this.award_data.singleDayDrawCount
-        this.input3 = this.award_data.singleWinCount
-        this.radio2 = this.award_data.sendRule.toString()
-      },
+
       //派奖保存
       saveAward() {
         // this.$store.dispatch('saveData')
-        let Data = sessionStorage.getItem('Data')
-        this.award_send = JSON.parse(Data).jggAwardSendSetup
+        if(this.dataStatus===undefined){
+          let Data = sessionStorage.getItem('Data')
+          this.award_send = JSON.parse(Data).jggAwardSendSetup
+        }else if (this.dataStatus==='1') {
+          this.award_send = this.$route.query.newjggData.jggAwardSendSetup
+        }
         this.award_send.singleTotalDrawLimit = this.radio1 == 1 ? true : false
         this.award_send.singleDayDrawCount = this.input2
         this.award_send.singleWinCount = this.input3
@@ -289,17 +279,7 @@
         this.$bus.emit("send_award", this.award_send)
         // console.log(this.$store.state.setting_data.jggAwardSendSetup)
       },
-      saveAward1() {
 
-        this.award_send = this.$route.query.newjggData.jggAwardSendSetup
-        this.award_send.singleTotalDrawLimit = this.radio1 == 1 ? true : false
-        this.award_send.singleDayDrawCount = this.input2
-        this.award_send.singleWinCount = this.input3
-        this.award_send.sendRule = this.radio2
-        this.$store.state.setting_data.jggAwardSendSetup = this.award_send
-        this.$bus.emit("send_award", this.award_send)
-        // console.log(this.$store.state.setting_data.jggAwardSendSetup)
-      },
       back(){
         this.$router.go(-1)
       },

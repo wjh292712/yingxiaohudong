@@ -79,9 +79,10 @@ import ansadvanced from '@/page/ansadvanced'
     },
     mounted(){
       // this.$store.dispatch('saveDatadt')
+      var token = sessionStorage.getItem('token')
       this.$axios({
         method: "post",
-        url: "http://center.marketing.yunpaas.cn/dt/activitySetup/init",//数据初始化接口
+        url: "http://center.marketing.yunpaas.cn/dt/activitySetup/init?token="+token,//数据初始化接口
         params: {},
       }).then(res => {
         let _this = this
@@ -159,7 +160,7 @@ import ansadvanced from '@/page/ansadvanced'
               alert(data.data)
               _this.$router.push({path:'/activeslide/myactive'})
             }else {
-              alert(data.msg+"11")
+              alert(data.msg)
               console.log(data.msg);
             }
           }

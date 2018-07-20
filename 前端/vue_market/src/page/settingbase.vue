@@ -32,8 +32,7 @@
         <el-form-item label="参与人数">
           <el-radio-group v-model="radio1">
             <el-radio label="1">隐藏</el-radio>
-            <el-radio label="2">
-              <span @click="pepshow()">显示</span></el-radio>
+            <el-radio label="2">显示</el-radio>
           </el-radio-group>
           <div class="label_text" v-show="pepcount">在实际参与人数基础上增加
             <input class="people" v-model="addpepCount" style="display: inline-block;width: 50px;height: 20px;text-align: center"/>
@@ -44,7 +43,7 @@
         <el-form-item label="是否关注">
           <el-radio-group v-model="radio2">
             <el-tooltip class="item" effect="light" content="权限不足请升级" placement="top-start">
-              <el-radio label="1" checked :disabled="follow" :hover="权限不足请升级">是</el-radio>
+              <el-radio label="1" checked :disabled="follow">是</el-radio>
             </el-tooltip>
             <el-radio label="2">否</el-radio>
 
@@ -152,32 +151,11 @@
         this.timestampToTime()
         this.startTime=this.$route.query.startTime
         this.dataStatus=this.$route.query.dataStatus
-        if(this.dataStatus===undefined){
           this.partBase()
-        }else if (this.dataStatus==='1') {
-          this.partBase1()
-        }
       })
-      // this.$axios({
-      //   method: "post",
-      //   url: "http://center.marketing.yunpaas.cn/jgg/activitySetup/init",//数据初始化接口
-      //   params: {},
-      //   // cancelToken: source.token
-      // }).then(res => {
-      //   console.log(res);
-      //   this.state.setting_data = res.data.data
-      //   let strData = JSON.stringify(this.state.setting_data)//所有九宫格数据
-      //   sessionStorage.setItem("Data", strData)//存储数据
-      //
-      // })
-
     },
     updated(){
       this.saveBase()
-      //  if (this.dataStatus==='1') {
-      //   this.saveBase1()
-      // }
-      // this.base_data=this.$route.newjggData.dtBaseSetup
 
     },
     computed: {
@@ -190,13 +168,13 @@
       partBase() {
         let _this = this
         let formName=""
+        if(this.dataStatus===undefined){
           let Data = sessionStorage.getItem('Data')
-          console.log(Data);
           _this.base_data = JSON.parse(Data).jggBaseSetup
-        // _this.$store.dispatch('saveData')
-        // let Data = sessionStorage.getItem('Data')
+        }else if (this.dataStatus==='1') {
+          _this.base_data=_this.$route.query.newjggData.jggBaseSetup
+        }
 
-        console.log(_this.base_data);
         _this.formName = _this.base_data.activityName
         formName = _this.base_data.activityName
         _this.form.desc=_this.base_data.rule
@@ -213,7 +191,16 @@
         _this.value1=newStr
         _this.value2=strend
         // console.log(_this.value4);
-        _this.radio1 = Number(_this.base_data.shows).toString(),
+        _this.radio1 =_this.base_data.shows==true?'1':'2'
+
+          if(_this.radio1==1){
+            _this.pepcount=false
+
+          }else if(_this.radio1==2){
+            _this.pepcount=true
+
+          }
+
           _this.radio2 = _this.base_data.subscribe==false?'2':'1'
         if(_this.base_data.allowClickSubscribe==true){
           this.follow=false
@@ -223,41 +210,6 @@
 
       },
 
-      partBase1() {
-        let _this = this
-        let formName=""
-          _this.base_data=_this.$route.query.newjggData.jggBaseSetup
-        // _this.$store.dispatch('saveData')
-        // let Data = sessionStorage.getItem('Data')
-
-        console.log(_this.base_data);
-        _this.formName = _this.base_data.activityName
-        formName = _this.base_data.activityName
-        _this.form.desc=_this.base_data.rule
-        _this.addpepCount=_this.base_data.addNum
-        _this.start_date = _this.base_data.startDate//日期开始时间
-        _this.end_date=_this.base_data.endDate//结束时间
-        let str = _this.start_date
-        let strend=_this.end_date
-
-        //时间戳转换日期
-        let newStr= _this.timestampToTime(str)
-        strend=_this.timestampToTime(strend)
-        _this.value4=[newStr,strend]
-        _this.value1=newStr
-        _this.value2=strend
-
-        // console.log(_this.value4);
-
-        _this.radio1 = Number(_this.base_data.shows).toString(),
-          _this.radio2 = _this.base_data.subscribe==false?'2':'1'
-        if(_this.base_data.allowClickSubscribe==true){
-          this.follow=false
-        }else if(_this.base_data.allowClickSubscribe==false){
-          this.follow=true
-        }
-
-      },
       timestampToTime(timestamp) {
         var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
         var Y = date.getFullYear() + '-';
@@ -288,27 +240,19 @@
         _this.base_send.startDate = _this.start_date
         _this.base_send.endDate =  _this.end_date
         _this.base_send.shows = _this.radio1 == 1 ? true : false;
+        if(_this.radio1==1){
+          _this.pepcount=false
+
+        }else if(_this.radio1==2){
+          _this.pepcount=true
+
+        }
+
         _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
         // this.$store.state.setting_data.jggBaseSetup = this.base_send
         _this.$bus.emit("send_base", _this.base_send)
 
       },
-      // saveBase1() {
-      //   let _this = this
-      //   // _this.$store.dispatch('saveData')
-      //   _this.base_send = _this.$route.query.newjggData.jggBaseSetup
-      //   _this.base_send.activityName = _this.formName
-      //   _this.base_send.rule=_this.form.desc
-      //   _this.base_send.addNum =_this.addpepCount
-      //   // this.base_data.endDate = this.value7
-      //   _this.base_send.startDate = _this.start_date
-      //   _this.base_send.endDate =  _this.end_date
-      //   _this.base_send.shows = _this.radio1 == 1 ? true : false;
-      //   _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
-      //   // this.$store.state.setting_data.jggBaseSetup = this.base_send
-      //   _this.$bus.emit("send_base", _this.base_send)
-      //
-      // },
       onSubmit() {
 
         // this.activeTime = this.activeTime.getTime();
@@ -337,9 +281,7 @@
       back(){
         this.$router.go(-1)
       },
-      pepshow(){
-        this.pepcount=!this.pepcount
-      }
+
     }
   })
 

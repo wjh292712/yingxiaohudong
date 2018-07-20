@@ -24,7 +24,11 @@
               <span>
                       <el-radio-group v-model="radio2">
                         <el-radio label="1">隐藏</el-radio>
-                        <el-radio label="2">显示</el-radio>
+
+                        <el-tooltip class="item" effect="light" content="权限不足请升级" placement="top-start">
+                    <el-radio label="2" :disabled="logoCamp">显示</el-radio>
+            </el-tooltip>
+
                       </el-radio-group>
                     </span>
               <span class="logo_up" v-show="logoShow">
@@ -32,6 +36,7 @@
                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"> 上传logo</i>
               </el-upload>
+                 <span>点击图片重新上传即可更换奖品图片</span>
               </span>
             </p>
 
@@ -40,7 +45,11 @@
               <span>
                       <el-radio-group v-model="radio3">
                         <el-radio label="0">默认</el-radio>
-                        <el-radio label="1">自定义</el-radio>
+
+                        <el-tooltip class="item" effect="light" content="权限不足请升级" placement="top-start">
+                     <el-radio label="1" :disabled="loadImg">自定义</el-radio>
+            </el-tooltip>
+
                         <!-- <el-radio>上传LOGO</el-radio> -->
                       </el-radio-group>
                     </span>
@@ -49,6 +58,7 @@
                       <img v-if="imageUrl1" :src="imageUrl1" class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon">上传图片</i>
                     </el-upload>
+                 <span>点击图片重新上传即可更换奖品图片</span>
                   </span>
             </p>
 
@@ -76,7 +86,11 @@
               <span class="open">微信分享图标:</span>
               <span>
                         <el-radio v-model="radio5" label="1">默认</el-radio>
-                        <el-radio v-model="radio5" label="2">自定义</el-radio>
+
+                <el-tooltip class="item" effect="light" content="权限不足请升级" placement="top-start">
+                   <el-radio v-model="radio5" :disabled="shareLogoType" label="2">自定义</el-radio>
+            </el-tooltip>
+
                   <span v-show="wxicon" class="wxic">
   <el-upload
     class="avatar-uploader"
@@ -87,6 +101,7 @@
                     <img v-if="imageUrl2" :src="imageUrl2" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon">上传图标</i>
                   </el-upload>
+                     <span>点击图片重新上传即可更换奖品图片</span>
                     </span>
                       </span>
             </p>
@@ -94,7 +109,10 @@
               <span class="open">微信分享标题:</span>
               <span>
                         <el-radio v-model="radio6" label="1">默认</el-radio>
-                        <el-radio v-model="radio6" label="2">自定义</el-radio>
+                <el-tooltip class="item" effect="light" content="权限不足请升级" placement="top-start">
+             <el-radio v-model="radio6" :disabled="wxShareTitleType" label="2">自定义</el-radio>
+            </el-tooltip>
+
                       </span>
               <span v-show="wxTil">
                 <el-input
@@ -111,8 +129,10 @@
               <span class="open">微信分享内容:</span>
               <span>
                         <el-radio v-model="radio7" label="1">默认</el-radio>
-                        <el-radio v-model="radio7" label="2">
-                          <span @click="wxcontent()">自定义</span></el-radio>
+                <el-tooltip class="item" effect="light" content="权限不足请升级" placement="top-start">
+             <el-radio v-model="radio7" :disabled="shareContentType" label="2">自定义</el-radio>
+            </el-tooltip>
+
                       </span>
               <span v-show="wxsharcontent">
                 <el-input
@@ -142,7 +162,12 @@
               <span>轮播中奖信息：</span>
               <span>
                         <el-radio v-model="radio9" label="1">开启</el-radio>
-                        <el-radio v-model="radio9" label="2">关闭</el-radio>
+                <el-tooltip class="item" effect="light" content="权限不足请升级" placement="top-start">
+               <el-radio v-model="radio9" label="2" :disabled="awardCarousel">关闭</el-radio>
+            </el-tooltip>
+
+
+
                       </span>
             </p>
             <p>
@@ -158,9 +183,15 @@
                         <el-radio v-model="radio11" label="1">
                           <span @click="centerDialogVisible = true">全部</span>
                         </el-radio>
-                        <el-radio v-model="radio11" label="2">
+
+<el-tooltip class="item" effect="light" content="权限不足请升级" placement="top-start">
+               <el-radio v-model="radio11" label="2" :disabled="advanceArea">
                           <span @click="centerDialogVisible = true">部分</span>
                         </el-radio>
+            </el-tooltip>
+
+
+
                         <el-dialog title="表单字段" :visible.sync="centerDialogVisible" width="30%" center>
 
                         </el-dialog>
@@ -215,27 +246,30 @@
         wxsharcontent:false,
         logoShow:false,
         dataStatus:0,
+        shareContentType:false,
+        shareLogoType:false,
+        wxShareTitleType:false,
+        logoCamp:false,
+        loadImg:false,
+        awardCarousel:false,
+        advanceArea:false,
       };
     },
     created(){
 
     },
     mounted(){
+      var token = sessionStorage.getItem('token')
       this.$axios({
         method: "post",
-        url: "http://center.marketing.yunpaas.cn/kj/activitySetup/init",//数据初始化接口
+        url: "http://center.marketing.yunpaas.cn/kj/activitySetup/init?token="+token,//数据初始化接口
         params: {},
       }).then(res => {
         let _this=this
         let setting_kjData=JSON.stringify(res.data.data)
         sessionStorage.setItem("Datakj",setting_kjData)
-        this.base_data=this.$route.query.newkjData
         this.dataStatus=this.$route.query.dataStatus
-        if(this.dataStatus===undefined){
           this.partHight()
-        }else if (this.dataStatus==='1') {
-          this.partHight1()
-        }
       })
     },
     computed:{
@@ -243,15 +277,9 @@
       ...mapActions(['saveDatakj'])
     },
     updated(){
-
-      if(this.dataStatus===undefined){
         this.saveHight()
-      }else if (this.dataStatus==='1') {
-        this.saveHight1()
-      }
     },
     methods: {
-
 
       partHight(){
         // this.$store.dispatch('saveData')
@@ -261,11 +289,12 @@
           this.share = JSON.parse(Data).kjShareSetup
           this.other = JSON.parse(Data).kjHighOtherSetup
         }else if (this.dataStatus==='1') {
-          this.saveHight1()
+          this.company = this.$route.query.newkjData.kjHighCompanySetup
+          this.share = this.$route.query.newkjData.kjShareSetup
+          this.other = this.$route.query.newkjData.kjHighOtherSetup
         }
 
         // 企业设置
-        this.company = JSON.parse(Data).kjHighCompanySetup
         this.input=this.company.company //主办单位
         this.input3=this.company.url   //链接地址
         this.radio2 = this.company.companyLogoType.toString()//主办单位logo
@@ -280,9 +309,19 @@
         }else {
           this.imgLoa=true
         }
+       if(this.company.allowClickCompanyLogo==true){
+         this.logoCamp=false
+       } else if(this.company.allowClickCompanyLogo==false){
+         this.logoCamp=true
+       }
+        if(this.company.allowClickLoadImg==true){
+          this.loadImg=false
+        } else if(this.company.allowClickLoadImg==false){
+          this.loadImg=true
+        }
+
 
         // 分享设置
-        this.share = JSON.parse(Data).kjShareSetup
         this.imageUrl = this.share.wxShareSelfLogo
         this.radio4=Number(this.share.share).toString()
         this.radio5 = this.share.wxShareLogoType.toString()
@@ -303,9 +342,27 @@
         }else {
           this.wxsharcontent=true
         }
+        if(this.share.allowClickWxShareLogo==true){
+          this.shareLogoType=false
+        }else if (this.share.allowClickWxShareLogo==false
+        ){
+          this.shareLogoType=true
+        }
+        if(this.share.allowClickWxShareTitle==true){
+          this.wxShareTitleType=false
+        }else if (this.share.allowClickWxShareTitle==false
+        ){
+          this.wxShareTitleType=true
+        }
+        if(this.share.allowClickWxShareContent==true){
+          this.shareContentType=false
+        }else if (this.share.allowClickWxShareContent==false
+        ){
+          this.shareContentType=true
+        }
 
         // 其它设置
-        this.other = JSON.parse(Data).kjHighOtherSetup
+
         if(this.other.ad){
           this.radio8 = "1"
         }
@@ -318,73 +375,33 @@
         if(!this.other.area){
           this.radio11 = "1"
         }
-      },
-      partHight1(){
-        // this.$store.dispatch('saveData')
-
-        // 企业设置
-        this.company = this.$route.query.newkjData.kjHighCompanySetup
-        this.input=this.company.company //主办单位
-        this.input3=this.company.url   //链接地址
-        this.radio2 = this.company.companyLogoType.toString()//主办单位logo
-        if(this.radio2==1){
-          this.logoShow=false
-        }else {
-          this.logoShow=true
+        if(this.other.allowClickCarousel==true){
+          this.awardCarousel=false
+        }else if(this.other.allowClickCarousel==false){
+          this.awardCarousel=true
         }
-        this.radio3=this.company.loadImgType.toString()
-        if(this.radio3==0){
-          this.imgLoa=false
-        }else {
-          this.imgLoa=true
-        }
-
-        // 分享设置
-        this.share = this.$route.query.newkjData.kjShareSetup
-        this.imageUrl = this.share.wxShareSelfLogo
-        this.radio4=Number(this.share.share).toString()
-        this.radio5 =Number(this.share.wxShareLogoType).toString()
-        if(this.radio5==1){
-          this.wxicon=false
-        }else {
-          this.wxicon=true
-        }
-        this.radio6 = Number(this.share.wxShareTitleType).toString()
-        if(this.radio6==1){
-          this.wxTil=false
-        }else {
-          this.wxTil=true
-        }
-        this.radio7 = Number(this.share.wxShareContentType).toString()
-        if(this.radio7==1){
-          this.wxsharcontent=false
-        }else {
-          this.wxsharcontent=true
-        }
-
-        // 其它设置
-        this.other = this.$route.query.newkjData.kjHighOtherSetup
-        if(this.other.ad){
-          this.radio8 = "1"
-        }
-        if(this.other.carousel){
-          this.radio9 = "1"
-        }
-        if(!this.other.form){
-          this.radio10 = "1"
-        }
-        if(!this.other.area){
-          this.radio11 = "1"
+        if(this.other.allowClickArea==true){
+          this.advanceArea=false
+        }else if(this.other.allowClickArea==false){
+          this.advanceArea=true
         }
       },
 
       //保存设置
       saveHight(){
         // this.$store.dispatch('saveData')
-        let Data = sessionStorage.getItem('Datakj')
+        if(this.dataStatus===undefined){
+          let Data = sessionStorage.getItem('Datakj')
+          this.company_send = JSON.parse(Data).kjHighCompanySetup
+          this.share_send = JSON.parse(Data).kjShareSetup
+          this.other_send = JSON.parse(Data).kjHighOtherSetup
+        }else if (this.dataStatus==='1') {
+          this.company_send = this.$route.query.newkjData.kjHighCompanySetup
+          this.share_send = this.$route.query.newkjData.kjShareSetup
+          this.other_send =this.$route.query.newkjData.kjHighOtherSetup
+        }
 
         //企业保存设置
-        this.company_send = JSON.parse(Data).kjHighCompanySetup
         this.company_send.company = this.input
         this.company_send.url = this.input3
         this.company_send.companyLogoType = Number(this.radio2)
@@ -403,7 +420,6 @@
         this.$store.state.setting_kjData.kjHighCompanySetup = this.company_send
 
         // 分享保存设置
-        this.share_send = JSON.parse(Data).kjShareSetup
         this.share_send.share =  this.radio4 == 1 ? true : false
         this.share_send.wxShareLogoType = this.radio5
         if(this.radio5==1){
@@ -423,64 +439,28 @@
         }else {
           this.wxsharcontent=true
         }
+        if(this.share_data.allowClickWxShareLogo==true){
+          this.shareLogoType=false
+        }else if (this.share_data.allowClickWxShareLogo==false
+        ){
+          this.shareLogoType=true
+        }
+        if(this.share_data.allowClickWxShareTitle==true){
+          this.wxShareTitleType=false
+        }else if (this.share_data.allowClickWxShareTitle==false
+        ){
+          this.wxShareTitleType=true
+        }
+        if(this.share_data.allowClickWxShareContent==true){
+          this.shareContentType=false
+        }else if (this.share_data.allowClickWxShareContent==false
+        ){
+          this.shareContentType=true
+        }
+
         this.$store.state.setting_kjData.kjShareSetup = this.share_send
 
         // 其它保存设置
-        this.other_send = JSON.parse(Data).kjHighOtherSetup
-        this.other_send.ad = this.radio8 == 1 ? true : false
-        this.other_send.carousel = this.radio9 == 1 ? true : false
-        this.other_send.form = this.radio10 == 1 ? false : true
-        this.other_send.area = this.radio11 == 1 ? false : true
-        this.$store.state.setting_kjData.kjHighOtherSetup =this.other_send
-          this.$bus.emit("send_high",[this.company_send,this.share_send,this.other_send])
-      },
-      saveHight1(){
-        // this.$store.dispatch('saveData')
-
-        //企业保存设置
-        this.company_send = this.$route.query.newkjData.kjHighCompanySetup
-        this.company_send.company = this.input
-        this.company_send.url = this.input3
-        this.company_send.companyLogoType = Number(this.radio2)
-        if(this.radio2==1){
-          this.logoShow=false
-        }else {
-          this.logoShow=true
-        }
-        this.company_send.loadImgType = this.radio3
-
-        if(this.radio3==0){
-          this.imgLoa=false
-        }else {
-          this.imgLoa=true
-        }
-        this.$store.state.setting_kjData.kjHighCompanySetup = this.company_send
-
-        // 分享保存设置
-        this.share_send = this.$route.query.newkjData.kjShareSetup
-        this.share_send.share =  this.radio4 == 1 ? true : false
-        this.share_send.wxShareLogoType = this.radio5
-        if(this.radio5==1){
-          this.wxicon=false
-        }else {
-          this.wxicon=true
-        }
-        this.share_send.wxShareTitleType = this.radio6
-        if(this.radio6==1){
-          this.wxTil=false
-        }else {
-          this.wxTil=true
-        }
-        this.share_send.wxShareContentType = this.radio7
-        if(this.radio7==1){
-          this.wxsharcontent=false
-        }else {
-          this.wxsharcontent=true
-        }
-        this.$store.state.setting_kjData.kjShareSetup = this.share_send
-
-        // 其它保存设置
-        this.other_send =this.$route.query.newkjData.kjHighOtherSetup
         this.other_send.ad = this.radio8 == 1 ? true : false
         this.other_send.carousel = this.radio9 == 1 ? true : false
         this.other_send.form = this.radio10 == 1 ? false : true
@@ -502,33 +482,25 @@
         this.imageUrl2 = file.response.data
       },
       beforeAvatarUpload(file) {
-         const isJPG = file.type === 'image/jpeg';
-        const isPNG = file.type === 'image/png';
-        // const isLt2M = file.size / 1024 / 1024 < 2;
+        //  const isJPG = file.type === 'image/jpeg';
+        // const isPNG = file.type === 'image/png';
+        //  const isLt2M = file.size / 1024 / 1024 < 2;
         //
-         if (!isJPG||!isPNG) {
-           this.$message.error('上传头像图片只能是 JPG或PNG 格式!');
-        // }
-        // if (!isLt2M) {
-        //   this.$message.error('上传头像图片大小不能超过 2MB!');
-         }
-        return isJPG||isPNG;
+        //  if (!isJPG||!isPNG) {
+        //    this.$message.error('上传头像图片只能是 JPG或PNG 格式!');
+        //  }
+        //  if (!isLt2M) {
+        //    this.$message.error('上传头像图片大小不能超过 2MB!');
+        //  }
+        // return isJPG||isPNG;
       },
-      logo(){
-        this.logoShow=!this.logoShow
-      },
-      imgLoad(){
-        this.imgLoa=!this.imgLoa
-      },
-      wxiconShow(){
-        this.wxicon=!this.wxicon
-      },
-      wxTitle(){
-        this.wxTil=!this.wxTil
-      },
-      wxcontent(){
-        this.wxsharcontent=!this.wxsharcontent
-      }
+      // logo(){
+      //   this.logoShow=!this.logoShow
+      // },
+      // imgLoad(){
+      //   this.imgLoa=!this.imgLoa
+      // },
+
     }
   };
 </script>

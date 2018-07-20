@@ -20,6 +20,8 @@
           </el-tab-pane>
           <el-tab-pane label="奖品设置" name="second">
             <reword></reword>
+            <!--<ceshi></ceshi>-->
+
           </el-tab-pane>
           <el-tab-pane label="派奖设置" name="third">
             <award></award>
@@ -45,6 +47,7 @@
 
   import settingBase from '@/page/settingbase'
   import settingbaseEdit from '@/page/settingbaseEdit'
+  import ceshi from '@/page/1111'
   import reword from '@/page/reword'
   import share from '@/page/share'
   import advanced from '@/page/advanced'
@@ -67,7 +70,7 @@
           award: "",
           high: ""
         },
-        sendData: ""
+        sendData: "",
       }
     },
     created() {
@@ -102,11 +105,9 @@
           // this.onSave();
           // console.log(data)
         })
-        //奖金设置返回的数据
+        //奖品设置返回的数据
         this.$bus.on("send_reword", function (data) {
           data == '' ? _this.sendData.jggAwardSetupExtendList = _this.sendData.jggAwardSetupExtendList : _this.sendData.jggAwardSetupExtendList = data
-
-          // console.log(data)
         })
         //派奖设置返回的数据
         this.$bus.on("send_award", function (data) {
@@ -169,12 +170,10 @@
       // },
       //保存设置
       onSave() {//所有的数据设置保存大保存
-
         console.log('发送保存数据');
-        var sendNew = this.sendData
+        var sendNew = JSON.stringify(this.sendData)
         console.log(sendNew)
         var token = sessionStorage.getItem('token')
-        console.log(token);
         if(JSON.parse(sendNew).jggBaseSetup.activityName===""){
           alert("用户名不能为空")
         return
@@ -186,9 +185,10 @@
           // url:"http://192.168.2.112:8085/jgg/activitySetup/save?token="+token,
           data: sendNew,
           contentType: "application/json",
-          // datatype:"json",
+           datatype:"json",
           success(data) {//保存跳转活动页面
             // console.log(data.data)
+
             if (data.data === "请重新登录") {
               alert(data.data)
               _this.$router.push({path: '/login'})
@@ -237,6 +237,7 @@
       settingBase,
       settingbaseEdit,
       reword,
+      ceshi,
       share,
       advanced,
       award

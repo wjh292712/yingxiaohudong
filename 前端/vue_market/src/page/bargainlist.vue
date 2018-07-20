@@ -148,9 +148,10 @@
       ...mapActions(['saveDatakj'])
     },
     created(){
+      var token = sessionStorage.getItem('token')
       this.$axios({
         method: "post",
-        url: "http://center.marketing.yunpaas.cn/kj/activitySetup/init",//数据初始化接口
+        url: "http://center.marketing.yunpaas.cn/kj/activitySetup/init?token="+token,//数据初始化接口
         params: {},
       }).then(res => {
         console.log(res.data.data);

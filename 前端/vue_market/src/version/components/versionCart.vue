@@ -78,7 +78,7 @@
         </div>
       </div>
       <div class="version_goodsDetail">
-        <div><img src="../../../static/active/goodsDetail.png" alt=""></div>
+        <div><img src="@/assets/bakground.png" alt=""></div>
       </div>
     </div>
   </div>

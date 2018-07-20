@@ -72,9 +72,10 @@
       ...mapActions(['saveDatakj'])
     },
     mounted(){
+      var token = sessionStorage.getItem('token')
       this.$axios({
         method: "post",
-        url: "http://center.marketing.yunpaas.cn/kj/activitySetup/init",//数据初始化接口
+        url: "http://center.marketing.yunpaas.cn/kj/activitySetup/init?token="+token,//数据初始化接口
         params: {},
       }).then(res => {
         let _this=this
@@ -82,7 +83,7 @@
         if(this.dataStatus===undefined){
           let setting_kjData=JSON.stringify(res.data.data)
           sessionStorage.setItem("Datakj",setting_kjData)
-          //this.$store.dispatch('saveDatakj')
+
           let Data = sessionStorage.getItem('Datakj')
           // console.log(sessionStorage.getItem('Datakj'));
           this.sendData = JSON.parse(Data)

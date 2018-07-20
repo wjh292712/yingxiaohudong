@@ -7,28 +7,6 @@
         <span class="basic_title">{{basicData}}</span>
       </div>
       <div class="basic_Daytime">
-        <div class="block">
-          <el-date-picker
-            v-model="date"
-            type="daterange"
-            align="right"
-            unlink-panels
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
-          >
-
-          </el-date-picker>
-        </div>
-        <div class="Day_time">
-          <ul>
-            <li v-for="(item,index) in pickerOptions2.shortcuts" class="data_Day" :key="index">
-              <el-button @click="str(item.text)">{{item.text}}</el-button>
-            </li>
-          </ul>
-          <el-button class="btn_data">统计</el-button>
-          <a href="#" class="outdata">导出数据</a>
-        </div>
         <div class="charts">
           <div id="mainsp" :style="{width:'1100px',height:'420px'}">
 
@@ -74,39 +52,39 @@
             <el-table-column
               prop="name"
               label="综合排名"
-              width="150"
+              width="100"
              >
             </el-table-column>
             <el-table-column
               prop="date"
               label="昵称"
-              width="150"
+              width="140"
              >
             </el-table-column>
             <el-table-column
               prop="status"
               label="地区"
-              width="150">
+              width="140">
             </el-table-column>
             <el-table-column
               prop="number"
               label="下级浏览次数"
-              width="150">
+              width="140">
             </el-table-column>
             <el-table-column
               prop="shuliang"
               label="下级参与次数"
-              width="150">
+              width="140">
             </el-table-column>
             <el-table-column
               prop="chuanbo_num"
               label="下级分享次数"
-              width="150">
+              width="140">
             </el-table-column>
             <el-table-column
               prop="active_caveat"
               label="综合指数"
-              width="150">
+              width="180">
             </el-table-column>
           </el-table>
         </div>
@@ -126,8 +104,7 @@
       return {
         thi_s: null,
         picker: null,
-        basicData: '每日趋势图',
-        timeData: '每小时趋势图',
+        basicData: '传播层级',
         pickerOptions2: {
           shortcuts: [{
             text: '最近三天',
@@ -192,7 +169,7 @@
             trigger: 'axis'
           },
           legend: {
-            data: ['浏览人数', '参与人数', '获奖人数', '分享人数']
+            data: ['浏览人数', '参与人数', '分享人数']
           },
           grid: {
             left: '3%',
@@ -233,18 +210,7 @@
               stack: '总量',
               data: [220, 182, 191, 234, 290, 330, 310]
             },
-            {
-              name: '视频广告',
-              type: 'line',
-              stack: '总量',
-              data: [150, 232, 201, 154, 190, 330, 410]
-            },
-            {
-              name: '获奖人数',
-              type: 'line',
-              stack: '总量',
-              data: [320, 332, 301, 334, 390, 330, 320]
-            },
+
             {
               name: '分享人数',
               type: 'line',
@@ -602,5 +568,10 @@
       }
     }
 
+  }
+</style>
+<style>
+  .el-table th{
+    text-align: center;
   }
 </style>

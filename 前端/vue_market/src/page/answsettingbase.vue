@@ -39,7 +39,9 @@
         </el-form-item>
         <el-form-item label="是否需要关注:" >
           <el-radio-group v-model="radio2">
-            <el-radio label="1" checked>是</el-radio>
+            <el-tooltip class="item" effect="light" content="权限不足请升级" placement="top-start">
+              <el-radio label="1" checked :disabled="follow" :hover="权限不足请升级">是</el-radio>
+            </el-tooltip>
             <el-radio label="2">否</el-radio>
 
           </el-radio-group>
@@ -123,29 +125,25 @@
         endTime:false,//基础设置的结束时间
         actName:false,
         dataStatus:0,
+        follow:false,
       };
-
     },
     created(){
 
     },
     mounted(){
+      var token = sessionStorage.getItem('token')
       this.$axios({
         method: "post",
-        url: "http://center.marketing.yunpaas.cn/dt/activitySetup/init",//数据初始化接口
+        url: "http://center.marketing.yunpaas.cn/dt/activitySetup/init?token="+token,//数据初始化接口
         params: {},
       }).then(res => {
         let setting_dtData=JSON.stringify(res.data.data)
         sessionStorage.setItem("Datadt",setting_dtData)
         this.startTime=this.$route.query.startTime
         this.dataStatus=this.$route.query.dataStatus
-        if(this.dataStatus===undefined){
           this.partBase()
-        }else if (this.dataStatus==='1') {
-          this.partBase1()
-        }
       })
-
     },
 
     computed:{
@@ -154,11 +152,6 @@
     },
     updated(){
       this.saveBase()
-        // if(this.dataStatus===undefined){
-        //   this.saveBase()
-        // }else if (this.dataStatus==='1') {
-        //   this.saveBase1()
-        // }
 
     },
 
@@ -168,12 +161,22 @@
       partBase(){
         let _this = this
          _this.$store.dispatch('saveDatadt')
-        let Data = sessionStorage.getItem('Datadt')
-        _this.base_data = JSON.parse(Data).dtBaseSetup
+        if(this.dataStatus===undefined){
+          let Data = sessionStorage.getItem('Datadt')
+          _this.base_data = JSON.parse(Data).dtBaseSetup
+        }else if (this.dataStatus==='1') {
+          _this.base_data = this.$route.query.newdtData.dtBaseSetup
+        }
+
         _this.formName = _this.base_data.activityName //活动名称
         _this.radio1 = Number(_this.base_data.shows).toString(), //参与人数
           _this.addCount=_this.base_data.addDoubling//增加人数倍数
-          _this.radio2 = Number(_this.base_data.subscribe).toString()//是否需要关注
+        _this.radio2 = _this.base_data.subscribe==false?'2':'1'//是否需要关注
+        if(_this.base_data.allowClickSubscribe==true){
+          this.follow=false
+        }else if(_this.base_data.allowClickSubscribe==false){
+          this.follow=true
+        }
         _this.start_date = _this.base_data.startDate//开始时间
         _this.end_date = _this.base_data.endDate//结束时间
         _this.form.explain=_this.base_data.rule//活动规则
@@ -185,40 +188,6 @@
         _this.value4 = [newStr, strend]
         _this.value1=newStr
         _this.value2=strend
-      },
-      partBase1(){
-        let _this = this
-        // _this.$store.dispatch('saveDatadt')
-
-        _this.base_data = this.$route.query.newdtData.dtBaseSetup
-        _this.formName = _this.base_data.activityName //活动名称
-        _this.radio1 = Number(_this.base_data.shows).toString(), //参与人数
-          _this.addCount=_this.base_data.addDoubling//增加人数倍数
-          _this.radio2 = Number(_this.base_data.subscribe).toString()//是否需要关注
-        _this.start_date = _this.base_data.startDate//开始时间
-        _this.end_date = _this.base_data.endDate//结束时间
-        _this.form.explain=_this.base_data.rule//活动规则
-        let str = _this.start_date
-        let strend = _this.end_date
-        //时间戳转换日期
-        let newStr = _this.timestampToTime(str)
-        strend = _this.timestampToTime(strend)
-        _this.value4 = [newStr, strend]
-        _this.value1=newStr
-        _this.value2=strend
-      },
-      getter(){
-
-      },
-      timestampToTime(timestamp) {
-        var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-        var Y = date.getFullYear() + '-';
-        var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-        var D = date.getDate() + ' ';
-        var h = date.getHours() + ':';
-        var m = date.getMinutes() + ':';
-        var s = date.getSeconds();
-        return Y + M + D + h + m + s;
       },
       saveBase(){
         let _this = this
@@ -244,28 +213,16 @@ console.log(_this.base_send)
 
         }
       },
-      // saveBase1(){
-      //   let _this = this
-      //   // _this.$store.dispatch('saveData')
-      //   _this.base_send = this.$route.query.newdtData.dtBaseSetup
-      //   console.log(_this.base_send);
-      //   _this.base_send.activityName = _this.formName
-      //   _this.base_send.addDoubling= _this.addCount
-      //   _this.base_send.shows = _this.radio1 == 1 ? true : false;
-      //   _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
-      //   _this.base_send.startDate= _this.start_date
-      //   _this.base_send.endDate=_this.end_date
-      //   _this.base_send.rule= _this.form.explain
-      //   if (this.formName != '') {
-      //     this.$store.state.setting_dtData.dtBaseSetup = this.base_send
-      //     _this.$bus.emit("send_base",_this.base_send)
-      //
-      //   } else {
-      //     alert('活动名称，不能为空哦！')
-      //
-      //   }
-      // },
-
+      timestampToTime(timestamp) {
+        var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+        var D = date.getDate() + ' ';
+        var h = date.getHours() + ':';
+        var m = date.getMinutes() + ':';
+        var s = date.getSeconds();
+        return Y + M + D + h + m + s;
+      },
       onSubmit() {
         // alert(this.activeTime.getTime());
         // this.activeTime = this.activeTime.getTime();

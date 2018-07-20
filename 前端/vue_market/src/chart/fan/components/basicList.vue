@@ -16,7 +16,7 @@
               <!--<span>{{item.rewordPrice}}</span>-->
             <!--</li>-->
             <li class="list_info">
-              <span>本月退款</span>
+              <span>累计浏览人数</span>
               <span>1788554</span>
               <span>浏览次数8776次</span>
             </li>

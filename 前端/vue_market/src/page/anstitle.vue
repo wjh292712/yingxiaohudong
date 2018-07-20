@@ -65,13 +65,14 @@
                   :on-success="handleAvatarSuccess"
                   :before-upload="beforeAvatarUpload"
                   :on-remove="handleRemove" class="avatar-uploader">
-                  <i class="el-icon-plus"></i>
+
                   <img v-if="imageUrl[indx]" :src="imageUrl[indx]" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
                 <!--<el-dialog :visible.sync="dialogVisibl">-->
                   <!--<img width="100%" :src="imageUrl[indx]" alt="">-->
                 <!--</el-dialog>-->
+                <span>点击图片重新上传即可更换奖品图片</span>
               </el-form-item>
               <p class="imgInfo"> 只能上传jpg/png文件，且不超过500kb</p>
               <el-form-item label="正确答案:" label-width="80px">
@@ -175,9 +176,10 @@
 
     },
     mounted() {
+      var token = sessionStorage.getItem('token')
       this.$axios({
         method: "post",
-        url: "http://center.marketing.yunpaas.cn/dt/activitySetup/init",//数据初始化接口
+        url: "http://center.marketing.yunpaas.cn/dt/activitySetup/init?token="+token,//数据初始化接口
         params: {},
       }).then(res => {
         console.log(res.data.data);

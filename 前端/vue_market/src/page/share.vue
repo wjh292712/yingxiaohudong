@@ -50,10 +50,10 @@
             <img v-if="dialogImageUrl" :src="dialogImageUrl" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon">上传图标</i>
           </el-upload>
-
           <el-dialog :visible.sync="dialogVisible">
             <img width="100%" :src="dialogImageUrl" alt="">
           </el-dialog>
+          <span>点击图片重新上传即可更换奖品图片</span>
         </el-form-item>
         <el-form-item label="微信分享标题">
           <el-radio-group v-model="form.resource3">
@@ -144,21 +144,13 @@
         let setting_data = JSON.stringify(res.data.data)
         sessionStorage.setItem("Data", setting_data)
         this.dataStatus = this.$route.query.dataStatus
-        if (this.dataStatus === undefined) {
           this.partShare()
-        } else if (this.dataStatus === '1') {
-          this.partShare1()
-        }
       })
 
     },
     updated() {
 
-      if (this.dataStatus === undefined) {
         this.savedShare()
-      } else if (this.dataStatus === '1') {
-        this.savedShare1()
-      }
     },
     methods: {
       onSubmit() {
@@ -178,8 +170,13 @@
       //分享设置部分
       partShare() {
         // this.$store.dispatch('saveData')
-        let Data = sessionStorage.getItem('Data')
-        this.share_data = JSON.parse(Data).jggShareSetup
+        if (this.dataStatus === undefined) {
+          let Data = sessionStorage.getItem('Data')
+          this.share_data = JSON.parse(Data).jggShareSetup
+        } else if (this.dataStatus === '1') {
+          this.share_data = this.$route.query.newjggData.jggShareSetup
+        }
+
         this.form.resource1 = Number(this.share_data.share).toString()
         this.dialogImageUrl = this.share_data.wxShareSelfLogo
         this.form.resource2 = this.share_data.wxShareLogoType.toString()
@@ -222,56 +219,17 @@
         }
 
       },
-      partShare1() {
 
-        this.share_data = this.$route.query.newjggData.jggShareSetup
-        this.form.resource1 = Number(this.share_data.share).toString()
-        this.dialogImageUrl = this.share_data.wxShareSelfLogo
-        this.form.resource2 = this.share_data.wxShareLogoType.toString()
-        if (this.form.resource2 == 1) {
-          this.shareIcon = false
-        } else {
-          this.shareIcon = true
-        }
-        this.form.resource3 = this.share_data.wxShareTitleType.toString()
-        if (this.form.resource3 == 1) {
-          this.shareTitl = false
-        } else {
-          this.shareTitl = true
-        }
-        this.form.resource4 = this.share_data.wxShareContentType.toString()
-        if (this.form.resource4 == 1) {
-          this.shareContent = false
-        } else {
-          this.shareContent = true
-        }
-        this.form.desc1=this.share_data.wxShareSelfTitle
-        this.form.desc2=this.share_data.wxShareSelfContent
-
-        if(this.share_data.allowClickWxShareLogo==true){
-          this.shareLogoType=false
-        }else if (this.share_data.allowClickWxShareLogo==false
-        ){
-          this.shareLogoType=true
-        }
-        if(this.this.share_data.allowClickWxShareTitle==true){
-          this.wxShareTitleType=false
-        }else if (this.this.share_data.allowClickWxShareTitle==false
-        ){
-          this.wxShareTitleType=true
-        }
-        if(this.share_data.allowClickWxShareContent==true){
-          this.shareContentType=false
-        }else if (this.share_data.allowClickWxShareContent==false
-        ){
-          this.shareContentType=true
-        }
-      },
       //分享保存部分
       savedShare() {
         // this.$store.dispatch('saveData')
-        let Data = sessionStorage.getItem('Data')
-        this.share_send = JSON.parse(Data).jggShareSetup
+        if (this.dataStatus === undefined) {
+          let Data = sessionStorage.getItem('Data')
+          this.share_send = JSON.parse(Data).jggShareSetup
+        } else if (this.dataStatus === '1') {
+          this.share_send = this.$route.query.newjggData.jggShareSetup
+        }
+
         this.share_send.share = this.form.resource1 == 1 ? true : false
         this.share_send.wxShareSelfLogo = this.dialogImageUrl
 
@@ -294,7 +252,7 @@
           this.shareContent = true
         }
         this.share_send.wxShareSelfTitle=this.form.desc1
-        this.share_data.wxShareSelfContent=this.form.desc2
+        this.share_send.wxShareSelfContent=this.form.desc2
         if(this.share_data.allowClickWxShareLogo==true){
           this.shareLogoType=false
         }else if (this.share_data.allowClickWxShareLogo==false
@@ -314,52 +272,6 @@
           this.shareContentType=true
         }
 
-        this.$store.state.setting_data.jggShareSetup = this.share_send
-        this.$bus.emit("send_share", this.share_send)
-      },
-      savedShare1() {
-        // this.$store.dispatch('saveData')
-
-        this.share_send = this.$route.query.newjggData.jggShareSetup
-        this.share_send.share = this.form.resource1 == 1 ? true : false
-        this.share_send.wxShareSelfLogo = this.dialogImageUrl
-        this.share_send.wxShareLogoType = this.form.resource2
-        if (this.form.resource2 == 1) {
-          this.shareIcon = false
-        } else {
-          this.shareIcon = true
-        }
-        this.share_send.wxShareTitleType = this.form.resource3
-        if (this.form.resource3 == 1) {
-          this.shareTitl = false
-        } else {
-          this.shareTitl = true
-        }
-        this.share_send.wxShareContentType = this.form.resource4
-        if (this.form.resource4 == 1) {
-          this.shareContent = false
-        } else {
-          this.shareContent = true
-        }
-
-        if(this.share_data.allowClickWxShareLogo==true){
-          this.shareLogoType=false
-        }else if (this.share_data.allowClickWxShareLogo==false
-        ){
-          this.shareLogoType=true
-        }
-        if(this.share_data.allowClickWxShareTitle==true){
-          this.wxShareTitleType=false
-        }else if (this.share_data.allowClickWxShareTitle==false
-        ){
-          this.wxShareTitleType=true
-        }
-        if(this.share_data.allowClickWxShareContent==true){
-          this.shareContentType=false
-        }else if (this.share_data.allowClickWxShareContent==false
-        ){
-          this.shareContentType=true
-        }
         this.$store.state.setting_data.jggShareSetup = this.share_send
         this.$bus.emit("send_share", this.share_send)
       },

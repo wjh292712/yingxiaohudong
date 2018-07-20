@@ -3,8 +3,8 @@
         <div class="active_con">
             <div class="active_slide">
                 <ul class="slide_list">
-                    <li class="list_con" v-for="(item,index) in activemsg" :class="{tab_change:classActive == index}" @click = "changeClick(index)">
-                        <p>{{item}}</p>
+                    <li class="list_con" v-for="(item,index) in activemsg" :class="{tab_change:index ==classActive}"  @click = "changeClick(index)">
+                      <p>{{item}}</p>
                     </li>
                 </ul>
             </div>
@@ -34,7 +34,6 @@
         },
       mounted(){
         this.$store.dispatch('activePull')
-        this.changeClick()
       },
         components:{
             activeList,
@@ -43,7 +42,9 @@
         methods:{
             changeClick(index){
                 this.classActive = index
+
               var token=sessionStorage.getItem('token')
+              if(this.classActive==1){
                 this.$axios({
                   method:'post',
                   url:'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token='+token,//我的活动
@@ -66,11 +67,14 @@
                   console.log(res);
                   if(this.classActive===1){
                     this.$router.push({path:'/activeslide/myactive'})
-                  }else if(this.classActive===0){
-                    this.$router.push({path:'/activeslide/activeFirst'})
                   }
-
                 })
+              }
+              if(this.classActive===0){
+                this.$router.push({path:'/activeslide/activeFirst'})
+              }else if(this.classActive===2){
+                this.$router.push({path:'/activeslide/cartReword'})
+              }
 
             //    this.time = parseInt(this.num,16)
             //     console.log(this.time)
@@ -114,4 +118,8 @@
             }
         }
     }
+  .nowpage{
+    background: #c2e7b0;
+  }
+
 </style>
