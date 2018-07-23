@@ -54,7 +54,7 @@
         basicData: '基础数据',
         basicList: [
           {
-            name: "本月退款",
+            name: "累计浏览人数",
             people: "1788554",
             pepinfo: "浏览次数8776次"
           }, {
@@ -107,11 +107,12 @@
     .basicconent {
       width: 100%;
       height: 248px;
+      overflow-x: auto;
       .basic_con {
         padding: 22px 0px 50px 20px;
         overflow: hidden;
         .list_info {
-          width: 242px;
+          width: 23%;
           height: 173px;
           background: #FFFFFF;
           border: 1px solid #E8E8E8;
@@ -158,7 +159,7 @@
           }
         }
         .list_info4 {
-          width: 242px;
+          width: 23%;
           height: 173px;
           background: #FFFFFF;
           border: 1px solid #E8E8E8;

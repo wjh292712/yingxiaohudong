@@ -23,16 +23,16 @@
         </el-table-column>
         <el-table-column
           label="规格"
-          prop="stockNum"
+          prop="specName"
         >
         </el-table-column>
 
         <el-table-column
-          prop="allPrice"
+          prop="typeName"
           label="类型">
         </el-table-column>
         <el-table-column
-          prop="sendGoods"
+          prop="stockNum"
           label="当前库存数量">
         </el-table-column>
         <el-table-column
@@ -50,13 +50,13 @@
             <span
               class="acc"
               size="mini"
-              @click="CartDetail($event,scope.row.id)">
+              @click="CartDetail($event,scope.row.goodsId)">
            采购明细
             </span>
             <span
               class="abb"
               size="mini"
-              @click="handleEdit($event,scope.row.id)">
+              @click="handleEdit($event,scope.row.goodsId)">
            再次采购
             </span>
           </template>
@@ -85,11 +85,18 @@
       <el-date-picker
         size="large"
         v-model="cartTime"
-        type="datetimerange"
-        start-placeholder="采购时间"
-        style="width:300px;margin-right:5px">
+        type="datetime"
+        placeholder="采购时间"
+        style="width:200px;margin-right:5px">
       </el-date-picker>
-      <el-button @click="find()">查询</el-button>
+      <el-date-picker
+        size="large"
+        v-model="cartendTime"
+        type="datetime"
+        placeholder="采购时间"
+        style="width:200px;margin-right:5px">
+      </el-date-picker>
+      <el-button @click="findcart()">查询</el-button>
     </div>
     <div class="ddd" style="text-align:center">
       <el-table
@@ -128,8 +135,8 @@
       <div class="block">
         <el-pagination
           background
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
+          @size-change="handleSizeChange1"
+          @current-change="handleCurrentChange1"
           :current-page.sync="currentPage"
           :page-size="pagesize"
           layout=" prev, pager, next, jumper"
@@ -138,7 +145,6 @@
       </div>
     </div>
     </div>
-
   </div>
 </template>
 <script>
@@ -153,13 +159,13 @@
         goodsList: [],//已购商品列表
         goodsDetailList:[],//商品详情列表
         goodsId:'',
-        cartTime:'',//采购时间
+        cartTime:null,//采购时间
+        cartendTime:null,
         total: 100,//默认数据总数
         pagesize: 10,//每页的数据条数
         currentPage: 1,//默认开始页面
         isshow:true,
         isshowDetail:false
-
       }
     },
     created() {
@@ -177,13 +183,11 @@
         }
       }).then(res => {
         let pageData = res.data.data
-        console.log(pageData);
         let Datalist = res.data.data.list
         this.pagesize = pageData.pageSize
         this.currentPage = pageData.pageNum
         this.total = pageData.total
         this.goodsList = Datalist
-
       })
     },
     updated(){
@@ -213,18 +217,34 @@
           this.goodsList = Datalist
         })
       },
+      findcart(){
+        var token = sessionStorage.getItem('token')
+        this.$axios({
+          method:'post',
+          url:'http://center.marketing.yunpaas.cn/center/shopOrder/getOrderListByGoods?goodsId='+this.goodsId,
+          params:{
+            startDate:this.cartTime === null ? '' : this.cartTime.getTime(),
+            endDate:this.cartendTime === null ? '' : this.cartendTime.getTime(),
+          }
+        }).then(res=>{
+          console.log(res);
+          let pageData = res.data.data
+          let Datalist = res.data.data
+          this.pagesize = pageData.pageSize
+          this.currentPage = pageData.pageNum
+          this.total = pageData.total
+          this.goodsDetailList = Datalist
+
+        })
+
+      },
       goBack(){
       this.isshow=true
           this.isshowDetail=false
-
       },
       handleEdit(e,id){
         this.goodsId=id
-
       this.$router.push({path:'/indexHome/MallDesc?id='+this.goodsId})
-
-
-
       },
       CartDetail(e,id){
         this.goodsId=id
@@ -232,13 +252,12 @@
         this.isshowDetail=true
         this.$axios({
           method:'post',
-          url:'http://center.marketing.yunpaas.cn/center/shopOrder/getOrderListByGoods?goodsId='+1,
+          url:'http://center.marketing.yunpaas.cn/center/shopOrder/getOrderListByGoods?goodsId='+this.goodsId,
           params:{
 
           }
         }).then(res=>{
           let pageData = res.data.data
-          console.log(pageData);
           let Datalist = res.data.data
           this.pagesize = pageData.pageSize
           this.currentPage = pageData.pageNum
@@ -246,7 +265,6 @@
           this.goodsDetailList = Datalist
         })
       },
-
       //日期转换
       timestampToTime(timestamp) {
         var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
@@ -258,19 +276,6 @@
         var s = date.getSeconds();
         return Y + M + D + h + m + s;
       },
-
-
-      formatter(row, column) {
-        return row.address;
-      },
-      filterTag(value, row) {
-        return row.tag === value;
-      },
-      filterHandler(value, row, column) {
-        const property = column['property'];
-        return row[property] === value;
-      },
-
 
       handleSizeChange: function (size) {
         this.pagesize = size;
@@ -288,13 +293,36 @@
           }
         }).then(res => {
           let pageData = res.data.data
-          console.log(pageData);
           let Datalist = res.data.data.list
-          this.pagesize = pageData.pagesize
+          this.pagesize = pageData.pageSize
           this.currentPage = pageData.pageNum
           this.total = pageData.total
-          this.tableData = Datalist
-          console.log(this.tableData);
+          this.goodsList = Datalist
+        })
+        this.currentPage = currentPage;
+      },
+      handleSizeChange1: function (size) {
+        this.pagesize = size;
+      },
+      handleCurrentChange1: function (currentPage) {
+
+        var token = sessionStorage.getItem('token')
+        this.$axios({
+          method: 'post',
+          url:'http://center.marketing.yunpaas.cn/center/shopOrder/getOrderListByGoods?goodsId='+this.goodsId,
+          params: {
+            pageSize: this.pagesize,
+            pageNum: this.currentPage,
+            goodsName:this.goodsname
+          }
+        }).then(res => {
+          let pageData = res.data.data
+          console.log(pageData);
+          let Datalist = res.data.data
+          this.pagesize = pageData.pageSize
+          this.currentPage = pageData.pageNum
+          this.total = pageData.total
+          this.goodsDetailList = Datalist
         })
         this.currentPage = currentPage;
       }

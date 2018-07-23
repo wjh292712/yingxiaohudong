@@ -19,8 +19,8 @@
             <!--<settingbaseEdit></settingbaseEdit>-->
           </el-tab-pane>
           <el-tab-pane label="奖品设置" name="second">
-            <reword></reword>
-            <!--<ceshi></ceshi>-->
+            <!--<reword></reword>-->
+            <ceshi></ceshi>
 
           </el-tab-pane>
           <el-tab-pane label="派奖设置" name="third">

@@ -15,20 +15,21 @@
             range-separator="至"
             start-placeholder="开始日期"
             end-placeholder="结束日期"
+            @change="getDay()"
           >
           </el-date-picker>
         </div>
         <div class="Day_time">
           <ul>
             <li v-for="(item,index) in pickerOptions2.shortcuts" class="data_Day" :key="index">
-              <el-button @click="str(item.text)">{{item.text}}</el-button>
+              <el-button @click="str(item.text,item.id)">{{item.text}}</el-button>
             </li>
           </ul>
-          <el-button class="btn_data">统计</el-button>
+          <!--<el-button class="btn_data">统计</el-button>-->
           <a href="#" class="outdata">导出数据</a>
         </div>
         <div class="charts">
-          <div id="main" :style="{width:'1100px',height:'420px'}">
+          <div id="main" :style="{width:'100%',height:'420px'}">
 
           </div>
         </div>
@@ -43,18 +44,19 @@
           <el-date-picker
             v-model="date1"
             type="date"
-            placeholder="选择日期">
+            placeholder="选择日期"
+          @change="getDayTime()">
           </el-date-picker>
 
         </div>
         <div class="Day_time">
 
          <span class="date_allDay"><el-checkbox v-model="checked" >全部日期</el-checkbox></span>
-          <el-button class="btn_data">统计</el-button>
+          <!--<el-button class="btn_data">统计</el-button>-->
           <a href="#" class="outdata">导出数据</a>
         </div>
         <div class="charts">
-          <div id="mychart" :style="{width:'1100px',height:'420px'}">
+          <div id="mychart" :style="{width:'100%',height:'420px'}">
 
           </div>
         </div>
@@ -76,20 +78,26 @@
         pickerOptions2: {
           shortcuts: [{
             text: '最近三天',
+            id:3
 
           }, {
             text: '最近一周',
+            id:7
 
           }, {
             text: '最近一月',
+            id:30
 
           }]
         },
+
         value6: '',
         value7: '',
-        date: '',
-        date1: '',
+        date:[],
+        date1:'',
+        Datetime:[],
         checked:true,
+        dateid:'',
       }
     },
     created() {
@@ -100,8 +108,35 @@
       this.drawLine()
       this.drawLineTime()
     },
+    updated(){
+
+    },
     methods: {
-      str(val) {
+      getDay(){
+        console.log(this.date);
+        console.log(this.date[1] - this.date[0]);
+
+
+
+        var day1 = new Date(this.date[0])
+        var day2 = new Date(this.date[1])
+
+        var s1 = day1.getTime(),s2 = day2.getTime();
+        var total = (s2 - s1)/1000;
+
+
+        var day = parseInt(total / (24*60*60));//计算整数天数
+       this.dateid=day
+
+        this.getDate(this.dateid)
+      },
+      getDayTime(){
+        console.log(this.date1.getTime());
+
+
+      },
+      str(val,id) {
+        this.dateid=id
         let start = null;
         let end = null;
         if (val == "最近三天") {
@@ -118,8 +153,11 @@
           start = new Date();
           start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
         }
-        $(".el-date-editor >.el-range-input").eq(0).val(pub.fmtDate(start))
-        $(".el-date-editor >.el-range-input").eq(1).val(pub.fmtDate(end))
+        this.date=[pub.fmtDate(start),pub.fmtDate(end)]
+
+        this.getDate(this.dateid)
+        // $(".el-date-editor >.el-range-input").eq(0).val(pub.fmtDate(start))
+        // $(".el-date-editor >.el-range-input").eq(1).val(pub.fmtDate(end))
         //  //console.log(this.picker)
         // this.pickerOptions2.shortcuts[0].onClick(el)
       },
@@ -154,7 +192,7 @@
           xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: _this.date,
+            data: _this.Datetime,
             axisLabel: {
               interval: 0,
               rotate: 40,
@@ -178,12 +216,6 @@
               type: 'line',
               stack: '总量',
               data: [220, 182, 191, 234, 290, 330, 310]
-            },
-            {
-              name: '视频广告',
-              type: 'line',
-              stack: '总量',
-              data: [150, 232, 201, 154, 190, 330, 410]
             },
             {
               name: '获奖人数',
@@ -238,7 +270,6 @@
 
             },
 
-
           },
           yAxis: {
             type: 'value'
@@ -257,12 +288,6 @@
               data: [220, 182, 191, 234, 290, 330, 310]
             },
             {
-              name: '视频广告',
-              type: 'line',
-              stack: '总量',
-              data: [150, 232, 201, 154, 190, 330, 410]
-            },
-            {
               name: '获奖人数',
               type: 'line',
               stack: '总量',
@@ -277,11 +302,12 @@
           ]
         });
       },
-      getDate() {
-        var d = new Date();
+      getDate(idx) {
+        var d = new Date(this.date[1]);
+        this.dateid=idx
         var i = 2;
         var ary = [];
-        for (var i = 0; i < 31; i++) {
+        for (var i = 0; i <this.dateid; i++) {
           var month;
           var r = d.getDate() - 1;
           d.setDate(Math.abs(r));
@@ -290,7 +316,9 @@
           var year = new Date().getFullYear();
           ary.push(month + '/' + day);
         }
-        this.date = ary.reverse()
+        console.log(ary);
+        this.Datetime = ary.reverse()
+        this.drawLine()
       }
     },
     components: {},
