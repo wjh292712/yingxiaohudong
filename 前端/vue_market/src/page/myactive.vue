@@ -21,7 +21,7 @@
         v-model="value5"
         type="datetimerange"
         start-placeholder="活动结束时间"
-        style="width:300px;margin-right:5px">
+        style="width:360px;margin-right:5px">
       </el-date-picker>
       <el-autocomplete
         clearable="true"
@@ -33,7 +33,7 @@
         AUTOCOMPLETE="OFF"
         style="width:140px;margin-right:5px">
       </el-autocomplete>
-      <el-button @click="find()">查询</el-button>
+      <el-button @click="find()" class="btnsFind">查询</el-button>
     </div>
 
     <div class="ddd" style="text-align:center">
@@ -110,7 +110,7 @@
             <span
               class="acc"
               size="mini"
-              @click="handleEdit($event,scope.row.activityId,scope.row.templateUuid)">
+              @click="handleEdit($event,scope.row.activityId,scope.row.templateUuid)" v-if="scope.row.stateForMyActivity==3?false:true">
            发布／
             </span>
             <span
@@ -202,7 +202,7 @@
         </div>
         <div class="activePublic">
           <span class="publicName">承办活动公众号:</span>
-          <el-select v-model="value" placeholder="请选择" style="min-width: 300px">
+          <el-select v-model="value" placeholder="请选择" style="min-width: 100px; heigth:10px">
             <el-option
               v-for="item in public"
               :key="item.value"
@@ -439,12 +439,13 @@
 
       find() {//点击查询
         var token = sessionStorage.getItem('token')
-        if (this.value4 === null) {
-          this.value4 = ''
-        }
-        if (this.value5 === null) {
-          this.value5 = ''
-        }
+        // if (this.value4 === null) {
+        //   this.value4 = ''
+        // }
+        // if (this.value5 === null) {
+        //   this.value5 = ''
+        // }
+        console.log(this.value4);
         this.$axios({
           method: 'post',
           url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,
@@ -456,6 +457,10 @@
             startTime2: this.value4[1] === undefined || null ? '' : this.value4[1].getTime(),
             endTime1: this.value5[0] === undefined || null ? '' : this.value5[0].getTime(),
             endTime2: this.value5[1] === undefined || null ? '' : this.value5[1].getTime(),
+            // startTime1:this.value4===''||null?'':this.value4.getTime(),
+            // startTime2:this.value5===''||null?'':this.value5.getTime(),
+            // endTime1:'',
+            // endTime2:'',
             activityState: this.activeFindState,
           }
         }).then(res => {
@@ -771,11 +776,12 @@
         this.activeId = index
         this.templateUuid = templ
         this.states = states
+        var token = sessionStorage.getItem('token')
 
         if (this.templateUuid == 1) {
           this.$axios({
             method: 'post',
-            url: 'http://center.marketing.yunpaas.cn/jgg/activitySetup/copy',
+            url: 'http://center.marketing.yunpaas.cn/jgg/activitySetup/copy?token='+token,
             params: {
               id: this.activeId,
             }
@@ -942,7 +948,7 @@
           },
         }).then(res => {
           console.log(res);
-          alert(res.data.data+"22e")
+          alert(res.data.data)
           var token = sessionStorage.getItem('token')
           this.$axios({
             method: 'post',
@@ -979,9 +985,10 @@
         let _this = this
         this.activeId = ac
         this.templateUuid = te
+        var token = sessionStorage.getItem('token')
         this.$axios({
           method: 'post',
-          url: 'http://center.marketing.yunpaas.cn/center/activity/delete',
+          url: 'http://center.marketing.yunpaas.cn/center/activity/delete?token='+token,
           params: {
             activityId: this.activeId,
             templateUuid: this.templateUuid
@@ -1015,7 +1022,7 @@
         var token = sessionStorage.getItem('token')
         this.$axios({
           method: 'post',
-          url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,
+          url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token='+token,
           params: {
             activityName: this.activename,
             startTime1: this.value4[0] === undefined || null ? '' : this.value4[0].getTime(),
@@ -1046,6 +1053,10 @@
 </script>
 
 <style  scoped>
+  .active_inp >>> .el-date-picker{
+    padding: 0px;
+
+  }
   .active_Info {
     width: 85%;
     margin: 0 auto;
@@ -1258,19 +1269,24 @@
 
   .activePublic {
     margin-top: 1rem;
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .activePublic .publicName {
     display: block;
     float: left;
     padding-left: 30px;
+    margin-top: 5px;
     color: #6d6d72;
 
   }
 
   .pub_inp {
     margin-left: -50px;
+  }
+  .btnsFind{
+    background: #FC7132;
+    color: white;
   }
 
 </style>

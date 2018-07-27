@@ -69,6 +69,7 @@ export default {
             float right
             font-size 30px
             margin-right 10px
+            cursor pointer
         }
 
     }

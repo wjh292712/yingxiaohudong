@@ -2,17 +2,17 @@
 <div class="container">
 <div id="menu_list">
 <ul id="uulls">
-  
+
         <router-link tag="li" :to="item.url" v-for="(item,key) in dataList" :key="key">
         {{item.name}}
         </router-link>
-   
+
 </ul>
 </div>
 <div id="right_view">
 <router-view></router-view>
 </div>
-</div>    
+</div>
 </template>
 
 <script>
@@ -28,6 +28,10 @@ data(){
                 name:"系统设置",
                 url:"/xitongSetMenuList/xitongSet"
             },
+          {
+            name:"个人信息",
+            url:"#"
+          },
             {
                 name:"操作日志",
                 url:"#"
@@ -48,7 +52,7 @@ width: 100%;
 }
 #app{
     height: 100%;
-   
+
 }
 .app_down{
     height: 100%;
@@ -69,7 +73,7 @@ width: 100%;
 .container{
     height: 100%;
     margin-top:0px !important;
-    
+
 }
 #menu_list{
     width: 10%;

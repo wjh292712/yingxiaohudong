@@ -27,21 +27,21 @@
         </div>
         <div class="ttle-div">
           <!--<el-input-number v-model="num1" @change="handleChange" :min="1" :max="5" label="描述文字"></el-input-number>-->
-
-          <el-select v-model="num1" placeholder="请选择" style="min-width: 100px" @change="handleChange" class="selcc">
-            <el-option
-              v-for="item in yearList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id">
-            </el-option>
-          </el-select>
+<span>{{versionYearId}}年赠{{versionMounth}}个月</span>
+          <!--<el-select v-model="num1" placeholder="请选择" style="min-width: 100px" @change="handleChange" class="selcc">-->
+            <!--<el-option-->
+              <!--v-for="item in yearList"-->
+              <!--:key="item.id"-->
+              <!--:label="item.name"-->
+              <!--:value="item.id">-->
+            <!--</el-option>-->
+          <!--</el-select>-->
           <div class="bot-div">
             <p class="pps">
-              优惠:<span class="offer-price">￥{{(goodsPrePrice)}}</span>
+              优惠:<span class="offer-price">￥{{(proPrice)}}</span>
             </p>
             <p class="pps">
-              小计:<span class="offer-price">￥{{goodsPrice}}</span>
+              小计:<span class="offer-price">￥{{proPrice}}</span>
             </p>
           </div>
 
@@ -54,9 +54,9 @@
     </div>
     <div class="sp"></div>
     <div class="buy-type">
-      <div class="buy-one dvs" @click="styles('3')" :class="{boxShows:style_flag=='3'}">
-        账户余额支付
-      </div>
+      <!--<div class="buy-one dvs" @click="styles('3')" :class="{boxShows:style_flag=='3'}">-->
+        <!--账户余额支付-->
+      <!--</div>-->
       <div class="buy-two dvs" @click="styles('1')" :class="{boxShows:style_flag=='1'}">
         <img src="@/assets/weixin.png">
         微信支付
@@ -69,7 +69,7 @@
     <div class="sp"></div>
     <div class="payment-div">
       <p class="payment-price">
-        应付金额:<span class="price"> {{goodsPrice}}</span>
+        应付金额:<span class="price"> {{proPrice}}</span>
       </p>
     </div>
     <el-button class="payment" @click="buy_sub">立即支付</el-button>
@@ -96,8 +96,10 @@
         num1: 1,
         zhanghu: false,
         style_flag: "",
-        versionId: '',
-        versionYearId: '',
+        versionId: '',//版本id
+        versionYearId: '',//版本年
+        versionSpecId:'',//版本内id
+        versionMounth:'',
         name: '',
         oriPrice: '',
         proPrice: '',
@@ -105,33 +107,32 @@
         goodsPrice:'',
         yearId:'',
         yearList:'',
-        orderId:'',
+        orderId:'',//
         outTradeNo:'',
       };
     },
-    methods: {
-      handleChange(value) {
-        this.versionId = this.$route.query.versionId
-        this.versionYearId = value
-        this.$axios({
-          method: 'post',
-          url: 'http://center.marketing.yunpaas.cn/center/versionInfo/getPayInfo',
-          params: {
-            versionId: this.versionId,
-            versionYearId: this.versionYearId
-          }
-        }).then(res => {
-          this.list = res.data.data.goodsInfo
-          this.name = this.list.name
-          this.oriPrice = this.list.oriPrice
-          this.proPrice = this.list.proPrice
-          this.goodsPrice = res.data.data.goodsPrice
-          this.goodsPrePrice=res.data.data.goodsPrePrice
-          this.num1=res.data.data.yearId
-          this.yearList=res.data.data.versionInfoYear
-        })
+    mounted() {
+      this.versionId = this.$route.query.versionId
+      this.versionSpecId= this.$route.query.versionSpecId
+      this.$axios({
+        method: 'post',
+        url: 'http://center.marketing.yunpaas.cn/center/versionInfo/getPayInfo',
+        params: {
+          versionId: this.versionId,
+          versionSpecId: this.versionSpecId
+        }
+      }).then(res => {
+        console.log(res);
+        this.name=res.data.data.versionInfoSpec.name
+        this.oriPrice=res.data.data.versionInfoSpec.oriPrice
+        this.proPrice=res.data.data.versionInfoSpec.salePrice
+        this.versionYearId=res.data.data.versionInfoSpec.buyYear
+        this.versionMounth=res.data.data.versionInfoSpec.giveMonth
+      })
+    },
 
-      },
+    methods: {
+
       styles(el) {
         this.style_flag = el
       },
@@ -142,12 +143,14 @@
           url:'http://center.marketing.yunpaas.cn/center/enterpriseRoleUp/makeOrder',
           params:{
             roleId:this.versionId,
-            years:this.versionYearId
+            specId:this.versionSpecId
           }
         }).then(res=>{
           console.log(res);
+          if(res.data.status==false){
+            alert(res.data.msg)
+          }
           this.orderId=res.data.data.orderId
-
           this.$axios({
             method:'post',
             url:'http://center.marketing.yunpaas.cn/center/enterpriseRoleUp/OrderPay',
@@ -157,19 +160,16 @@
             }
           }).then(res=>{
             if (this.style_flag == '3') {
-              this.$bus.$emit("zhanghu",this.orderId,this.goodsPrice,this.name, true)
+              this.$bus.$emit("zhanghu",this.orderId,this.proPrice,this.name, true)
             } else if (this.style_flag == '1') {
-              this.$bus.$emit("weixin",this.orderId,this.goodsPrice,this.name,"http://center.marketing.yunpaas.cn/center/enterpriseRoleUp/OrderPay?orderId="+this.orderId+"&payType="+this.style_flag, true)
+              this.$bus.$emit("weixin",this.orderId,this.proPrice,this.name,"http://center.marketing.yunpaas.cn/center/enterpriseRoleUp/OrderPay?orderId="+this.orderId+"&payType="+this.style_flag, true)
             }else if(this.style_flag == '2'){
               window.location.href="http://center.marketing.yunpaas.cn/center/enterpriseRoleUp/OrderPay?orderId="+this.orderId+"&payType="+this.style_flag
             } else {
               alert("请选择支付类型")
             }
-
           })
         })
-
-
 
       },
       close(msg) {//关闭自定义弹出框
@@ -177,35 +177,18 @@
         $("body").css("overflow", "auto");//出现弹框禁止滚动
       }
     },
-    mounted() {
-      let thi_s = this
-      this.versionId = this.$route.query.versionId
-      this.versionYearId = this.$route.query.versionYearId
-      this.$axios({
-        method: 'post',
-        url: 'http://center.marketing.yunpaas.cn/center/versionInfo/getPayInfo',
-        params: {
-          versionId: this.versionId,
-          versionYearId: this.versionYearId
-        }
-      }).then(res => {
-        this.list = res.data.data.goodsInfo
-        this.name = this.list.name
-        this.oriPrice = this.list.oriPrice
-        this.proPrice = this.list.proPrice
-        this.goodsPrice = res.data.data.goodsPrice
-        this.goodsPrePrice=res.data.data.goodsPrePrice
-        this.num1=res.data.data.yearId
-        this.yearList=res.data.data.versionInfoYear
-      })
-    },
+
     activated() {
       this.$bus.$emit("titleName", "");
+
     }
   };
   //  box-shadow: darkgrey 0px 0px 30px 5px ;
 </script>
 <style lang="stylus" scoped>
+  .main{
+    padding-left 30px
+  }
   .boxShows {
     box-shadow: #2d8cf0 0px 0px 10px 5px
   }

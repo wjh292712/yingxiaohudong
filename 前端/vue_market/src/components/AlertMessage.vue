@@ -59,7 +59,7 @@ export default {
 }
 
 .main {
-    position: fixed;
+    position: fixed !important;
     z-index: 99999;
     width: 100%;
     height: 100%;

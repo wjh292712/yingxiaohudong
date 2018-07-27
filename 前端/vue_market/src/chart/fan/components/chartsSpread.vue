@@ -8,8 +8,10 @@
       </div>
       <div class="basic_Daytime">
         <div class="charts">
-          <div id="mainsp" :style="{width:'1100px',height:'420px'}">
-
+          <div id="mainsp" :style="{width:'1000px',height:'420px'}">
+          </div>
+          <div class="mainData" v-show="showmainData">
+            <p class="cl">暂无数据</p>
           </div>
         </div>
       </div>
@@ -21,8 +23,11 @@
       </div>
       <div class="basic_Daytime">
         <div class="charts">
-          <div id="mychartsp" :style="{width:'500px',height:'420px'}">
+            <div id="mychartsp" :style="{width:'500px',height:'420px'}">
 
+          </div>
+          <div class="spData" v-show="showspData">
+            <p class="cl">暂无数据</p>
           </div>
         </div>
       </div>
@@ -37,6 +42,9 @@
           <div id="mychartdp" :style="{width:'500px',height:'420px'}">
 
           </div>
+          <div class="dpData" v-show="showdpData">
+            <p class="cl">暂无数据</p>
+          </div>
         </div>
       </div>
       </div>
@@ -50,46 +58,46 @@
             :data="tableData"
             style="width: 100%;text-align: center">
             <el-table-column
-              prop="name"
+              prop="coming"
               label="综合排名"
               width="100"
              >
             </el-table-column>
             <el-table-column
-              prop="date"
               label="昵称"
               width="140"
              >
+              <template slot-scope="scope">
+                <img :src="scope.row.head_img" alt="" class="images">
+                <span>{{scope.row.nick_name}}</span>
+              </template>
             </el-table-column>
             <el-table-column
-              prop="status"
+              prop="province"
               label="地区"
               width="140">
             </el-table-column>
             <el-table-column
-              prop="number"
+              prop="page_man_num"
               label="下级浏览次数"
               width="140">
             </el-table-column>
             <el-table-column
-              prop="shuliang"
+              prop="join_man_num"
               label="下级参与次数"
               width="140">
             </el-table-column>
             <el-table-column
-              prop="chuanbo_num"
+              prop="share_man_num"
               label="下级分享次数"
               width="140">
             </el-table-column>
             <el-table-column
-              prop="active_caveat"
+              prop="score"
               label="综合指数"
               width="180">
             </el-table-column>
           </el-table>
-        </div>
-        <div>
-
         </div>
       </div>
     </div>
@@ -105,60 +113,70 @@
         thi_s: null,
         picker: null,
         basicData: '传播层级',
-        pickerOptions2: {
-          shortcuts: [{
-            text: '最近三天',
-
-          }, {
-            text: '最近一周',
-
-          }, {
-            text: '最近一月',
-
-          }]
-        },
-        value6: '',
-        value7: '',
+        tableData:[],
         date: '',
+        activityId:'',
+        templateId:'',
+        pageNum:[],
+        joinNum:[],
+        shareNum:[],
+        showmainData:true,
+        showspData:true,
+        showdpData:true,
+
       }
     },
     created() {
 
     },
     mounted() {
-      this.getDate()
-      this.drawLine()
-      this.drawLineTime()
-      this.drawLineTime1()
+let _this=this
+      this.$bus.$on("chartdata", (activityId, templateUuid) => {
+        this.falgs = true;
+        this.$axios({
+          method: "get",
+          url:'http://center.marketing.yunpaas.cn/center/activity/shareData',
+          params: {
+            token: sessionStorage.getItem("token"),
+            activityId: activityId,
+            templateId: templateUuid
+          }
+        }).then(res => {
+          console.log(res);
+          this.pageNum=res.data.data.page_man_num
+            this.joinNum=res.data.data.join_man_num
+            this.shareNum=res.data.data.share_man_num
+          if(this.pageNum.length!==0||this.joinNum.length!==0||this.shareNum.length!==0){
+            this.showmainData=false
+            this.drawLine()
+          }else {
+            this.showmainData=true
+            this.drawLine()
+          }
+        });
+
+        _this.$axios({
+          method:'get',
+          url:'http://center.marketing.yunpaas.cn/center/activity/OrderData',
+          // url:'http://center.marketing.yunpaas.cn/center/activity/OrderData?activityId=73&templateId=2',
+          params:{
+            token: sessionStorage.getItem("token"),
+            activityId:activityId,
+            templateId:templateUuid
+          }
+        }).then(res=>{
+          this.tableData=res.data.data
+
+        })
+
+      });
+
     },
     methods: {
-      str(val) {
-        let start = null;
-        let end = null;
-        if (val == "最近三天") {
-          end = new Date();
-          start = new Date();
-          start.setTime(start.getTime() - 3600 * 1000 * 24 * 3);
 
-        } else if (val == "最近一周") {
-          end = new Date();
-          start = new Date();
-          start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-        } else if (val == "最近一月") {
-          end = new Date();
-          start = new Date();
-          start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-        }
-        $(".el-date-editor >.el-range-input").eq(0).val(pub.fmtDate(start))
-        $(".el-date-editor >.el-range-input").eq(1).val(pub.fmtDate(end))
-        //  //console.log(this.picker)
-        // this.pickerOptions2.shortcuts[0].onClick(el)
-      },
       drawLine() {
         // 基于准备好的dom，初始化echarts实例
         let myChart = this.$echarts.init(document.getElementById('mainsp'))
-
-        console.log(this.date);
         let _this = this
         // 绘制图表
         myChart.setOption({
@@ -189,9 +207,7 @@
             axisLabel: {
               interval: 0,
               rotate: 40,
-
             },
-
 
           },
           yAxis: {
@@ -202,20 +218,20 @@
               name: '浏览人数',
               type: 'line',
               stack: '总量',
-              data: [120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 90, 230, 210]
+              data: this.pageNum
             },
             {
               name: '参与人数',
               type: 'line',
               stack: '总量',
-              data: [220, 182, 191, 234, 290, 330, 310]
+              data: this.joinNum
             },
 
             {
               name: '分享人数',
               type: 'line',
               stack: '总量',
-              data: [820, 932, 901, 934, 1290, 1330, 1320]
+              data: this.shareNum
             }
           ]
         });
@@ -314,21 +330,6 @@
             },]
         });
       },
-      getDate() {
-        var d = new Date();
-        var i = 2;
-        var ary = [];
-        for (var i = 0; i < 31; i++) {
-          var month;
-          var r = d.getDate() - 1;
-          d.setDate(Math.abs(r));
-          var day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate();
-          r < 0 ? month = d.getMonth() < 10 ? '0' + d.getMonth() : d.getMonth() : month = d.getMonth() + 1 < 10 ? '0' + parseInt(d.getMonth() + 1) : d.getMonth() + 1;
-          var year = new Date().getFullYear();
-          ary.push(month + '/' + day);
-        }
-        this.date = ary.reverse()
-      }
     },
     components: {},
     computed: {}
@@ -558,9 +559,8 @@
         }
         .table-view{
           margin-top :30px;
-          width :95%;
+          width :100%;
           margin: 30px auto;
-          height: 40px;
           table{
           width: 100%;
         }
@@ -569,6 +569,29 @@
     }
 
   }
+  .images{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+  }
+ .mainData{
+   position: absolute;
+   left: 45%;
+   top: 20%;
+   font-size: 20px;
+ }
+ .spData{
+   position: absolute;
+   left: 20%;
+   top: 60%;
+   font-size: 20px;
+ }
+ .dpData{
+   position: absolute;
+   left:70%;
+   top: 60%;
+   font-size: 20px;
+ }
 </style>
 <style>
   .el-table th{

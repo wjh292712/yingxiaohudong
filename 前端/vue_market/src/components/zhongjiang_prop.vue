@@ -39,7 +39,7 @@ methods:{
 
 <style scoped>
 #zailai{
-    width: 100%;
+width: 100%;
 border-radius:30px;
 background:#FF2437;
 margin-top:15px;

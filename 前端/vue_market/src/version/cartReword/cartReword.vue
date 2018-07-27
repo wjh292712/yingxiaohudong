@@ -10,7 +10,7 @@
         placeholder="商品名称"
         v-model="goodsname" style="width:140px;margin-right: 5px">
       </el-input>
-      <el-button @click="find()">查询</el-button>
+      <el-button @click="find()" class="btnsFind">查询</el-button>
     </div>
     <div class="ddd" style="text-align:center">
       <el-table
@@ -87,16 +87,16 @@
         v-model="cartTime"
         type="datetime"
         placeholder="采购时间"
-        style="width:200px;margin-right:5px">
+        style="width:250px;margin-right:5px">
       </el-date-picker>
       <el-date-picker
         size="large"
         v-model="cartendTime"
         type="datetime"
         placeholder="采购时间"
-        style="width:200px;margin-right:5px">
+        style="width:250px;margin-right:5px">
       </el-date-picker>
-      <el-button @click="findcart()">查询</el-button>
+      <el-button @click="findcart()" class="detailFind">查询</el-button>
     </div>
     <div class="ddd" style="text-align:center">
       <el-table
@@ -329,7 +329,7 @@
     },
 
     components: {Button,},
-    computed: {}
+    computed:{}
   }
 </script>
 
@@ -371,20 +371,19 @@
 
   .acc {
     color: #2b85e4;
-    text-decoration: underline;
+    margin-right: 5px;
   }
   .acc:hover {
     color:red;
-    text-decoration: underline;
   }
 
   .abb {
-    color: orange;
-    text-decoration: underline;
+    color: #2b85e4;
+margin-left: 5px;
   }
   .abb:hover {
     color: red;
-    text-decoration: underline;
+
   }
 
   .text_info i {
@@ -437,7 +436,14 @@
     color: #2b85e4;
     text-decoration: underline;
   }
-
+.btnsFind{
+  background: #FC7132;
+  color: white;
+}
+  .detailFind{
+    background: #FC7132;
+    color: #fff;
+  }
 
 </style>
 <style>

@@ -6,7 +6,14 @@
     <section class="section">
       <div class="wrapper">
         <div class="left">
-          <span>立足企业营销场景，提升营销活动效率</span>
+          <div class="left_content">
+          <span class="titleInfo">
+            立足企业<i>营销场景</i>
+          </span>
+          <span class="titleInfo">
+           <i>提升</i>营销活动效率
+          </span>
+          </div>
         </div>
         <div class="right">
           <div class="inps">
@@ -27,10 +34,11 @@
              <button class="btn"@click="login()" >立即登录</button>
            </div>
            <div class="sign">
-             <a href="">  没有账号 现在注册</a>
+             <a href="http://admin.rmw001.cn/register/skipRegister" target="_blank">免费申请注册</a>
             </div>
           </div>
         </div>
+        <p class="title_info_content">-北京聚通达科技股份有限公司提供技术支持-</p>
       </div>
     </section>
   </div>
@@ -43,7 +51,10 @@ export default {
     return {
       username: "",
       userName: null,
-      userPwd: null
+      userPwd: null,
+      companyId:'',
+      userId:'',
+      dataList:[],
     };
   },
   methods: {
@@ -57,8 +68,6 @@ export default {
       sessionStorage.setItem("userName", this.userName);
       sessionStorage.setItem("userPwd", this.userPwd);
       sessionStorage.setItem("companyId", this.companyId);
-      sessionStorage.setItem("userId", this.userId);
-
       sessionStorage.getItem("userName", this.userName);
       console.log(this.userName);
       console.log(this.userPwd);
@@ -76,10 +85,12 @@ export default {
         .then(res => {
           const token = res.data.data.token;
           const id = res.data.data.id;
+          this.userId=res.data.data.userId
           sessionStorage.setItem("token", token); //存储token
           sessionStorage.setItem("id", id); //存储id
-          console.log(res);
-          console.log(res.data);
+          sessionStorage.setItem("userId", this.userId);
+          this.dataList=JSON.stringify(res.data.data)
+          sessionStorage.setItem("dataList",this.dataList)
           if (res.data.status === true) {
             // this.username = res.data.data.name
             // this.$bus.emit('name',this.username)
@@ -119,6 +130,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+
 .section {
   width: 100%;
   height: 100%;
@@ -129,23 +141,33 @@ export default {
 
 .wrapper {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   background: #f4f4f4;
+  background:url("../../static/active/bg.png") no-repeat center center ;
+  background-size: cover;
+  position: relative;
 }
-
 .wrapper .left {
   width: 50%;
-  height: 25rem;
-  line-height: 25rem;
-  text-align: center;
+  .left_content{
+    position: absolute;
+    left: 28.5%;
+    top: 39%;
+    .titleInfo{
+      display: block;
+      font-size: 35px;
+      color: white;
+      i{
+        font-style: normal;
+        color:#fc7132;
+      }
+    }
+  }
 }
 
-.wrapper .left span {
-  font-size: 1rem;
-}
 
 .wrapper .right {
   width: 50%;
@@ -153,11 +175,11 @@ export default {
 }
 
 .inps {
-  width: 70%;
-  height: 70%;
+  width: 55%;
+  height: 50%;
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 45%;
   transform: translate3d(-50%, -50%, 0);
   background: #fff;
 }
@@ -180,10 +202,11 @@ textarea {
   margin-bottom: 0px;
 }
 .inps form {
-  margin-left: 2.5rem;
+  margin-left: 1.8rem;
   border-bottom: 1px solid #ccc;
   width: 80%;
   margin-top: 1.5rem;
+  text-align: center;
 }
 
 .inps form label {
@@ -195,8 +218,8 @@ textarea {
   border-bottom: 1px solid #ccc;
   padding: 0.15rem;
   margin-top: 1.5rem;
-  width: 75%;
-  margin-left: 3.5rem;
+  width: 80%;
+  margin-left: 1.8rem;
 }
 
 .inps .ipt input {
@@ -211,7 +234,7 @@ textarea {
 .cents {
   width: 75%;
   margin-top: 0.5rem;
-  margin-left: 3.5rem;
+  margin-left: 1.8rem;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -222,14 +245,14 @@ textarea {
   width: 75%;
   height: auto;
   margin-top: 0.5rem;
-  margin-left: 3.5rem;
+  margin-left: 2.4rem;
 }
 
 .btns .btn {
   width: 100%;
   margin: 0 auto;
   height: 2rem;
-  background: #079bd3;
+  background: #fc7132;
   border: none;
   outline: none;
   cursor: pointer;
@@ -243,17 +266,25 @@ textarea {
   height: 1rem;
   text-align: center;
   outline: none;
-  color: #079bd3;
+  color: #fc7132;
+  text-decoration: underline;
   margin-top: 1rem;
   position: relative;
-  left: 50%;
+  left: 45%;
   margin-left: -32.5%;
   margin-bottom: 0.5rem;
 }
 
 .sign a {
   text-decoration: none;
-  color: #079bd3;
+  color: #fc7132;
   font-size: 0.75rem;
 }
+  .title_info_content{
+    position: absolute;
+    left: 42%;
+    bottom: 5%;
+    color: #fff;
+    font-size: 12px;
+  }
 </style>

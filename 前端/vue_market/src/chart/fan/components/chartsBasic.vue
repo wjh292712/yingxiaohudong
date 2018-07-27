@@ -32,6 +32,9 @@
           <div id="main" :style="{width:'100%',height:'420px'}">
 
           </div>
+          <div class="noDayData" v-show="showDayData">
+            <p class="cl">暂无数据</p>
+          </div>
         </div>
       </div>
       <br/>
@@ -45,13 +48,13 @@
             v-model="date1"
             type="date"
             placeholder="选择日期"
-          @change="getDayTime()">
+            @change="getDayTime()">
           </el-date-picker>
 
         </div>
         <div class="Day_time">
 
-         <span class="date_allDay"><el-checkbox v-model="checked" >全部日期</el-checkbox></span>
+          <span class="date_allDay"><el-checkbox v-model="checked" @change="allDayTime()">全部日期</el-checkbox></span>
           <!--<el-button class="btn_data">统计</el-button>-->
           <a href="#" class="outdata">导出数据</a>
         </div>
@@ -59,18 +62,22 @@
           <div id="mychart" :style="{width:'100%',height:'420px'}">
 
           </div>
+          <div class="noData" v-show="showData">
+            <p class="cl">暂无数据</p>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
   import pub from "static/public.js"
+
   export default {
     data() {
       return {
+        arr:[],
         thi_s: null,
         picker: null,
         basicData: '每日趋势图',
@@ -78,65 +85,116 @@
         pickerOptions2: {
           shortcuts: [{
             text: '最近三天',
-            id:3
+            id: 3
 
           }, {
             text: '最近一周',
-            id:7
+            id: 7
 
           }, {
             text: '最近一月',
-            id:30
-
+            id: 30
           }]
         },
-
         value6: '',
         value7: '',
-        date:[],
-        date1:'',
-        Datetime:[],
-        checked:true,
-        dateid:'',
+        date: [],
+        date1: '',
+        Datetime: [],
+        checked: false,
+        dateid: '',
+        activityId:'',
+        templateId:'',
+        pageDayList: [],//每天
+        joinDayList: [],
+        awardDayList: [],
+        shareDayList: [],
+
+        pageList: [],//小时
+        joinList: [],
+        awardList: [],
+        shareList: [],
+        showDayData:true,
+        showData:true,
       }
     },
     created() {
 
     },
     mounted() {
-      this.getDate()
-      this.drawLine()
-      this.drawLineTime()
+      this.$bus.$on("chartdata", (activityId, templateUuid) => {
+        this.activityId=activityId
+        this.templateId=templateUuid
+      })
+
     },
-    updated(){
+    updated() {
 
     },
     methods: {
-      getDay(){
-        console.log(this.date);
-        console.log(this.date[1] - this.date[0]);
-
-
-
+      getDay() {
+        let thi_s = this
         var day1 = new Date(this.date[0])
         var day2 = new Date(this.date[1])
+        var s1 = day1.getTime(), s2 = day2.getTime();
+        var total = (s2 - s1) / 1000;
+        var allDay = parseInt(total / (24 * 60 * 60));//计算整数天数
+        this.dateid = allDay
+        this.$axios({
+          method:'post',
+          url:'http://center.marketing.yunpaas.cn/center/activity/getDataByDay',
+          params:{
+            activityId:this.activityId,
+            templateId:this.templateId,
+            startTime:this.date[0].getTime(),
+            endTime:this.date[1].getTime(),
+          }
+        }).then(res=>{
+          let allList=res.data.data
+          for (var key in allList) {
 
-        var s1 = day1.getTime(),s2 = day2.getTime();
-        var total = (s2 - s1)/1000;
+            thi_s.pageDayList.push(allList[key].pageNum)
+            thi_s.joinDayList.push(allList[key].joinManNum)
+            thi_s.awardDayList.push(allList[key].awardManNum)
+            thi_s.shareDayList.push(allList[key].shareNum)
+          }
+
+          if(this.pageDayList.length!==0||this.joinDayList.length!==0||this.awardDayList.length!==0||this.shareDayList.length!==0){
+            this.showDayData=false
+          }
+          this.getDate(this.dateid)
+        })
 
 
-        var day = parseInt(total / (24*60*60));//计算整数天数
-       this.dateid=day
-
-        this.getDate(this.dateid)
       },
-      getDayTime(){
-        console.log(this.date1.getTime());
+      getDayTime() {
+
+        this.$axios({
+          method: 'post',
+          url: 'http://center.marketing.yunpaas.cn/center/activity/getDataByHourOnOneDay',
+          params: {
+            token: sessionStorage.getItem("token"),
+            activityId: this.activityId,
+            templateId: this.templateId,
+            time:this.date1.getTime()
+          }
+        }).then(res => {
+          console.log(res);
+          this.pageList = res.data.data.pageManNumList
+          this.joinList = res.data.data.joinManNumList
+          this.awardList = res.data.data.awardManNumList
+          this.shareList = res.data.data.shareManNumList
+          this.drawLineTime()
+          if( this.pageList.length!==0||this.joinList.length!==0||this.awardList.length!==0||this.shareList!==0){
+            this.showData=false
+          }
+
+        })
 
 
       },
-      str(val,id) {
-        this.dateid=id
+      str(val, id) {
+        this.dateid = id
         let start = null;
         let end = null;
         if (val == "最近三天") {
@@ -153,18 +211,34 @@
           start = new Date();
           start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
         }
-        this.date=[pub.fmtDate(start),pub.fmtDate(end)]
+        this.date = [pub.fmtDate(start), pub.fmtDate(end)]
+        this.$axios({
+          method:'post',
+          url:'http://center.marketing.yunpaas.cn/center/activity/getDataByDay',
+          params:{
+            activityId:this.activityId,
+            templateId:this.templateId,
+            startTime:start.getTime(),
+            endTime:end.getTime(),
+          }
+        }).then(res=>{
+          let allList=res.data.data
+          for (var key in allList) {
+            this.pageDayList.push(allList[key].pageNum)
+            this.joinDayList.push(allList[key].joinManNum)
+            this.awardDayList.push(allList[key].awardManNum)
+            this.shareDayList.push(allList[key].shareNum)
+          }
 
-        this.getDate(this.dateid)
-        // $(".el-date-editor >.el-range-input").eq(0).val(pub.fmtDate(start))
-        // $(".el-date-editor >.el-range-input").eq(1).val(pub.fmtDate(end))
-        //  //console.log(this.picker)
-        // this.pickerOptions2.shortcuts[0].onClick(el)
+          if(this.pageDayList.length!==0||this.joinDayList.length!==0||this.awardDayList.length!==0||this.shareDayList.length!==0){
+            this.showDayData=false
+          }
+          this.getDate(this.dateid)
+        })
       },
       drawLine() {
         // 基于准备好的dom，初始化echarts实例
         let myChart = this.$echarts.init(document.getElementById('main'))
-
         console.log(this.date);
         let _this = this
         // 绘制图表
@@ -196,9 +270,7 @@
             axisLabel: {
               interval: 0,
               rotate: 40,
-
             },
-
 
           },
           yAxis: {
@@ -209,34 +281,61 @@
               name: '浏览人数',
               type: 'line',
               stack: '总量',
-              data: [120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 90, 230, 210]
+              data: this.pageDayList.sort()
             },
             {
               name: '参与人数',
               type: 'line',
               stack: '总量',
-              data: [220, 182, 191, 234, 290, 330, 310]
+              data: this.joinDayList.reverse()
             },
             {
               name: '获奖人数',
               type: 'line',
               stack: '总量',
-              data: [320, 332, 301, 334, 390, 330, 320]
+              data: this.awardDayList.reverse()
             },
             {
               name: '分享人数',
               type: 'line',
               stack: '总量',
-              data: [820, 932, 901, 934, 1290, 1330, 1320]
+              data: this.shareDayList.reverse()
             }
           ]
         });
+        this.pageDayList=[]
+        this.joinDayList=[]
+        this.awardDayList=[]
+        this.shareDayList=[]
       },
       drawLineTime() {
         // 基于准备好的dom，初始化echarts实例
         let myChart = this.$echarts.init(document.getElementById('mychart'))
-
         console.log(this.date);
+        for (var i = 0; i < this.pageList.length; i++) {
+         var cur=this.pageList[i]
+          if(cur==null){
+           cur=0
+          }
+        }
+        for (var i = 0; i <this.joinList.length; i++) {
+          var cur=this.joinList[i]
+          if(cur==null){
+            cur=0
+          }
+        }
+       for (var i = 0; i <this.awardList.length; i++) {
+          var cur=this.awardList[i]
+          if(cur==null){
+            cur=0
+          }
+        }
+       for (var i = 0; i <this.shareList.length; i++) {
+          var cur=this.shareList[i]
+          if(cur==null){
+            cur=0
+          }
+        }
         let _this = this
         // 绘制图表
         myChart.setOption({
@@ -267,7 +366,6 @@
             axisLabel: {
               interval: 0,
               rotate: 40,
-
             },
 
           },
@@ -279,35 +377,35 @@
               name: '浏览人数',
               type: 'line',
               stack: '总量',
-              data: [120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 90, 230, 210]
+              data: this.pageList
             },
             {
               name: '参与人数',
               type: 'line',
               stack: '总量',
-              data: [220, 182, 191, 234, 290, 330, 310]
+              data: this.joinList
             },
             {
               name: '获奖人数',
               type: 'line',
               stack: '总量',
-              data: [320, 332, 301, 334, 390, 330, 320]
+              data: this.awardList
             },
             {
               name: '分享人数',
               type: 'line',
               stack: '总量',
-              data: [820, 932, 901, 934, 1290, 1330, 1320]
+              data: this.shareList
             }
           ]
         });
       },
       getDate(idx) {
         var d = new Date(this.date[1]);
-        this.dateid=idx
+        this.dateid = idx
         var i = 2;
         var ary = [];
-        for (var i = 0; i <this.dateid; i++) {
+        for (var i = 0; i < this.dateid; i++) {
           var month;
           var r = d.getDate() - 1;
           d.setDate(Math.abs(r));
@@ -319,7 +417,32 @@
         console.log(ary);
         this.Datetime = ary.reverse()
         this.drawLine()
-      }
+      },
+      allDayTime(){
+        if(this.checked==true){
+          this.$axios({
+            method:'post',
+            url:'http://center.marketing.yunpaas.cn/center/activity/getDataByHourOnManyDay',
+            params:{
+              token: sessionStorage.getItem("token"),
+              activityId: this.activityId,
+              templateId: this.templateId,
+            }
+          }).then(res=>{
+            console.log(res);
+            this.pageList = res.data.data.pageManNumList
+            this.joinList = res.data.data.joinManNumList
+            this.awardList = res.data.data.awardManNumList
+            this.shareList = res.data.data.shareManNumList
+            this.drawLineTime()
+            if( this.pageList.length!==0||this.joinList.length!==0||this.awardList.length!==0||this.shareList!==0){
+              this.showData=false
+            }
+          })
+        }else {
+          this.getDayTime()
+        }
+      },
     },
     components: {},
     computed: {}
@@ -355,7 +478,7 @@
         }
         .Day_time {
           overflow: hidden;
-          .date_allDay{
+          .date_allDay {
             margin-left: 20px;
           }
           ul {
@@ -398,5 +521,17 @@
       }
     }
 
+  }
+  .noDayData{
+    position: absolute;
+    left: 45%;
+    top: 43%;
+    font-size: 20px;
+  }
+  .noData{
+    position: absolute;
+    left: 45%;
+    top: 80%;
+    font-size: 20px;
   }
 </style>

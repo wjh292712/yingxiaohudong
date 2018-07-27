@@ -9,48 +9,41 @@
           <p>slogan展示slogan展示slogan展示slogan展示</p>
         </div>
         <ul class="ver_img">
-          <li class="ver_img_info" v-for="(item,index) in versionList" v-bind:class="{ active:index==selectItem}"
-              @click="versionCart(index,item.id,item.logPicPath,item.oriPrice,item.proPrice,item.versionInfoYearList)" :key="index">
+          <!--<li class="ver_img_info" v-for="(item,index) in versionList" v-bind:class="{ active:index==selectItem}"-->
+          <!--@click="versionCart(index,item.id,item.logPicPath,item.oriPrice,item.proPrice,item.versionInfoYearList)" :key="index">-->
+          <!--<div class="version_A">-->
+          <!--<img :src=item.logPicPath alt="">-->
+          <!--&lt;!&ndash;<p>{{item.name}}</p>&ndash;&gt;-->
+          <!--&lt;!&ndash;<p>{{item.oriPrice}}/年</p>&ndash;&gt;-->
+          <!--&lt;!&ndash;<div class="version_b">&ndash;&gt;-->
+          <!--&lt;!&ndash;<span class="versInfo">{{item.instruction}}</span>&ndash;&gt;-->
+          <!--&lt;!&ndash;&lt;!&ndash;<span> 微信支付、积分系统</span>&ndash;&gt;&ndash;&gt;-->
+          <!--&lt;!&ndash;&lt;!&ndash;<span>打折、满减等促销</span>&ndash;&gt;&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--</div>-->
+          <!--</li>-->
+          <li class="ver_img_info active" @click="versionCart(versionListbzb,0)">
             <div class="version_A">
-              <img :src=item.logPicPath alt="">
-              <!--<p>{{item.name}}</p>-->
-              <!--<p>{{item.oriPrice}}/年</p>-->
-              <!--<div class="version_b">-->
-              <!--<span class="versInfo">{{item.instruction}}</span>-->
-              <!--&lt;!&ndash;<span> 微信支付、积分系统</span>&ndash;&gt;-->
-              <!--&lt;!&ndash;<span>打折、满减等促销</span>&ndash;&gt;-->
-              <!--</div>-->
+              <img :src=this.versionListbzb[2].versionLogPicPath alt="">
             </div>
           </li>
-          <!--<li class="ver_img_info">-->
-          <!--<div class="version_B">-->
-          <!--<p>白银版</p>-->
-          <!--<p>498元/年</p>-->
-          <!--<div class="version_b">-->
-          <!--<span class="versInfo">商城网站+小程序</span>-->
-          <!--<span> 微信支付、积分系统</span>-->
-          <!--<span>打折、满减等促销</span>-->
-          <!--</div>-->
-          <!--</div>-->
-          <!--</li>-->
-          <!--<li class="ver_img_info">-->
-          <!--<div class="version_C">-->
-          <!--<p>尊享版</p>-->
-          <!--<p>498元/年</p>-->
-          <!--<div class="version_b">-->
-          <!--<span class="versInfo">商城网站+小程序</span>-->
-          <!--<span> 微信支付、积分系统</span>-->
-          <!--<span>打折、满减等促销</span>-->
-          <!--</div>-->
-          <!--</div>-->
-          <!--</li>-->
+          <li class="ver_img_info" @click="versionCart(versionListzyb,1)">
+            <div class="version_A">
+              <img :src=this.versionListzyb[2].versionLogPicPath alt="">
+            </div>
+          </li>
+          <li class="ver_img_info" @click="versionCart(versionListzxb,2)">
+            <div class="version_A">
+              <img :src=this.versionListzxb[2].versionLogPicPath alt="">
+            </div>
+          </li>
         </ul>
       </div>
       <div class="version_Price">
         <div class="ver_Price_info">
           <div class="ver_Price_img">
             <img :src=imgUrl alt="">
-              <!--<h1>标准版</h1>-->
+            <!--<h1>标准版</h1>-->
           </div>
           <div class="ver_Prive_commodity">
             <p>聚通达MCM 标准版
@@ -59,10 +52,10 @@
             <p>价格：<span>{{oriPrice}}</span></p>
             <p>促销价: <span>{{proPrice}}</span></p>
             <p id="select">请选择：
-              <span v-for="(item,index) in this.yearList" @click="cartVers(item.id,index)"
-                    v-bind:class="{ selected:index==selectItemCart}" :key="index">{{item.name}}</span>
-              <!--<span>二年</span>-->
-              <!--<span>三年</span>-->
+              <span v-for="(item,index) in this.versionListAll.slice(0,2)" @click="cartVers(item.oriPrice,item.salePrice,item.id,index)"
+              v-bind:class="{ selected:index==selectItemCart}" :key="index">{{item.buyYear}}年赠{{item.giveMonth}}</span>
+              <!--<span>{{versionYearId1}}年赠{{verMounth1}}月</span>-->
+              <!--<span>{{versionYearId2}}年赠{{verMounth2}}月</span>-->
               <!--<span>四年</span>-->
               <!--<span>五年</span>-->
             </p>
@@ -89,10 +82,18 @@
   export default {
     data() {
       return {
-        versionList: [],
-        versionId: '',
-        versionYearId: '',
-        imgUrl: '',
+        versionListbzb: [],//标准版
+        versionListzyb: [],//专业版
+        versionListzxb: [],//尊享版
+        versionListAll: [],
+        versionId: '',//版本id
+        versionYearId1: '',//购买年
+        verMounth1: '',//赠送月
+        versionYearId2: '',
+        verMounth2: '',
+        versionName: '',//每个版本名
+        versionSpecId: '',//标准版内的id
+        imgUrl: '',//详情图片
         oriPrice: '',
         proPrice: '',
         yearList: '',
@@ -105,37 +106,68 @@
     },
     mounted() {
 
-
       this.$axios({
         method: "post",
         url: 'http://center.marketing.yunpaas.cn/center/versionInfo/getAllVersionInfo',
         params: {}
       }).then(res => {
         console.log(res);
-        this.versionList = res.data.data
-        this.versionCart(0,this.versionList[0].id,this.versionList[0].logPicPath,this.versionList[0].oriPrice,this.versionList[0].proPrice,this.versionList[0].versionInfoYearList)
-        this.cartVers(this.versionList[0].versionInfoYearList[0].id,0)
+        this.versionListbzb = res.data.data.bzb
+        this.versionListzyb = res.data.data.zyb
+        this.versionListzxb = res.data.data.zxb
+
+        this.versionListAll=this.versionListbzb
+        this.versionName = this.versionListAll[0].name
+        this.versionYearId1 = this.versionListAll[0].buyYear
+        this.verMounth1 = this.versionListAll[0].giveMonth
+        this.versionYearId2 = this.versionListAll[1].buyYear
+        this.verMounth2 = this.versionListAll[1].giveMonth
+        this.oriPrice = this.versionListAll[0].oriPrice
+        this.proPrice = this.versionListAll[0].salePrice
+        this.versionId = this.versionListAll[0].versionId
+        this.imgUrl = this.versionListAll[2].versionLogPicPath
+        this.versionSpecId=this.versionListAll[0].id
       })
     },
 
     methods: {
 
-      versionCart(idx, id, url, op, prp, list) {
-        this.versionId = id
-        this.imgUrl = url
-        this.oriPrice = op
-        this.proPrice = prp
-        this.yearList = list
-        this.selectItem = idx
+      versionCart(list,idx) {
+        this.versionListAll = list
+        this.versionName = this.versionListAll[0].name
+        this.versionYearId1 = this.versionListAll[0].buyYear
+        this.verMounth1 = this.versionListAll[0].giveMonth
+        this.versionYearId2 = this.versionListAll[1].buyYear
+        this.verMounth2 = this.versionListAll[1].giveMonth
+        this.oriPrice = this.versionListAll[0].oriPrice
+        this.proPrice = this.versionListAll[0].salePrice
+        this.versionId = this.versionListAll[0].versionId
+        this.imgUrl = this.versionListAll[2].versionLogPicPath
+        this.versionSpecId=this.versionListAll[0].id
+        $(".ver_img_info").eq(idx).addClass("active").siblings().removeClass("active")
+
       },
-      cartVers(id, idx) {
-        this.versionYearId = id
+
+      cartVers(olp,slp,id, idx) {
+        this.oriPrice=olp
+        this.proPrice=slp
+        this.versionSpecId=id
         this.selectItemCart = idx
       },
       cartPrice() {
-        this.$router.push({
-          path: '/indexVers/versionPrice',
-          query: {versionId: this.versionId, versionYearId: this.versionYearId}
+
+        this.$axios({
+          method: 'post',
+          url: 'http://center.marketing.yunpaas.cn/center/versionInfo/getPayInfo',
+          params: {
+            versionId: this.versionId,
+            versionSpecId: this.versionSpecId
+          }
+        }).then(res => {
+          this.$router.push({
+            path: '/indexVers/versionPrice',
+            query: {versionId: this.versionId,versionSpecId:this.versionSpecId}
+          })
         })
       },
     },
@@ -178,7 +210,7 @@
           overflow: hidden;
 
           .ver_img_info {
-            width: 320px;
+            width: 300px;
             height: 241px;
             float: left;
             background: #FFFFFF;

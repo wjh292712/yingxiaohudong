@@ -53,38 +53,37 @@
             <span class="del" @click="del()">X</span>
           </div>
           <div class="ansConent">
-            <el-form label-width="60px" class="ans_title" v-for="(item,indx) in listCount" :key="indx">
+            <el-form label-width="60px" class="ans_title" v-for="(item,indx) in listCount" :key="indx" >
               <h3 v-model="count">第{{indx+1}}题</h3>
               <button size="mini" class="delBtn" @click="delTitle(indx+1)">删除题目</button>
               <el-form-item label="题目:">
-                <el-input size="mini" v-model="ansName[indx]">
+                <el-input size="mini" v-model="item.dtQuestionExtend.title">
                 </el-input>
                 <el-upload
                   action="http://center.marketing.yunpaas.cn/dt/activitySetup/upActivityImg"
                   list-type="picture-card"
-                  :on-success="handleAvatarSuccess"
+                  :on-success="(res,file)=>{handleAvatarSuccess(indx,res,file)}"
                   :before-upload="beforeAvatarUpload"
+
                   :on-remove="handleRemove" class="avatar-uploader">
 
-                  <img v-if="imageUrl[indx]" :src="imageUrl[indx]" class="avatar">
-                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                  <img v-if="item.dtQuestionExtend.img!=null" :src="item.dtQuestionExtend.img" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon" ></i>
                 </el-upload>
-                <!--<el-dialog :visible.sync="dialogVisibl">-->
-                  <!--<img width="100%" :src="imageUrl[indx]" alt="">-->
-                <!--</el-dialog>-->
+
                 <span>点击图片重新上传即可更换奖品图片</span>
               </el-form-item>
               <p class="imgInfo"> 只能上传jpg/png文件，且不超过500kb</p>
               <el-form-item label="正确答案:" label-width="80px">
-                <el-input size="mini" v-model="ansCorrect[indx]">
+                <el-input size="mini" v-model="item.dtQuestionExtend.dtAnswerList[0].answerContent">
                 </el-input>
               </el-form-item>
               <el-form-item label="错误答案:" label-width="80px">
-                <el-input size="mini" v-model="ansError1[indx]">
+                <el-input size="mini" v-model="item.dtQuestionExtend.dtAnswerList[1].answerContent">
                 </el-input>
               </el-form-item>
               <el-form-item label="错误答案:" label-width="80px">
-                <el-input size="mini" v-model="ansError2[indx]">
+                <el-input size="mini" v-model="item.dtQuestionExtend.dtAnswerList[2].answerContent">
                 </el-input>
               </el-form-item>
             </el-form>
@@ -127,7 +126,7 @@
         title_send: "",//数据保存接口
         index: 1,
         dataStatus: 0,
-        listCount: [1,],
+        listCount: [],
         Arry: [],
         indx: 0,
         obj: {
@@ -140,21 +139,21 @@
                 answerContent: null,
                 createDate: null,
                 id: null,
-                isRight: null,
+                isRight: true,
                 questionId: null,
               },
               {
                 answerContent: null,
                 createDate: null,
                 id: null,
-                isRight: null,
+                isRight: false,
                 questionId: null,
               },
               {
                 answerContent: null,
                 createDate: null,
                 id: null,
-                isRight: null,
+                isRight: false,
                 questionId: null,
               }],
             enterpriseId: null,
@@ -188,7 +187,6 @@
         this.restaurants = this.loadAll();
         this.dataStatus = this.$route.query.dataStatus
         this.titleBase()
-
       })
     },
     computed: {
@@ -211,31 +209,15 @@
         this.listCount = this.title_data.dtActivityQuestionExtendList;
         this.count=this.listCount.length
         this.radio1 = Number(this.title_data.questionBank).toString()
-        // if (this.radio1 == 1) {
-        //   this.ok = false;
-        // } else {
-        //   this.ok = true;
-        // }
         this.answerState = this.title_data.dtQuestionTypeExtendList
         this.value4 = this.title_data.questionType
         this.titleCount = this.title_data.questionTotalNum
         this.radomCount = this.title_data.questionRadomNum
-
-        for (var i = 0; i < this.title_data.dtActivityQuestionExtendList.length; i++) {
-          this.ansName[i] = this.title_data.dtActivityQuestionExtendList[i].dtQuestionExtend.title
-          this.imageUrl[i] = this.title_data.dtActivityQuestionExtendList[i].dtQuestionExtend.img
-          if (this.title_data.dtActivityQuestionExtendList[i].dtQuestionExtend.dtAnswerList[0].isRight == true) {
-            this.ansCorrect[i] = this.title_data.dtActivityQuestionExtendList[i].dtQuestionExtend.dtAnswerList[0].answerContent
-          }
-          if (this.title_data.dtActivityQuestionExtendList[i].dtQuestionExtend.dtAnswerList[1].isRight == false) {
-            this.ansError1[i] = this.title_data.dtActivityQuestionExtendList[i].dtQuestionExtend.dtAnswerList[1].answerContent
-
-          }
-          if (this.title_data.dtActivityQuestionExtendList[i].dtQuestionExtend.dtAnswerList[2].isRight == false) {
-            this.ansError2[i] = this.title_data.dtActivityQuestionExtendList[i].dtQuestionExtend.dtAnswerList[2].answerContent
-          }
+        for(let key in this.listCount){
+          this.listCount[key].dtQuestionExtend.dtAnswerList[0].isRight=true
+          this.listCount[key].dtQuestionExtend.dtAnswerList[1].isRight=false
+          this.listCount[key].dtQuestionExtend.dtAnswerList[2].isRight=false
         }
-
 
         this.radio2 = Number(this.title_data.answerTimeLimit).toString()
       },
@@ -248,44 +230,21 @@
         } else if (this.dataStatus === '1') {
           this.title_send = this.$route.query.newdtData.dtQuestionSetupExtend
         }
+        this.title_send.dtActivityQuestionExtendList=this.listCount
         this.title_send.questionBank = this.radio1
-        // if (this.radio1 == 1) {
-        //   this.ok = false;
-        // } else {
-        //   this.ok = true;
-        // }
         this.title_send.dtQuestionTypeExtendList = this.answerState
         this.title_send.questionType = this.value4
         this.title_send.questionTotalNum = this.titleCount
         this.title_send.questionRadomNum = this.radomCount
         this.title_send.answerTimeLimit = this.radio2 == 0 ? false : true
-
-        this.title_send.dtActivityQuestionExtendList = this.title_send.dtActivityQuestionExtendList.concat(this.Arry);
-        for (var i = 0; i < this.listCount.length; i++) {
-          this.title_send.dtActivityQuestionExtendList[i].dtQuestionExtend.title = this.ansName[i]
-          this.title_send.dtActivityQuestionExtendList[i].dtQuestionExtend.img = this.arrs[i].imageUrl
-          this.title_send.dtActivityQuestionExtendList[i].dtQuestionExtend.dtAnswerList[0].isRight = true
-          this.title_send.dtActivityQuestionExtendList[i].dtQuestionExtend.dtAnswerList[0].answerContent = this.ansCorrect[i]
-          this.title_send.dtActivityQuestionExtendList[i].dtQuestionExtend.dtAnswerList[1].isRight = false
-          this.title_send.dtActivityQuestionExtendList[i].dtQuestionExtend.dtAnswerList[1].answerContent = this.ansError1[i]
-          this.title_send.dtActivityQuestionExtendList[i].dtQuestionExtend.dtAnswerList[2].isRight = false
-          this.title_send.dtActivityQuestionExtendList[i].dtQuestionExtend.dtAnswerList[2].answerContent = this.ansError2[i]
-          console.log(this.title_send.dtActivityQuestionExtendList);
-        }
-
-
         this.$store.state.setting_dtData.dtQuestionSetupExtend = this.title_send
-        console.log(this.title_send);
         this.$bus.emit("send_title", this.title_send)
       },
 
-
-      handleAvatarSuccess(res, file) {
-        this.arrs.push({
-          imageUrl: file.response.data
-        })
-
+      handleAvatarSuccess(key,res, file) {
+        this.listCount[key].dtQuestionExtend.img = file.response.data
       },
+
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
         const isPNG = file.type === 'image/png';
@@ -341,20 +300,11 @@
       del(){
         this.ok=false
       },
-      addTitle() {
+      addTitle(){
         this.index++;
-        //let i = this.indx++
-        this.listCount.push(this.index)
+        this.listCount.push(this.obj)
         this.count = this.listCount.length
-        if (this.dataStatus === undefined) {
-          let Data = JSON.parse(sessionStorage.getItem('Datadt'))
-          this.title_send = Data.dtQuestionSetupExtend
-        } else if (this.dataStatus === '1') {
-          this.title_send = this.$route.query.newdtData.dtQuestionSetupExtend
-        }
-        if (this.title_send.dtActivityQuestionExtendList.length < this.listCount.length) {
-          this.Arry.push(this.obj)
-        }
+        console.log(this.listCount);
       },
       delTitle(idx) {
         $("p").detach(".hello");
@@ -369,7 +319,7 @@
 
       },
       saveTitle() {
-
+this.ok=false
       },
     }
 

@@ -11,17 +11,10 @@
           <div class="header_two">
             <div class="two_con">
               <i></i>
-              <span>{{informmsg}}</span>
+              <marquee direction=right><span v-for="(item,index) in informmsg"  class="Notice">{{item.content}}</span>
+              </marquee>
             </div>
           </div>
-          <!-- banner轮播图 -->
-          <!--<div class="block">-->
-            <!--<el-carousel trigger="click" height="132px">-->
-              <!--<el-carousel-item v-for="(items,index) in banner" :key=index>-->
-                <!--<img :src="items.imgUrl" alt="">-->
-              <!--</el-carousel-item>-->
-            <!--</el-carousel>-->
-          <!--</div>-->
           <div class="bannerImg">
             <img src="../../static/active/banner1.png" alt="">
           </div>
@@ -72,12 +65,23 @@
         //     title:"I was feeling epic"
         // }],
         mainmsg: [],
-        informmsg: "",
+        informmsg:[],
+        createDate:'',
         // banner:[]
       }
 
     },
     created(){
+
+    },
+    computed: {
+      ...mapState(['count', 'banner']),
+      ...mapActions(['saveForm'])
+    },
+    mounted() {
+        this.$emit("hides",true)
+      this.inform()
+
       let _this=this
       this.$axios({
         method:"post",
@@ -88,14 +92,7 @@
       }).then(res=>{
         _this.mainmsg=res.data.data.list
       })
-    },
-    computed: {
-      ...mapState(['count', 'banner']),
-      ...mapActions(['saveForm'])
-    },
-    mounted() {
-        this.$emit("hides",true)
-      this.inform()
+
       //测试代码
       // this.$axios.post("center/activityDataModel/list").then((res)=>{
       //     console.log(res)
@@ -151,13 +148,23 @@
 
         this.$axios({
           method: "post",
-          url: "/center/activityNotice/list",
+          url: "http://center.marketing.yunpaas.cn/center/activityNotice/list",
           params: {}
         }).then(res => {
           // console.log(res.data.data[0])
-          this.informmsg = res.data.data[0].tittle
+          this.informmsg = res.data.data
+          // for (var i = 0; i < this.informmsg.length; i++) {
+          //   this.createDate=this.informmsg[i].createDate
+          //   const a=new Date()
+          //   console.log(this.createDate);
+          //   console.log(a);
+          //   if(this.createDate-a<0){
+          //     this.informmsg.splice(i,1)
+          //   }
+          // }
         }).catch(res => {
           console.log(res)
+
         })
         //     axios.post('http://center.marketing.yunpaas.cn/activityNotice/list', qs.stringify())
         //             .then(response => {
@@ -296,5 +303,8 @@
         }
       }
     }
+  }
+  .Notice{
+    margin-right: 20px;
   }
 </style>

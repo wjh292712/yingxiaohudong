@@ -10,6 +10,21 @@
   import TopViews from "./components/top";
   import BottomView from "./components/bottom";
   export default {
+    data(){
+      return{
+        activityId:'',
+        templateId:'',
+      }
+    },
+    mounted(){
+      this.$bus.$on("chartdata", (activityId, templateUuid) => {
+        this.activityId=activityId
+        this.templateId=templateUuid
+      })
+    },
+    methods:{
+
+    },
     components: {
       TopViews,
       BottomView

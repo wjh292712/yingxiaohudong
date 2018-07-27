@@ -98,7 +98,6 @@ export default ({
 
   },
   updated(){
-    // this.activeN()
 
 
   },

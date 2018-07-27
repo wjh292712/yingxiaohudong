@@ -20,8 +20,6 @@ const lottery = "http://center.marketing.yunpaas.cn/dt/play/startDrawAward"//抽
 //答题首页相关
 const answer_initActivity = "http://center.marketing.yunpaas.cn/dt/play/initActivity"
 const getMyAward = "http://center.marketing.yunpaas.cn/dt/play/getMyAward"
-
-
 //九宫格相关
 const turntable_Url ="http://center.marketing.yunpaas.cn/jgg/activity/getActivityById"//九宫格初始化
 const turntable_Prize_Url="http://center.marketing.yunpaas.cn/jgg/activity/getMyAwardList"//九宫格奖品信息
@@ -32,16 +30,23 @@ const startDrawAward_url ="http://center.marketing.yunpaas.cn/jgg/activity/start
 //九宫格预览相关
 const browsing_initUrl = "http://center.marketing.yunpaas.cn/jgg/activity/getActivityByIdTest"//九宫格浏览数据初始接口
 const lottery_url = "http://center.marketing.yunpaas.cn/jgg/activity/startPreview"//立即抽奖
-
-
 const mallHomeList="http://center.marketing.yunpaas.cn/center/shopGoods/getGoodsList"//商城首页列表
 const mallDescInit="http://center.marketing.yunpaas.cn/center/shopGoods/getGoodsById"//商城详情
-
 const oderInput="http://center.marketing.yunpaas.cn/center/webPageScanPay/makeOrder"//订单助力
 const oderdesc ="http://center.marketing.yunpaas.cn/center/webPageScanPay/getOrderInfo"//生成订单
 const buys = "http://center.marketing.yunpaas.cn/center/webPageScanPay/PayOrder"
 const updatePass = "http://center.marketing.yunpaas.cn/center/enterpriseuser/modify"//修改密码
 const refashOder = "http://center.marketing.yunpaas.cn/center/webPageScanPay/getOrderState"//定时刷新获取订单状态
+const recommendUrl = "http://center.marketing.yunpaas.cn/center/shopGoods/getRecommendList"//获取推荐列表
+const type_list ="http://center.marketing.yunpaas.cn/center/shopGoodsType/getAllData"//获取分类复选款标签数据
+const answer_browse = "http://center.marketing.yunpaas.cn/kj/runingGoodsActivity/initActivityTest"//砍价预览
+const broweAnswerUrl = "http://center.marketing.yunpaas.cn/dt/playTest/initActivity"//答题预览接口
+
+const getbrowseAnswerUrl = "http://center.marketing.yunpaas.cn/dt/playTest/getStartAnswer"//获取题目
+const checkQuestion = "http://center.marketing.yunpaas.cn/dt/playTest/checkQuestion"//预览提交答案接口
+const chartData="http://center.marketing.yunpaas.cn/center/activity/findActivty"//图表相关
+const getFanData = "http://center.marketing.yunpaas.cn/center/activity/getFanData"//获取图表数据
+
 var loading=null
 import axios from "axios";//用于http请求
 function formatDateTime(inputTime) {//日期格式化方法年月日时分秒
@@ -113,6 +118,29 @@ function mall_styles_noupdate(){
   $(".header_right").css("margin-right", "0px");
     $(".header_left").css("margin-left", "0px");
 }
+//js 加法计算  
+//调用：accAdd(arg1,arg2)  
+//返回值：arg1加arg2的精确结果   
+function accAdd(arg1,arg2){   
+  var r1,r2,m;   
+  try{r1=arg1.toString().split(".")[1].length}catch(e){r1=0}   
+  try{r2=arg2.toString().split(".")[1].length}catch(e){r2=0}   
+  m=Math.pow(10,Math.max(r1,r2))   
+  return ((arg1*m+arg2*m)/m).toFixed(2);   
+}   
+
+
+  
+//js 乘法函数  
+//调用：accMul(arg1,arg2)   
+//返回值：arg1乘以arg2的精确结果   
+function accMul(arg1,arg2)   
+{   
+  var m=0,s1=arg1.toString(),s2=arg2.toString();   
+  try{m+=s1.split(".")[1].length}catch(e){}   
+  try{m+=s2.split(".")[1].length}catch(e){}   
+  return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m)   
+}   
 export default{
     bargainHome_url,
     formatDateTime,
@@ -151,7 +179,16 @@ export default{
     oderdesc,
     buys,
     updatePass,
-    refashOder
+    refashOder,
+    recommendUrl,
+    type_list,
+    answer_browse,
+    broweAnswerUrl,
+    getbrowseAnswerUrl,
+    checkQuestion,
+    chartData,
+    accMul,
+    getFanData
 }
 
 

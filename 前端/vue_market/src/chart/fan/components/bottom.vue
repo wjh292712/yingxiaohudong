@@ -8,8 +8,10 @@
     <el-tab-pane label="传播分析" name="second">
       <chartsSpread/>
     </el-tab-pane>
-    <el-tab-pane label="粉丝分析" name="third">角色管理</el-tab-pane>
-    <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
+    <el-tab-pane label="粉丝分析" name="third">
+<fan-view></fan-view>
+    </el-tab-pane>
+ 
   </el-tabs>
         </div>
     </div>
@@ -18,6 +20,7 @@
 <script>
   import Basiclist from './basicList'
   import chartsSpread from './chartsSpread'
+  import    FanView from "./charts"
 export default {
 name:"BottomView",
 data(){
@@ -30,9 +33,16 @@ methods:{
         console.log(tab, event);
       }
 },
+mounted(){
+this.$bus.on("name",content=>{
+    this.activeName=content
+
+})
+},
   components:{
     Basiclist,
-    chartsSpread
+    chartsSpread,
+    FanView
   }
 }
 </script>

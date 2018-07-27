@@ -17,22 +17,26 @@
             <!--</li>-->
             <li class="list_info">
               <span>累计浏览人数</span>
-              <span>1788554</span>
+              <span>{{pageNum}}</span>
+              <span v-show="isshow1">暂无数据</span>
               <span>浏览次数8776次</span>
             </li>
             <li class="list_info">
               <span>累计参与人数</span>
-              <span>8989</span>
+              <span>{{joinNum}}</span>
+              <span v-show="isshow2">暂无数据</span>
               <span>参与转化率：56%</span>
             </li>
             <li class="list_info">
               <span>累计分享人数</span>
-              <span>7182</span>
+              <span>{{shareNum}}</span>
+              <span v-show="isshow3">暂无数据</span>
               <span>分享次数8778次</span>
             </li>
             <li class="list_info4">
               <span>累计获奖人数</span>
-              <span>5680</span>
+              <span>{{awardNum}}</span>
+              <span v-show="isshow4">暂无数据</span>
               <span>发放奖品8978个</span>
               <span>中奖率:80%</span>
               <span>奖品总金额：xxx元</span>
@@ -51,6 +55,8 @@
   export default {
     data() {
       return {
+        activityId:'',
+        templateId:'',
         basicData: '基础数据',
         basicList: [
           {
@@ -72,8 +78,57 @@
             rewordData: '累计中奖概率',
             rewordPrice: '奖品总金额1000元',
           },
-        ]
+        ],
+        awardManNum:'',
+        awardNum:'',
+        joinNum:'',
+        pageManNum:'',
+        pageNum: '',
+        shareManNum: '',
+        shareNum:'',
+        activityId: null,
+        templateUuid: null,
+        isshow1:true,
+        isshow2:true,
+        isshow3:true,
+        isshow4:true,
       }
+    },
+    mounted(){
+      this.$bus.$on("chartdata", (activityId, templateUuid) => {
+        this.activityId=activityId
+        this.templateId=templateUuid
+        this.falgs = true;
+        this.$axios({
+          method: "get",
+          url: 'http://center.marketing.yunpaas.cn/center/activity/getDataBase',
+          params: {
+            token: sessionStorage.getItem("token"),
+            activityId: activityId,
+            templateId: templateUuid
+          }
+        }).then(res=>{
+          this.awardManNum=res.data.data.awardManNum
+            this.awardNum=res.data.data.awardNum
+            this.joinNum=res.data.data.joinNum
+            this.pageManNum=res.data.data.pageManNum
+            this.pageNum=res.data.data.pageNum
+            this.shareManNum=res.data.data.shareManNum
+            this.shareNum=res.data.data.shareNum
+          if(this.pageNum!==null){
+            this.isshow1=false
+          }
+          if(this.shareNum!==null){
+            this.isshow3=false
+          }
+          if(this.joinNum!==null){
+            this.isshow2=false
+          }
+          if(this.awardNum!==null){
+            this.isshow4=false
+          }
+        })
+      })
     },
     methods:{
 

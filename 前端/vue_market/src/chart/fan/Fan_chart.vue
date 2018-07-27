@@ -12,7 +12,11 @@ export default {
   components: {
     TopViews,
     BottomView
-  }
+  },
+    mounted(){
+        this.$bus.$emit("name","third")
+    }
+
 };
 </script>
 
