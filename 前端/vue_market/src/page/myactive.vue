@@ -7,32 +7,41 @@
       <el-input
         clearable
         placeholder="活动名称"
-        v-model="activename" style="width:140px;margin-right: 5px">
+        v-model="activename" style="width:200px;margin-right: 5px">
       </el-input>
       <el-date-picker
         size="large"
         v-model="value4"
-        type="datetimerange"
-        start-placeholder="活动开始时间"
-        style="width:300px;margin-right:5px">
+        type="datetime"
+        placeholder="活动开始时间"
+        style="width:200px;margin-right:5px">
       </el-date-picker>
       <el-date-picker
         size="large"
         v-model="value5"
-        type="datetimerange"
-        start-placeholder="活动结束时间"
-        style="width:360px;margin-right:5px">
+        type="datetime"
+       placeholder="活动结束时间"
+        style="width:200px;margin-right:5px">
       </el-date-picker>
-      <el-autocomplete
-        clearable="true"
-        class="inline-input"
-        v-model="activeState"
-        :fetch-suggestions="querySearch"
-        placeholder="活动状态"
-        @select="handleSelect"
-        AUTOCOMPLETE="OFF"
-        style="width:140px;margin-right:5px">
-      </el-autocomplete>
+      <!--<el-autocomplete-->
+        <!--clearable="true"-->
+        <!--class="inline-input"-->
+        <!--v-model="activeState"-->
+        <!--:fetch-suggestions="querySearch"-->
+        <!--placeholder="活动状态"-->
+        <!--@select="handleSelect"-->
+        <!--AUTOCOMPLETE="OFF"-->
+        <!--style="width:140px;margin-right:5px">-->
+      <!--</el-autocomplete>-->
+      <el-select v-model="activeState" clearable placeholder="活动状态" style="margin-right: 5px">
+        <el-option
+          size="small"
+          v-for="item in options2"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
       <el-button @click="find()" class="btnsFind">查询</el-button>
     </div>
 
@@ -278,8 +287,8 @@
             }
           }]
         },
-        value4: [],
-        value5: [],
+        value4: null,
+        value5: null,
         statuss: 0,
         activename: '',
         activeStartDate: '',
@@ -320,18 +329,21 @@
           }],
         options2: [
           {
-            value: '选项1',
-            label: 'ww'
+            value: '1',
+            label: '未发布'
           },
           {
-            value: '选项2',
-            label: '2222'
+            value: '2',
+            label: '未开始'
           }, {
-            value: '选项3',
-            label: '3333'
+            value: '3',
+            label: '进行中'
           }, {
-            value: '选项4',
-            label: '正常'
+            value: '4',
+            label: '已结束'
+          },{
+            value: '5',
+            label: '活动已关闭'
           }],
         operates: ["发布", "编辑"],
         imgUrl: '',
@@ -397,16 +409,9 @@
       this.state()
       this.pagedata()
 
-
-
     },
      updated(){
-    //   let date1=this.value4[0]
-    //   let date2=this.value4[1]
-    //   var time1 = date1.getTime();
-    //   var time2 = date2.valueOf();
-    //   alert(time1)
-    //   alert(time2)
+
      },
 
     methods: {
@@ -439,13 +444,6 @@
 
       find() {//点击查询
         var token = sessionStorage.getItem('token')
-        // if (this.value4 === null) {
-        //   this.value4 = ''
-        // }
-        // if (this.value5 === null) {
-        //   this.value5 = ''
-        // }
-        console.log(this.value4);
         this.$axios({
           method: 'post',
           url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,
@@ -453,15 +451,9 @@
           headers: {'Content-Type': 'application/json'},
           params: {
             activityName: this.activename,
-            startTime1: this.value4[0] === undefined || null ? '' : this.value4[0].getTime(),
-            startTime2: this.value4[1] === undefined || null ? '' : this.value4[1].getTime(),
-            endTime1: this.value5[0] === undefined || null ? '' : this.value5[0].getTime(),
-            endTime2: this.value5[1] === undefined || null ? '' : this.value5[1].getTime(),
-            // startTime1:this.value4===''||null?'':this.value4.getTime(),
-            // startTime2:this.value5===''||null?'':this.value5.getTime(),
-            // endTime1:'',
-            // endTime2:'',
-            activityState: this.activeFindState,
+            startTime:this.value4===null ? '' : this.value4.getTime(),
+            endTime:this.value5===null ? '' : this.value5.getTime(),
+            activityState: this.activeState,
           }
         }).then(res => {
           let pageData = res.data.data
@@ -825,7 +817,7 @@
         } else if (this.templateUuid == 2) {
           this.$axios({
             method: 'post',
-            url: 'http://center.marketing.yunpaas.cn/kj/activitySetup/copy',
+            url: 'http://center.marketing.yunpaas.cn/kj/activitySetup/copy?token='+token,
             params: {
               id: this.activeId,
             }
@@ -868,7 +860,7 @@
         } else if (this.templateUuid == 3) {
           this.$axios({
             method: 'post',
-            url: 'http://center.marketing.yunpaas.cn/dt/activitySetup/copy',
+            url: 'http://center.marketing.yunpaas.cn/dt/activitySetup/copy?token='+token,
             params: {
               id: this.activeId,
             }
@@ -1025,10 +1017,8 @@
           url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token='+token,
           params: {
             activityName: this.activename,
-            startTime1: this.value4[0] === undefined || null ? '' : this.value4[0].getTime(),
-            startTime2: this.value4[1] === undefined || null ? '' : this.value4[1].getTime(),
-            endTime1: this.value5[0] === undefined || null ? '' : this.value5[0].getTime(),
-            endTime2: this.value5[1] === undefined || null ? '' : this.value5[1].getTime(),
+            startTime:this.value4===null ? '' : this.value4.getTime(),
+            endTime:this.value5===null ? '' : this.value5.getTime(),
             activityState: this.activeFindState,
             pagesize: this.pagesize,
             pageNum: this.currentPage

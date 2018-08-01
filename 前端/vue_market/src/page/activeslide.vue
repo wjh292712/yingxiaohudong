@@ -33,7 +33,12 @@
             ...mapActions(['saveData','activePull']),
         },
       mounted(){
+          let _this=this
         this.$store.dispatch('activePull')
+        this.$bus.on("send_active",function (data) {
+          _this.classActive=data
+        })
+
       },
         components:{
             activeList,
@@ -56,10 +61,7 @@
                 }).then(res=>{
                   let _this=this
                   console.log(JSON.stringify(res.data.data));
-                  // if(res.data.data==="请重新登录"){
-                  //   alert(res.data.data)
-                  //   _this.$router.push({path:'/login'})
-                  // }
+
                   let activData=JSON.stringify(res.data.data)
                   let Datalist  =JSON.stringify(res.data.data.list)//我的活动数据
                   sessionStorage.setItem('Datalist',Datalist)
@@ -68,6 +70,10 @@
                   if(this.classActive===1){
                     this.$router.push({path:'/activeslide/myactive'})
                   }
+                  if(res.data.data==="请重新登录"){
+                    alert(res.data.data)
+                    _this.$router.push({path:'/login'})
+                  }
                 })
               }
               if(this.classActive===0){
@@ -75,14 +81,6 @@
               }else if(this.classActive===2){
                 this.$router.push({path:'/activeslide/cartReword'})
               }
-
-            //    this.time = parseInt(this.num,16)
-            //     console.log(this.time)
-            //     this.time++
-            //     console.log(this.time)
-            //     var name = this.time.toString(16)
-            //     console.log(name)
-            //         this.num = name
             }
         }
     })

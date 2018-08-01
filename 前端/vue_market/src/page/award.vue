@@ -12,25 +12,17 @@
         <p>
           <span>单人总抽奖机会 : </span>
           <span>
-          <el-radio v-model="radio1" label="1">
-            <span @click="xzlimit()">限制</span>
-          </el-radio>
+          <el-radio v-model="radio1" label="1">限制</el-radio>
           <el-radio v-model="radio1" label="2">不限制</el-radio>
-          <span class="more" v-show="limitCount" >每人最多有
+          <p class="more" v-show="limitCount" >每人最多有
             <span>
               <el-input class="ipt" v-model="input1" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" maxlength="3">
               </el-input>
             </span>
             <span>次</span>
-          </span>
+          </p>
         </span>
         </p>
-        <!-- <el-form-item label="单人总抽奖机会">
-            <el-radio-group v-model="form.resource1">
-              <el-radio label="1"></el-radio>
-              <el-radio label="2">关闭</el-radio>
-            </el-radio-group>
-          </el-form-item> -->
         <p>
           <span>每人每日抽奖机会 : </span>
           <span>
@@ -58,114 +50,26 @@
           <span style="margin-left:4rem;color:#ccc;">所有奖项中奖概率加起来不能超过100% </span>
         </p>
         <div class=" homo">
-          <p>
-            <span>奖项1</span>
-            <span>10元话费券
-            <el-input class="every" v-model="input4" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
+          <ul>
+            <li v-for="(item,index) in award_dataList">
+              <p>
+                <span>{{item.awardName}}</span>
+                <span>10元话费券
+            <el-input class="every" v-model="item.winRate" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
             </el-input>
             <span>%</span>
           </span>
-            <span style="margin-left:2rem">每天最多派发</span>
-            <span>
-            <el-input class="every" v-model="input5" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
+                <span style="margin-left:2rem">每天最多派发</span>
+                <span>
+            <el-input class="every" v-model="item.sendMaxDay" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3" placeholder="选填">
             </el-input>
           </span>
-          </p>
-          <p>
-            <span>奖项2</span>
-            <span>10元话费券
-            <el-input class="every" v-model="input6" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
-            </el-input>
-            <span>%</span>
-          </span>
-            <span style="margin-left:2rem">每天最多派发</span>
-            <span>
-            <el-input class="every" v-model="input7" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
-            </el-input>
-          </span>
-          <p>
-            <span>奖项3</span>
-            <span>10元话费券
-              <el-input class="every" v-model="input8" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
-              </el-input>
-              <span>%</span>
-            </span>
-            <span style="margin-left:2rem">每天最多派发</span>
-            <span>
-              <el-input class="every" v-model="input9" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
-              </el-input>
-            </span>
-          </p>
-          <p>
-            <span>奖项4</span>
-            <span>10元话费券
-              <el-input class="every" v-model="input10" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
-              </el-input>
-              <span>%</span>
-            </span>
-            <span style="margin-left:2rem">每天最多派发</span>
-            <span>
-              <el-input class="every" v-model="input11" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
-              </el-input>
-            </span>
-          </p>
-          <p>
-            <span>奖项5</span>
-            <span>10元话费券
-              <el-input class="every" v-model="input12" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
-              </el-input>
-              <span>%</span>
-            </span>
-            <span style="margin-left:2rem">每天最多派发</span>
-            <span>
-              <el-input class="every" v-model="input13" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
-              </el-input>
-            </span>
-          </p>
-          <p>
-            <span>奖项6</span>
-            <span>10元话费券
-              <el-input class="every" v-model="input14" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
-              </el-input>
-              <span>%</span>
-            </span>
-            <span style="margin-left:2rem">每天最多派发</span>
-            <span>
-              <el-input class="every" v-model="input15" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
-              </el-input>
-            </span>
-          </p>
-          <p>
-            <span>奖项7</span>
-            <span>10元话费券
-              <el-input class="every" v-model="input16" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
-              </el-input>
-              <span>%</span>
-            </span>
-            <span style="margin-left:2rem">每天最多派发</span>
-            <span>
-              <el-input class="every" v-model="input17" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="3">
-              </el-input>
-            </span>
-          </p>
-          <!--<p>-->
-            <!--<span>奖项8</span>-->
-            <!--<span>10元话费券-->
-              <!--<el-input class="every" v-model="input18">-->
-              <!--</el-input>-->
-              <!--<span>%</span>-->
-            <!--</span>-->
-            <!--<span style="margin-left:2rem">每天最多派发</span>-->
-            <!--<span>-->
-              <!--<el-input class="every" v-model="input19">-->
-              <!--</el-input>-->
-            <!--</span>-->
-          <!--</p>-->
-
+              </p>
+            </li>
+          </ul>
         </div>
       </el-form>
-      <!--<el-button type="primary" @click="saveAward()">保存</el-button>-->
-      <!--<el-button type='primary'@click="back()">返回</el-button>-->
+
     </div>
   </div>
 </template>
@@ -195,24 +99,10 @@
         input1: '',//抽奖次数
         input2: '',
         input3: '',
-        input4: '',
-        input5: '',
-        input6: '',
-        input7: '',
-        input8: '',
-        input9: '',
-        input10: '',
-        input11: '',
-        input12: '',
-        input13: '',
-        input14: '',
-        input15: '',
-        input16: '',
-        input17: '',
-        input18: '',
-        input19: '',
         award_data: "",//接口数据
         award_send: "",
+        award_dataList:'',//派奖概率接口
+        award_sendList:'',//派奖概率接口
         dataStatus:0,
       }
     },
@@ -246,15 +136,26 @@
 
       //派奖设置
       partAward() {
-        // this.$store.dispatch('saveData')
         if(this.dataStatus===undefined){
           let Data = sessionStorage.getItem('Data')
           this.award_data = JSON.parse(Data).jggAwardSendSetup
+          this.award_dataList=JSON.parse(Data).jggAwardSetupExtendList
         }else if (this.dataStatus==='1') {
           this.award_data = this.$route.query.newjggData.jggAwardSendSetup
+           this.award_dataList=this.$route.query.newjggData.jggAwardSetupExtendList
         }
+
+
+
+
         if (!this.award_data.singleTotalDrawLimit) {
           this.radio1 = '2'
+        }
+        this.radio1=this.award_data.singleTotalDrawLimit==false?'2':'1'
+        if(this.radio1==1){
+          this.limitCount=true
+        }else {
+          this.limitCount=false
         }
         this.input1=this.award_data.singleDrawCount
         this.input2 = this.award_data.singleDayDrawCount
@@ -264,18 +165,44 @@
 
       //派奖保存
       saveAward() {
+
         // this.$store.dispatch('saveData')
         if(this.dataStatus===undefined){
           let Data = sessionStorage.getItem('Data')
           this.award_send = JSON.parse(Data).jggAwardSendSetup
+          this.award_sendList=JSON.parse(Data).jggAwardSetupExtendList
         }else if (this.dataStatus==='1') {
           this.award_send = this.$route.query.newjggData.jggAwardSendSetup
+          this.award_sendList=this.$route.query.newjggData.jggAwardSetupExtendList
         }
+        let ary =[]
+        for (var i = 0; i < this.award_sendList.length; i++) {
+          var cur = this.award_sendList[i].winRate;
+          ary.push(cur)
+        }
+        (ary)=> {
+          var s = 0;
+          for (var i=ary.length-1; i>=0; i--) {
+            s += ary[i];
+          }
+          if(s>=100){
+            alert("ddd")
+            alert("所有奖项中奖概率加起来不能超过100%")
+            return
+          }
+        }
+
         this.award_send.singleTotalDrawLimit = this.radio1 == 1 ? true : false
+        if(this.radio1==1){
+          this.limitCount=true
+        }else {
+          this.limitCount=false
+        }
         this.award_send.singleDayDrawCount = this.input2
         this.award_send.singleWinCount = this.input3
         this.award_send.sendRule = this.radio2
         this.$store.state.setting_data.jggAwardSendSetup = this.award_send
+        console.log(1111);
         this.$bus.emit("send_award", this.award_send)
         // console.log(this.$store.state.setting_data.jggAwardSendSetup)
       },
@@ -283,9 +210,7 @@
       back(){
         this.$router.go(-1)
       },
-      xzlimit(){
-        this.limitCount=!this.limitCount
-      },
+
     }
   }
 </script>
@@ -316,7 +241,7 @@
   }
 
   p span .every {
-    width: 3rem;
+    width: 4rem;
   }
 
   p span .time {

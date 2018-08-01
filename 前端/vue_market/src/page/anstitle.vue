@@ -24,19 +24,17 @@
             <i>总题量1000</i>
           </el-form-item>
           <el-form-item label="本次游戏所需题量:" label-width="130px">
-            <el-input v-model="titleCount"></el-input>
+            <el-input v-model="titleCount" style="width: 200px"></el-input>
             <span class="callInfo">该题量不能超过题库总题量</span>
           </el-form-item>
           <el-form-item label="每次随机出题数量:" label-width="130px">
-            <el-input v-model="radomCount"></el-input>
+            <el-input v-model="radomCount" style="width: 200px"></el-input>
             <span class="callInfo">随机出题数量不超过本次游戏总题量</span>
           </el-form-item>
           <el-form-item label="每局答题时间:" label-width="100px">
             <el-radio-group v-model="radio2">
-              <el-radio label="0">
-                <span @click="tilTime1()">不限</span></el-radio>
-              <el-radio label="1">
-                <span @click="tilTime()">自定义</span></el-radio>
+              <el-radio label="0">不限</el-radio>
+              <el-radio label="1">自定义</el-radio>
             </el-radio-group>
             <span v-show="tileTime">
             <el-input size="mini" style="width: 50px"></el-input>
@@ -73,7 +71,7 @@
 
                 <span>点击图片重新上传即可更换奖品图片</span>
               </el-form-item>
-              <p class="imgInfo"> 只能上传jpg/png文件，且不超过500kb</p>
+              <p class="imgInfo"> 只能上传jpg/png文件，且不超过100kb</p>
               <el-form-item label="正确答案:" label-width="80px">
                 <el-input size="mini" v-model="item.dtQuestionExtend.dtAnswerList[0].answerContent">
                 </el-input>
@@ -220,6 +218,11 @@
         }
 
         this.radio2 = Number(this.title_data.answerTimeLimit).toString()
+        if(this.radio2==0){
+          this.tileTime=false
+        }else {
+          this.tileTime=true
+        }
       },
 
       savaTitleBase() {
@@ -237,6 +240,11 @@
         this.title_send.questionTotalNum = this.titleCount
         this.title_send.questionRadomNum = this.radomCount
         this.title_send.answerTimeLimit = this.radio2 == 0 ? false : true
+        if(this.radio2==0){
+          this.tileTime=false
+        }else {
+          this.tileTime=true
+        }
         this.$store.state.setting_dtData.dtQuestionSetupExtend = this.title_send
         this.$bus.emit("send_title", this.title_send)
       },

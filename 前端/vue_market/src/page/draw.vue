@@ -20,35 +20,17 @@
             <!--</div>-->
             <div class="center">
               <el-tabs v-model="activeName" >
-                <el-tab-pane label="活动说明" name="first">
-                  <div class="explain">
-                    <p class="rule">活动时间</p>
-                    <p>
-                      <span>{{activeStartDate}}--{{activeEndDate}}</span>
-                    </p>
+                  <div class="indoContent">
+                    <span>活动说明</span>
+                    <span>我的奖品</span>
                   </div>
-                  <div class="explain">
-                    <p class="rule">活动奖品</p>
-                    <p>
-                      <span>{{activerewordList1}},{{activerewordList2}},{{activerewordList3}},{{activerewordList4}},{{activerewordList5}},{{activerewordList6}},{{activerewordList7}}
-                      </span>
-                    </p>
-                  </div>
-                  <div class="explain">
-                    <p class="rule">活动规则</p>
-                    <p>
-                      <span>{{activeInfo}}</span>
-                    </p>
-                  </div>
-                </el-tab-pane>
-                <el-tab-pane label="我的奖品" name="second">
                   <div class="total">
                     <div class="to_left">
                       <span>100元</span>
 
                     </div>
                     <div class="to_right">
-                      <h6 style="margin-top:10px;text-align:center;">话费券</h6>
+                      <h6 style="margin-top:20px;text-align:center;">话费券</h6>
                       <h6> 2018.2.1~2018.2.10</h6>
                     </div>
                   </div>
@@ -58,11 +40,10 @@
 
                     </div>
                     <div class="co_right">
-                      <h6 style="margin-top:10px;text-align:center;">话费券</h6>
+                      <h6 style="margin-top:20px;text-align:center;">话费券</h6>
                       <h6> 2018.2.1~2018.2.10</h6>
                     </div>
                   </div>
-                </el-tab-pane>
               </el-tabs>
             </div>
           </div>
@@ -128,7 +109,10 @@ export default ({
 
   },
   mounted() {
-
+    let _this=this
+    this.$bus.on("send_Name",function (data) {
+      _this.activeName1=data
+    })
     this.activeN()
     this.dataStatus=this.$route.query.dataStatus
     if (this.dataStatus==='1') {
@@ -349,7 +333,7 @@ export default ({
                   }
                   .phone_text {
                     position: absolute;
-                    /*left: 40%;*/
+                    left: 44%;
                     height: 1.5rem;
                     line-height: 1.5rem;
                     font-size: .7rem;
@@ -475,6 +459,25 @@ export default ({
   border: 1px solid #ccc;
   border-radius: 10px;
 }
+.indoContent{
+  text-align: center;
+  width: 90%;
+  height: 40px;
+  line-height: 40px;
+  margin: 0 auto;
+  font-family: PingFangSC-Medium;
+  font-size: 18px;
+  letter-spacing: 0;
+  border-bottom: 1px solid #E8E8E8;
+  span:nth-child(2){
+    display: inline-block;
+    color: #FF2437;
+    height: 40px;
+    border-bottom: 1px solid #FF2437;
+    margin-left: 30px;
+  }
+
+}
 
 .mask .center .explain {
   margin-top: 10px;
@@ -486,10 +489,11 @@ export default ({
 }
 
 .mask .center .total {
-  width: 8rem;
-  height: 3rem;
-  margin: 1rem auto;
+  width: 12rem;
+  height: 4rem;
+  margin: 1.3rem auto;
   display: flex;
+  text-align: center;
 }
 
 
@@ -503,8 +507,8 @@ export default ({
 
 .mask .center .total .to_left span {
   width: 3rem;
-  height: 3rem;
-  line-height: 3rem;
+  height: 4rem;
+  line-height: 4rem;
 }
 
 .mask .center .total .to_right {
@@ -518,11 +522,12 @@ export default ({
 
 ///
 .mask .center .copy {
-  width: 8rem;
-  height: 3rem;
+  width: 12rem;
+  height: 4rem;
   margin: 0 auto;
   display: flex;
   margin-top: 10px;
+  text-align: center;
 }
 
 
@@ -536,8 +541,9 @@ export default ({
 
 .mask .center .copy .co_left span {
   width: 3rem;
-  height: 3rem;
-  line-height: 3rem;
+  height: 4rem;
+  line-height: 4rem;
+  text-align: center;
 }
 
 .mask .center .copy .co_right {

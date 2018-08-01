@@ -86,7 +86,7 @@
         activeName: '',
         centerDialogVisible: false,
         count: '900',
-        dataStatus:0,
+        dataStatus: 0,
       }
 
     },
@@ -106,8 +106,8 @@
       //let curname='';
       // let cua='';
       this.activeN()
-      this.dataStatus=this.$route.query.dataStatus
-      if (this.dataStatus==='1') {
+      this.dataStatus = this.$route.query.dataStatus
+      if (this.dataStatus === '1') {
         this.activeN1()
       }
       // this.$nextTick(function () {
@@ -255,7 +255,7 @@
                         overflow: hidden;
                         background-size: 100%;
                         position: relative;
-                        h3{
+                        h3 {
                           color: #ba451a;
                           position: absolute;
                           top: 10%;
@@ -389,7 +389,7 @@
                     }
                     .phone_text {
                       position: absolute;
-
+                      left: 46%;
                       height: 1.5rem;
                       line-height: 1.5rem;
                       font-size: .7rem;
@@ -441,6 +441,7 @@
       }
     }
   }
+
   .mask {
     position: absolute;
     width: 100%;
@@ -448,51 +449,52 @@
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
-   .center{
-     width: 90%;
-     height: 55%;
-     position: absolute;
-     top: 46%;
-     left: 50%;
-     transform: translate3d(-50%, -50%, 0);
-     .win{
-       img{
-         width: 100%;
-         height: 100%;
-       }
-     }
-     .grade{
-       position: absolute;
-       top: 45.5%;
-       left: 30%;
-       color: #330000;
-     p{
-       i{
-         color: #ff0000;
-       }
-     }}
-     .footer_info{
-       position: absolute;
-       top: 64%;
-       left: 29%;
-       color: #ff0000;
-     }
-     .active_icon{
-       position: absolute;
-       top: 95%;
-       left: 2.5%;
-       span{
-         display: inline-block;
-         width: 45%;
-         height: 40px;
-         margin: 0 5px;
-         img{
-           width: 100%;
-           height: 100%;
-         }
-       }
-     }
-   }
+    .center {
+      width: 90%;
+      height: 55%;
+      position: absolute;
+      top: 46%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      .win {
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .grade {
+        position: absolute;
+        top: 45.5%;
+        left: 30%;
+        color: #330000;
+        p {
+          i {
+            color: #ff0000;
+          }
+        }
+      }
+      .footer_info {
+        position: absolute;
+        top: 64%;
+        left: 29%;
+        color: #ff0000;
+      }
+      .active_icon {
+        position: absolute;
+        top: 95%;
+        left: 2.5%;
+        span {
+          display: inline-block;
+          width: 45%;
+          height: 40px;
+          margin: 0 5px;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
   }
 </style>
 

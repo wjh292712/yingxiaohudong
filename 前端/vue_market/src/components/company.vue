@@ -1,8 +1,5 @@
 <template>
   <div class="container">
-    <!-- <header class="header">
-                              <span>聚通达</span>
-                           </header> -->
     <section class="section">
       <div class="wrapper">
         <div class="left">
@@ -72,8 +69,10 @@
           }
         }).then(res=>{
           console.log(res);
-          const token = res.data.data.token;
+          const token = res.data.data.user.token;
+          const versionName=res.data.data.enterpriseRole
           sessionStorage.setItem("token", token); //存储token
+          sessionStorage.setItem("vsersionName",versionName)
           this.$router.push({path: "/mainPage"})
         })
       },

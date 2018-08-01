@@ -65,47 +65,21 @@
 
     },
     mounted() {
-      // this.updataImg()
-
-      //let curname='';
-      // let cua='';
-      this.activeN()
-      this.dataStatus=this.$route.query.dataStatus
-      if (this.dataStatus==='1') {
-        this.activeN1()
-      }
-      // this.$nextTick(function () {
-      //   curname = settingbase.methods.partBase()
-      //   // cua=settingbase.methods.inputData()
-      //   console.log(curname);
-      //   // console.log(cua);
-      //   this.activeName=curname
-      // })
+      let _this = this
+      this.$bus.on("send_name",function (data) {
+        _this.activeName=data
+      })
 
     },
     updated() {
-      // this.activeN()
-
 
     },
     methods: {
       handleClick(tab, event) {
         console.log(tab, event);
       },
-      activeN() {
-        let _this = this
-        let Data = sessionStorage.getItem('Datadt')
-        _this.base_data = JSON.parse(Data).dtBaseSetup
-        _this.activeName = _this.formName = _this.base_data.activityName
-      },
-      activeN1() {
-        let _this = this
-        _this.base_data = _this.$route.query.newdtData.dtBaseSetup
-        _this.activeName = _this.formName = _this.base_data.activityName
-      },
 
     },
-
 
     components: {
       // prizedraw,
@@ -255,7 +229,7 @@
                     }
                     .phone_text {
                       position: absolute;
-                      /*left: 46%;*/
+                      left: 46%;
                       height: 1.5rem;
                       line-height: 1.5rem;
                       font-size: .7rem;

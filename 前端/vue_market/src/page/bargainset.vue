@@ -161,15 +161,16 @@
           contentType:"application/json",
           datatype:"json",
           success(data){ //保存跳转活动页面
-            console.log(data);
+
             if(data.data==="请重新登录"){
               alert(data.data)
               _this.$router.push({path:'/login'})
             }else if(data.data==="修改成功"||data.data==="保存成功"){
               alert(data.data)
               _this.$router.push({path:'/activeslide/myactive'})
+              _this.$bus.emit("send_active",1)
             }else {
-              alert(data.data)
+              alert(data.msg)
             }
           }
         })

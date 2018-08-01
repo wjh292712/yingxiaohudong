@@ -20,8 +20,11 @@
             <!--</div>-->
             <!--弹框封装-->
             <div class="center">
-              <el-tabs v-model="activeName" >
-                <el-tab-pane label="活动说明" name="first">
+              <el-tabs v-model="activeName">
+                <div class="indoContent">
+                  <span>活动说明</span>
+                  <span>我的奖品</span>
+                </div>
                   <div class="explain">
                     <p class="rule">活动时间</p>
                     <p>
@@ -41,29 +44,6 @@
                       <span>{{activeInfo}}</span>
                     </p>
                   </div>
-                </el-tab-pane>
-                <el-tab-pane label="我的奖品" name="second">
-                  <div class="total">
-                    <div class="to_left">
-                      <span>100元</span>
-
-                    </div>
-                    <div class="to_right">
-                      <h6 style="margin-top:10px;text-align:center;">话费券</h6>
-                      <h6> 2018.2.1~2018.2.10</h6>
-                    </div>
-                  </div>
-                  <div class=" copy">
-                    <div class="co_left">
-                      <span>100元</span>
-
-                    </div>
-                    <div class="co_right">
-                      <h6 style="margin-top:10px;text-align:center;">话费券</h6>
-                      <h6> 2018.2.1~2018.2.10</h6>
-                    </div>
-                  </div>
-                </el-tab-pane>
               </el-tabs>
             </div>
           </div>
@@ -130,6 +110,10 @@ export default ({
   },
   mounted() {
 
+    let _this=this
+    this.$bus.on("send_Name",function (data) {
+      _this.activeName1=data
+    })
     this.activeN()
     this.dataStatus=this.$route.query.dataStatus
     if (this.dataStatus==='1') {
@@ -350,7 +334,7 @@ export default ({
                   }
                   .phone_text {
                     position: absolute;
-                    /*left: 40%;*/
+                    left: 44%;
                     height: 1.5rem;
                     line-height: 1.5rem;
                     font-size: .7rem;
@@ -477,76 +461,34 @@ min-height: 55%;
   border: 1px solid #ccc;
   border-radius: 10px;
 }
+.indoContent{
+  text-align: center;
+  width: 90%;
+  height: 40px;
+  line-height: 40px;
+  margin: 0 auto;
+  font-family: PingFangSC-Medium;
+  font-size: 18px;
+  letter-spacing: 0;
+  border-bottom: 1px solid #E8E8E8;
+  span:nth-child(1){
+    display: inline-block;
+    color: #FF2437;
+    height: 40px;
+    border-bottom: 1px solid #FF2437;
+    margin-right: 30px;
+  }
 
+}
 .mask .center .explain {
-  margin-top: 10px;
-  margin-left: 10px;
+  margin-top: 20px;
+  padding-left: 20px;
 }
 
 .mask .center .rule {
   color: red;
 }
-.mask .center .total {
-  width: 8rem;
-  height: 3rem;
-  margin: 1rem auto;
-  display: flex;
-}
 
-
-.mask .center .total .to_left {
-  width: 30%;
-  background: #FF5210;
-  color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-}
-
-.mask .center .total .to_left span {
-  width: 3rem;
-  height: 3rem;
-  line-height: 3rem;
-}
-
-.mask .center .total .to_right {
-  width: 70%;
-  border: 1px solid #ccc;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background: #FF2F2D;
-  color: #fff;
-}
-.mask .center .copy {
-  width: 8rem;
-  height: 3rem;
-  margin: 0 auto;
-  display: flex;
-  margin-top: 10px;
-}
-
-
-.mask .center .copy .co_left {
-  width: 30%;
-  background: #D7D7D7;
-  color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-}
-
-.mask .center .copy .co_left span {
-  width: 3rem;
-  height: 3rem;
-  line-height: 3rem;
-}
-
-.mask .center .copy .co_right {
-  width: 70%;
-  border: 1px solid #ccc;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background: #C2C0C0;
-  color: #fff;
-}
 .mask .remove {
   width: 1.5rem;
   height: 1.5rem;

@@ -26,7 +26,7 @@
             </li>
           </ul>
           <!--<el-button class="btn_data">统计</el-button>-->
-          <a href="#" class="outdata">导出数据</a>
+          <a href="#" class="outdata" @click="dataOut()">导出数据</a>
         </div>
         <div class="charts">
           <div id="main" :style="{width:'100%',height:'420px'}">
@@ -56,7 +56,7 @@
 
           <span class="date_allDay"><el-checkbox v-model="checked" @change="allDayTime()">全部日期</el-checkbox></span>
           <!--<el-button class="btn_data">统计</el-button>-->
-          <a href="#" class="outdata">导出数据</a>
+          <a href="#" class="outdata" @click="dataOut1()">导出数据</a>
         </div>
         <div class="charts">
           <div id="mychart" :style="{width:'100%',height:'420px'}">
@@ -442,6 +442,48 @@
         }else {
           this.getDayTime()
         }
+      },
+      dataOut(){
+        this.$axios({
+          method:'get',
+          url:'http://center.marketing.yunpaas.cn/center/excel/getDataByDay',
+          params:{
+            activityId:this.activityId,
+            templateId:this.templateId,
+            startTime:this.date[0].getTime(),
+            endTime:this.date[1].getTime(),
+          }
+        }).then(res=>{
+          window.location.href ='http://center.marketing.yunpaas.cn/center/excel/getDataByDay?activityId='+this.activityId+'&templateId='+this.templateId+'&startTime='+this.date[0].getTime()+'&endTime='+this.date[1].getTime()
+        })
+      },
+      dataOut1(){
+       if(this.checked==true){
+         this.$axios({
+           method:'post',
+           url:'http://center.marketing.yunpaas.cn/center/excel/getDataByHourOnManyDay',
+           params:{
+             token: sessionStorage.getItem("token"),
+             activityId: this.activityId,
+             templateId: this.templateId,
+           }
+         }).then(res=>{
+           window.location.href='http://center.marketing.yunpaas.cn/center/excel/getDataByHourOnManyDay?activityId='+this.activityId+'&templateId='+this.templateId
+         })
+       }else {
+         this.$axios({
+           method:'get',
+           url:'http://center.marketing.yunpaas.cn/center/excel/getDataByHourOnOneDay',
+           params:{
+             token: sessionStorage.getItem("token"),
+             activityId: this.activityId,
+             templateId: this.templateId,
+             time:this.date1.getTime()
+           }
+         }).then(res=>{
+           window.location.href ='http://center.marketing.yunpaas.cn/center/excel/getDataByHourOnOneDay?activityId='+this.activityId+'&templateId='+this.templateId+'&time='+this.date1.getTime()
+         })
+       }
       },
     },
     components: {},

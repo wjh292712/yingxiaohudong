@@ -120,7 +120,7 @@
                   :rows="2"
                   maxlength="25"
                   placeholder="0/25字"
-                  v-model="textarea">
+                  v-model="textareaTitle">
                 </el-input>
                   </span>
             </p>
@@ -140,7 +140,7 @@
                   :rows="2"
                   maxlength="50"
                   placeholder="0/50字"
-                  v-model="textarea">
+                  v-model="textareaContent">
                 </el-input>
                   </span>
             </p>
@@ -240,7 +240,8 @@
         company_send:'',//企业设置保存
         share_send:'',//分享设置保存
         other_send:'',//其他设置保存
-        textarea: '',
+        textareaTitle: '',
+        textareaContent: '',
         wxicon:false,
         wxTil:false,
         wxsharcontent:false,
@@ -297,6 +298,8 @@
         // 企业设置
         this.input=this.company.company //主办单位
         this.input3=this.company.url   //链接地址
+        this.imageUrl1=this.company.loadSelfImg
+        this.imageUrl=this.company.companyLogo
         this.radio2 = this.company.companyLogoType.toString()//主办单位logo
         if(this.radio2==1){
           this.logoShow=false
@@ -322,7 +325,9 @@
 
 
         // 分享设置
-        this.imageUrl = this.share.wxShareSelfLogo
+        this.imageUrl2 = this.share.wxShareSelfLogo
+        this.textareaContent= this.share.wxShareSelfContent
+        this.textareaTitle=this.share.wxShareSelfTitle
         this.radio4=Number(this.share.share).toString()
         this.radio5 = this.share.wxShareLogoType.toString()
         if(this.radio5==1){
@@ -404,6 +409,8 @@
         //企业保存设置
         this.company_send.company = this.input
         this.company_send.url = this.input3
+        this.company_send.loadSelfImg=this.imageUrl1
+        this.company_send.companyLogo=this.imageUrl
         this.company_send.companyLogoType = Number(this.radio2)
         if(this.radio2==1){
           this.logoShow=false
@@ -422,51 +429,56 @@
         // 分享保存设置
         this.share_send.share =  this.radio4 == 1 ? true : false
         this.share_send.wxShareLogoType = this.radio5
-        if(this.radio5==1){
-          this.wxicon=false
-        }else {
-          this.wxicon=true
-        }
-        this.share_send.wxShareTitleType = this.radio6
-        if(this.radio6==1){
-          this.wxTil=false
-        }else {
-          this.wxTil=true
-        }
-        this.share_send.wxShareContentType = this.radio7
-        if(this.radio7==1){
-          this.wxsharcontent=false
-        }else {
-          this.wxsharcontent=true
-        }
-        if(this.share_data.allowClickWxShareLogo==true){
-          this.shareLogoType=false
-        }else if (this.share_data.allowClickWxShareLogo==false
-        ){
-          this.shareLogoType=true
-        }
-        if(this.share_data.allowClickWxShareTitle==true){
-          this.wxShareTitleType=false
-        }else if (this.share_data.allowClickWxShareTitle==false
-        ){
-          this.wxShareTitleType=true
-        }
-        if(this.share_data.allowClickWxShareContent==true){
-          this.shareContentType=false
-        }else if (this.share_data.allowClickWxShareContent==false
-        ){
-          this.shareContentType=true
-        }
+        this.share_send.wxShareSelfContent=this.textareaContent
+        this.share_send.wxShareSelfTitle=this.textareaTitle
+        this.share_send.wxShareSelfLogo=this.imageUrl2
+          if (this.radio5 == 1) {
+            this.wxicon = false
+          } else {
+            this.wxicon = true
+          }
+          this.share_send.wxShareTitleType = this.radio6
+          if (this.radio6 == 1) {
+            this.wxTil = false
+          } else {
+            this.wxTil = true
+          }
+          this.share_send.wxShareContentType = this.radio7
+          if (this.radio7 == 1) {
+            this.wxsharcontent = false
+          } else {
+            this.wxsharcontent = true
+          }
 
-        this.$store.state.setting_dtData.dtShareSetup = this.share_send
+          if (this.share_send.allowClickWxShareLogo == true) {
+            this.shareLogoType = false
+          } else if (this.share_send.allowClickWxShareLogo == false
+          ) {
+            this.shareLogoType = true
+          }
+          if (this.share_send.allowClickWxShareTitle == true) {
+            this.wxShareTitleType = false
+          } else if (this.share_send.allowClickWxShareTitle == false
+          ) {
+            this.wxShareTitleType = true
+          }
+          if (this.share_send.allowClickWxShareContent == true) {
+            this.shareContentType = false
+          } else if (this.share_send.allowClickWxShareContent == false
+          ) {
+            this.shareContentType = true
+          }
 
-        // 其它保存设置
-        this.other_send.ad = this.radio8 == 1 ? true : false
-        this.other_send.carousel = this.radio9 == 1 ? true : false
-        this.other_send.form = this.radio10 == 1 ? false : true
-        this.other_send.area = this.radio11 == 1 ? false : true
-        this.$store.state.setting_dtData.dtHighOtherSetup =this.other_send
-        this.$bus.emit("send_high",[this.company_send,this.share_send,this.other_send])
+          this.$store.state.setting_dtData.dtShareSetup = this.share_send
+
+          // 其它保存设置
+          this.other_send.ad = this.radio8 == 1 ? true : false
+          this.other_send.carousel = this.radio9 == 1 ? true : false
+          this.other_send.form = this.radio10 == 1 ? false : true
+          this.other_send.area = this.radio11 == 1 ? false : true
+          this.$store.state.setting_dtData.dtHighOtherSetup = this.other_send
+          this.$bus.emit("send_high", [this.company_send, this.share_send, this.other_send])
+
       },
 
       handleClick(tab, event) {

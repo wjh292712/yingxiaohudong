@@ -50,49 +50,30 @@
             <!--弹框封装-->
             <div class="center">
               <el-tabs v-model="activeName" >
-                <el-tab-pane label="活动说明" name="first">
-                  <div class="explain">
-                    <p class="rule">活动时间</p>
-                    <p>
-                      <span>{{activeStartDate}}--{{activeEndDate}}</span>
-                    </p>
-                  </div>
-                  <div class="explain">
-                    <p class="rule">活动奖品</p>
-                    <p>
-                      <span>{{activerewordList1}},{{activerewordList2}},{{activerewordList3}},{{activerewordList4}},{{activerewordList5}},{{activerewordList6}},{{activerewordList7}}
-                      </span>
-                    </p>
-                  </div>
-                  <div class="explain">
-                    <p class="rule">活动规则</p>
-                    <p>
-                      <span>{{activeInfo}}</span>
-                    </p>
-                  </div>
-                </el-tab-pane>
-                <el-tab-pane label="我的奖品" name="second">
-                  <div class="total">
-                    <div class="to_left">
-                      <span>100元</span>
+                <div class="indoContent">
+                  <span>活动说明</span>
+                  <span>我的奖品</span>
+                </div>
+                <div class="total">
+                  <div class="to_left">
+                    <span>100元</span>
 
-                    </div>
-                    <div class="to_right">
-                      <h6 style="margin-top:10px;text-align:center;">话费券</h6>
-                      <h6> 2018.2.1~2018.2.10</h6>
-                    </div>
                   </div>
-                  <div class=" copy">
-                    <div class="co_left">
-                      <span>100元</span>
+                  <div class="to_right">
+                    <h6 style="margin-top:20px;text-align:center;">话费券</h6>
+                    <h6> 2018.2.1~2018.2.10</h6>
+                  </div>
+                </div>
+                <div class=" copy">
+                  <div class="co_left">
+                    <span>100元</span>
 
-                    </div>
-                    <div class="co_right">
-                      <h6 style="margin-top:10px;text-align:center;">话费券</h6>
-                      <h6> 2018.2.1~2018.2.10</h6>
-                    </div>
                   </div>
-                </el-tab-pane>
+                  <div class="co_right">
+                    <h6 style="margin-top:20px;text-align:center;">话费券</h6>
+                    <h6> 2018.2.1~2018.2.10</h6>
+                  </div>
+                </div>
               </el-tabs>
             </div>
           </div>
@@ -136,13 +117,7 @@
 
     },
     created() {
-      // console.log(222);
-      // console.log(this);
-      // this.$bus.$on('inputDate',(val)=>{
-      //   console.log(333);
-      //   console.log(val);
-      //   this.activeName=val
-      // })
+
 
     },
     mounted() {
@@ -512,8 +487,7 @@
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.3);
-    z-index: 90;
-    overflow-y: auto;
+    z-index: 90
   }
 
   .mask .center {
@@ -527,6 +501,25 @@
     border: 1px solid #ccc;
     border-radius: 10px;
   }
+  .indoContent{
+    text-align: center;
+    width: 90%;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 auto;
+    font-family: PingFangSC-Medium;
+    font-size: 18px;
+    letter-spacing: 0;
+    border-bottom: 1px solid #E8E8E8;
+    span:nth-child(2){
+      display: inline-block;
+      color: #FF2437;
+      height: 40px;
+      border-bottom: 1px solid #FF2437;
+      margin-left: 30px;
+    }
+
+  }
 
   .mask .center .explain {
     margin-top: 10px;
@@ -536,11 +529,13 @@
   .mask .center .rule {
     color: red;
   }
+
   .mask .center .total {
-    width: 8rem;
-    height: 3rem;
-    margin: 1rem auto;
+    width: 12rem;
+    height: 4rem;
+    margin: 1.3rem auto;
     display: flex;
+    text-align: center;
   }
 
 
@@ -554,8 +549,8 @@
 
   .mask .center .total .to_left span {
     width: 3rem;
-    height: 3rem;
-    line-height: 3rem;
+    height: 4rem;
+    line-height: 4rem;
   }
 
   .mask .center .total .to_right {
@@ -566,12 +561,15 @@
     background: #FF2F2D;
     color: #fff;
   }
+
+  ///
   .mask .center .copy {
-    width: 8rem;
-    height: 3rem;
+    width: 12rem;
+    height: 4rem;
     margin: 0 auto;
     display: flex;
     margin-top: 10px;
+    text-align: center;
   }
 
 
@@ -585,8 +583,9 @@
 
   .mask .center .copy .co_left span {
     width: 3rem;
-    height: 3rem;
-    line-height: 3rem;
+    height: 4rem;
+    line-height: 4rem;
+    text-align: center;
   }
 
   .mask .center .copy .co_right {
@@ -597,6 +596,7 @@
     background: #C2C0C0;
     color: #fff;
   }
+
   .mask .remove {
     width: 1.5rem;
     height: 1.5rem;

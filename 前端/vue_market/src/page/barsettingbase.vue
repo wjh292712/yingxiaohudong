@@ -92,36 +92,6 @@
         twoRadio: null,//��ѡ��һֵ
         base_data: '',//基础设置数据
         base_send: "",
-
-        pickerOptions2: {
-          shortcuts: [{
-            text: '最近一周',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近一个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近三个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit('pick', [start, end]);
-            }
-          }]
-        },
-        value4: [new Date(2018, 10, 10, 10, 20, 30), new Date(2018, 10, 11, 10, 10, 26)],
-        value5: '',
         value1:'',
         value2:'',
         startTime1:false, //基础设置的开始时间
@@ -178,6 +148,7 @@
           _this.base_data = this.$route.query.newkjData.kjBaseSetup
         }
         _this.formName = _this.base_data.activityName
+        _this.$bus.emit("send_Name",_this.formName)
         _this.radio1 = _this.base_data.isShow==true?'1':'2'
         if(_this.radio1==1){
           this.peopCount=false
@@ -197,14 +168,8 @@
         _this.addpepCount=_this.base_data.addDoubling
         _this.start_date = _this.base_data.startDate//日期开始时间
         _this.end_date = _this.base_data.endDate//结束时间
-        let str = _this.start_date
-        let strend = _this.end_date
-        //时间戳转换日期
-        let newStr = _this.timestampToTime(str)
-        strend = _this.timestampToTime(strend)
-        _this.value4 = [newStr, strend]
-        _this.value1=newStr
-        _this.value2=strend
+        _this.value1=new Date(_this.start_date)
+        _this.value2=new  Date(_this.end_date)
         // console.log(_this.value4);
         return formName;
       },
@@ -244,8 +209,8 @@
         _this.base_send.merchantInfo = _this.form.intro
         _this.base_send.merchantAddress = _this.form.address
         _this.base_send.merchantTelephone = _this.form.phone
-        _this.base_send.startDate = _this.start_date
-        _this.base_send.endDate =  _this.end_date
+        _this.base_send.startDate = _this.value1.getTime()
+        _this.base_send.endDate =  _this.value2.getTime()
          _this.$store.state.setting_kjData.kjBaseSetup = this.base_send
         _this.$bus.emit("send_base", _this.base_send)
 

@@ -6,36 +6,14 @@
       </div>
       <div class="version_Info">
         <div class="ver_title">
-          <p>slogan展示slogan展示slogan展示slogan展示</p>
+          <!--<p>slogan展示slogan展示slogan展示slogan展示</p>-->
         </div>
         <ul class="ver_img">
-          <!--<li class="ver_img_info" v-for="(item,index) in versionList" v-bind:class="{ active:index==selectItem}"-->
-          <!--@click="versionCart(index,item.id,item.logPicPath,item.oriPrice,item.proPrice,item.versionInfoYearList)" :key="index">-->
-          <!--<div class="version_A">-->
-          <!--<img :src=item.logPicPath alt="">-->
-          <!--&lt;!&ndash;<p>{{item.name}}</p>&ndash;&gt;-->
-          <!--&lt;!&ndash;<p>{{item.oriPrice}}/年</p>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div class="version_b">&ndash;&gt;-->
-          <!--&lt;!&ndash;<span class="versInfo">{{item.instruction}}</span>&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<span> 微信支付、积分系统</span>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<span>打折、满减等促销</span>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;</div>&ndash;&gt;-->
-          <!--</div>-->
-          <!--</li>-->
-          <li class="ver_img_info active" @click="versionCart(versionListbzb,0)">
-            <div class="version_A">
-              <img :src=this.versionListbzb[2].versionLogPicPath alt="">
-            </div>
-          </li>
-          <li class="ver_img_info" @click="versionCart(versionListzyb,1)">
-            <div class="version_A">
-              <img :src=this.versionListzyb[2].versionLogPicPath alt="">
-            </div>
-          </li>
-          <li class="ver_img_info" @click="versionCart(versionListzxb,2)">
-            <div class="version_A">
-              <img :src=this.versionListzxb[2].versionLogPicPath alt="">
-            </div>
+          <li class="ver_img_info" v-for="(item,index) in versionList" v-bind:class="{ active:index==selectItem}"
+          @click="versionCart(item.versionInfoSpecList,index,item.logPicPath,item.detailPicPath)" :key="index">
+          <div class="version_A">
+          <img :src=item.logPicPath alt="">
+          </div>
           </li>
         </ul>
       </div>
@@ -47,31 +25,28 @@
           </div>
           <div class="ver_Prive_commodity">
             <p>聚通达MCM 标准版
-              <a href="#">了解详情></a>
+              <a href="#goodsDetail">了解详情></a>
             </p>
             <p>价格：<span>{{oriPrice}}</span></p>
             <p>促销价: <span>{{proPrice}}</span></p>
             <p id="select">请选择：
-              <span v-for="(item,index) in this.versionListAll.slice(0,2)" @click="cartVers(item.oriPrice,item.salePrice,item.id,index)"
-              v-bind:class="{ selected:index==selectItemCart}" :key="index">{{item.buyYear}}年赠{{item.giveMonth}}</span>
-              <!--<span>{{versionYearId1}}年赠{{verMounth1}}月</span>-->
-              <!--<span>{{versionYearId2}}年赠{{verMounth2}}月</span>-->
-              <!--<span>四年</span>-->
-              <!--<span>五年</span>-->
+              <span v-for="(item,index) in  versionListAll" @click="cartVers(item.oriPrice,item.salePrice,item.id,index,item.versionId)"
+              v-bind:class="{ selected:index==selectItemCart}" :key="index">{{item.buyYear}}年赠{{item.giveMonth}}个月</span>
+
             </p>
           </div>
           <div class="version_cart">
             <span class="ver_cart" @click="cartPrice()">立即购买</span>
             <span class="pepole"><i class="iconfont icon-kefu"></i>咨询客服</span>
           </div>
-          <div class="goodsDetail">
+          <div class="goodsDetail" id="goodsDetail">
             <i></i>
             <span>商品详情</span>
           </div>
         </div>
       </div>
       <div class="version_goodsDetail">
-        <div><img src="@/assets/bakground.png" alt=""></div>
+        <div><img :src="imgDetailUrl" alt=""></div>
       </div>
     </div>
   </div>
@@ -82,6 +57,7 @@
   export default {
     data() {
       return {
+        versionList:[],
         versionListbzb: [],//标准版
         versionListzyb: [],//专业版
         versionListzxb: [],//尊享版
@@ -99,6 +75,7 @@
         yearList: '',
         selectItem: 0,
         selectItemCart: 0,
+        imgDetailUrl:'',//版本详情图片
       }
     },
     created() {
@@ -112,46 +89,36 @@
         params: {}
       }).then(res => {
         console.log(res);
-        this.versionListbzb = res.data.data.bzb
-        this.versionListzyb = res.data.data.zyb
-        this.versionListzxb = res.data.data.zxb
-
-        this.versionListAll=this.versionListbzb
-        this.versionName = this.versionListAll[0].name
-        this.versionYearId1 = this.versionListAll[0].buyYear
-        this.verMounth1 = this.versionListAll[0].giveMonth
-        this.versionYearId2 = this.versionListAll[1].buyYear
-        this.verMounth2 = this.versionListAll[1].giveMonth
-        this.oriPrice = this.versionListAll[0].oriPrice
-        this.proPrice = this.versionListAll[0].salePrice
-        this.versionId = this.versionListAll[0].versionId
-        this.imgUrl = this.versionListAll[2].versionLogPicPath
-        this.versionSpecId=this.versionListAll[0].id
+        this.versionList=res.data.data
+         this.versionListAll=this.versionList[0].versionInfoSpecList
+         this.oriPrice = this.versionListAll[0].oriPrice
+         this.proPrice = this.versionListAll[0].salePrice
+         this.versionId = this.versionListAll[0].versionId
+         this.imgUrl = this.versionList[0].logPicPath
+         this.versionSpecId=this.versionListAll[0].id
+         this.imgDetailUrl=this.versionList[0].detailPicPath
       })
     },
 
     methods: {
 
-      versionCart(list,idx) {
-        this.versionListAll = list
-        this.versionName = this.versionListAll[0].name
-        this.versionYearId1 = this.versionListAll[0].buyYear
-        this.verMounth1 = this.versionListAll[0].giveMonth
-        this.versionYearId2 = this.versionListAll[1].buyYear
-        this.verMounth2 = this.versionListAll[1].giveMonth
-        this.oriPrice = this.versionListAll[0].oriPrice
-        this.proPrice = this.versionListAll[0].salePrice
-        this.versionId = this.versionListAll[0].versionId
-        this.imgUrl = this.versionListAll[2].versionLogPicPath
-        this.versionSpecId=this.versionListAll[0].id
-        $(".ver_img_info").eq(idx).addClass("active").siblings().removeClass("active")
-
+      versionCart(list,idx,urls,detailUrl) {
+        const i=this.selectItemCart
+         this.versionListAll = list
+        this.selectItem=idx
+        this.oriPrice = this.versionListAll[i].oriPrice
+        this.proPrice = this.versionListAll[i].salePrice
+        this.versionId = this.versionListAll[i].versionId
+        this.imgUrl = urls
+         this.imgDetailUrl=detailUrl
+         this.versionSpecId=this.versionListAll[i].id
       },
 
-      cartVers(olp,slp,id, idx) {
+      cartVers(olp,slp,id, idx,verId) {
         this.oriPrice=olp
         this.proPrice=slp
         this.versionSpecId=id
+        this.versionId=verId
         this.selectItemCart = idx
       },
       cartPrice() {
@@ -195,7 +162,6 @@
       }
       .version_Info {
         width: 100%;
-        height: 388px;
         border-bottom: 1px solid #E8E8E8;
         .ver_title {
           text-align: center;
@@ -410,7 +376,7 @@
               letter-spacing: 0;
               span {
                 display: inline-block;
-                width: 67px;
+                width: 80px;
                 height: 28px;
                 line-height: 28px;
                 border: 1px solid #9B9B9B;

@@ -21,7 +21,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
-                <el-input maxlength="15" :disabled="actName" v-model="form.name1_1" placeholder="不超过15个字"></el-input>
+                <el-input maxlength="15" style="width: 300px" :disabled="actName" v-model="form.name1_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-upload
@@ -41,7 +41,7 @@
               </el-form-item>
 
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name1_2" :disabled="rewordCount" maxlength="15" type="text"
+                <el-input v-model="form.name1_2" :disabled="rewordCount" maxlength="15" style="width: 300px" type="text"
                           placeholder="不超过15个字"
                           onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                           onblur="this.v();"></el-input>
@@ -141,7 +141,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
-                <el-input maxlength="15" :disabled="actName" v-model="form.name2_1" placeholder="不超过15个字"></el-input>
+                <el-input maxlength="15" style="width: 300px" :disabled="actName" v-model="form.name2_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-upload
@@ -161,7 +161,7 @@
                 <!--</el-dialog>-->
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name2_2" :disabled="rewordCount" maxlength="15" type="text"
+                <el-input v-model="form.name2_2" :disabled="rewordCount" maxlength="15" style="width: 300px" type="text"
                           placeholder="不超过15个字"
                           onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                           onblur="this.v();"></el-input>
@@ -260,7 +260,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
-                <el-input maxlength="15" :disabled="actName" v-model="form.name3_1" placeholder="不超过15个字"></el-input>
+                <el-input maxlength="15" :disabled="actName" style="width: 300px" v-model="form.name3_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-upload
@@ -280,7 +280,7 @@
                 <!--</el-dialog>-->
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name3_2" :disabled="rewordCount" maxlength="15" type="text"
+                <el-input v-model="form.name3_2" :disabled="rewordCount" maxlength="15" style="width: 300px" type="text"
                           placeholder="不超过15个字"
                           onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                           onblur="this.v();"></el-input>
@@ -382,7 +382,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
-                <el-input maxlength="15" :disabled="actName" v-model="form.name4_1" placeholder="不超过15个字"></el-input>
+                <el-input maxlength="15" :disabled="actName" style="width: 300px" v-model="form.name4_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-upload
@@ -403,7 +403,7 @@
 
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name4_2" :disabled="rewordCount" maxlength="15" type="text"
+                <el-input v-model="form.name4_2" :disabled="rewordCount" maxlength="15" style="width: 300px" type="text"
                           placeholder="不超过15个字"
                           onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                           onblur="this.v();"></el-input>
@@ -503,7 +503,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
-                <el-input maxlength="15" :disabled="actName" v-model="form.name5_1" placeholder="不超过15个字"></el-input>
+                <el-input maxlength="15" :disabled="actName" style="width: 300px" v-model="form.name5_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-upload
@@ -524,7 +524,7 @@
 
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name5_2" :disabled="rewordCount" maxlength="15" type="text"
+                <el-input v-model="form.name5_2" :disabled="rewordCount" maxlength="15" style="width: 300px" type="text"
                           placeholder="不超过15个字"
                           onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                           onblur="this.v();"></el-input>
@@ -625,7 +625,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
-                <el-input maxlength="15" :disabled="actName" v-model="form.name6_1" placeholder="不超过15个字"></el-input>
+                <el-input maxlength="15" :disabled="actName" style="width: 300px" v-model="form.name6_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-upload
@@ -646,7 +646,7 @@
 
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name6_2" :disabled="rewordCount" maxlength="15" type="text"
+                <el-input v-model="form.name6_2" :disabled="rewordCount" maxlength="15" style="width: 300px" type="text"
                           placeholder="不超过15个字"
                           onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                           onblur="this.v();"></el-input>
@@ -747,7 +747,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="奖品名称">
-                <el-input maxlength="15" :disabled="actName" v-model="form.name7_1" placeholder="不超过15个字"></el-input>
+                <el-input maxlength="15" :disabled="actName" style="width: 300px" v-model="form.name7_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-upload
@@ -767,7 +767,7 @@
                 <!--</el-dialog>-->
               </el-form-item>
               <el-form-item label="奖品数量">
-                <el-input v-model="form.name7_2" :disabled="rewordCount" maxlength="15" type="text"
+                <el-input v-model="form.name7_2" :disabled="rewordCount" maxlength="15" style="width: 300px" type="text"
                           placeholder="不超过15个字"
                           onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                           onblur="this.v();"></el-input>
@@ -1335,6 +1335,7 @@
         this.form.address1 = this.reword_data[0].exchangeAddress//门店地址
         this.form.phone1_1 = this.reword_data[0].exchangeTelephone //客服电话
         this.radio1 = this.reword_data[0].prizeSource.toString() //奖品来源
+
         this.radio2 = this.reword_data[0].prizeCouponCodeType.toString() //导入券码
 
         if (this.radio2 == 1) {
@@ -1639,6 +1640,7 @@
         this.reword_send[0].exchangeAddress = this.form.address1//门店地址
         this.reword_send[0].exchangeTelephone = this.form.phone1_1//客服电话
         this.reword_send[0].prizeSource = this.radio1  //奖品来源
+        this.$bus.emit("send_radio1",this.radio1)
         this.reword_send[0].prizeCouponCodeType = this.radio2  //导入券码
 
         if (this.radio2 == 1) {
@@ -1931,56 +1933,12 @@
         this.reword_send[6].prizeType = this.form.region7
         this.reword_send[6].wxPublicAccountImg = this.dialogImageUrl6//微信公众号图片
 
-        // 奖品八
-        // this.reword_send[7].prizeName = this.form.name7_1
-        // this.reword_send[7].prizeNum = this.form.name7_2
-        // this.reword_send[7].wxPublicAccountName = this.form.name7_3
-        // this.reword_send[7].prizeType = Number(this.radio7_1)
-        // this.reword_send[7].prizeSource = Number(this.radio7_2)
-        // this.reword_send[7].prizeExchangeTypeId = Number(this.radio7_3)
-        // this.reword_type8 = this.reword_data.jggAwardTypeList
+
 
         this.$store.state.setting_data.jggAwardSetupExtendList = this.reword_send
         this.$bus.emit("send_reword", this.reword_send,this.addState)
       },
-      //添加奖品
-      // addgift() {
-      //   this.addState++
-      //   this.saveState.push(this.addState)
-      //   if(this.addState==1){
-      //     this.num1=true
-      //     this.reduceCart=true
-      //   }
-      //   if(this.addState==2){
-      //     this.num2=true
-      //   }
-      //   if(this.addState==3){
-      //     this.num3=true
-      //   }
-      //   if(this.addState==4) {
-      //     this.num4 = true
-      //     this.addcart=false
-      //   }
-      //   let abd=this.addState
-      // },
-      // //删除奖品
-      // reducegift() {
-      //   this.addState--
-      //   if(this.addState==3){
-      //     this.num4 = false
-      //     this.addcart=true
-      //   }
-      //   if(this.addState==2){
-      //     this.num3 = false
-      //   }
-      //   if(this.addState==1){
-      //     this.num2 = false
-      //   }
-      //   if(this.addState==0){
-      //     this.num1 = false
-      //     this.reduceCart=false
-      //   }
-      // },
+
       onSubmit() {
         console.log('submit!');
       },

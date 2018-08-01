@@ -55,6 +55,7 @@ export default {
       companyId:'',
       userId:'',
       dataList:[],
+      versionName:'',
     };
   },
   methods: {
@@ -71,7 +72,6 @@ export default {
       sessionStorage.getItem("userName", this.userName);
       console.log(this.userName);
       console.log(this.userPwd);
-      var _this = this;
 
       this.$axios({
         method: "post",
@@ -81,30 +81,27 @@ export default {
           userName: this.userName,
           password: this.userPwd
         }
-      })
-        .then(res => {
-          const token = res.data.data.token;
-          const id = res.data.data.id;
-          this.userId=res.data.data.userId
-          sessionStorage.setItem("token", token); //存储token
-          sessionStorage.setItem("id", id); //存储id
-          sessionStorage.setItem("userId", this.userId);
-          this.dataList=JSON.stringify(res.data.data)
-          sessionStorage.setItem("dataList",this.dataList)
+      }).then(res => {
+        let _this=this
           if (res.data.status === true) {
-            // this.username = res.data.data.name
-            // this.$bus.emit('name',this.username)
-            this.$store.dispatch("undisappear");
-            // this.$store.commit('show'),
+            this.dataList=JSON.stringify(res.data.data)
+            sessionStorage.setItem("dataList",this.dataList)
             if (res.data.code === 200) {
+              const token = res.data.data.user.token;
+              const id = res.data.data.user.id;
+              const versionName=res.data.data.enterpriseRole
+              sessionStorage.setItem("token", token); //存储token
+              sessionStorage.setItem("id", id); //存储id
+              sessionStorage.setItem("vsersionName",versionName)
               this.$emit("hides", true);
               $.cookie("users", JSON.stringify(res.data.data), { expires: 1 });
-              this.$router.push({ path: "/mainPage" }); //跳转主页
+              this.$router.push({ path: "/mainPage",query:{versionName:this.versionName}}); //跳转主页
             } else if (res.data.code === 201) {
-              this.$router.push({ path: "/company" });
+              _this.$router.push({ path: "/company" });
+              //_this.$router.push({path:"/mainPage"})
             }
           } else {
-            alert("用户名或密码错误");
+            alert(res.data.msg);
           }
           //商户选择
         })

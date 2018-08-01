@@ -2,18 +2,6 @@
   <div class="share_wrap">
     <div class="share_con">
       <el-form ref="form" :model="form" label-width="100px">
-        <!-- <el-form-item label="活动名称">
-          <el-input v-model="form.name"></el-input>
-        </el-form-item>
-        <el-form-item label="活动时间">
-          <el-col :span="11">
-            <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
-          </el-col>
-          <el-col class="line" :span="2">-</el-col>
-          <el-col :span="11">
-            <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
-          </el-col>
-        </el-form-item> -->
         <el-form-item label="分享活动">
           <el-radio-group v-model="form.resource1" @change="change">
             <el-radio label="1">开启</el-radio>
@@ -31,15 +19,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item v-show="shareIcon">
-          <!--<el-upload-->
-            <!--action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"-->
-            <!--list-type="picture-card"-->
-            <!--:on-preview="handlePictureCardPreview"-->
-            <!--:on-success="handleAvatarSuccess"-->
-            <!--:on-remove="handleRemove">-->
-            <!--<i class="el-icon-plus"></i>-->
-            <!--<span>上传图标</span>-->
-          <!--</el-upload>-->
+
           <el-upload
             class="avatar-uploader"
             action="http://center.marketing.yunpaas.cn/jgg/upImg/upActivityImg"
@@ -82,10 +62,6 @@
         </el-form-item>
         <p>分享信息请遵守微信管理规定，禁止出现诱导分享等违规信息，后果由活动发布企业自担，部分敏感词系统会自动屏蔽。</p>
 
-        <!--<el-form-item>-->
-        <!--<el-button type="primary" @click="savedShare()">保存</el-button>-->
-        <!--<el-button type='primary' @click="back()" >返回</el-button>-->
-        <!--</el-form-item>-->
       </el-form>
     </div>
   </div>
@@ -253,21 +229,21 @@
         }
         this.share_send.wxShareSelfTitle=this.form.desc1
         this.share_send.wxShareSelfContent=this.form.desc2
-        if(this.share_data.allowClickWxShareLogo==true){
+        if(this.share_send.allowClickWxShareLogo==true){
           this.shareLogoType=false
-        }else if (this.share_data.allowClickWxShareLogo==false
+        }else if (this.share_send.allowClickWxShareLogo==false
         ){
           this.shareLogoType=true
         }
-        if(this.share_data.allowClickWxShareTitle==true){
+        if(this.share_send.allowClickWxShareTitle==true){
           this.wxShareTitleType=false
-        }else if (this.share_data.allowClickWxShareTitle==false
+        }else if (this.share_send.allowClickWxShareTitle==false
         ){
           this.wxShareTitleType=true
         }
-        if(this.share_data.allowClickWxShareContent==true){
+        if(this.share_send.allowClickWxShareContent==true){
           this.shareContentType=false
-        }else if (this.share_data.allowClickWxShareContent==false
+        }else if (this.share_send.allowClickWxShareContent==false
         ){
           this.shareContentType=true
         }

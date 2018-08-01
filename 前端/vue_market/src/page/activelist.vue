@@ -4,32 +4,6 @@
     <div class="active_con">
       <div class="active_rightCon">
         <div class="active_container">
-          <!-- <el-tabs v-model="activeName" >
-            <el-tab-pane label="活动首页" name="first">
-              <div class="active_down">
-                <div class="active_downCon">
-
-                </div>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="活动说明" name="second">
-
-
-            </el-tab-pane>
-            <el-tab-pane label="我的奖品" name="third">
-
-            </el-tab-pane>
-            <el-tab-pane label="奖品详情" name="fourth">
-
-
-            </el-tab-pane>
-            <el-tab-pane label="中奖页" name="five">
-
-            </el-tab-pane>
-            <el-tab-pane label="未中奖页" name="six">
-
-            </el-tab-pane>
-          </el-tabs> -->
           <div class="pic_view">
             <div class="nav_pic">
                 <span v-for="(item,index) in tabs"
@@ -173,7 +147,7 @@ export default ({
 </script>
 
 
-<style lang="scss" >
+<style lang="scss" scoped>
   .pic_ture{
     position: relative;
   }

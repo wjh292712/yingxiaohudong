@@ -3,30 +3,21 @@
     <div class="base_con">
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="活动名称">
-          <el-input v-model="formName" @input='inputData' maxlength="10" placeholder="不超过10个汉字"></el-input>
+          <el-input v-model="formName" @input='inputData' maxlength="10" placeholder="不超过10个汉字" style="width: 300px"></el-input>
           <!-- <div>{{setting_data}}</div> -->
         </el-form-item>
         <el-form-item label="活动日期">
-          <!--<el-date-picker-->
-            <!--v-model="value4"-->
-            <!--type="datetimerange"-->
-            <!--:disabled="ok"-->
-            <!--range-separator="至"-->
-            <!--start-placeholder="开始日期"-->
-            <!--end-placeholder="结束日期" style="width:400px">-->
-          <!--</el-date-picker >-->
-
           <el-date-picker
             v-model="value1"
             :disabled="startTime"
             type="datetime"
-            placeholder="选择开始时间" style="width: 240px">
+            placeholder="选择开始时间" style="width: 245px">
           </el-date-picker>
           <el-date-picker
             v-model="value2"
             :disabled="endTime"
             type="datetime"
-            placeholder="选择结束时间" style="width: 240px">
+            placeholder="选择结束时间" style="width: 245px">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="参与人数">
@@ -35,7 +26,8 @@
             <el-radio label="2">显示</el-radio>
           </el-radio-group>
           <div class="label_text" v-show="pepcount">在实际参与人数基础上增加
-            <input class="people" v-model="addpepCount" style="display: inline-block;width: 50px;height: 20px;text-align: center"/>
+            <input class="people" v-model="addpepCount"  onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
+                   onblur="this.v();" style="display: inline-block;width: 50px;height: 20px;text-align: center"/>
             倍
             <span>(该数据只用于显示，不计入统计)</span>
           </div>
@@ -53,10 +45,6 @@
           <el-input style="height:6rem;" type="textarea" maxlength="500" v-model="form.desc" placeholder="请输入活动规则0／500字"></el-input>
         </el-form-item>
         <el-form-item>
-          <!--<div class="btn_click">-->
-            <!--<el-button type="primary" @click="saveBase()">保存</el-button>-->
-            <!--<el-button type='primary' @click="back()">返回</el-button>-->
-          <!--</div>-->
 
         </el-form-item>
       </el-form>
@@ -99,34 +87,6 @@
         pepcount:false,//参与人数倍数
         ok:false,
         dataStatus:0,
-        pickerOptions2: {
-          shortcuts: [{
-            text: '最近一周',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近一个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近三个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit('pick', [start, end]);
-            }
-          }]
-        },
-        value4: [new Date(2018, 10, 29, 10, 10), new Date(2018, 10, 11, 10, 10)],
         value5: '',
         value1:'',
         value2:'',
@@ -176,29 +136,21 @@
         }
 
         _this.formName = _this.base_data.activityName
+        _this.$bus.emit("send_Name",_this.formName)
         formName = _this.base_data.activityName
         _this.form.desc=_this.base_data.rule
         _this.addpepCount=_this.base_data.addNum
-
         _this.start_date = _this.base_data.startDate//日期开始时间
         _this.end_date=_this.base_data.endDate//结束时间
-        let str = _this.start_date
-        let strend=_this.end_date
         //时间戳转换日期
-      let newStr= _this.timestampToTime(str)
-         strend=_this.timestampToTime(strend)
-        _this.value4=[newStr,strend]
-        _this.value1=newStr
-        _this.value2=strend
-        // console.log(_this.value4);
-        _this.radio1 =_this.base_data.shows==true?'1':'2'
 
+
+        _this.radio1 =_this.base_data.shows==true?'1':'2'
           if(_this.radio1==1){
             _this.pepcount=false
 
           }else if(_this.radio1==2){
             _this.pepcount=true
-
           }
 
           _this.radio2 = _this.base_data.subscribe==false?'2':'1'
@@ -207,6 +159,11 @@
         }else if(_this.base_data.allowClickSubscribe==false){
           this.follow=true
         }
+        // _this.value1= _this.timestampToTime(_this.start_date)
+        // _this.value2=_this.timestampToTime(_this.end_date)
+        _this.value1=new Date(_this.start_date)
+        _this.value2=new  Date(_this.end_date)
+
 
       },
 
@@ -236,9 +193,7 @@
         _this.base_send.activityName = _this.formName
         _this.base_send.rule=_this.form.desc
         _this.base_send.addNum =_this.addpepCount
-        // this.base_data.endDate = this.value7
-        _this.base_send.startDate = _this.start_date
-        _this.base_send.endDate =  _this.end_date
+
         _this.base_send.shows = _this.radio1 == 1 ? true : false;
         if(_this.radio1==1){
           _this.pepcount=false
@@ -247,9 +202,11 @@
           _this.pepcount=true
 
         }
-
         _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
+        _this.base_send.startDate = _this.value1.getTime()
+        _this.base_send.endDate =  _this.value2.getTime()
         // this.$store.state.setting_data.jggBaseSetup = this.base_send
+        console.log(_this.base_send);
         _this.$bus.emit("send_base", _this.base_send)
 
       },

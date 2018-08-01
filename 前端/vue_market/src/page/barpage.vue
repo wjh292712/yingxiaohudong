@@ -70,42 +70,25 @@
         //筛选条件数据
         activeName: '',
         centerDialogVisible: false,
-        dataStatus:0
+        dataStatus: 0
 
       }
 
     },
     created() {
-      // console.log(222);
-      // console.log(this);
-      // this.$bus.$on('inputDate',(val)=>{
-      //   console.log(333);
-      //   console.log(val);
-      //   this.activeName=val
-      // })
+
 
     },
     mounted() {
-      this.updataImg()
 
-      //let curname='';
-      // let cua='';
-      this.activeN()
-      this.dataStatus=this.$route.query.dataStatus
-      if (this.dataStatus==='1') {
-        this.activeN1()
-      }
-      // this.$nextTick(function () {
-      //   curname = settingbase.methods.partBase()
-      //   // cua=settingbase.methods.inputData()
-      //   console.log(curname);
-      //   // console.log(cua);
-      //   this.activeName=curname
-      // })
+      let _this = this
+      this.$bus.on("send_Name", function (data) {
+        _this.activeName = data
+      })
+
 
     },
     updated() {
-      // this.activeN()
 
 
     },
@@ -113,38 +96,8 @@
       handleClick(tab, event) {
         console.log(tab, event);
       },
-      activeN() {
-        let _this = this
-        let Data = sessionStorage.getItem('Datakj');
-        _this.base_data = JSON.parse(Data).kjBaseSetup
-        _this.activeName = _this.base_data.activityName
-      },
-      activeN1() {
-        let _this = this
-        _this.base_data =_this.$route.query.newkjData.kjBaseSetup
-        _this.activeName =_this.base_data.activityName
-      },
-      updataImg() {
-        this.$http({
-          method: "post",
-          url: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8d8bbbd5fcf10745&redirect_uri=http://center.marketing.yunpaas.cn/jgg/activity/startDrawAward?id=1&response_type=code&scope=snsapi_userinfo&state=STATE&component_appid=wx73b4adc05b76ee6a#wechat_redirect",
-          data: {},
-        }).then(res => {
-          console.log(res)
-        }).catch(res => {
-          console.log(res)
-        })
-      }
     },
 
-    // created() {
-    //   const _this = this;
-    //   this.$axios.post("student/my/base").then(res => {
-    //     _this.info = res.data.value;
-    //     console.log(_this.info);
-    //     userInfo.saveInfo(_this.info);
-    //   });
-    // },
     components: {
       // prizedraw,
       setting,
@@ -279,7 +232,7 @@
                         margin: 6rem auto;
                         height: 6.5rem;
                         background-size: 100%;
-                        .box1{
+                        .box1 {
                           span {
                             display: inline-block;
                             width: 47.5%;
@@ -287,33 +240,33 @@
                             text-align: center;
                             border-bottom: 2px solid #cf2c44;
                           }
-                          span:nth-child(2){
+                          span:nth-child(2) {
                             border-bottom: 2px solid #eeeeee;
                           }
                         }
-                        .box2{
+                        .box2 {
                           width: 100%;
                           margin-top: 1rem;
-.list{
-  width: 100%;
-  li{
-    width: 98%;
-    height: 3rem;
-    line-height: 3rem;
-    padding: 0 0.5rem;
-    img{
-      width: 100%;
-      height: 100%;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid #eeeeee;
-    }
-    }
-  li:nth-child(3){
-    img{
-      border-bottom: none;
-    }
-  }
-}
+                          .list {
+                            width: 100%;
+                            li {
+                              width: 98%;
+                              height: 3rem;
+                              line-height: 3rem;
+                              padding: 0 0.5rem;
+                              img {
+                                width: 100%;
+                                height: 100%;
+                                padding-bottom: 0.5rem;
+                                border-bottom: 1px solid #eeeeee;
+                              }
+                            }
+                            li:nth-child(3) {
+                              img {
+                                border-bottom: none;
+                              }
+                            }
+                          }
                         }
                       }
                       .inform {

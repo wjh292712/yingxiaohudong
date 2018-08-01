@@ -76,25 +76,14 @@ export default ({
 
   },
   created() {
-    // console.log(222);
-    // console.log(this);
-    // this.$bus.$on('inputDate',(val)=>{
-    //   console.log(333);
-    //   console.log(val);
-    //   this.activeName=val
-    // })
 
   },
   mounted() {
 
-     this.activeN()
-    this.dataStatus=this.$route.query.dataStatus
-    if (this.dataStatus==='1') {
-      this.activeN1()
-    }
-
-
-    this.updataImg()
+    let _this=this
+    this.$bus.on("send_Name",function (data) {
+      _this.activeName=data
+    })
 
   },
   updated(){
@@ -105,32 +94,7 @@ export default ({
     handleClick(tab, event) {
       console.log(tab, event);
     },
-    activeN(){
-      let _this = this
-      let Data = sessionStorage.getItem('Data')
-      _this.base_data = JSON.parse(Data).jggBaseSetup
-      console.log(_this.base_data);
-      _this.activeName =_this.base_data.activityName
-    },
-    activeN1(){
 
-      let _this = this
-      _this.base_data = _this.$route.query.newjggData.jggBaseSetup
-      _this.activeName = _this.formName=_this.base_data.activityName
-    },
-    updataImg() {
-      this.$http({
-        method: "post",
-        url: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8d8bbbd5fcf10745&redirect_uri=http://center.marketing.yunpaas.cn/jgg/activity/startDrawAward?id=1&response_type=code&scope=snsapi_userinfo&state=STATE&component_appid=wx73b4adc05b76ee6a#wechat_redirect",
-        data: {
-
-        },
-      }).then(res => {
-        console.log(res)
-      }).catch(res => {
-        console.log(res)
-      })
-    }
   },
 
   // created() {
@@ -300,7 +264,7 @@ export default ({
                   }
                   .phone_text {
                     position: absolute;
-                    /*left: 45%;*/
+                    left: 44%;
                     height: 1.5rem;
                     line-height: 1.5rem;
                     font-size: .7rem;

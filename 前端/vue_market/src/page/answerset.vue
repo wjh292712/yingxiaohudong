@@ -159,6 +159,7 @@ import ansadvanced from '@/page/ansadvanced'
             }else if(data.data==="修改成功"||data.data==="保存成功"){
               alert(data.data)
               _this.$router.push({path:'/activeslide/myactive'})
+              _this.$bus.emit("send_active",1)
             }else {
               alert(data.msg)
               console.log(data.msg);

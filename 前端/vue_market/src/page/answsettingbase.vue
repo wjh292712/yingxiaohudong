@@ -3,7 +3,7 @@
     <div class="base_con">
       <el-form ref="form" :model="form" label-width="100px">
         <el-form-item label="活动名称:">
-          <el-input v-model="formName" @input='inputData' maxlength="10" placeholder="不超过10个汉字"></el-input>
+          <el-input v-model="formName" @input='inputData' maxlength="10" placeholder="不超过10个汉字" style="width: 200px"></el-input>
         </el-form-item>
         <el-form-item label="活动日期:">
           <!--<el-date-picker-->
@@ -17,13 +17,13 @@
             v-model="value1"
             :disabled="startTime"
             type="datetime"
-            placeholder="选择开始时间" style="width: 240px">
+            placeholder="选择开始时间" style="width: 200px">
           </el-date-picker>
           <el-date-picker
             v-model="value2"
             :disabled="endTime"
             type="datetime"
-            placeholder="选择结束时间" style="width: 240px">
+            placeholder="选择结束时间" style="width: 245px">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="参与人数:">
@@ -169,6 +169,7 @@
         }
 
         _this.formName = _this.base_data.activityName //活动名称
+        this.$bus.emit("send_name",_this.formName)
         _this.radio1 = Number(_this.base_data.shows).toString(), //参与人数
           _this.addCount=_this.base_data.addDoubling//增加人数倍数
         _this.radio2 = _this.base_data.subscribe==false?'2':'1'//是否需要关注
@@ -180,14 +181,8 @@
         _this.start_date = _this.base_data.startDate//开始时间
         _this.end_date = _this.base_data.endDate//结束时间
         _this.form.explain=_this.base_data.rule//活动规则
-        let str = _this.start_date
-        let strend = _this.end_date
-        //时间戳转换日期
-        let newStr = _this.timestampToTime(str)
-        strend = _this.timestampToTime(strend)
-        _this.value4 = [newStr, strend]
-        _this.value1=newStr
-        _this.value2=strend
+        _this.value1=new Date(_this.start_date)
+        _this.value2=new  Date(_this.end_date)
       },
       saveBase(){
         let _this = this
@@ -201,8 +196,8 @@
         _this.base_send.addDoubling= _this.addCount
         _this.base_send.shows = _this.radio1 == 1 ? true : false;
         _this.base_send.subscribe = _this.radio2 == 1 ? true : false;
-        _this.base_send.startDate= _this.start_date
-        _this.base_send.endDate=_this.end_date
+        _this.base_send.startDate= _this.value1.getTime()
+        _this.base_send.endDate=_this.value2.getTime()
         _this.base_send.rule= _this.form.explain
         if (this.formName != '') {
           _this.$store.state.setting_dtData.dtBaseSetup = _this.base_send
@@ -268,7 +263,7 @@ console.log(_this.base_send)
     z-index: 999;
   }
 </style>
-<style>
+<style >
   .base_wrap{
     /*background: #fbfbfb;*/
     padding: 15px;
@@ -287,7 +282,7 @@ console.log(_this.base_send)
     height: 80px;
   }
   .el-input__inner{
-    width: 80%;
+    width: 100%;
   }
   .el-textarea__inner{
     width: 80%;

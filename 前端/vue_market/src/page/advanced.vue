@@ -279,8 +279,10 @@
             if(this.other.ad){
               this.radio7 = "1"
             }
-            if(!this.other.carousel){
+            if(this.other.carousel==false){
               this.radio8 = "1"
+            }else if(this.other.carousel.carousel==true){
+              this.radio8 = "2"
             }
             if(!this.other.form){
               this.radio9 = "1"

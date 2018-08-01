@@ -122,7 +122,6 @@
           versionSpecId: this.versionSpecId
         }
       }).then(res => {
-        console.log(res);
         this.name=res.data.data.versionInfoSpec.name
         this.oriPrice=res.data.data.versionInfoSpec.oriPrice
         this.proPrice=res.data.data.versionInfoSpec.salePrice
@@ -180,6 +179,22 @@
 
     activated() {
       this.$bus.$emit("titleName", "");
+      this.versionId = this.$route.query.versionId
+      this.versionSpecId= this.$route.query.versionSpecId
+      this.$axios({
+        method: 'post',
+        url: 'http://center.marketing.yunpaas.cn/center/versionInfo/getPayInfo',
+        params: {
+          versionId: this.versionId,
+          versionSpecId: this.versionSpecId
+        }
+      }).then(res => {
+        this.name=res.data.data.versionInfoSpec.name
+        this.oriPrice=res.data.data.versionInfoSpec.oriPrice
+        this.proPrice=res.data.data.versionInfoSpec.salePrice
+        this.versionYearId=res.data.data.versionInfoSpec.buyYear
+        this.versionMounth=res.data.data.versionInfoSpec.giveMonth
+      })
 
     }
   };

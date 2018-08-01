@@ -34,18 +34,24 @@
             ascny:true
           }
         },
-      
+
+        mounted(){
+          let _this=this
+          this.$bus.on("send_active",function (data) {
+            _this.classActive=data
+          })
+        },
         methods:{
           changeClick(index){
-        
-              //  this.$emit("hides", false);        
-          
+
+              //  this.$emit("hides", false);
+
              this.classActive = index
             this.$router.push({path:this.slideRouter[index]})
           }
-     
+
         },
-        
+
         components:{
           mainPage,
           activeSlide

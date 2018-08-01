@@ -8,7 +8,7 @@
       <el-input
         clearable
         placeholder="商品名称"
-        v-model="goodsname" style="width:140px;margin-right: 5px">
+        v-model="goodsname" style="width:180px;margin-right: 5px;text-align: center ">
       </el-input>
       <el-button @click="find()" class="btnsFind">查询</el-button>
     </div>
@@ -161,8 +161,8 @@
         goodsId:'',
         cartTime:null,//采购时间
         cartendTime:null,
-        total: 100,//默认数据总数
-        pagesize: 10,//每页的数据条数
+        total: '',//默认数据总数
+        pagesize: '',//每页的数据条数
         currentPage: 1,//默认开始页面
         isshow:true,
         isshowDetail:false

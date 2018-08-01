@@ -5,6 +5,8 @@
         <div class="header_con">
           <div class="header_one">
             <span class="one_text">北京聚通达科技股份有限公司</span>
+            <span class="ver_text">{{versionContent}}</span>
+            <span @click="upVerSion()" class="upVer">升级版本</span>
             <i class="one_icon1"></i>
             <i class="one_icon2"></i>
           </div>
@@ -48,25 +50,10 @@
   export default ({
     data() {
       return {
-        // mainmsg:[{
-        //     img:1,
-        //     title:"开心快乐砸金蛋，来来来",
-        // },{
-        //     img:2,
-        //     title:"I was feeling epic"
-        // },{
-        //     img:3,
-        //     title:"开心快乐砸金蛋，来来来",
-        // },{
-        //     img:4,
-        //     title:"I was feeling epic"
-        // },{
-        //     img:5,
-        //     title:"I was feeling epic"
-        // }],
         mainmsg: [],
         informmsg:[],
         createDate:'',
+        versionContent:'标准版'
         // banner:[]
       }
 
@@ -79,10 +66,11 @@
       ...mapActions(['saveForm'])
     },
     mounted() {
+      let _this=this
         this.$emit("hides",true)
       this.inform()
-
-      let _this=this
+      this.versionContent=sessionStorage.getItem("vsersionName")
+      console.log(this.versionContent+"ddd");
       this.$axios({
         method:"post",
         url:"http://center.marketing.yunpaas.cn/center/activityDataModel/list",
@@ -93,12 +81,12 @@
         _this.mainmsg=res.data.data.list
       })
 
-      //测试代码
-      // this.$axios.post("center/activityDataModel/list").then((res)=>{
-      //     console.log(res)
-      // })
+
     },
     methods: {
+      upVerSion(){
+        this.$router.push({path:'/indexVers/versionCart'})
+      },
 //跳转活动页面
       targetActive(e) {
 
@@ -195,6 +183,17 @@
         .one_text {
           font-size: .7rem;
         }
+        .ver_text{
+          margin-left: 20px;
+          font-size: .7rem;
+          color: #FC7132;
+        }
+        .upVer{
+          margin-left: 20px;
+          font-size: .7rem;
+          color: #2b85e4;
+          text-decoration: underline;
+        }
       }
       .header_two {
         width: 100%;
@@ -202,7 +201,7 @@
         border: 1px solid #F3E6CB;
         padding: .5rem 0;
         margin-bottom: .5rem;
-        text-indent: .5rem;
+        /*text-indent: .5rem;*/
         .two_con {
           span {
             font-family: MicrosoftYaHei;

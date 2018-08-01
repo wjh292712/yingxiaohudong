@@ -51,24 +51,13 @@
       }
     },
     mounted(){
-      this. activeN()
-      this.dataStatus=this.$route.query.dataStatus
-      if (this.dataStatus==='1') {
-        this.activeN1()
-      }
+      let _this = this
+      this.$bus.on("send_name",function (data) {
+        _this.activeName=data
+      })
     },
     methods:{
-      activeN() {
-        let _this = this
-        let Data = sessionStorage.getItem('Datadt')
-        _this.base_data = JSON.parse(Data).dtBaseSetup
-        _this.activeName = _this.formName = _this.base_data.activityName
-      },
-      activeN1() {
-        let _this = this
-        _this.base_data = _this.$route.query.newdtData.dtBaseSetup
-        _this.activeName = _this.formName = _this.base_data.activityName
-      },
+
     }
 
   }

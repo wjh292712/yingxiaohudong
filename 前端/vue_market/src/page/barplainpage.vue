@@ -90,7 +90,6 @@
         dataStatus:0,
         activeExplain:'',
         activeInfo:'',
-
         url: [
           require('../assets/images/111.jpg'),
           require('../assets/images/111.jpg'),
@@ -106,30 +105,21 @@
 
     },
     created() {
-      // console.log(222);
-      // console.log(this);
-      // this.$bus.$on('inputDate',(val)=>{
-      //   console.log(333);
-      //   console.log(val);
-      //   this.activeName=val
-      // })
 
     },
     mounted() {
-      // this.updataImg()
-
-      //let curname='';
-      // let cua='';
-      this.activeN()
-      this.dataStatus=this.$route.query.dataStatus
-      if (this.dataStatus==='1') {
-        this.activeN1()
+      let _this = this
+      this.$bus.on("send_Name", function (data) {
+        _this.activeName = data
+      })
+      _this.activeN()
+      _this.dataStatus=this.$route.query.dataStatus
+      if (_this.dataStatus==='1') {
+        _this.activeN1()
       }
 
     },
     updated() {
-      // this.activeN()
-
 
     },
     methods: {
@@ -151,27 +141,8 @@
         _this. activeExplain= _this.base_data.rule//活动说明
         _this.activeInfo=  _this.base_data.merchantInfo //商家简介
       },
-      // updataImg() {
-      //   this.$http({
-      //     method: "post",
-      //     url: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8d8bbbd5fcf10745&redirect_uri=http://center.marketing.yunpaas.cn/jgg/activity/startDrawAward?id=1&response_type=code&scope=snsapi_userinfo&state=STATE&component_appid=wx73b4adc05b76ee6a#wechat_redirect",
-      //     data: {},
-      //   }).then(res => {
-      //     console.log(res)
-      //   }).catch(res => {
-      //     console.log(res)
-      //   })
-      // }
     },
 
-    // created() {
-    //   const _this = this;
-    //   this.$axios.post("student/my/base").then(res => {
-    //     _this.info = res.data.value;
-    //     console.log(_this.info);
-    //     userInfo.saveInfo(_this.info);
-    //   });
-    // },
     components: {
       // prizedraw,
       setting,

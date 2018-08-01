@@ -6,7 +6,7 @@
         <!--<div class="setting_button" @click="changeActive(index)" :class="{active_button:classActive == index}"  v-for="(item,index) in settingmsg" :key = "index" type="primary" plain>{{item}}</div> -->
       </div>
       <div class="setting_title">
-        <el-tabs v-model="activeName2">
+        <el-tabs v-model="activeName2" type="card">
           <!-- <el-tab-pane label="基础设置" name="first"><router-view></router-view></el-tab-pane>
           <el-tab-pane label="奖品设置" name="second"><router-view></router-view></el-tab-pane>
           <el-tab-pane label="派奖设置" name="third"><router-view></router-view></el-tab-pane>
@@ -63,7 +63,7 @@
         classActive: 0,
         activeName2: 'first',
         msg: "this is parent data",
-        saveAll:false,
+        saveAll: false,
         save: {
           share: "",
           reword: "",
@@ -71,6 +71,7 @@
           high: ""
         },
         sendData: "",
+        classActive:1
       }
     },
     created() {
@@ -84,7 +85,7 @@
       var token = sessionStorage.getItem('token')
       this.$axios({
         method: "post",
-        url: "http://center.marketing.yunpaas.cn/jgg/activitySetup/init?token="+token,//数据初始化接口
+        url: "http://center.marketing.yunpaas.cn/jgg/activitySetup/init?token=" + token,//数据初始化接口
         params: {},
       }).then(res => {
         let _this = this
@@ -174,9 +175,9 @@
         var sendNew = JSON.stringify(this.sendData)
         console.log(sendNew)
         var token = sessionStorage.getItem('token')
-        if(JSON.parse(sendNew).jggBaseSetup.activityName===""){
+        if (JSON.parse(sendNew).jggBaseSetup.activityName === "") {
           alert("用户名不能为空")
-        return
+          return
         }
         let _this = this;
         $.ajax({
@@ -185,33 +186,22 @@
           // url:"http://192.168.2.112:8085/jgg/activitySetup/save?token="+token,
           data: sendNew,
           contentType: "application/json",
-           datatype:"json",
+          datatype: "json",
           success(data) {//保存跳转活动页面
-            // console.log(data.data)
-
             if (data.data === "请重新登录") {
               alert(data.data)
               _this.$router.push({path: '/login'})
             } else if (data.data === "修改成功" || data.data === "保存成功") {
               alert(data.data)
               _this.$router.push({path: '/activeslide/myactive'})
+              _this.$bus.emit("send_active",1)
             } else {
-              //alert(data.data)
+              alert(data.msg)
             }
 
           }
         })
 
-        // this.$axios({
-        //     method:'post',
-        //     url:"http://192.168.2.170:8080/jgg/activitySetup/save",
-        //     headers: {'Content-Type': 'application/json'},
-        //     params:sendNew
-        // }).then(res => {
-        //     console.log(res)
-        // }).catch( res => {
-        //
-        // })
 
       },
       goBack() {

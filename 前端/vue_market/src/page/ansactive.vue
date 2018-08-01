@@ -72,77 +72,25 @@
 
     },
     created() {
-      // console.log(222);
-      // console.log(this);
-      // this.$bus.$on('inputDate',(val)=>{
-      //   console.log(333);
-      //   console.log(val);
-      //   this.activeName=val
-      // })
+
 
     },
     mounted() {
-      // this.updataImg()
 
-      //let curname='';
-      // let cua='';
-      this.activeN()
-      this.dataStatus=this.$route.query.dataStatus
-      if (this.dataStatus==='1') {
-        this.activeN1()
-      }
-      // this.$nextTick(function () {
-      //   curname = settingbase.methods.partBase()
-      //   // cua=settingbase.methods.inputData()
-      //   console.log(curname);
-      //   // console.log(cua);
-      //   this.activeName=curname
-      // })
+      let _this = this
+      this.$bus.on("send_name",function (data) {
+        _this.activeName=data
+      })
 
     },
     updated() {
-      // this.activeN()
-
-
     },
     methods: {
       handleClick(tab, event) {
         console.log(tab, event);
       },
-      activeN() {
-        let _this = this
-        let Data = sessionStorage.getItem('Datadt')
-        _this.base_data = JSON.parse(Data).dtBaseSetup
-        _this.activeName = _this.formName = _this.base_data.activityName
-      },
-      activeN1() {
-        let _this = this
-
-        _this.base_data = _this.$route.query.newdtData.dtBaseSetup
-
-        _this.activeName = _this.formName = _this.base_data.activityName
-      },
-      // updataImg() {
-      //   this.$http({
-      //     method: "post",
-      //     url: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8d8bbbd5fcf10745&redirect_uri=http://center.marketing.yunpaas.cn/jgg/activity/startDrawAward?id=1&response_type=code&scope=snsapi_userinfo&state=STATE&component_appid=wx73b4adc05b76ee6a#wechat_redirect",
-      //     data: {},
-      //   }).then(res => {
-      //     console.log(res)
-      //   }).catch(res => {
-      //     console.log(res)
-      //   })
-      // }
     },
 
-    // created() {
-    //   const _this = this;
-    //   this.$axios.post("student/my/base").then(res => {
-    //     _this.info = res.data.value;
-    //     console.log(_this.info);
-    //     userInfo.saveInfo(_this.info);
-    //   });
-    // },
     components: {
       // prizedraw,
       setting,
@@ -388,7 +336,7 @@
                     }
                     .phone_text {
                       position: absolute;
-                      /*left: 46%;*/
+                      left: 46%;
                       height: 1.5rem;
                       line-height: 1.5rem;
                       font-size: .7rem;

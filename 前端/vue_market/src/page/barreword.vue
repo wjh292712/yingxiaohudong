@@ -10,7 +10,7 @@
             <el-tab-pane label="商品一" name="first">
 
               <el-form-item label="商品类型:">
-                <el-select v-model="region1" placeholder="请选择">
+                <el-select v-model="region1" placeholder="请选择" >
                   <el-option
                     v-for="(item,index) in  reword_type1"
                     :key="item.id"
@@ -18,7 +18,6 @@
                     :value="item.id">
                   </el-option>
                 </el-select>
-
               </el-form-item>
               <el-form-item label="商品名称:">
                 <el-input v-model="form.name1" :disabled="actName" placeholder="不超过15个字"></el-input>

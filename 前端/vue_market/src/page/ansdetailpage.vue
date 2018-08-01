@@ -48,7 +48,7 @@
             <!--<span>X</span>-->
             <!--</div>-->
             <div class="center">
-              <el-tabs v-model="activeName" >
+              <div v-model="activeName" >
 
                 <div class="total">
                   <div class="to_left">
@@ -56,11 +56,11 @@
                     <p style="text-align:center;" class="to_left_award"><span>¥</span>100<span>话费券</span></p>
                     <p class="dateActive"> 2018.2.1~2018.2.10</p>
                   </div>
-                  <div class="to_right">
+                  <div class="to_right" v-show="rewIshow">
                     <h3>立即兑换</h3>
                   </div>
                 </div>
-                <div class="site">
+                <div class="site" v-show="siteSHow">
                   <p>
                     <b>兑奖说明:</b>
                     <span>不填写则不显示</span>
@@ -83,7 +83,7 @@
                   </p>
                 </div>
 
-              </el-tabs>
+              </div>
             </div>
           </div>
         </div>
@@ -111,62 +111,36 @@
         centerDialogVisible: false,
         count: '900',
         dataStatus:0,
+        siteSHow:true,
+        rewIshow:false,
       }
 
     },
     created() {
-      // console.log(222);
-      // console.log(this);
-      // this.$bus.$on('inputDate',(val)=>{
-      //   console.log(333);
-      //   console.log(val);
-      //   this.activeName=val
-      // })
 
     },
     mounted() {
-      // this.updataImg()
-
-      //let curname='';
-      // let cua='';
-      this.activeN()
-      this.dataStatus=this.$route.query.dataStatus
-      if (this.dataStatus==='1') {
-        this.activeN1()
-      }
-      // this.$nextTick(function () {
-      //   curname = settingbase.methods.partBase()
-      //   // cua=settingbase.methods.inputData()
-      //   console.log(curname);
-      //   // console.log(cua);
-      //   this.activeName=curname
-      // })
-
+      let _this = this
+      this.$bus.on("send_name",function (data) {
+        _this.activeName=data
+      })
+      this.$bus.on("send_radio1",function (data) {
+        if(data==2){
+          _this.siteSHow=false
+          _this.rewIshow=true
+        }else if(data==1){
+          _this.siteSHow=true,
+            _this.rewIshow=false
+        }
+      })
     },
     updated() {
-      // this.activeN()
-
 
     },
     methods: {
       handleClick(tab, event) {
         console.log(tab, event);
       },
-      activeN() {
-        let _this = this
-        let Data = sessionStorage.getItem('Datadt')
-        console.log(66672);
-        _this.base_data = JSON.parse(Data).dtBaseSetup
-        console.log(_this.base_data);
-        _this.activeName = _this.formName = _this.base_data.activityName
-      },
-      activeN1() {
-        let _this = this
-        _this.base_data = _this.$route.query.newdtData.dtBaseSetup
-        console.log(_this.base_data);
-        _this.activeName = _this.formName = _this.base_data.activityName
-      },
-
     },
 
     components: {
@@ -413,6 +387,7 @@
                     }
                     .phone_text {
                       position: absolute;
+                      left: 46%;
                       height: 1.5rem;
                       line-height: 1.5rem;
                       font-size: .7rem;
@@ -500,7 +475,7 @@
     height: 3rem;
     margin: 0 auto;
     /*display: flex;*/
-    margin-top: 0.5rem;
+    margin-top: 2.5rem;
   }
 
 
@@ -516,7 +491,7 @@
     }
     .to_left_award{
       position: absolute;
-      top: 0.5rem;
+      top: 2.5rem;
       left: 40%;
       font-size: 20px;
       span:nth-child(1){
@@ -528,7 +503,7 @@
       }}
     .dateActive{
       position: absolute;
-      top: 2.6rem;
+      top: 4.6rem;
       left: 35%;
       font-size: 12px;
       color: #6d6d72;
@@ -562,7 +537,7 @@
   .mask .site {
     width: 9rem;
     height: 4rem;
-    margin: 4rem auto;
+    margin: 2rem auto;
   }
 
   .mask .site p {

@@ -62,14 +62,6 @@
                   </span>
             </p>
 
-            <!-- <p>
-              <span class="keep">
-                <el-button plain class="save">保存</el-button>
-              </span>
-              <span>  <el-button plain>返回</el-button>
-              </span>
-
-            </p> -->
           </div>
         </el-tab-pane>
 
@@ -120,7 +112,7 @@
                   :rows="2"
                   maxlength="25"
                   placeholder="0/25字"
-                  v-model="textarea">
+                  v-model="textareaTitle">
                 </el-input>
                   </span>
             </p>
@@ -140,7 +132,7 @@
                   :rows="2"
                   maxlength="50"
                   placeholder="0/50字"
-                  v-model="textarea">
+                  v-model="textareaContent">
                 </el-input>
                   </span>
             </p>
@@ -240,7 +232,8 @@
         company_send:'',//企业设置保存
         share_send:'',//分享设置保存
         other_send:'',//其他设置保存
-        textarea: '',
+        textareaTitle: '',
+        textareaContent: '',
         wxicon:false,
         wxTil:false,
         wxsharcontent:false,
@@ -297,6 +290,8 @@
         // 企业设置
         this.input=this.company.company //主办单位
         this.input3=this.company.url   //链接地址
+        this.imageUrl1=this.company.loadSelfImg
+        this.imageUrl=this.company.companyLogo
         this.radio2 = this.company.companyLogoType.toString()//主办单位logo
         if(this.radio2==1){
           this.logoShow=false
@@ -322,7 +317,9 @@
 
 
         // 分享设置
-        this.imageUrl = this.share.wxShareSelfLogo
+        this.imageUrl2 = this.share.wxShareSelfLogo
+        this.textareaContent= this.share.wxShareSelfContent
+        this.textareaTitle=this.share.wxShareSelfTitle
         this.radio4=Number(this.share.share).toString()
         this.radio5 = this.share.wxShareLogoType.toString()
         if(this.radio5==1){
@@ -404,6 +401,8 @@
         //企业保存设置
         this.company_send.company = this.input
         this.company_send.url = this.input3
+        this.company_send.loadSelfImg=this.imageUrl1
+        this.company_send.companyLogo=this.imageUrl
         this.company_send.companyLogoType = Number(this.radio2)
         if(this.radio2==1){
           this.logoShow=false
@@ -422,6 +421,9 @@
         // 分享保存设置
         this.share_send.share =  this.radio4 == 1 ? true : false
         this.share_send.wxShareLogoType = this.radio5
+        this.share_send.wxShareSelfContent=this.textareaContent
+        this.share_send.wxShareSelfTitle=this.textareaTitle
+        this.share_send.wxShareSelfLogo=this.imageUrl2
         if(this.radio5==1){
           this.wxicon=false
         }else {
