@@ -2,11 +2,11 @@
   <div class="base_wrap">
     <div class="base_con">
       <el-form ref="form" :model="form" label-width="100px" class="ffom">
-        <el-form-item label="活动名称">
-          <el-input v-model="formName" maxlength="10" @input='inputData' placeholder="不超过10格汉字"></el-input>
+        <el-form-item label="活动名称 :">
+          <el-input v-model="formName" maxlength="10" style="width: 300px" @input='inputData' placeholder="不超过10格汉字"></el-input>
 
         </el-form-item>
-        <el-form-item label="活动日期">
+        <el-form-item label="活动日期 :">
           <!--<el-date-picker-->
             <!--v-model="value4"-->
             <!--type="datetimerange"-->
@@ -39,7 +39,7 @@
             </div>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="是否需要关注">
+        <el-form-item label="是否需要关注 :">
           <el-radio-group v-model="radio2">
             <el-tooltip class="item" effect="light" content="权限不足请升级" placement="top-start">
               <el-radio label="1" checked :disabled="follow" :hover="权限不足请升级">是</el-radio>
@@ -48,16 +48,16 @@
 
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="活动说明">
+        <el-form-item label="活动说明 :">
           <el-input style="height:3rem;" type="textarea" maxlength="500" placeholder="0/500字" v-model="form.explain"></el-input>
         </el-form-item>
-        <el-form-item label="商家简介">
+        <el-form-item label="商家简介 :">
           <el-input style="height:3rem;" type="textarea" maxlength="500" placeholder="0/500字" v-model="form.intro"></el-input>
         </el-form-item>
-        <el-form-item label="商家地址">
+        <el-form-item label="商家地址 :">
           <el-input style="height:3rem;" type="textarea" maxlength="50" placeholder="不超过50个汉字" v-model="form.address"></el-input>
         </el-form-item>
-        <el-form-item label="商家电话">
+        <el-form-item label="商家电话 :">
           <el-input style="height:3rem;" type="textarea"  placeholder="手机号、座机或400电话"  v-model="form.phone" maxlength="15" onkeyup="value=value.replace(/[^\d]/g,'')">
           </el-input>
         </el-form-item>
@@ -262,7 +262,6 @@ padding-right: 0px !important;
 }
   .base_wrap {
     background: #fbfbfb;
-    padding: 10px;
     height: 100%;
     position: relative;
     z-index: 9;

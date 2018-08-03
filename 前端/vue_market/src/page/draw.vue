@@ -54,24 +54,6 @@
           </div>
           <div class="nine_blog">
             <div class="title_image"></div>
-            <div class="inform">轮播通知</div>
-            <div class="nine">
-
-            </div>
-            <!-- <div class="ten">
-
-                                                                                                                                                                                                                                                                                                                                </div> -->
-            <div class="confirm_text">
-              <h5>您今天还有xxxx次抽奖机会</h5>
-              <h5>已经中奖人数xxx</h5>
-            </div>
-            <div class="btn">
-              <el-row>
-
-                <el-button size="mini" round @click="centerDialogVisible = true">活动规则</el-button>
-                <el-button size="mini" round>我的奖品</el-button>
-              </el-row>
-            </div>
           </div>
         </div>
       </div>
@@ -221,9 +203,9 @@ export default ({
             justify-content: space-around;
             flex-wrap: nowrap;
             .active_phoneWrap {
-              width: 34%;
+              width: 31%;
               min-width: 13rem;
-              max-height: 31rem;
+              min-height: 600px;
               border-radius: 1.2rem;
               border: 1px solid #e8e8e8;
               .active_phoneCon {
@@ -263,9 +245,9 @@ export default ({
                 }
                 .phone_body {
                   position: relative;
+                  height: 521px;
                   border: 1px solid #E8E8E8;
                   .nine_blog {
-                    background: #Ffd800;
                     width: 100%;
                     .btn {
                       padding: 0rem 0 .5rem 0;
@@ -286,43 +268,10 @@ export default ({
                         }
                       }
                     }
-                    .confirm_text {
-                      text-align: center;
-                      width: 90%;
-                      margin: 0 auto;
-                      padding: .5rem 0;
-                      font-size: .7rem;
-                      font-weight: normal;
-                      color: #cf3b1e;
-                    }
-                    .nine {
-                      width: 90%;
-                      margin: .5rem auto;
-                      height: 13rem;
-                      background: url(../../static/active/九宫格1.jpg) no-repeat;
-                      background-size: 100%;
-                    }
-                    .ten {
-                      width: 90%;
-                      margin: .5rem auto;
-                      height: 13rem;
-                      background-size: 100%; // border: 1px solid #ccc;
-                    }
-                    .inform {
-                      width: 85%;
-                      margin: 0rem auto;
-                      height: 1.17rem;
-                      background: url(../../static/active/通知.png) no-repeat;
-                      background-size: 100%;
-                      font-size: .6rem;
-                      text-indent: 2rem;
-                      line-height: 1.17rem;
-                      color: #cf3b1e;
-                    }
                     .title_image {
                       width: 100%;
-                      height: 6.25rem;
-                      background: url(../../static/active/banner.jpg) no-repeat;
+                      height: 485px;
+                      background: url(../../static/active/jgg.png) no-repeat ;
                       background-size: 100%;
                     }
                   }

@@ -29,11 +29,12 @@
           <a href="#" class="outdata" @click="dataOut()">导出数据</a>
         </div>
         <div class="charts">
-          <div id="main" :style="{width:'100%',height:'420px'}">
+          <div id="main" :style="{width:'100%',height:'420px'}" v-if="this.pageDayList.length!==0||this.joinDayList.length!==0||this.awardDayList.length!==0||this.shareDayList.length!==0">
 
           </div>
-          <div class="noDayData" v-show="showDayData">
-            <p class="cl">暂无数据</p>
+          <div v-else class="noDayData" >
+            <i class="iconfont icon-shujufenxixianxing"></i>
+            <p class="cl">抱歉暂无数据～</p>
           </div>
         </div>
       </div>
@@ -59,11 +60,12 @@
           <a href="#" class="outdata" @click="dataOut1()">导出数据</a>
         </div>
         <div class="charts">
-          <div id="mychart" :style="{width:'100%',height:'420px'}">
+          <div id="mychart" :style="{width:'100%',height:'420px'}" v-if="this.pageList.length!=0||this.joinList.length!=0||this.awardList.length!=0||this.shareList.length!=0">
 
           </div>
-          <div class="noData" v-show="showData">
-            <p class="cl">暂无数据</p>
+          <div v-else class="noData">
+            <i class="iconfont icon-shujufenxixianxing"></i>
+            <p class="pl">抱歉暂无数据～</p>
           </div>
         </div>
       </div>
@@ -115,7 +117,9 @@
         awardList: [],
         shareList: [],
         showDayData:true,
+        ss:false,
         showData:true,
+        showData1:false
       }
     },
     created() {
@@ -159,9 +163,6 @@
             thi_s.shareDayList.push(allList[key].shareNum)
           }
 
-          if(this.pageDayList.length!==0||this.joinDayList.length!==0||this.awardDayList.length!==0||this.shareDayList.length!==0){
-            this.showDayData=false
-          }
           this.getDate(this.dateid)
         })
 
@@ -185,10 +186,6 @@
           this.awardList = res.data.data.awardManNumList
           this.shareList = res.data.data.shareManNumList
           this.drawLineTime()
-          if( this.pageList.length!==0||this.joinList.length!==0||this.awardList.length!==0||this.shareList!==0){
-            this.showData=false
-          }
-
         })
 
 
@@ -230,9 +227,6 @@
             this.shareDayList.push(allList[key].shareNum)
           }
 
-          if(this.pageDayList.length!==0||this.joinDayList.length!==0||this.awardDayList.length!==0||this.shareDayList.length!==0){
-            this.showDayData=false
-          }
           this.getDate(this.dateid)
         })
       },
@@ -435,9 +429,6 @@
             this.awardList = res.data.data.awardManNumList
             this.shareList = res.data.data.shareManNumList
             this.drawLineTime()
-            if( this.pageList.length!==0||this.joinList.length!==0||this.awardList.length!==0||this.shareList!==0){
-              this.showData=false
-            }
           })
         }else {
           this.getDayTime()
@@ -565,15 +556,60 @@
 
   }
   .noDayData{
-    position: absolute;
-    left: 45%;
-    top: 43%;
+    width: 1100px;
+    height: 400px;
+    line-height: 400px;
+    background: rgba(248,248,248,0.76);
+    position: relative;
+    /*position: absolute;*/
+    /*top: 32%;*/
+    /*left: 2%;*/
     font-size: 20px;
+    text-align: center;
+    i{
+      font-size: 30px;
+      color: #9B9B9B;
+      letter-spacing: 0;
+      text-align: center;
+    }
+    .cl {
+      position: absolute;
+      top: 10%;
+      left: 46%;
+      font-family: MicrosoftYaHei;
+      font-size: 14px;
+      color: #9B9B9B;
+      letter-spacing: 0;
+      text-align: center;
+    }
   }
+
   .noData{
-    position: absolute;
-    left: 45%;
-    top: 80%;
+    width: 1100px;
+    height: 400px;
+    line-height: 400px;
+    background: rgba(248,248,248,0.76);
+    position: relative;
+    //position: absolute;
+    top: 2%;
+    left: 2%;
     font-size: 20px;
+    text-align: center;
+    i{
+      font-size: 30px;
+      color: #9B9B9B;
+      letter-spacing: 0;
+      text-align: center;
+    }
+    .pl {
+      position: absolute;
+      top: 10%;
+      left: 46%;
+      font-family: MicrosoftYaHei;
+      font-size: 14px;
+      color: #9B9B9B;
+      letter-spacing: 0;
+      text-align: center;
+    }
   }
 </style>

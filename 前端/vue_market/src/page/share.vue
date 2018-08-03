@@ -1,14 +1,14 @@
 <template>
   <div class="share_wrap">
     <div class="share_con">
-      <el-form ref="form" :model="form" label-width="100px">
-        <el-form-item label="分享活动">
+      <el-form ref="form" :model="form" label-width="110px">
+        <el-form-item label="分享活动 :">
           <el-radio-group v-model="form.resource1" @change="change">
             <el-radio label="1">开启</el-radio>
             <el-radio label="2">关闭</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="微信分享图标">
+        <el-form-item label="微信分享图标 :">
           <el-radio-group v-model="form.resource2">
             <el-radio label="1">默认</el-radio>
 
@@ -35,7 +35,7 @@
           </el-dialog>
           <span>点击图片重新上传即可更换奖品图片</span>
         </el-form-item>
-        <el-form-item label="微信分享标题">
+        <el-form-item label="微信分享标题 :">
           <el-radio-group v-model="form.resource3">
             <el-radio label="1">默认</el-radio>
             <el-tooltip class="item" effect="light" content="权限不足请升级" placement="top-start">
@@ -48,7 +48,7 @@
           <el-input height="6rem" type="textarea" v-model="form.desc1" maxlength="50"></el-input>
         </el-form-item>
 
-        <el-form-item label="微信分享内容">
+        <el-form-item label="微信分享内容 :">
           <el-radio-group v-model="form.resource4">
             <el-radio label="1">默认</el-radio>
             <el-tooltip class="item" effect="light" content="权限不足请升级" placement="top-start">
@@ -270,7 +270,6 @@
   .share_wrap {
     width: 100%;
     font-size: .6rem;
-    margin: .5rem 0;
     position: relative;
     z-index: 9;
     .share_con {
@@ -279,7 +278,6 @@
 
     }
   }
-
   .el-form-item__label {
     text-align: left;
   }
@@ -312,5 +310,10 @@
     width: 145px;
     height: 145px;
     display: block;
+  }
+</style>
+<style>
+  .el-form-item__label {
+    text-align: left;
   }
 </style>

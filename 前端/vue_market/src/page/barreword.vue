@@ -1709,7 +1709,6 @@
       }
       .reword_type {
         width: 95%;
-        margin: 0 auto .5rem;
         .reword_num {
           right: 2rem;
           top: 0;

@@ -2,38 +2,55 @@
   <div class="setting_wrap">
     <div class="setting_con">
       <div class="setting_header clearfloat">
-        <!-- <div class="setting_button" @click="target()">基础设置</div> -->
-        <!--<div class="setting_button" @click="changeActive(index)" :class="{active_button:classActive == index}"  v-for="(item,index) in settingmsg" :key = "index" type="primary" plain>{{item}}</div> -->
       </div>
       <div class="setting_title">
-        <el-tabs v-model="activeName2" type="card">
-          <!-- <el-tab-pane label="基础设置" name="first"><router-view></router-view></el-tab-pane>
-          <el-tab-pane label="奖品设置" name="second"><router-view></router-view></el-tab-pane>
-          <el-tab-pane label="派奖设置" name="third"><router-view></router-view></el-tab-pane>
-          <el-tab-pane label="分享设置" name="fourth"><router-view></router-view></el-tab-pane>
-          <el-tab-pane label="高级设置" name="ffifth"><router-view></router-view></el-tab-pane> -->
-
-
-          <el-tab-pane label="基础设置" name="first">
+        <ul>
+          <li class="select">基础设置</li>
+          <li>奖品设置</li>
+          <li>派奖设置</li>
+          <li>分享设置</li>
+          <li>高级设置</li>
+        </ul>
+        <div class="oDivs">
+          <div class="content_list select">
             <setting-base></setting-base>
-            <!--<settingbaseEdit></settingbaseEdit>-->
-          </el-tab-pane>
-          <el-tab-pane label="奖品设置" name="second">
+          </div>
+          <div class="content_list">
             <reword></reword>
-            <!--<ceshi></ceshi>-->
-
-          </el-tab-pane>
-          <el-tab-pane label="派奖设置" name="third">
+          </div>
+          <div class="content_list">
             <award></award>
-          </el-tab-pane>
-          <el-tab-pane label="分享设置" name="fourth">
+          </div>
+          <div class="content_list">
             <share></share>
-          </el-tab-pane>
-          <el-tab-pane label="高级设置" name="ffifth">
+          </div>
+          <div class="content_list">
             <advanced></advanced>
-          </el-tab-pane>
+          </div>
+        </div>
 
-        </el-tabs>
+        <!--<el-tabs v-model="activeName2" type="card">-->
+
+          <!--<el-tab-pane label="基础设置" name="first" style="margin-right:10px">-->
+            <!--<setting-base></setting-base>-->
+            <!--&lt;!&ndash;<settingbaseEdit></settingbaseEdit>&ndash;&gt;-->
+          <!--</el-tab-pane>-->
+          <!--<el-tab-pane label="奖品设置" name="second">-->
+            <!--&lt;!&ndash;<reword></reword>&ndash;&gt;-->
+              <!--<ceshi></ceshi>-->
+
+          <!--</el-tab-pane>-->
+          <!--<el-tab-pane label="派奖设置" name="third">-->
+            <!--<award></award>-->
+          <!--</el-tab-pane>-->
+          <!--<el-tab-pane label="分享设置" name="fourth">-->
+            <!--<share></share>-->
+          <!--</el-tab-pane>-->
+          <!--<el-tab-pane label="高级设置" name="ffifth">-->
+            <!--<advanced></advanced>-->
+          <!--</el-tab-pane>-->
+
+        <!--</el-tabs>-->
 
       </div>
     </div>
@@ -82,6 +99,14 @@
       ...mapActions(['saveData'])
     },
     mounted() {
+
+      $("ul li").click(function () {
+        //获取当前Li的索引
+        //eq获取当前项对应的索引
+        var index=$(this).index();
+        $(this).addClass("select").siblings().removeClass("select").parent().siblings(".oDivs").children('.content_list').eq(index).addClass("select").siblings().removeClass("select");
+      })
+
       var token = sessionStorage.getItem('token')
       this.$axios({
         method: "post",
@@ -183,7 +208,7 @@
         $.ajax({
           type: "POST",
           url: "http://center.marketing.yunpaas.cn/jgg/activitySetup/save?token=" + token,
-          // url:"http://192.168.2.112:8085/jgg/activitySetup/save?token="+token,
+           //url:"http://192.168.2.112:8080/jgg/activitySetup/save?token="+token,
           data: sendNew,
           contentType: "application/json",
           datatype: "json",
@@ -277,6 +302,46 @@
     z-index: 9999;
     left: 0;
 
+  }
+  .setting_title ul{
+    list-style: none;
+    overflow: hidden;
+  }
+  .setting_title ul li{
+    width: 117px;
+    height: 34px;
+    text-align: center;
+    line-height: 34px;
+    background: #353D50;
+    border-radius: 4px;
+    margin-right: 10px;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    float: left;
+  }
+  .oDivs{
+    margin-top: 20px;
+  }
+  .setting_title .oDivs .content_list{
+    width: 670px;
+    min-height: 545px;
+    background: #FBFBFB;
+    border: 1px solid #E8E8E8;
+    border-radius: 13px;
+    display: none;
+    padding: 20px 0px 0px 20px;
+  }
+  .setting_title ul li.select{
+    background: #3486FC;
+    border-radius: 4px;
+  }
+  .setting_title .oDivs .content_list.select{
+    display: block;
+    background: #FBFBFB;
+    border: 1px solid #E8E8E8;
+    border-radius: 13px;
   }
 </style>
 

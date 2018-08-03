@@ -3,32 +3,31 @@
   <div class="setting_wrap">
     <div class="setting_con">
       <div class="setting_header clearfloat">
-        <!-- <div class="setting_button" @click="target()">基础设置</div> -->
-        <!-- <div class="setting_button" @click="changeActive(index)" :class="{active_button:classActive == index}"  v-for="(item,index) in settingmsg" :key = "index" type="primary" plain>{{item}}</div> -->
+
       </div>
       <div class="setting_title">
-        <el-tabs v-model="activeName2" >
-
-          <el-tab-pane label="基础设置" name="first">
+        <ul>
+          <li class="select">基础设置</li>
+          <li>商品设置</li>
+          <li>砍价设置</li>
+          <li>高级设置</li>
+        </ul>
+        <div class="oDivs">
+          <div class="content_list select">
             <barsettingbase></barsettingbase>
-          </el-tab-pane>
-          <el-tab-pane label="商品设置" name="second">
-
+          </div>
+          <div class="content_list">
             <barreword></barreword>
-          </el-tab-pane>
-          <el-tab-pane label="砍价设置" name="third">
-
+          </div>
+          <div class="content_list">
             <baraward></baraward>
-          </el-tab-pane>
-          <!--<el-tab-pane label="分享设置" name="fourth"><share></share></el-tab-pane>-->
-          <el-tab-pane label="高级设置" name="ffifth">
-<baradvanced></baradvanced>
-
-          </el-tab-pane>
-
-        </el-tabs>
-
+          </div>
+          <div class="content_list">
+            <baradvanced></baradvanced>
+          </div>
+        </div>
       </div>
+
     </div>
     <div id="active_AllBtn">
       <el-button @click="goBack()">返回</el-button>
@@ -72,6 +71,14 @@
       ...mapActions(['saveDatakj'])
     },
     mounted(){
+
+      $("ul li").click(function () {
+        //获取当前Li的索引
+        //eq获取当前项对应的索引
+        var index=$(this).index();
+        $(this).addClass("select").siblings().removeClass("select").parent().siblings(".oDivs").children('.content_list').eq(index).addClass("select").siblings().removeClass("select");
+      })
+
       var token = sessionStorage.getItem('token')
       this.$axios({
         method: "post",
@@ -246,6 +253,46 @@
     z-index: 99999;
     left: 0;
 
+  }
+  .setting_title ul{
+    list-style: none;
+    overflow: hidden;
+  }
+  .setting_title ul li{
+    width: 117px;
+    height: 34px;
+    text-align: center;
+    line-height: 34px;
+    background: #353D50;
+    border-radius: 4px;
+    margin-right: 10px;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    float: left;
+  }
+  .oDivs{
+    margin-top: 20px;
+  }
+  .setting_title .oDivs .content_list{
+    width: 670px;
+    min-height: 700px;
+    background: #FBFBFB;
+    border: 1px solid #E8E8E8;
+    border-radius: 13px;
+    display: none;
+    padding: 20px 0px 0px 20px;
+  }
+  .setting_title ul li.select{
+    background: #3486FC;
+    border-radius: 4px;
+  }
+  .setting_title .oDivs .content_list.select{
+    display: block;
+    background: #FBFBFB;
+    border: 1px solid #E8E8E8;
+    border-radius: 13px;
   }
 </style>
 

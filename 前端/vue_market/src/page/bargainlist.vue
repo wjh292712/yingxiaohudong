@@ -4,32 +4,6 @@
     <div class="active_con">
       <div class="active_rightCon">
         <div class="active_container">
-          <!-- <el-tabs v-model="activeName" >
-            <el-tab-pane label="活动首页" name="first">
-              <div class="active_down">
-                <div class="active_downCon">
-
-                </div>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="活动说明" name="second">
-
-
-            </el-tab-pane>
-            <el-tab-pane label="我的奖品" name="third">
-
-            </el-tab-pane>
-            <el-tab-pane label="奖品详情" name="fourth">
-
-
-            </el-tab-pane>
-            <el-tab-pane label="中奖页" name="five">
-
-            </el-tab-pane>
-            <el-tab-pane label="未中奖页" name="six">
-
-            </el-tab-pane>
-          </el-tabs> -->
           <div class="pic_view">
             <div class="nav_pic">
                 <span v-for="(item,index) in tabs"
@@ -38,9 +12,6 @@
                       @click="tab(index)">{{item}}</span>
             </div>
             <el-tabs v-model="activeName" >
-
-
-
               <div class="pic_ture">
                 <div class="sett">
                   <bargainset :m="setting_kjData"></bargainset>
@@ -49,8 +20,7 @@
                   <div class="active_down">
                     <div class="active_downCon">
                       <barpage></barpage>
-                      <!-- 设置栏 -->
-                      <!-- <setting/> -->
+
                     </div>
                   </div>
                 </div>
@@ -58,20 +28,13 @@
                   <div class="active_down">
                     <div class="active_downCon">
                       <barplainpage/>
-
-                      <!-- 设置栏 -->
-                      <!-- <setting/> -->
                     </div>
                   </div>
-
                 </div>
                 <div v-show="num==2">
                   <div class="active_down">
                     <div class="active_downCon">
                       <bardraw/>
-
-                      <!-- 设置栏 -->
-                      <!-- <setting></setting> -->
                     </div>
                   </div>
                 </div>
@@ -79,28 +42,20 @@
                   <div class="active_down">
                     <div class="active_downCon">
                       <detailpage/>
-                      <!-- 设置栏 -->
-                      <!-- <setting/> -->
                     </div>
                   </div>
-
                 </div>
                 <div v-show="num==4">
                   <div class="active_down">
                     <div class="active_downCon">
                       <winning/>
-                      <!-- 设置栏 -->
-                      <!-- <setting/> -->
                     </div>
                   </div>
-
                 </div>
                 <div v-show="num==5">
                   <div class="active_down">
                     <div class="active_downCon">
                       <losing/>
-                      <!-- 设置栏 -->
-                      <!-- <setting/> -->
                     </div>
                   </div>
                 </div>
@@ -188,7 +143,7 @@
     position: relative;
   }
   .sett{
-    width: 60%;
+    width: 65%;
     height: 100%;
     position: absolute;
     right: 0;
@@ -222,7 +177,7 @@
     color: #000;
   }
   .nav_pic>span{
-    margin-left: 4%;
+    margin-right: 5%;
   }
   .active_wrap {
     width: 85%;
@@ -274,7 +229,7 @@
               justify-content: space-around;
               flex-wrap: nowrap;
               .active_phoneWrap {
-                width: 34%;
+                width: 31%;
                 min-width: 13rem;
                 min-height: 31rem;
                 border-radius: 1.2rem;
@@ -347,14 +302,14 @@
                         width: 90%;
                         margin: .5rem auto;
                         height: 13rem;
-                        background: url(../../static/active/九宫格1.jpg) no-repeat;
+                        /*background: url(../../static/active/九宫格1.jpg) no-repeat;*/
                         background-size: 100%;
                       }
                       .inform {
                         width: 85%;
                         margin: 0rem auto;
                         height: 1.17rem;
-                        background: url(../../static/active/通知.png) no-repeat;
+                        /*background: url(../../static/active/通知.png) no-repeat;*/
                         background-size: 100%;
                         font-size: .6rem;
                         text-indent: 2rem;
@@ -364,7 +319,7 @@
                       .title_image {
                         width: 100%;
                         height: 6.25rem;
-                        background: url(../../static/active/banner.jpg) no-repeat;
+                        /*background: url(../../static/active/banner.jpg) no-repeat;*/
                         background-size: 100%;
                       }
                     }

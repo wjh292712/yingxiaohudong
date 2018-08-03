@@ -3,7 +3,7 @@
     <div class="base_con">
       <el-form ref="form" :model="form" label-width="100px">
         <el-form-item label="活动名称:">
-          <el-input v-model="formName" @input='inputData' maxlength="10" placeholder="不超过10个汉字" style="width: 200px"></el-input>
+          <el-input v-model="formName" @input='inputData' maxlength="10" placeholder="不超过10个汉字" style="width: 300px"></el-input>
         </el-form-item>
         <el-form-item label="活动日期:">
           <!--<el-date-picker-->
@@ -266,7 +266,7 @@ console.log(_this.base_send)
 <style >
   .base_wrap{
     /*background: #fbfbfb;*/
-    padding: 15px;
+
     height: 100%;
     position: relative;
     z-index: 9;

@@ -6,30 +6,30 @@
 
       </div>
       <div class="setting_title">
-        <el-tabs v-model="activeName2" >
-
-
-          <el-tab-pane label="基础设置" name="first">
-       <answsettingbase></answsettingbase>
-          </el-tab-pane>
-          <el-tab-pane label="题目设置" name="second">
+        <ul>
+          <li class="select">基础设置</li>
+          <li>题目设置</li>
+          <li>奖品设置</li>
+          <li>派奖设置</li>
+          <li>高级设置</li>
+        </ul>
+        <div class="oDivs">
+          <div class="content_list select">
+            <answsettingbase></answsettingbase>
+          </div>
+          <div class="content_list">
             <anstitle></anstitle>
-          </el-tab-pane>
-
-          <el-tab-pane label="奖品设置" name="fourth">
+          </div>
+          <div class="content_list">
             <ansreword></ansreword>
-          </el-tab-pane>
-
-          <el-tab-pane label="派奖设置" name="third">
+          </div>
+          <div class="content_list">
             <ansaward></ansaward>
-          </el-tab-pane>
-
-          <el-tab-pane label="高级设置" name="fifth">
-                      <ansadvanced></ansadvanced>
-          </el-tab-pane>
-
-        </el-tabs>
-
+          </div>
+          <div class="content_list">
+            <ansadvanced></ansadvanced>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -78,6 +78,12 @@ import ansadvanced from '@/page/ansadvanced'
       ...mapActions(['saveDatadt'])
     },
     mounted(){
+      $("ul li").click(function () {
+        //获取当前Li的索引
+        //eq获取当前项对应的索引
+        var index=$(this).index();
+        $(this).addClass("select").siblings().removeClass("select").parent().siblings(".oDivs").children('.content_list').eq(index).addClass("select").siblings().removeClass("select");
+      })
       // this.$store.dispatch('saveDatadt')
       var token = sessionStorage.getItem('token')
       this.$axios({
@@ -240,6 +246,46 @@ import ansadvanced from '@/page/ansadvanced'
     z-index: 99999;
     left: 0;
 
+  }
+  .setting_title ul{
+    list-style: none;
+    overflow: hidden;
+  }
+  .setting_title ul li{
+    width: 117px;
+    height: 34px;
+    text-align: center;
+    line-height: 34px;
+    background: #353D50;
+    border-radius: 4px;
+    margin-right: 10px;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    float: left;
+  }
+  .oDivs{
+    margin-top: 20px;
+  }
+  .setting_title .oDivs .content_list{
+    width: 670px;
+    min-height: 700px;
+    background: #FBFBFB;
+    border: 1px solid #E8E8E8;
+    border-radius: 13px;
+    display: none;
+    padding: 20px 0px 0px 20px;
+  }
+  .setting_title ul li.select{
+    background: #3486FC;
+    border-radius: 4px;
+  }
+  .setting_title .oDivs .content_list.select{
+    display: block;
+    background: #FBFBFB;
+    border: 1px solid #E8E8E8;
+    border-radius: 13px;
   }
 </style>
 

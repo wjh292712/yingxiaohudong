@@ -238,7 +238,7 @@
               justify-content: space-around;
               flex-wrap: nowrap;
               .active_phoneWrap {
-                width: 34%;
+                width: 31%;
                 min-width: 13rem;
                 max-height: 26rem;
                 border-radius: 1.2rem;

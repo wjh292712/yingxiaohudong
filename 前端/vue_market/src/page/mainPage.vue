@@ -12,9 +12,10 @@
           </div>
           <div class="header_two">
             <div class="two_con">
-              <i></i>
-              <marquee direction=right><span v-for="(item,index) in informmsg"  class="Notice">{{item.content}}</span>
-              </marquee>
+              <i class="iconfont icon-gonggao1"></i>
+                <span v-for="(item,index) in informmsg" class="Notice">
+                  <a :href="item.url" target="_blank">{{item.content}}</a>
+                </span>
             </div>
           </div>
           <div class="bannerImg">
@@ -29,6 +30,23 @@
             <div class="main_list_box" v-for="(item,index) in mainmsg" :key="index" @click="targetActive(item)">
               <div class="body_img">
                 <img :src=item.img alt="">
+
+              </div>
+              <div class="body_text">
+                <h5>{{item.title}}</h5>
+                <span class="body_text_btn">创建活动</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="main_body_award">
+        <div class="up">
+          <h3>热门奖品</h3>
+          <div class="main_list">
+            <div class="main_list_box" v-for="(item,index) in awardmsg" :key="index" @click="targetActive(item)">
+              <div class="body_img">
+                <img :src=item.homeImg alt="">
               </div>
               <div class="body_text">
                 <h5>{{item.title}}</h5>
@@ -51,14 +69,15 @@
     data() {
       return {
         mainmsg: [],
-        informmsg:[],
-        createDate:'',
-        versionContent:'标准版'
-        // banner:[]
+        informmsg: [],
+        createDate: '',
+        versionContent: '标准版',
+        awardmsg: [],//热门奖品
+
       }
 
     },
-    created(){
+    created() {
 
     },
     computed: {
@@ -66,26 +85,25 @@
       ...mapActions(['saveForm'])
     },
     mounted() {
-      let _this=this
-        this.$emit("hides",true)
+      let _this = this
+      this.$emit("hides", true)
       this.inform()
-      this.versionContent=sessionStorage.getItem("vsersionName")
-      console.log(this.versionContent+"ddd");
+      this.versionContent = sessionStorage.getItem("vsersionName")
+      console.log(this.versionContent + "ddd");
       this.$axios({
-        method:"post",
-        url:"http://center.marketing.yunpaas.cn/center/activityDataModel/list",
-        params:{
-
-        },
-      }).then(res=>{
-        _this.mainmsg=res.data.data.list
+        method: "post",
+        url: "http://center.marketing.yunpaas.cn/center/activityDataModel/list",
+        params: {},
+      }).then(res => {
+        _this.mainmsg = res.data.data.list
       })
 
 
     },
     methods: {
-      upVerSion(){
-        this.$router.push({path:'/indexVers/versionCart'})
+
+      upVerSion() {
+        this.$router.push({path: '/indexVers/versionCart'})
       },
 //跳转活动页面
       targetActive(e) {
@@ -116,21 +134,19 @@
           console.log(res)
         })
 
-        // 轮播
-        // this.$axios({
-        //     method:"post",
-        //     url:"/center/ActivityNoticeImg/list",
-        //     params:{
+         //热门奖品列表
+        this.$axios({
+          method:'get',
+          url:'http://center.marketing.yunpaas.cn/center/shopGoods/getRecommendList',
+          params:{}
+        }).then(res=>{
+          console.log(res)
+          this.awardmsg=res.data.data
 
-        //     }
-        // }).then(res =>{
-        //     // console.log(res.data.data)
-        //     this.banner = res.data.data
-        // }).catch(res =>{
-        //     console.log(res)
-        // })
+        }).catch(res=>{
+          console.log(res)
+        })
 
-        this.$store.dispatch('saveForm')
 
         //通告接口
 
@@ -139,7 +155,6 @@
           url: "http://center.marketing.yunpaas.cn/center/activityNotice/list",
           params: {}
         }).then(res => {
-          // console.log(res.data.data[0])
           this.informmsg = res.data.data
           // for (var i = 0; i < this.informmsg.length; i++) {
           //   this.createDate=this.informmsg[i].createDate
@@ -154,13 +169,7 @@
           console.log(res)
 
         })
-        //     axios.post('http://center.marketing.yunpaas.cn/activityNotice/list', qs.stringify())
-        //             .then(response => {
-        //             console.log(response.data.data);
-        //             })
-        //             .catch(err => {
-        //             console.log(err);
-        //             });
+
       }
     }
   })
@@ -183,12 +192,12 @@
         .one_text {
           font-size: .7rem;
         }
-        .ver_text{
+        .ver_text {
           margin-left: 20px;
           font-size: .7rem;
           color: #FC7132;
         }
-        .upVer{
+        .upVer {
           margin-left: 20px;
           font-size: .7rem;
           color: #2b85e4;
@@ -203,26 +212,26 @@
         margin-bottom: .5rem;
         /*text-indent: .5rem;*/
         .two_con {
-          span {
-            font-family: MicrosoftYaHei;
-            font-size: 12px;
+          i{
             color: #FE4D1E;
-            letter-spacing: 0;
-
+            font-size: 16px;
+            margin-left: 10px;
+          }
+          span {
+            a{
+              font-family: MicrosoftYaHei;
+              font-size: 12px;
+              color: #FE4D1E;
+              letter-spacing: 0;
+            }
           }
         }
       }
-      /*.block {*/
-        /*margin-bottom: 0.5rem;*/
-        /*img {*/
-          /*width: 100%;*/
-          /*height: 100%;*/
-        /*}*/
-      /*}*/
-      .bannerImg{
+
+      .bannerImg {
         width: 100%;
         height: 100%;
-        img{
+        img {
           width: 100%;
           height: 100%;
         }
@@ -242,6 +251,7 @@
       }
       .main_body {
         width: 100%;
+        min-height: 400px;
         background: #fff;
         .up {
           width: 98%;
@@ -249,23 +259,21 @@
           padding: 1rem 0 0;
           cursor: pointer;
           h3 {
-            margin-bottom: 1rem;
+            margin-bottom: 10px;
             border-left: 0.5rem solid #FC7132;
             text-indent: 1rem;
             font-size: .7rem;
           }
           .main_list {
             width: 100%;
-            /*display: flex;*/
-            /*justify-content: space-between;*/
-            /*flex-wrap: wrap;*/
+            padding-left: 20px;
             .main_list_box {
               float: left;
               border-radius: 0.3rem;
               border: 0.05rem solid #ccc;
               width: 18%;
               min-width: 8rem;
-              margin-right: 20px;
+              margin-right: 24px;
               margin-top: 10px;
               .body_img {
                 border-radius: 0.3rem;
@@ -275,25 +283,95 @@
                 img {
                   border-radius: 0.15rem;
                   width: 100%;
-                  height: 100%;
+                  height: 219px;
                   vertical-align: top;
                 }
               }
               .body_text {
                 text-align: center;
+                margin-top: 10px;
+                padding-bottom: 10px;
                 h5 {
                   width: 100%;
-                  font-size: .7rem;
+                  font-size: 14px;
                 }
                 .body_text_btn {
-                  font-size: .5rem;
                   margin: 0.25rem 0;
-                  width: 3.5rem;
-                  height: 20%;
+                  width: 97px;
+                  height: 34px;
+                  line-height: 34px;
                   border-radius: 0.15rem;
                   background: #FC7132;
-                  color: #fff;
                   display: inline-block;
+                  font-family: MicrosoftYaHei;
+                  font-size: 14px;
+                  color: #FFFFFF;
+                  letter-spacing: 0;
+                }
+              }
+            }
+          }
+
+        }
+      }
+      .main_body_award {
+        width: 100%;
+        min-height: 400px;
+        background: #fff;
+        .up {
+          width: 98%;
+          margin: .5rem auto 0;
+          padding: 1rem 0 0;
+          cursor: pointer;
+          h3 {
+            margin-bottom: 10px;
+            border-left: 0.5rem solid #FC7132;
+            text-indent: 1rem;
+            font-size: .7rem;
+          }
+          .main_list {
+            width: 100%;
+            padding-left: 20px;
+            .main_list_box {
+              float: left;
+              border-radius: 0.3rem;
+              border: 0.05rem solid #ccc;
+              width: 18%;
+              min-width: 8rem;
+              margin-right: 24px;
+              margin-top: 10px;
+              .body_img {
+                border-radius: 0.3rem;
+                width: 100%;
+                height: 80%;
+                vertical-align: top;
+                img {
+                  border-radius: 0.15rem;
+                  width: 100%;
+                  height: 219px;
+                  vertical-align: top;
+                }
+              }
+              .body_text {
+                text-align: center;
+                margin-top: 10px;
+                padding-bottom: 10px;
+                h5 {
+                  width: 100%;
+                  font-size: 14px;
+                }
+                .body_text_btn {
+                  margin: 0.25rem 0;
+                  width: 97px;
+                  height: 34px;
+                  line-height: 34px;
+                  border-radius: 0.15rem;
+                  background: #FC7132;
+                  display: inline-block;
+                  font-family: MicrosoftYaHei;
+                  font-size: 14px;
+                  color: #FFFFFF;
+                  letter-spacing: 0;
                 }
               }
             }
@@ -303,7 +381,8 @@
       }
     }
   }
-  .Notice{
+
+  .Notice {
     margin-right: 20px;
   }
 </style>

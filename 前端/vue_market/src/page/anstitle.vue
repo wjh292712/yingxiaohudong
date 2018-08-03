@@ -355,7 +355,6 @@ this.ok=false
       }
       .reword_type {
         width: 95%;
-        margin: 0 auto .5rem;
         position: relative;
         /*.reword_num {*/
         /*width: 3rem;*/

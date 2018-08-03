@@ -152,7 +152,7 @@ export default ({
     position: relative;
   }
   .sett{
-    width: 60%;
+    width: 65%;
     height: 100%;
     position: absolute;
     right: 0;
@@ -186,7 +186,7 @@ export default ({
   color: #000;
 }
 .nav_pic>span{
-  margin-left: 4%;
+  margin-right: 5%;
 }
 .active_wrap {
   width: 85%;
@@ -238,9 +238,9 @@ export default ({
             justify-content: space-around;
             flex-wrap: nowrap;
             .active_phoneWrap {
-              width: 34%;
+              width: 31%;
               min-width: 13rem;
-              min-height: 31rem;
+              min-height: 600px;
               border-radius: 1.2rem;
               border: 1px solid #e8e8e8;
               .active_phoneCon {
@@ -280,6 +280,7 @@ export default ({
                 }
                 .phone_body {
                   border: 1px solid #E8E8E8;
+                  height: 524px;
                   .nine_blog {
                     background: #Ffd800;
                     width: 100%;

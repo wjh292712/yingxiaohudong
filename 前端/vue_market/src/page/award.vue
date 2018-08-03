@@ -2,25 +2,25 @@
   <div class="container">
     <div class="send">
       <el-form ref="form" :model="form" label-width="100px">
-        <p>
-          <span>派奖方式：</span>
-          <span>
-          <el-radio v-model="radio" label="1">抽奖</el-radio>
-          <span class="active">活动发布后，派奖方式不能更改</span>
-        </span>
-        </p>
-        <p>
+        <!--<p>-->
+          <!--<span>派奖方式：</span>-->
+          <!--<span>-->
+          <!--<el-radio v-model="radio" label="1">抽奖</el-radio>-->
+          <!--<span class="active">活动发布后，派奖方式不能更改</span>-->
+        <!--</span>-->
+        <!--</p>-->
+        <p class="award_p">
           <span>单人总抽奖机会 : </span>
           <span>
           <el-radio v-model="radio1" label="1">限制</el-radio>
           <el-radio v-model="radio1" label="2">不限制</el-radio>
-          <p class="more" v-show="limitCount" >每人最多有
+          <span class="more" v-show="limitCount" >每人最多有
             <span>
               <el-input class="ipt" v-model="input1" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();" maxlength="3">
               </el-input>
             </span>
             <span>次</span>
-          </p>
+          </span>
         </span>
         </p>
         <p>
@@ -41,7 +41,7 @@
         </span>
         </p>
         <p>
-          <span>派发规则:</span>
+          <span>派发规则 :</span>
           <span>
           <el-radio v-model="radio2" label="1">按奖项中奖概率派发</el-radio>
           <el-radio v-model="radio2" label="2">奖项均匀派发</el-radio>
@@ -99,6 +99,7 @@
         input1: '',//抽奖次数
         input2: '',
         input3: '',
+        datalist:'',
         award_data: "",//接口数据
         award_send: "",
         award_dataList:'',//派奖概率接口
@@ -117,9 +118,9 @@
         url: "http://center.marketing.yunpaas.cn/jgg/activitySetup/init?token="+token ,//数据初始化接口
         params: {},
       }).then(res => {
-        console.log(res.data.data);
-        let setting_data=JSON.stringify(res.data.data)
-        sessionStorage.setItem("Data",setting_data)
+        this.datalist=res.data.data
+        // let setting_data=JSON.stringify(res.data.data)
+        // sessionStorage.setItem("Data",setting_data)
         this.dataStatus=this.$route.query.dataStatus
           this.partAward()
       })
@@ -133,20 +134,16 @@
         this.saveAward()
     },
     methods: {
-
       //派奖设置
       partAward() {
         if(this.dataStatus===undefined){
-          let Data = sessionStorage.getItem('Data')
-          this.award_data = JSON.parse(Data).jggAwardSendSetup
-          this.award_dataList=JSON.parse(Data).jggAwardSetupExtendList
+
+          this.award_data = this.datalist.jggAwardSendSetup
+          this.award_dataList=this.datalist.jggAwardSetupExtendList
         }else if (this.dataStatus==='1') {
           this.award_data = this.$route.query.newjggData.jggAwardSendSetup
-           this.award_dataList=this.$route.query.newjggData.jggAwardSetupExtendList
+          this.award_dataList=this.$route.query.newjggData.jggAwardSetupExtendList
         }
-
-
-
 
         if (!this.award_data.singleTotalDrawLimit) {
           this.radio1 = '2'
@@ -160,36 +157,19 @@
         this.input1=this.award_data.singleDrawCount
         this.input2 = this.award_data.singleDayDrawCount
         this.input3 = this.award_data.singleWinCount
-        this.radio2 = this.award_data.sendRule.toString()
+        this.radio2 = this.award_data.sendRule==1?'1':'2'
       },
 
       //派奖保存
       saveAward() {
 
-        // this.$store.dispatch('saveData')
         if(this.dataStatus===undefined){
-          let Data = sessionStorage.getItem('Data')
-          this.award_send = JSON.parse(Data).jggAwardSendSetup
-          this.award_sendList=JSON.parse(Data).jggAwardSetupExtendList
+
+          this.award_send =this.datalist.jggAwardSendSetup
+          this.award_sendList=this.datalist.jggAwardSetupExtendList
         }else if (this.dataStatus==='1') {
           this.award_send = this.$route.query.newjggData.jggAwardSendSetup
           this.award_sendList=this.$route.query.newjggData.jggAwardSetupExtendList
-        }
-        let ary =[]
-        for (var i = 0; i < this.award_sendList.length; i++) {
-          var cur = this.award_sendList[i].winRate;
-          ary.push(cur)
-        }
-        (ary)=> {
-          var s = 0;
-          for (var i=ary.length-1; i>=0; i--) {
-            s += ary[i];
-          }
-          if(s>=100){
-            alert("ddd")
-            alert("所有奖项中奖概率加起来不能超过100%")
-            return
-          }
         }
 
         this.award_send.singleTotalDrawLimit = this.radio1 == 1 ? true : false
@@ -202,7 +182,7 @@
         this.award_send.singleWinCount = this.input3
         this.award_send.sendRule = this.radio2
         this.$store.state.setting_data.jggAwardSendSetup = this.award_send
-        console.log(1111);
+        this.$store.state.setting_data.jggAwardSetupExtendList = this.award_sendList
         this.$bus.emit("send_award", this.award_send)
         // console.log(this.$store.state.setting_data.jggAwardSendSetup)
       },
@@ -227,10 +207,12 @@
   }
 
   .send p {
-    font-size: 0.7rem;
-    margin-top: 1rem;
+    font-size: 14px;
+    margin-top: 2rem;
   }
-
+  .send .award_p{
+    margin-top: 0;
+  }
   p .more span .ipt {
     width: 3rem;
     height: 10px;
@@ -263,6 +245,7 @@
   .homo {
     margin-left: 2rem;
     margin-top: 1rem;
+    margin-bottom: 50px;
   }
 </style>
 <style>

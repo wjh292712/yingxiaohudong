@@ -15,7 +15,7 @@
           <!--<span>%</span>-->
         <!--</p>-->
         <p>
-          <span>底价保留时长：</span>
+          <span>底价保留时长 :</span>
           <el-input v-model="input4" placeholder="请输入内容" class="nns" />
           <span>小时</span>
         </p>
@@ -25,13 +25,13 @@
           <!--<span>件</span>-->
         <!--</p>-->
         <p>
-          <span>每人可为其他玩家帮砍：</span>
+          <span>每人可为其他玩家帮砍 :</span>
           <el-input v-model="input6" placeholder="请输入内容" class="nns" />
           <span>次</span>
         </p>
         <p>
         <!--<el-form-item label="用户端是否显示排行榜" >-->
-          <span>用户端是否显示排行榜</span>
+          <span>用户端是否显示排行榜 :</span>
           <el-radio-group v-model="radio1">
             <el-radio label="1" checked>是</el-radio>
             <el-radio label="0">否</el-radio>
@@ -141,7 +141,12 @@
   .send{
     margin-top: 20px;
     p{
-      margin-top: 10px;
+      margin-top: 20px;
+      font-family: MicrosoftYaHei;
+      font-size: 14px;
+      color: #4A4A4A;
+      letter-spacing: 0;
+      line-height: 50px;
     }}
  .nns{
    width: 150px;

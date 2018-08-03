@@ -214,7 +214,7 @@
               justify-content: space-around;
               flex-wrap: nowrap;
               .active_phoneWrap {
-                width: 34%;
+                width: 31%;
                 min-width: 13rem;
                 max-height: 26rem;
                 border-radius: 1.2rem;
@@ -298,7 +298,7 @@
                         .box1 {
                           span {
                             display: inline-block;
-                            width: 49.5%;
+                            width: 48%;
                             margin: 0 auto;
                             text-align: center;
                             border-bottom: 2px solid #cf2c44;
@@ -341,7 +341,7 @@
 
                         p {
                           position: absolute;
-                          top: 270px;
+                          top: 245px;
                           left: 7.5%;
                           right: 7.5%;
                           /*background-size: 100%;*/
@@ -393,7 +393,7 @@
                         .active_info {
                           position: absolute;
                           right: 1rem;
-                          top: 9.8rem;
+                          top: 8.7rem;
                           span {
                             display: inline-block;
                             height: 1rem;

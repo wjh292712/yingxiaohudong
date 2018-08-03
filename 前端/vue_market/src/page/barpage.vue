@@ -151,7 +151,7 @@
               justify-content: space-around;
               flex-wrap: nowrap;
               .active_phoneWrap {
-                width: 34%;
+                width: 31%;
                 min-width: 13rem;
                 max-height: 26rem;
                 border-radius: 1.2rem;
@@ -172,10 +172,7 @@
                       }
                     }
                     .circle2 {
-                      /* width:.3rem;
-                                              height:.3rem;
-                                              background:#D8D8D8;
-                                              border-radius:50%; */
+
                       .point1 {
                         display: inline-block;
                         width: .3rem;
@@ -279,7 +276,7 @@
 
                         p {
                           position: absolute;
-                          top: 255px;
+                          top: 245px;
                           left: 7.5%;
                           right: 7.5%;
                           /*background-size: 100%;*/
@@ -331,7 +328,7 @@
                         .active_info {
                           position: absolute;
                           right: 1rem;
-                          top: 9rem;
+                          top: 8.7rem;
                           span {
                             display: inline-block;
                             height: 1rem;

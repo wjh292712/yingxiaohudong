@@ -20,19 +20,10 @@
         size="large"
         v-model="value5"
         type="datetime"
-       placeholder="活动结束时间"
+        placeholder="活动结束时间"
         style="width:200px;margin-right:5px">
       </el-date-picker>
-      <!--<el-autocomplete-->
-        <!--clearable="true"-->
-        <!--class="inline-input"-->
-        <!--v-model="activeState"-->
-        <!--:fetch-suggestions="querySearch"-->
-        <!--placeholder="活动状态"-->
-        <!--@select="handleSelect"-->
-        <!--AUTOCOMPLETE="OFF"-->
-        <!--style="width:140px;margin-right:5px">-->
-      <!--</el-autocomplete>-->
+
       <el-select v-model="activeState" clearable placeholder="活动状态" style="margin-right: 5px">
         <el-option
           size="small"
@@ -48,7 +39,8 @@
     <div class="ddd" style="text-align:center">
       <el-table
         :data="tableData"
-        style="width: 100%;font-size:inherit;text-align: center">
+        style="width: 100%;font-size:inherit;text-align: center"
+      >
         <el-table-column
           prop="activityName"
           label="活动名称"
@@ -68,16 +60,6 @@
             {{timestampToTime(scope.row.endDate)}}
           </template>
         </el-table-column>
-
-        <!--<el-table-column-->
-        <!--prop="stateForMyActivity"-->
-        <!--label="活动状态"-->
-        <!--:filters="[{text: '全选', value: '全选'},{text: '未发布', value: '未发布'}, {text: '未开始', value: '未开始'}, {text: '进行中', value: '进行中'}, {text: '已结束', value: '已结束'}]"-->
-        <!--:filter-method="filterHandler">-->
-        <!--<template slot-scope="scope">-->
-        <!--{{state(scope.row.stateForMyActivity)}}-->
-        <!--</template>-->
-        <!--</el-table-column>-->
         <el-table-column
           prop="stateForMyActivity"
           label="活动状态">
@@ -86,49 +68,39 @@
           </template>
         </el-table-column>
         <el-table-column
-          prop="takeNumber"
-          label="参与">
+          label="参与/最大参与人数">
+          <template slot-scope="scope">
+            {{scope.row.takeNumber}}/
+            {{scope.row.maxNumber}}
+          </template>
         </el-table-column>
-        <el-table-column
-          prop="maxNumber"
-          label="最大参与人数">
+        <el-table-column label="已发放/剩余奖品数量">
+          <template slot-scope="scope">
+            {{scope.row.sendGoods}}/
+            {{scope.row.goods}}
+          </template>
         </el-table-column>
-        <el-table-column
-          prop="sendGoods"
-          label="已发放">
-        </el-table-column>
-        <el-table-column
-          prop="goods"
-          label="剩余奖品数量">
-        </el-table-column>
-        <!--<el-table-column-->
-        <!--prop="transferNumber"-->
-        <!--label="传播人数"-->
-        <!--&gt;-->
-        <!--</el-table-column>-->
-        <!--<el-table-column-->
-        <!--prop="state"-->
-        <!--label="活动状况告警"-->
-        <!--width="110">-->
-        <!--</el-table-column>-->
         <el-table-column
           label="操作"
           width="180"
           font-size="14px">
           <template slot-scope="scope">
+
             <span
               class="acc"
               size="mini"
-              @click="handleEdit($event,scope.row.activityId,scope.row.templateUuid)" v-if="scope.row.stateForMyActivity==3?false:true">
-           发布／
-            </span>
+              @click="handleEdit($event,scope.row.activityId,scope.row.templateUuid)"
+              v-if="scope.row.stateForMyActivity==3?false:true">
+           发布
+            </span>|
             <span
               class="abb"
               size="mini"
               @click="redact($event,scope.row.activityId,scope.row.templateUuid,scope.row.stateForMyActivity)"
             >
-            编辑／
-            </span>
+            编辑
+            </span>|
+
             <el-dropdown trigger="click">
   <span class="el-dropdown-link">
     更多
@@ -200,13 +172,6 @@
               prop="prizeNum"
               label="奖品数量">
             </el-table-column>
-            <!--<el-table-column-->
-            <!--prop="prizeCouponCodeType"-->
-            <!--label="生成券码">-->
-            <!--<template slot-scope="scope">-->
-            <!--{{state1(scope.row.prizeCouponCodeType)}}-->
-            <!--</template>-->
-            <!--</el-table-column>-->
           </el-table>
         </div>
         <div class="activePublic">
@@ -296,7 +261,7 @@
         activeState: '',
         activeFindState: '',
         states: '',
-        dda:['111','3333'],
+        dda: ['111', '3333'],
         tableData: [
           {
             activityName: '信用大转盘',
@@ -341,7 +306,7 @@
           }, {
             value: '4',
             label: '已结束'
-          },{
+          }, {
             value: '5',
             label: '活动已关闭'
           }],
@@ -361,18 +326,18 @@
         endPrice: false,//商品底价
         ticket: false,//券码
         btnsave: false,//保存
-        public:[],
-        value:'',
+        public: [],
+        value: '',
         //公众号
-        publicN:'',//公众号名
+        publicN: '',//公众号名
         newjggData: '',//编辑数据接口
         newkjData: '',//编辑数据接口
         newdtData: '',//编辑数据接口
         dataStatus: '',
-        maxPerson:'',//最大参与人数
-        residualActivity:'',//剩余活动次数
-        alltotal:'',//活动发布总次数
-        stateRew:'',
+        maxPerson: '',//最大参与人数
+        residualActivity: '',//剩余活动次数
+        alltotal: '',//活动发布总次数
+        stateRew: '',
       }
     },
     created() {
@@ -410,9 +375,9 @@
       this.pagedata()
 
     },
-     updated(){
+    updated() {
 
-     },
+    },
 
     methods: {
 
@@ -451,8 +416,8 @@
           headers: {'Content-Type': 'application/json'},
           params: {
             activityName: this.activename,
-            startTime:this.value4===null ? '' : this.value4.getTime(),
-            endTime:this.value5===null ? '' : this.value5.getTime(),
+            startTime: this.value4 === null ? '' : this.value4.getTime(),
+            endTime: this.value5 === null ? '' : this.value5.getTime(),
             activityState: this.activeState,
           }
         }).then(res => {
@@ -528,23 +493,23 @@
         $('.publish').css({"display": "block"})
         this.activeId = index
         this.templateUuid = templ
-        var options=$("#wxname")
-        this.publicN=options.val();
+        var options = $("#wxname")
+        this.publicN = options.val();
         this.$axios({
           method: "post",
           url: "http://center.marketing.yunpaas.cn/center/activity/wxList",
           params: {}
         }).then(res => {
           console.log(res);
-          let _this=this
-        _this.maxPerson=res.data.data.maxPerson
-            _this.residualActivity=res.data.data.residualActivity<=0?"无限":res.data.data.residualActivity
-            _this.alltotal=res.data.data.total
+          let _this = this
+          _this.maxPerson = res.data.data.maxPerson
+          _this.residualActivity = res.data.data.residualActivity <= 0 ? "无限" : res.data.data.residualActivity
+          _this.alltotal = res.data.data.total
           //this. public=res.data.data
 
-          var step=1
-          var ary=res.data.data.wxList
-          var obj={}
+          var step = 1
+          var ary = res.data.data.wxList
+          var obj = {}
           // for (var i = 0; i < ary.length; i++) {
           //   var cur = ary[i];
           //   console.log(cur);
@@ -559,15 +524,15 @@
           // }
           for (var key in ary) {
             console.log(key);
-            var cur=ary[key]
+            var cur = ary[key]
             console.log(cur);
             step++
-            obj={
-                   label:cur,
-                   value:key
+            obj = {
+              label: cur,
+              value: key
 
-                 }
-                 this.public.push(obj)
+            }
+            this.public.push(obj)
           }
           console.log(this.public);
         })
@@ -625,7 +590,7 @@
           var token = sessionStorage.getItem('token')
           this.$axios({
             method: 'post',
-            url: 'http://center.marketing.yunpaas.cn/jgg/activitySetup/getActivitySetupById?token='+token,
+            url: 'http://center.marketing.yunpaas.cn/jgg/activitySetup/getActivitySetupById?token=' + token,
             params: {
               activityId: this.activeId,
             }
@@ -665,14 +630,14 @@
               this.$router.push({path: '/activeslide/activelist', query: {newjggData: newJggData, dataStatus: '1'}})
             }
 
-          }).catch(res=>{
+          }).catch(res => {
             alert(res.data.msg)
           })
         } else if (this.templateUuid == 2) {
           var token = sessionStorage.getItem('token')
           this.$axios({
             method: 'post',
-            url: 'http://center.marketing.yunpaas.cn/kj/activitySetup/getActivitySetupById?token='+token,
+            url: 'http://center.marketing.yunpaas.cn/kj/activitySetup/getActivitySetupById?token=' + token,
             params: {
               activityId: this.activeId,
             }
@@ -711,7 +676,7 @@
               this.$router.push({path: '/activeslide/bargainlist', query: {newkjData: newKjData, dataStatus: '1'}})
             }
 
-          }).catch(res=>{
+          }).catch(res => {
             alert(res.data.msg)
           })
 
@@ -719,7 +684,7 @@
           var token = sessionStorage.getItem('token')
           this.$axios({
             method: 'post',
-            url: 'http://center.marketing.yunpaas.cn/dt/activitySetup/getActivitySetupById?token='+token,
+            url: 'http://center.marketing.yunpaas.cn/dt/activitySetup/getActivitySetupById?token=' + token,
             params: {
               activityId: this.activeId,
             }
@@ -748,7 +713,7 @@
                   rewordCount: true,
                   ticket: true,
                   btnsave: true,
-                  newdtData:newDtData,
+                  newdtData: newDtData,
                   dataStatus: '1',
                 }
               })
@@ -757,7 +722,7 @@
               this.$router.push({path: '/activeslide/answerlist', query: {newdtData: newDtData, dataStatus: '1'}})
               console.log(newDtData);
             }
-          }).catch(res=>{
+          }).catch(res => {
             alert(res.data.msg)
           })
         }
@@ -773,7 +738,7 @@
         if (this.templateUuid == 1) {
           this.$axios({
             method: 'post',
-            url: 'http://center.marketing.yunpaas.cn/jgg/activitySetup/copy?token='+token,
+            url: 'http://center.marketing.yunpaas.cn/jgg/activitySetup/copy?token=' + token,
             params: {
               id: this.activeId,
             }
@@ -817,7 +782,7 @@
         } else if (this.templateUuid == 2) {
           this.$axios({
             method: 'post',
-            url: 'http://center.marketing.yunpaas.cn/kj/activitySetup/copy?token='+token,
+            url: 'http://center.marketing.yunpaas.cn/kj/activitySetup/copy?token=' + token,
             params: {
               id: this.activeId,
             }
@@ -860,7 +825,7 @@
         } else if (this.templateUuid == 3) {
           this.$axios({
             method: 'post',
-            url: 'http://center.marketing.yunpaas.cn/dt/activitySetup/copy?token='+token,
+            url: 'http://center.marketing.yunpaas.cn/dt/activitySetup/copy?token=' + token,
             params: {
               id: this.activeId,
             }
@@ -924,7 +889,7 @@
 
       publish() {//发布活动
 
-        if(this.value==''){
+        if (this.value == '') {
           alert("请选择承办活动公众号")
           return
         }
@@ -932,11 +897,11 @@
         var token = sessionStorage.getItem('token')
         this.$axios({
           method: 'post',
-          url: 'http://center.marketing.yunpaas.cn/center/activity/publish?token='+token,
+          url: 'http://center.marketing.yunpaas.cn/center/activity/publish?token=' + token,
           params: {
             activityId: this.activeId,
             templateUuid: this.templateUuid,
-            wxId:this.value,
+            wxId: this.value,
           },
         }).then(res => {
           console.log(res);
@@ -955,19 +920,19 @@
             sessionStorage.setItem('activData', actD)
 
             $('.publish').css({"display": "none"})
-            this.public=[]
+            this.public = []
             this.handleCurrentChange()
 
           }).catch(res => {
-            alert(res.data.msg+"nnn")
+            alert(res.data.msg + "nnn")
           })
         })
       },
       goOut() {
         // this.$router.go(0)
         $('.publish').css({"display": "none"})
-        this.public=[];
-        this.value=''
+        this.public = [];
+        this.value = ''
       },
       download() {
         console.log(this);
@@ -980,7 +945,7 @@
         var token = sessionStorage.getItem('token')
         this.$axios({
           method: 'post',
-          url: 'http://center.marketing.yunpaas.cn/center/activity/delete?token='+token,
+          url: 'http://center.marketing.yunpaas.cn/center/activity/delete?token=' + token,
           params: {
             activityId: this.activeId,
             templateUuid: this.templateUuid
@@ -1014,11 +979,11 @@
         var token = sessionStorage.getItem('token')
         this.$axios({
           method: 'post',
-          url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token='+token,
+          url: 'http://center.marketing.yunpaas.cn/center/activity/findMyActivity?token=' + token,
           params: {
             activityName: this.activename,
-            startTime:this.value4===null ? '' : this.value4.getTime(),
-            endTime:this.value5===null ? '' : this.value5.getTime(),
+            startTime: this.value4 === null ? '' : this.value4.getTime(),
+            endTime: this.value5 === null ? '' : this.value5.getTime(),
             activityState: this.activeFindState,
             pagesize: this.pagesize,
             pageNum: this.currentPage
@@ -1042,11 +1007,12 @@
   }
 </script>
 
-<style  scoped>
-  .active_inp >>> .el-date-picker{
+<style scoped>
+  .active_inp > > > .el-date-picker {
     padding: 0px;
 
   }
+
   .active_Info {
     width: 85%;
     margin: 0 auto;
@@ -1061,7 +1027,7 @@
     width: 104%;
     height: 57px;
     line-height: 57px;
-    border-bottom: 2px solid #E8E8E8;
+    border-bottom: 1px solid #E8E8E8;
   }
 
   .active_inp {
@@ -1274,9 +1240,16 @@
   .pub_inp {
     margin-left: -50px;
   }
-  .btnsFind{
+
+  .btnsFind {
     background: #FC7132;
     color: white;
+  }
+.ddd{
+  margin-top: 20px;
+}
+  .block{
+    margin-top: 20px;
   }
 
 </style>
@@ -1286,7 +1259,9 @@
     background: #FC7132;
     color: #fff;
   }
-  .el-table th{
+
+  .el-table th {
     text-align: center;
+    background: #FBFBFB;
   }
 </style>

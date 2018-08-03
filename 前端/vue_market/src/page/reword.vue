@@ -3,24 +3,36 @@
     <div class="reword_con">
       <el-form ref="form" :model="form" label-width="82px">
         <div class="reword_type">
-          <!-- <span class="reword_num" v-for="(item,index) in reword" :key="index">{{item}}</span> -->
-          <el-tabs tag="ul" v-model="activeName" @tab-click="handleClick" id="tablist">
+          <el-tabs tag="ul" v-model="activeName" @tab-click="handleClick" id="tablist" style="margin-bottom: 20px;margin-left: 20px">
             <!--奖品一 -->
             <el-tab-pane tag='li' label="奖品一" name="first" data-idx="0">
-              <el-form-item label="奖品来源">
-                <el-radio-group v-model="radio1">
+              <div class="title_Info">
+                <i class="iconfont icon-icon"></i>
+                <span>活动发布后，奖品信息不能更改；该活动建议设置7~8个奖项，未设置的奖项将由空奖替代。</span>
+              </div>
+              <el-form-item label="奖品来源 :">
+                <el-radio-group v-model="radio1"  @change="selValue">
                   <el-radio :disabled="ticket" label="1">自家商品</el-radio>
                   <el-radio :disabled="ticket" label="2">平台奖品库</el-radio>
                 </el-radio-group>
                 <a href="javascript:;">去奖品商城购买</a>
               </el-form-item>
-              <el-form-item label="奖品类型">
-                <el-select v-model="form.region1" placeholder="请选择奖品类型">
+              <el-form-item label="奖品类型 :">
+                <el-select
+                  v-model="form.region1"
+@change="selelteType"
+                  placeholder="请选择奖品类型">
                   <el-option v-for="(items,index) in reword_type1" :label="items.name" :value="items.id"
                              :key="items.id"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="奖品名称">
+              <el-form-item label="奖品内容 :" v-show="rewordConent">
+                <el-select v-model="reword_region" @change="updates(reword_region)" style="width: 300px" placeholder="请选择奖品内容">
+                  <el-option v-for="(item,index) in reword_content" :label="item.goods_name" :value="item"
+                             :key="item.goods_id"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="奖品名称 :">
                 <el-input maxlength="15" style="width: 300px" :disabled="actName" v-model="form.name1_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
@@ -40,13 +52,13 @@
                 <span>点击图片重新上传即可更换奖品图片</span>
               </el-form-item>
 
-              <el-form-item label="奖品数量">
+              <el-form-item label="奖品数量 :">
                 <el-input v-model="form.name1_2" :disabled="rewordCount" maxlength="15" style="width: 300px" type="text"
                           placeholder="不超过15个字"
                           onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                           onblur="this.v();"></el-input>
               </el-form-item>
-              <el-form-item label="导入券码">
+              <el-form-item label="导入券码 :">
                 <el-radio-group v-model="radio2">
                   <el-radio :disabled="ticket" label="1">系统生成</el-radio>
                   <el-radio :disabled="ticket" label="2">手动导入</el-radio>
@@ -58,7 +70,7 @@
               </el-form-item>
                 </span>
 
-              <el-form-item label="兑奖时间">
+              <el-form-item label="兑奖时间 :">
                 <el-date-picker
                   v-model="value5"
                   :disabled="startTime"
@@ -68,7 +80,7 @@
                   end-placeholder="结束日期">
                 </el-date-picker>
               </el-form-item>
-              <el-form-item label="兑奖方式" style="width:26rem;">
+              <el-form-item label="兑奖方式 :" style="width:26rem;">
                 <el-radio-group v-model="radio3">
                   <el-radio label="1">公众号兑奖</el-radio>
                   <el-radio label="2">线下门店兑奖</el-radio>
@@ -80,7 +92,7 @@
                 </el-radio-group>
               </el-form-item>
               <div class="public" v-show="public">
-                <el-form-item label="公众号名称">
+                <el-form-item label="公众号名称 :">
                   <el-input v-model="form.name1_3" maxlength="15" placeholder="不超过15个字"></el-input>
                   <span>上传公众号二维码</span>
                   <el-upload
@@ -94,31 +106,31 @@
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input type="textarea" v-model="form.name1_4" placehoder="0/50字" maxlength="50"></el-input>
                 </el-form-item>
               </div>
 
               <div class="shop_info" v-show="shop_info">
-                <el-form-item label="门店地址">
+                <el-form-item label="门店地址 :">
                   <el-input v-model="form.address1" maxlength="30" placeholder="请填写兑奖或者门店地址，不超过30个汉字"></el-input>
                 </el-form-item>
-                <el-form-item label="客服电话">
+                <el-form-item label="客服电话 :">
                   <el-input v-model="form.phone1_1" maxlength="15" placeholder="不超过15个字"
                             onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                             onblur="this.v();"></el-input>
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input v-model="form.name1_4" maxlenght="15" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info" v-show="ser_info">
-                <el-form-item label="客服电话">
+                <el-form-item label="客服电话 :">
                   <el-input v-model="form.phone1_1" maxlength="15" placeholder="不超过15个字"
                             onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                             onblur="this.v();"></el-input>
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input v-model="form.name1_4" maxlength="15" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
@@ -127,20 +139,31 @@
             </el-tab-pane>
             <!-- 奖品二 -->
             <el-tab-pane label="奖品二" name="second" data-idx="1">
-              <el-form-item label="奖品来源">
-                <el-radio-group v-model="radio2_1">
+              <div class="title_Info">
+                <i class="iconfont icon-icon"></i>
+                <span>活动发布后，奖品信息不能更改；该活动建议设置7~8个奖项，未设置的奖项将由空奖替代。</span>
+              </div>
+              <el-form-item label="奖品来源 :">
+                <el-radio-group v-model="radio2_1" @change="selValue1">
                   <el-radio :disabled="ticket" label="1">自家商品</el-radio>
                   <el-radio :disabled="ticket" label="2">平台奖品库</el-radio>
                 </el-radio-group>
                 <a href="javascript:;">去奖品商城购买</a>
               </el-form-item>
-              <el-form-item label="奖品类型">
-                <el-select v-model="form.region2" placeholder="请选择奖品类型">
+              <el-form-item label="奖品类型 :">
+                <el-select v-model="form.region2"
+                           @change="selelteType1" placeholder="请选择奖品类型">
                   <el-option v-for="(items,index) in reword_type2" :label="items.name" :value="items.id"
                              :key="items.id"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="奖品名称">
+              <el-form-item label="奖品内容 :" v-show="rewordConent1">
+                <el-select v-model="reword_region1" style="width: 300px" placeholder="请选择奖品内容">
+                  <el-option v-for="(items,index) in reword_content1" :label="items.goods_name" :value="items.goods_id"
+                             :key="items.goods_id"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="奖品名称 :">
                 <el-input maxlength="15" style="width: 300px" :disabled="actName" v-model="form.name2_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
@@ -160,13 +183,13 @@
                 <!--<img width="100%" :src="imgData2" alt="">-->
                 <!--</el-dialog>-->
               </el-form-item>
-              <el-form-item label="奖品数量">
+              <el-form-item label="奖品数量 :">
                 <el-input v-model="form.name2_2" :disabled="rewordCount" maxlength="15" style="width: 300px" type="text"
                           placeholder="不超过15个字"
                           onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                           onblur="this.v();"></el-input>
               </el-form-item>
-              <el-form-item label="导入券码">
+              <el-form-item label="导入券码 :">
                 <el-radio-group v-model="radio2_2">
                   <el-radio :disabled="ticket" label="1">系统生成</el-radio>
                   <el-radio :disabled="ticket" label="2">手动导入</el-radio>
@@ -188,7 +211,7 @@
                   end-placeholder="结束日期">
                 </el-date-picker>
               </el-form-item>
-              <el-form-item label="兑奖方式" style="width:26rem;">
+              <el-form-item label="兑奖方式 :" style="width:26rem;">
                 <el-radio-group v-model="radio2_3">
                   <el-radio label="1">公众号兑奖</el-radio>
                   <el-radio label="2">线下门店兑奖</el-radio>
@@ -200,7 +223,7 @@
                 </el-radio-group>
               </el-form-item>
               <div class="public" v-show="public1">
-                <el-form-item label="公众号名称">
+                <el-form-item label="公众号名称 :">
                   <el-input v-model="form.name2_3" maxlength="15" placeholder="不超过15个字"></el-input>
                   <span>上传公众号二维码</span>
                   <el-upload
@@ -214,31 +237,31 @@
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input type="textarea" v-model="form.name2_4"></el-input>
                 </el-form-item>
               </div>
 
               <div class="shop_info" v-show="shop_info1">
-                <el-form-item label="门店地址">
+                <el-form-item label="门店地址 :">
                   <el-input v-model="form.address2" maxlength="30" placeholder="请填写兑奖或者门店地址，不超过30个汉字"></el-input>
                 </el-form-item>
-                <el-form-item label="客服电话">
+                <el-form-item label="客服电话 :">
                   <el-input v-model="form.phone2_1" maxlength="15" placeholder="不超过15个字"
                             onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                             onblur="this.v();"></el-input>
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input v-model="form.name2_4" maxlength="500" placeholder="不超过500个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info" v-show="ser_info1">
-                <el-form-item label="客服电话">
+                <el-form-item label="客服电话 :">
                   <el-input v-model="form.phone2_1" maxlength="15"
                             onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                             onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input v-model="form.name2_4" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
@@ -246,20 +269,30 @@
             </el-tab-pane>
             <!-- 奖品三 -->
             <el-tab-pane label="奖品三" name="third" data-idx="2">
-              <el-form-item label="奖品来源">
-                <el-radio-group v-model="radio3_1">
+              <div class="title_Info">
+                <i class="iconfont icon-icon"></i>
+                <span>活动发布后，奖品信息不能更改；该活动建议设置7~8个奖项，未设置的奖项将由空奖替代。</span>
+              </div>
+              <el-form-item label="奖品来源 :" >
+                <el-radio-group v-model="radio3_1" @change="selValue2">
                   <el-radio :disabled="ticket" label="1">自家商品</el-radio>
                   <el-radio :disabled="ticket" label="2">平台奖品库</el-radio>
                 </el-radio-group>
                 <a href="javascript:;">去奖品商城购买</a>
               </el-form-item>
-              <el-form-item label="奖品类型">
-                <el-select v-model="form.region3" placeholder="请选择奖品类型">
+              <el-form-item label="奖品类型 :">
+                <el-select v-model="form.region3" @change="selelteType2" placeholder="请选择奖品类型">
                   <el-option v-for="(items,index) in reword_type3" :label="items.name" :value="items.id"
                              :key="items.id"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="奖品名称">
+              <el-form-item label="奖品内容 :" v-show="rewordConent2">
+                <el-select v-model="reword_region2" style="width: 300px" placeholder="请选择奖品内容">
+                  <el-option v-for="(items,index) in reword_content2" :label="items.goods_name" :value="items.goods_id"
+                             :key="items.goods_id"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="奖品名称 :">
                 <el-input maxlength="15" :disabled="actName" style="width: 300px" v-model="form.name3_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
@@ -279,13 +312,13 @@
                 <!--<img width="100%" :src="imgData3" alt="">-->
                 <!--</el-dialog>-->
               </el-form-item>
-              <el-form-item label="奖品数量">
+              <el-form-item label="奖品数量 :">
                 <el-input v-model="form.name3_2" :disabled="rewordCount" maxlength="15" style="width: 300px" type="text"
                           placeholder="不超过15个字"
                           onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                           onblur="this.v();"></el-input>
               </el-form-item>
-              <el-form-item label="导入券码">
+              <el-form-item label="导入券码 :">
                 <el-radio-group v-model="radio3_2">
                   <el-radio :disabled="ticket" label="1">系统生成</el-radio>
                   <el-radio :disabled="ticket" label="2">手动导入</el-radio>
@@ -297,7 +330,7 @@
               </el-form-item>
               </span>
 
-              <el-form-item label="兑奖时间">
+              <el-form-item label="兑奖时间 :">
                 <el-date-picker
                   v-model="value7"
                   :disabled="startTime"
@@ -307,7 +340,7 @@
                   end-placeholder="结束日期">
                 </el-date-picker>
               </el-form-item>
-              <el-form-item label="兑奖方式" style="width:26rem;">
+              <el-form-item label="兑奖方式 :" style="width:26rem;">
                 <el-radio-group v-model="radio3_3">
                   <el-radio label="1">公众号兑奖</el-radio>
                   <el-radio label="2">线下门店兑奖</el-radio>
@@ -319,7 +352,7 @@
                 </el-radio-group>
               </el-form-item>
               <div class="public" v-show="public2">
-                <el-form-item label="公众号名称">
+                <el-form-item label="公众号名称 :">
                   <el-input v-model="form.name3_3" maxlength="15" placeholder="不超过15个字"></el-input>
                   <span>上传公众号二维码</span>
                   <el-upload
@@ -334,54 +367,63 @@
                   </el-upload>
 
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input type="textarea" maxlength="500" v-model="form.name3_4"></el-input>
                 </el-form-item>
               </div>
 
               <div class="shop_info" v-show="shop_info2">
-                <el-form-item label="门店地址">
+                <el-form-item label="门店地址 :">
                   <el-input v-model="form.address3" maxlength="30" placeholder="请填写兑奖或者门店地址，不超过30个汉字"></el-input>
                 </el-form-item>
-                <el-form-item label="客服电话">
+                <el-form-item label="客服电话 :">
                   <el-input v-model="form.phone3_1" maxlength="15" placeholder="不超过15个字"
                             onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                             onblur="this.v();"></el-input>
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input v-model="form.name3_4" maxlength="500" placeholder="不超过500个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info" v-show="ser_info2">
-                <el-form-item label="客服电话">
+                <el-form-item label="客服电话 :">
                   <el-input v-model="form.phone3_1" maxlength="15" placeholder="不超过15个字"
                             onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                             onblur="this.v();"></el-input>
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input v-model="form.name3_4" maxlength="500" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
 
             </el-tab-pane>
 
-
             <!-- 奖品四 -->
             <el-tab-pane label="奖品四" name="fourth" data-idx="3" >
-              <el-form-item label="奖品来源">
-                <el-radio-group v-model="radio4_1">
+              <div class="title_Info">
+                <i class="iconfont icon-icon"></i>
+                <span>活动发布后，奖品信息不能更改；该活动建议设置7~8个奖项，未设置的奖项将由空奖替代。</span>
+              </div>
+              <el-form-item label="奖品来源 :">
+                <el-radio-group v-model="radio4_1" @change="selValue3">
                   <el-radio :disabled="ticket" label="1">自家商品</el-radio>
                   <el-radio :disabled="ticket" label="2">平台奖品库</el-radio>
                 </el-radio-group>
                 <a href="javascript:;">去奖品商城购买</a>
               </el-form-item>
-              <el-form-item label="奖品类型">
-                <el-select v-model="form.region4" placeholder="请选择奖品类型">
+              <el-form-item label="奖品类型 :">
+                <el-select v-model="form.region4" @change="selelteType3" placeholder="请选择奖品类型">
                   <el-option v-for="(items,index) in reword_type4" :label="items.name" :value="items.id"
                              :key="items.id"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="奖品名称">
+              <el-form-item label="奖品内容 :" v-show="rewordConent3">
+                <el-select v-model="reword_region3" style="width: 300px" placeholder="请选择奖品内容">
+                  <el-option v-for="(items,index) in reword_content3" :label="items.goods_name" :value="items.goods_id"
+                             :key="items.goods_id"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="奖品名称 :">
                 <el-input maxlength="15" :disabled="actName" style="width: 300px" v-model="form.name4_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
@@ -402,13 +444,13 @@
                 <!--</el-dialog>-->
 
               </el-form-item>
-              <el-form-item label="奖品数量">
+              <el-form-item label="奖品数量 :">
                 <el-input v-model="form.name4_2" :disabled="rewordCount" maxlength="15" style="width: 300px" type="text"
                           placeholder="不超过15个字"
                           onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                           onblur="this.v();"></el-input>
               </el-form-item>
-              <el-form-item label="导入券码">
+              <el-form-item label="导入券码 :">
                 <el-radio-group v-model="radio4_2">
                   <el-radio :disabled="ticket" label="1">系统生成</el-radio>
                   <el-radio :disabled="ticket" label="2">手动导入</el-radio>
@@ -420,7 +462,7 @@
               </el-form-item>
               </span>
 
-              <el-form-item label="兑奖时间">
+              <el-form-item label="兑奖时间 :">
                 <el-date-picker
                   v-model="value8"
                   :disabled="startTime"
@@ -430,7 +472,7 @@
                   end-placeholder="结束日期">
                 </el-date-picker>
               </el-form-item>
-              <el-form-item label="兑奖方式" style="width:26rem;">
+              <el-form-item label="兑奖方式 :" style="width:26rem;">
                 <el-radio-group v-model="radio4_3">
                   <el-radio label="1">公众号兑奖</el-radio>
                   <el-radio label="2">线下门店兑奖</el-radio>
@@ -442,7 +484,7 @@
                 </el-radio-group>
               </el-form-item>
               <div class="public" v-show="public3">
-                <el-form-item label="公众号名称">
+                <el-form-item label="公众号名称 :">
                   <el-input v-model="form.name4_3" maxlength="15" placeholder="不超过15个字"></el-input>
                   <span>上传公众号二维码</span>
                   <el-upload
@@ -456,31 +498,31 @@
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input type="textarea" maxlength="500" v-model="form.name4_4"></el-input>
                 </el-form-item>
               </div>
 
               <div class="shop_info" v-show="shop_info3">
-                <el-form-item label="门店地址">
+                <el-form-item label="门店地址 :">
                   <el-input v-model="form.address4" maxlength="30" placeholder="请填写兑奖或者门店地址，不超过30个汉字"></el-input>
                 </el-form-item>
-                <el-form-item label="客服电话">
+                <el-form-item label="客服电话 :">
                   <el-input v-model="form.phone4_1" maxlength="15" placeholder="不超过15个字"
                             onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                             onblur="this.v();"></el-input>
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input v-model="form.name4_4" maxlength="500" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info" v-show="ser_info3">
-                <el-form-item label="客服电话">
+                <el-form-item label="客服电话 :">
                   <el-input v-model="form.phone4_1" maxlength="15"
                             onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                             onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input v-model="form.name4_4" maxlength="500" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
@@ -489,20 +531,30 @@
 
             <!-- 奖品五 -->
             <el-tab-pane label="奖品五" name="fifth" data-idx="4" >
-              <el-form-item label="奖品来源">
-                <el-radio-group v-model="radio5_1">
+              <div class="title_Info">
+                <i class="iconfont icon-icon"></i>
+                <span>活动发布后，奖品信息不能更改；该活动建议设置7~8个奖项，未设置的奖项将由空奖替代。</span>
+              </div>
+              <el-form-item label="奖品来源 :">
+                <el-radio-group v-model="radio5_1" @change="selValue4">
                   <el-radio :disabled="ticket" label="1">自家商品</el-radio>
                   <el-radio :disabled="ticket" label="2">平台奖品库</el-radio>
                 </el-radio-group>
                 <a href="javascript:;">去奖品商城购买</a>
               </el-form-item>
-              <el-form-item label="奖品类型">
-                <el-select v-model="form.region5" placeholder="请选择奖品类型">
+              <el-form-item label="奖品类型 :">
+                <el-select v-model="form.region5" @change="selelteType4" placeholder="请选择奖品类型">
                   <el-option v-for="(items,index) in reword_type5" :label="items.name" :value="items.id"
                              :key="items.id"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="奖品名称">
+              <el-form-item label="奖品内容 :" v-show="rewordConent4">
+                <el-select v-model="reword_region4" style="width: 300px" placeholder="请选择奖品内容">
+                  <el-option v-for="(items,index) in reword_content4" :label="items.goods_name" :value="items.goods_id"
+                             :key="items.goods_id"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="奖品名称 :">
                 <el-input maxlength="15" :disabled="actName" style="width: 300px" v-model="form.name5_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
@@ -523,13 +575,13 @@
                 <!--</el-dialog>-->
 
               </el-form-item>
-              <el-form-item label="奖品数量">
+              <el-form-item label="奖品数量 :">
                 <el-input v-model="form.name5_2" :disabled="rewordCount" maxlength="15" style="width: 300px" type="text"
                           placeholder="不超过15个字"
                           onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                           onblur="this.v();"></el-input>
               </el-form-item>
-              <el-form-item label="导入券码">
+              <el-form-item label="导入券码 :">
                 <el-radio-group v-model="radio5_2">
                   <el-radio :disabled="ticket" label="1">系统生成</el-radio>
                   <el-radio :disabled="ticket" label="2">手动导入</el-radio>
@@ -541,7 +593,7 @@
               </el-form-item>
               </span>
 
-              <el-form-item label="兑奖时间">
+              <el-form-item label="兑奖时间 :">
                 <el-date-picker
                   v-model="value9"
                   :disabled="startTime"
@@ -551,7 +603,7 @@
                   end-placeholder="结束日期">
                 </el-date-picker>
               </el-form-item>
-              <el-form-item label="兑奖方式" style="width:26rem;">
+              <el-form-item label="兑奖方式 :" style="width:26rem;">
                 <el-radio-group v-model="radio5_3">
                   <el-radio label="1">公众号兑奖</el-radio>
                   <el-radio label="2">线下门店兑奖</el-radio>
@@ -563,7 +615,7 @@
                 </el-radio-group>
               </el-form-item>
               <div class="public" v-show="public4">
-                <el-form-item label="公众号名称">
+                <el-form-item label="公众号名称 :">
                   <el-input v-model="form.name5_3" maxlength="15" placeholder="不超过15个字"></el-input>
                   <span>上传公众号二维码</span>
                   <el-upload
@@ -578,31 +630,31 @@
                   </el-upload>
 
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input type="textarea" v-model="form.name5_4"></el-input>
                 </el-form-item>
               </div>
 
               <div class="shop_info" v-show="shop_info4">
-                <el-form-item label="门店地址">
+                <el-form-item label="门店地址 :">
                   <el-input v-model="form.address5" maxlength="30" placeholder="请填写兑奖或者门店地址，不超过30个汉字"></el-input>
                 </el-form-item>
-                <el-form-item label="客服电话">
+                <el-form-item label="客服电话 :">
                   <el-input v-model="form.phone5_1" maxlength="15"
                             onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                             onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input v-model="form.name5_4" maxlength="500" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info" v-show="ser_info4">
-                <el-form-item label="客服电话">
+                <el-form-item label="客服电话 :">
                   <el-input v-model="form.phone5_1" maxlength="15"
                             onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                             onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input v-model="form.name5_4" maxlength="500" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
@@ -611,20 +663,30 @@
 
             <!-- 奖品六 -->
             <el-tab-pane label="奖品六" name="sixth" data-idx="5" >
-              <el-form-item label="奖品来源">
-                <el-radio-group v-model="radio6_1">
+              <div class="title_Info">
+                <i class="iconfont icon-icon"></i>
+                <span>活动发布后，奖品信息不能更改；该活动建议设置7~8个奖项，未设置的奖项将由空奖替代。</span>
+              </div>
+              <el-form-item label="奖品来源 :">
+                <el-radio-group v-model="radio6_1" @change="selValue5">
                   <el-radio :disabled="ticket" label="1">自家商品</el-radio>
                   <el-radio :disabled="ticket" label="2">平台奖品库</el-radio>
                 </el-radio-group>
                 <a href="javascript:;">去奖品商城购买</a>
               </el-form-item>
-              <el-form-item label="奖品类型">
-                <el-select v-model="form.region6" placeholder="请选择奖品类型">
+              <el-form-item label="奖品类型 :">
+                <el-select v-model="form.region6" @change="selelteType5" placeholder="请选择奖品类型">
                   <el-option v-for="(items,index) in reword_type6" :label="items.name" :value="items.id"
                              :key="items.id"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="奖品名称">
+              <el-form-item label="奖品内容 :" v-show="rewordConent5">
+                <el-select v-model="reword_region5" style="width: 300px" placeholder="请选择奖品内容">
+                  <el-option v-for="(items,index) in reword_content5" :label="items.goods_name" :value="items.goods_id"
+                             :key="items.goods_id"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="奖品名称 :">
                 <el-input maxlength="15" :disabled="actName" style="width: 300px" v-model="form.name6_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
@@ -645,13 +707,13 @@
                 <!--</el-dialog>-->
 
               </el-form-item>
-              <el-form-item label="奖品数量">
+              <el-form-item label="奖品数量 :">
                 <el-input v-model="form.name6_2" :disabled="rewordCount" maxlength="15" style="width: 300px" type="text"
                           placeholder="不超过15个字"
                           onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                           onblur="this.v();"></el-input>
               </el-form-item>
-              <el-form-item label="导入券码">
+              <el-form-item label="导入券码 :">
                 <el-radio-group v-model="radio6_2">
                   <el-radio :disabled="ticket" label="1">系统生成</el-radio>
                   <el-radio :disabled="ticket" label="2">手动导入</el-radio>
@@ -663,7 +725,7 @@
               </el-form-item>
               </span>
 
-              <el-form-item label="兑奖时间">
+              <el-form-item label="兑奖时间 :">
                 <el-date-picker
                   v-model="value10"
                   :disabled="startTime"
@@ -673,7 +735,7 @@
                   end-placeholder="结束日期">
                 </el-date-picker>
               </el-form-item>
-              <el-form-item label="兑奖方式" style="width:26rem;">
+              <el-form-item label="兑奖方式 :" style="width:26rem;">
                 <el-radio-group v-model="radio3">
                   <el-radio label="1">公众号兑奖</el-radio>
                   <el-radio label="2">线下门店兑奖</el-radio>
@@ -685,7 +747,7 @@
                 </el-radio-group>
               </el-form-item>
               <div class="public" v-show="public5">
-                <el-form-item label="公众号名称">
+                <el-form-item label="公众号名称 :">
                   <el-input v-model="form.name6_3" maxlength="15" placeholder="不超过15个字"></el-input>
                   <span>上传公众号二维码</span>
                   <el-upload
@@ -700,31 +762,31 @@
                   </el-upload>
 
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input type="textarea" v-model="form.name6_4"></el-input>
                 </el-form-item>
               </div>
 
               <div class="shop_info" v-show="shop_info5">
-                <el-form-item label="门店地址">
+                <el-form-item label="门店地址 :">
                   <el-input v-model="form.address6" maxlength="30" placeholder="请填写兑奖或者门店地址，不超过30个汉字"></el-input>
                 </el-form-item>
-                <el-form-item label="客服电话">
+                <el-form-item label="客服电话 :">
                   <el-input v-model="form.phone6_1" maxlength="15"
                             onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                             onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input v-model="form.name6_4" maxlength="500" placeholder="不超过500个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info" v-show="ser_info5">
-                <el-form-item label="客服电话">
+                <el-form-item label="客服电话 :">
                   <el-input v-model="form.phone6_1" maxlength="15"
                             onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                             onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input v-model="form.name6_4" maxlength="500" placeholder="不超过500个字"></el-input>
                 </el-form-item>
               </div>
@@ -733,20 +795,30 @@
 
             <!-- 奖品七 -->
             <el-tab-pane label="奖品七" name="seventh" data-idx="6" >
-              <el-form-item label="奖品来源">
-                <el-radio-group v-model="radio7_1">
+              <div class="title_Info">
+                <i class="iconfont icon-icon"></i>
+                <span>活动发布后，奖品信息不能更改；该活动建议设置7~8个奖项，未设置的奖项将由空奖替代。</span>
+              </div>
+              <el-form-item label="奖品来源 :">
+                <el-radio-group v-model="radio7_1" @change="selValue6">
                   <el-radio :disabled="ticket" label="1">自家商品</el-radio>
                   <el-radio :disabled="ticket" label="2">平台奖品库</el-radio>
                 </el-radio-group>
                 <a href="javascript:;">去奖品商城购买</a>
               </el-form-item>
-              <el-form-item label="奖品类型">
-                <el-select v-model="form.region7" placeholder="请选择奖品类型">
+              <el-form-item label="奖品类型 :">
+                <el-select v-model="form.region7" @change="selelteType6" placeholder="请选择奖品类型">
                   <el-option v-for="(items,index) in reword_type7" :label="items.name" :value="items.id"
                              :key="items.id"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="奖品名称">
+              <el-form-item label="奖品内容 :" v-show="rewordConent6">
+                <el-select v-model="reword_region6" style="width: 300px" placeholder="请选择奖品内容">
+                  <el-option v-for="(items,index) in reword_content6" :label="items.goods_name" :value="items.goods_id"
+                             :key="items.goods_id"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="奖品名称 :">
                 <el-input maxlength="15" :disabled="actName" style="width: 300px" v-model="form.name7_1" placeholder="不超过15个字"></el-input>
               </el-form-item>
               <el-form-item>
@@ -766,13 +838,13 @@
                 <!--<img width="100%" :src="imgData7" alt="">-->
                 <!--</el-dialog>-->
               </el-form-item>
-              <el-form-item label="奖品数量">
+              <el-form-item label="奖品数量 :">
                 <el-input v-model="form.name7_2" :disabled="rewordCount" maxlength="15" style="width: 300px" type="text"
                           placeholder="不超过15个字"
                           onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                           onblur="this.v();"></el-input>
               </el-form-item>
-              <el-form-item label="导入券码">
+              <el-form-item label="导入券码 :">
                 <el-radio-group v-model="radio7_2">
                   <el-radio :disabled="ticket" label="1">系统生成</el-radio>
                   <el-radio :disabled="ticket" label="2">手动导入</el-radio>
@@ -784,7 +856,7 @@
               </el-form-item>
               </span>
 
-              <el-form-item label="兑奖时间">
+              <el-form-item label="兑奖时间 :">
                 <el-date-picker
                   v-model="value11"
                   :disabled="startTime"
@@ -794,7 +866,7 @@
                   end-placeholder="结束日期">
                 </el-date-picker>
               </el-form-item>
-              <el-form-item label="兑奖方式" style="width:26rem;">
+              <el-form-item label="兑奖方式 :" style="width:26rem;">
                 <el-radio-group v-model="radio7_3">
                   <el-radio label="1">公众号兑奖</el-radio>
                   <el-radio label="2">线下门店兑奖</el-radio>
@@ -806,7 +878,7 @@
                 </el-radio-group>
               </el-form-item>
               <div class="public" v-show="public6">
-                <el-form-item label="公众号名称">
+                <el-form-item label="公众号名称 :">
                   <el-input v-model="form.name7_3" maxlength="15" placeholder="不超过15个字"></el-input>
                   <span>上传公众号二维码</span>
                   <el-upload
@@ -820,31 +892,31 @@
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input type="textarea" maxlength="500" v-model="form.name7_4"></el-input>
                 </el-form-item>
               </div>
 
               <div class="shop_info" v-show="shop_info6">
-                <el-form-item label="门店地址">
+                <el-form-item label="门店地址 :">
                   <el-input v-model="form.address7" maxlength="30" placeholder="请填写兑奖或者门店地址，不超过30个汉字"></el-input>
                 </el-form-item>
-                <el-form-item label="客服电话">
+                <el-form-item label="客服电话 :">
                   <el-input v-model="form.phone7_1" maxlength="15"
                             onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                             onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input v-model="form.name7_4" maxlength="500" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
               <div class="ser_info" v-show="ser_info6">
-                <el-form-item label="客服电话">
+                <el-form-item label="客服电话 :">
                   <el-input v-model="form.phone7_1" maxlength="15"
                             onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
                             onblur="this.v();" placeholder="不超过15个字"></el-input>
                 </el-form-item>
-                <el-form-item label="兑奖说明">
+                <el-form-item label="兑奖说明 :">
                   <el-input v-model="form.name7_4" maxlength="500" placeholder="不超过15个字"></el-input>
                 </el-form-item>
               </div>
@@ -1106,24 +1178,40 @@
         reword_type7: '',//奖品七类型
         reword_type8: '',//奖品八类型
 
+        rewordConent:false,//奖品内容
+        rewordConent1:false,
+        rewordConent2:false,
+        rewordConent3:false,
+        rewordConent4:false,
+        rewordConent5:false,
+        rewordConent6:false,
+        reword_content:'',//奖品内容列表
+        reword_content1:'',
+        reword_content2:'',
+        reword_content3:'',
+        reword_content4:'',
+        reword_content5:'',
+        reword_content6:'',
+        reword_region:'',
+        reword_region1:'',
+        reword_region2:'',
+        reword_region3:'',
+        reword_region4:'',
+        reword_region5:'',
+        reword_region6:'',
+        reword_specId:'',
+
         reword_data: '',//接口数据保存
         reword_send: '',//奖品数据回调
         dataStatus: 0,
-        // num1:false,
-        // num2:false,
-        // num3:false,
-        // num4:false,
-        // addState:0,
-        // addcart:true,
-        // reduceCart:false,
-        // saveState:[],
+
       }
     },
     created() {
 
     },
     mounted() {
-
+ let _this=this
       var token = sessionStorage.getItem('token')
       this.$axios({
         method: "post",
@@ -1138,6 +1226,15 @@
         this.ticket = this.$route.query.ticket
         this.dataStatus = this.$route.query.dataStatus
         this.partReword()
+      })
+      if (this.dataStatus === undefined) {
+        let Data = sessionStorage.getItem('Data')
+        this.reword_send = JSON.parse(Data).jggAwardSetupExtendList
+      } else if (this.dataStatus === '1') {
+        this.reword_send = this.$route.query.newjggData.jggAwardSetupExtendList
+      }
+      this.$bus.on("send_rate",function (data,idx) {
+        _this.reword_send[idx].winRate=data
       })
 
       this.timestampToTime()
@@ -1154,7 +1251,208 @@
       this.saveReword()
     },
     methods: {
-
+      updates(val){
+        alert(val)
+      },
+      selC(val){
+        alert(val)
+      },
+      selelteType(val){
+        if(this.radio1==2){
+          var token = sessionStorage.getItem('token')
+          this.$axios({
+            method:'post',
+            url:'http://center.marketing.yunpaas.cn/center/enterpriseGoodsStock/getGoodsByType?token='+token,
+            params:{
+              typeId:val
+            }
+          }).then(res=>{
+            this.reword_content=res.data.data
+          })
+        }
+      },
+      selelteType1(val){
+        if(this.radio2_1==2){
+          var token = sessionStorage.getItem('token')
+          this.$axios({
+            method:'post',
+            url:'http://center.marketing.yunpaas.cn/center/enterpriseGoodsStock/getGoodsByType?token='+token,
+            params:{
+              typeId:this.form.region2
+            }
+          }).then(res=>{
+            this.reword_content1=res.data.data
+          })
+        }
+      },
+      selelteType2(val){
+        if(this.radio3_1==2){
+          var token = sessionStorage.getItem('token')
+          this.$axios({
+            method:'post',
+            url:'http://center.marketing.yunpaas.cn/center/enterpriseGoodsStock/getGoodsByType?token='+token,
+            params:{
+              typeId:this.form.region3
+            }
+          }).then(res=>{
+            this.reword_content2=res.data.data
+          })
+        }
+      },
+      selelteType3(val){
+        if(this.radio4_1==2){
+          var token = sessionStorage.getItem('token')
+          this.$axios({
+            method:'post',
+            url:'http://center.marketing.yunpaas.cn/center/enterpriseGoodsStock/getGoodsByType?token='+token,
+            params:{
+              typeId:this.form.region4
+            }
+          }).then(res=>{
+            this.reword_content3=res.data.data
+          })
+        }
+      },
+      selelteType4(val){
+        if(this.radio5_1==2){
+          var token = sessionStorage.getItem('token')
+          this.$axios({
+            method:'post',
+            url:'http://center.marketing.yunpaas.cn/center/enterpriseGoodsStock/getGoodsByType?token='+token,
+            params:{
+              typeId:this.form.region5
+            }
+          }).then(res=>{
+            this.reword_content4=res.data.data
+          })
+        }
+      },
+      selelteType5(val){
+        if(this.radio6_1==2){
+          var token = sessionStorage.getItem('token')
+          this.$axios({
+            method:'post',
+            url:'http://center.marketing.yunpaas.cn/center/enterpriseGoodsStock/getGoodsByType?token='+token,
+            params:{
+              typeId:this.form.region6
+            }
+          }).then(res=>{
+            this.reword_content5=res.data.data
+          })
+        }
+      },
+      selelteType6(val){
+        if(this.radio7_1==2){
+          var token = sessionStorage.getItem('token')
+          this.$axios({
+            method:'post',
+            url:'http://center.marketing.yunpaas.cn/center/enterpriseGoodsStock/getGoodsByType?token='+token,
+            params:{
+              typeId:this.form.region7
+            }
+          }).then(res=>{
+            this.reword_content6=res.data.data
+          })
+        }
+      },
+      selValue(){
+        if(this.radio1==2){
+          var token = sessionStorage.getItem('token')
+          this.$axios({
+            method:'post',
+            url:'http://center.marketing.yunpaas.cn/center/enterpriseGoodsStock/getGoodsByType?token='+token,
+            params:{
+              typeId:this.form.region1
+            }
+          }).then(res=>{
+            this.reword_content=res.data.data
+          })
+        }
+      },
+      selValue1(){
+        if(this.radio2_1==2){
+          var token = sessionStorage.getItem('token')
+          this.$axios({
+            method:'post',
+            url:'http://center.marketing.yunpaas.cn/center/enterpriseGoodsStock/getGoodsByType?token='+token,
+            params:{
+              typeId:this.form.region2
+            }
+          }).then(res=>{
+            this.reword_content1=res.data.data
+          })
+        }
+      },
+      selValue2(){
+        if(this.radio3_1==2){
+          var token = sessionStorage.getItem('token')
+          this.$axios({
+            method:'post',
+            url:'http://center.marketing.yunpaas.cn/center/enterpriseGoodsStock/getGoodsByType?token='+token,
+            params:{
+              typeId:this.form.region3
+            }
+          }).then(res=>{
+            this.reword_content2=res.data.data
+          })
+        }
+      },
+      selValue3(){
+        if(this.radio4_1==2){
+          var token = sessionStorage.getItem('token')
+          this.$axios({
+            method:'post',
+            url:'http://center.marketing.yunpaas.cn/center/enterpriseGoodsStock/getGoodsByType?token='+token,
+            params:{
+              typeId:this.form.region4
+            }
+          }).then(res=>{
+            this.reword_content3=res.data.data
+          })
+        }
+      },
+      selValue4(){
+        if(this.radio5_1==2){
+          var token = sessionStorage.getItem('token')
+          this.$axios({
+            method:'post',
+            url:'http://center.marketing.yunpaas.cn/center/enterpriseGoodsStock/getGoodsByType?token='+token,
+            params:{
+              typeId:this.form.region5
+            }
+          }).then(res=>{
+            this.reword_content4=res.data.data
+          })
+        }
+      },
+      selValue5(){
+        if(this.radio6_1==2){
+          var token = sessionStorage.getItem('token')
+          this.$axios({
+            method:'post',
+            url:'http://center.marketing.yunpaas.cn/center/enterpriseGoodsStock/getGoodsByType?token='+token,
+            params:{
+              typeId:this.form.region6
+            }
+          }).then(res=>{
+            this.reword_content5=res.data.data
+          })
+        }
+      },
+      selValue6(){
+        if(this.radio7_1==2){
+          var token = sessionStorage.getItem('token')
+          this.$axios({
+            method:'post',
+            url:'http://center.marketing.yunpaas.cn/center/enterpriseGoodsStock/getGoodsByType?token='+token,
+            params:{
+              typeId:this.form.region7
+            }
+          }).then(res=>{
+            this.reword_content6=res.data.data
+          })
+        }
+      },
       handlePictureCardPreview(file) {
         this.imgData1 = file.url;
         this.dialogVisible = true;
@@ -1335,8 +1633,22 @@
         this.form.address1 = this.reword_data[0].exchangeAddress//门店地址
         this.form.phone1_1 = this.reword_data[0].exchangeTelephone //客服电话
         this.radio1 = this.reword_data[0].prizeSource.toString() //奖品来源
-
         this.radio2 = this.reword_data[0].prizeCouponCodeType.toString() //导入券码
+        this.imgData1 = this.reword_data[0].prizeImg //上传图片
+        //this.reword_type1 = this.reword_data[0].jggAwardTypeList // 奖品类型
+        this.form.region1 = this.reword_data[0].prizeType
+        this.reword_region=this.reword_data[0].goodsId//奖品内容
+        this.reword_specId=this.reword_data[0].specId//内容id
+        this.dialogImageUrl = this.reword_data[0].wxPublicAccountImg //微信公众号图片
+        if(this.radio1==1){
+          this.reword_type1 = this.reword_data[0].jggAwardTypeList
+          this.rewordConent=false
+        }else if(this.radio1==2) {
+          this.reword_type1=this.reword_data[0].shopGoodsTypeList
+          this.rewordConent=true
+          this.selValue()
+        }
+
 
         if (this.radio2 == 1) {
           this.handShow = false
@@ -1366,10 +1678,6 @@
           this.ser_info=false
         }
 
-        this.imgData1 = this.reword_data[0].prizeImg //上传图片
-        this.reword_type1 = this.reword_data[0].jggAwardTypeList // 奖品类型
-        this.form.region1 = this.reword_data[0].prizeType
-        this.dialogImageUrl = this.reword_data[0].wxPublicAccountImg //微信公众号图片
 
         //奖品二
         this.form.name2_1 = this.reword_data[1].prizeName //奖品名称
@@ -1380,6 +1688,19 @@
         this.form.phone2_1 = this.reword_data[1].exchangeTelephone //客服电话
         this.radio2_1 = this.reword_data[1].prizeSource.toString() //奖品来源
         this.radio2_2 = this.reword_data[1].prizeCouponCodeType.toString() //导入券码
+        this.imgData2 = this.reword_data[1].prizeImg //上传图片
+        this.reword_type2 = this.reword_data[1].jggAwardTypeList // 奖品类型
+        this.form.region2 = this.reword_data[1].prizeType
+        this.reword_region1=this.reword_data[1].goodsId//奖品内容
+        this.dialogImageUrl1 = this.reword_data[1].wxPublicAccountImg //微信公众号图片
+        if(this.radio2_1==1){
+          this.reword_type2 = this.reword_data[1].jggAwardTypeList
+          this.rewordConent1=false
+        }else if(this.radio2_1==2) {
+          this.reword_type2=this.reword_data[1].shopGoodsTypeList
+          this.rewordConent1=true
+          this.selValue1()
+        }
         if (this.radio2_2 == 1) {
           this.handShow1 = false
         } else if (this.radio2_2 == 2) {
@@ -1408,21 +1729,31 @@
           this.ser_info1=false
         }
 
-        this.imgData2 = this.reword_data[1].prizeImg //上传图片
-        this.reword_type2 = this.reword_data[1].jggAwardTypeList // 奖品类型
-        this.form.region2 = this.reword_data[1].prizeType
-        this.dialogImageUrl1 = this.reword_data[1].wxPublicAccountImg //微信公众号图片
+
 
         //奖品三
 
         this.form.name3_1 = this.reword_data[2].prizeName //奖品名称
         this.form.name3_2 = this.reword_data[2].prizeNum //奖品数量
         this.form.name3_3 = this.reword_data[2].wxPublicAccountName //微信公众号名称
+        this.imgData3 = this.reword_data[2].prizeImg //上传图片
+        this.reword_type3 = this.reword_data[2].jggAwardTypeList // 奖品类型
+        this.form.region3 = this.reword_data[2].prizeType
+        this.reword_region2=this.reword_data[2].goodsId//奖品内容
+        this.dialogImageUrl2 = this.reword_data[2].wxPublicAccountImg //微信公众号图片
         this.form.name3_4 = this.reword_data[2].exchangeDesc //兑奖说明
         this.form.address3 = this.reword_data[2].exchangeAddress//门店地址
         this.form.phone3_1 = this.reword_data[2].exchangeTelephone //客服电话
         this.radio3_1 = this.reword_data[2].prizeSource.toString() //奖品来源
         this.radio3_2 = this.reword_data[2].prizeCouponCodeType.toString() //导入券码
+        if(this.radio3_1==1){
+          this.reword_type3 = this.reword_data[2].jggAwardTypeList
+          this.rewordConent2=false
+        }else if(this.radio3_1==2) {
+          this.reword_type3=this.reword_data[2].shopGoodsTypeList
+          this.rewordConent2=true
+          this.selValue2()
+        }
         if (this.radio3_2 == 1) {
           this.handShow2 = false
         } else if (this.radio3_2 == 2) {
@@ -1451,19 +1782,29 @@
           this.ser_info2=false
         }
 
-        this.imgData3 = this.reword_data[2].prizeImg //上传图片
-        this.reword_type3 = this.reword_data[2].jggAwardTypeList // 奖品类型
-        this.form.region3 = this.reword_data[2].prizeType
-        this.dialogImageUrl2 = this.reword_data[2].wxPublicAccountImg //微信公众号图片
+
         //奖品四
         this.form.name4_1 = this.reword_data[3].prizeName //奖品名称
         this.form.name4_2 = this.reword_data[3].prizeNum //奖品数量
         this.form.name4_3 = this.reword_data[3].wxPublicAccountName //微信公众号名称
+        this.imgData4 = this.reword_data[3].prizeImg //上传图片
+        this.reword_type4 = this.reword_data[3].jggAwardTypeList // 奖品类型
+        this.form.region4 = this.reword_data[3].prizeType
+        this.reword_region3=this.reword_data[3].goodsId//奖品内容
+        this.dialogImageUrl3 = this.reword_data[3].wxPublicAccountImg //微信公众号图片
         this.form.name4_4 = this.reword_data[3].exchangeDesc //兑奖说明
         this.form.address4 = this.reword_data[3].exchangeAddress//门店地址
         this.form.phone4_1 = this.reword_data[3].exchangeTelephone //客服电话
         this.radio4_1 = this.reword_data[3].prizeSource.toString() //奖品来源
         this.radio4_2 = this.reword_data[3].prizeCouponCodeType.toString() //导入券码
+        if(this.radio4_1==1){
+          this.reword_type4 = this.reword_data[3].jggAwardTypeList
+          this.rewordConent3=false
+        }else if(this.radio4_1==2) {
+          this.reword_type4=this.reword_data[3].shopGoodsTypeList
+          this.rewordConent3=true
+          this.selValue3()
+        }
         if (this.radio4_2 == 1) {
           this.handShow3 = false
         } else if (this.radio4_2 == 2) {
@@ -1491,19 +1832,29 @@
           this.ser_info3=false
         }
 
-        this.imgData4 = this.reword_data[3].prizeImg //上传图片
-        this.reword_type4 = this.reword_data[3].jggAwardTypeList // 奖品类型
-        this.form.region4 = this.reword_data[3].prizeType
-        this.dialogImageUrl3 = this.reword_data[3].wxPublicAccountImg //微信公众号图片
+
         //奖品五
         this.form.name5_1 = this.reword_data[4].prizeName //奖品名称
         this.form.name5_2 = this.reword_data[4].prizeNum //奖品数量
         this.form.name5_3 = this.reword_data[4].wxPublicAccountName //微信公众号名称
+        this.imgData5 = this.reword_data[4].prizeImg //上传图片
+        this.reword_type5 = this.reword_data[4].jggAwardTypeList // 奖品类型
+        this.form.region5 = this.reword_data[4].prizeType
+        this.reword_region4=this.reword_data[4].goodsId//奖品内容
+        this.dialogImageUrl4 = this.reword_data[4].wxPublicAccountImg //微信公众号图片
         this.form.name5_4 = this.reword_data[4].exchangeDesc //兑奖说明
         this.form.address5 = this.reword_data[4].exchangeAddress//门店地址
         this.form.phone5_1 = this.reword_data[4].exchangeTelephone //客服电话
         this.radio5_1 = this.reword_data[4].prizeSource.toString() //奖品来源
         this.radio5_2 = this.reword_data[4].prizeCouponCodeType.toString() //导入券码
+        if(this.radio5_1==1){
+          this.reword_type5 = this.reword_data[4].jggAwardTypeList
+          this.rewordConent4=false
+        }else if(this.radio5_1==2) {
+          this.reword_type5=this.reword_data[4].shopGoodsTypeList
+          this.rewordConent4=true
+          this.selValue4()
+        }
         if (this.radio5_2 == 1) {
           this.handShow4 = false
         } else if (this.radio5_2 == 2) {
@@ -1532,20 +1883,30 @@
           this.ser_info4=false
         }
 
-        this.imgData5 = this.reword_data[4].prizeImg //上传图片
-        this.reword_type5 = this.reword_data[4].jggAwardTypeList // 奖品类型
-        this.form.region5 = this.reword_data[4].prizeType
-        this.dialogImageUrl4 = this.reword_data[4].wxPublicAccountImg //微信公众号图片
+
 
         //奖品六
         this.form.name6_1 = this.reword_data[5].prizeName //奖品名称
         this.form.name6_2 = this.reword_data[5].prizeNum //奖品数量
         this.form.name6_3 = this.reword_data[5].wxPublicAccountName //微信公众号名称
+        this.imgData6 = this.reword_data[5].prizeImg //上传图片
+        this.reword_type6 = this.reword_data[5].jggAwardTypeList // 奖品类型
+        this.form.region6 = this.reword_data[5].prizeType
+        this.reword_region5=this.reword_data[5].goodsId//奖品内容
+        this.dialogImageUrl5 = this.reword_data[5].wxPublicAccountImg //微信公众号图片
         this.form.name6_4 = this.reword_data[5].exchangeDesc //兑奖说明
         this.form.address6 = this.reword_data[5].exchangeAddress//门店地址
         this.form.phone6_1 = this.reword_data[5].exchangeTelephone //客服电话
         this.radio6_1 = this.reword_data[5].prizeSource.toString() //奖品来源
         this.radio6_2 = this.reword_data[5].prizeCouponCodeType.toString() //导入券码
+        if(this.radio6_1==1){
+          this.reword_type6 = this.reword_data[5].jggAwardTypeList
+          this.rewordConent5=false
+        }else if(this.radio6_1==2) {
+          this.reword_type6=this.reword_data[5].shopGoodsTypeList
+          this.rewordConent5=true
+          this.selValue5()
+        }
         if (this.radio6_2 == 1) {
           this.handShow5 = false
         } else if (this.radio6_2 == 2) {
@@ -1574,20 +1935,30 @@
           this.ser_info5=false
         }
 
-        this.imgData6 = this.reword_data[5].prizeImg //上传图片
-        this.reword_type6 = this.reword_data[5].jggAwardTypeList // 奖品类型
-        this.form.region6 = this.reword_data[5].prizeType
-        this.dialogImageUrl5 = this.reword_data[5].wxPublicAccountImg //微信公众号图片
+
 
         //奖品七
         this.form.name7_1 = this.reword_data[6].prizeName //奖品名称
         this.form.name7_2 = this.reword_data[6].prizeNum //奖品数量
         this.form.name7_3 = this.reword_data[6].wxPublicAccountName //微信公众号名称
+        this.imgData7 = this.reword_data[6].prizeImg //上传图片
+        this.reword_type7 = this.reword_data[6].jggAwardTypeList // 奖品类型
+        this.form.region7 = this.reword_data[6].prizeType
+        this.reword_region6=this.reword_data[6].goodsId//奖品内容
+        this.dialogImageUrl6 = this.reword_data[6].wxPublicAccountImg //微信公众号图片
         this.form.name7_4 = this.reword_data[6].exchangeDesc //兑奖说明
         this.form.address7 = this.reword_data[6].exchangeAddress//门店地址
         this.form.phone7_1 = this.reword_data[6].exchangeTelephone //客服电话
         this.radio7_1 = this.reword_data[6].prizeSource.toString() //奖品来源
         this.radio7_2 = this.reword_data[6].prizeCouponCodeType.toString() //导入券码
+        if(this.radio7_1==1){
+          this.reword_type7 = this.reword_data[6].jggAwardTypeList
+          this.rewordConent6=false
+        }else if(this.radio7_1==2) {
+          this.reword_type7=this.reword_data[6].shopGoodsTypeList
+          this.rewordConent6=true
+          this.selValue6()
+        }
         if (this.radio7_2 == 1) {
           this.handShow6 = false
         } else if (this.radio7_2 == 2) {
@@ -1616,10 +1987,6 @@
           this.ser_info6=false
         }
 
-        this.imgData7 = this.reword_data[6].prizeImg //上传图片
-        this.reword_type7 = this.reword_data[6].jggAwardTypeList // 奖品类型
-        this.form.region7 = this.reword_data[6].prizeType
-        this.dialogImageUrl6 = this.reword_data[6].wxPublicAccountImg //微信公众号图片
 
       },
 
@@ -1635,11 +2002,20 @@
 
         this.reword_send[0].prizeName = this.form.name1_1 //奖品名称
         this.reword_send[0].prizeNum = this.form.name1_2 //奖品数量
+        this.reword_send[0].goodsId=this.reword_region//商品内容
         this.reword_send[0].wxPublicAccountName = this.form.name1_3  //微信公众号名称
         this.reword_send[0].exchangeDesc = this.form.name1_4 //兑奖说明
         this.reword_send[0].exchangeAddress = this.form.address1//门店地址
         this.reword_send[0].exchangeTelephone = this.form.phone1_1//客服电话
         this.reword_send[0].prizeSource = this.radio1  //奖品来源
+
+        if(this.radio1==1){
+          this.reword_type1=this.reword_data[0].jggAwardTypeList
+          this.rewordConent=false
+        }else if(this.radio1==2){
+          this.reword_type1=this.reword_data[0].shopGoodsTypeList
+          this.rewordConent=true
+        }
         this.$bus.emit("send_radio1",this.radio1)
         this.reword_send[0].prizeCouponCodeType = this.radio2  //导入券码
 
@@ -1673,19 +2049,27 @@
         }
 
         this.reword_send[0].prizeImg = this.imgData1 //上传图片
-        this.reword_send[0].jggAwardTypeList = this.reword_type1 // 奖品类型
+        //this.reword_send[0].jggAwardTypeList = this.reword_type1 // 奖品类型
         this.reword_send[0].prizeType = this.form.region1
         this.reword_send[0].wxPublicAccountImg = this.dialogImageUrl//微信公众号图片
 
         //奖品二
         this.reword_send[1].prizeName = this.form.name2_1 //奖品名称
         this.reword_send[1].prizeNum = this.form.name2_2 //奖品数量
+        this.reword_send[1].goodsId=this.reword_region1//商品内容
         this.reword_send[1].wxPublicAccountName = this.form.name2_3  //微信公众号名称
         this.reword_send[1].exchangeDesc = this.form.name2_4 //兑奖说明
         this.reword_send[1].exchangeAddress = this.form.address2//门店地址
         this.reword_send[1].exchangeTelephone = this.form.phone2_1//客服电话
         this.reword_send[1].prizeSource = this.radio2_1  //奖品来源
         this.reword_send[1].prizeCouponCodeType = this.radio2_2  //导入券码
+        if(this.radio2_1==1){
+          this.reword_type2=this.reword_data[1].jggAwardTypeList
+          this.rewordConent1=false
+        }else if(this.radio2_1==2){
+          this.reword_type2=this.reword_data[1].shopGoodsTypeList
+          this.rewordConent1=true
+        }
         if (this.radio2_2 == 1) {
           this.handShow1 = false
         } else if (this.radio2_2 == 2) {
@@ -1715,19 +2099,27 @@
         }
 
         this.reword_send[1].prizeImg = this.imgData2 //上传图片
-        this.reword_send[1].jggAwardTypeList = this.reword_type2 // 奖品类型
+        //this.reword_send[1].jggAwardTypeList = this.reword_type2 // 奖品类型
         this.reword_send[1].prizeType = this.form.region2
         this.reword_send[1].wxPublicAccountImg = this.dialogImageUrl1//微信公众号图片
 
         //奖品三
         this.reword_send[2].prizeName = this.form.name3_1 //奖品名称
         this.reword_send[2].prizeNum = this.form.name3_2 //奖品数量
+        this.reword_send[2].goodsId=this.reword_region2//商品内容
         this.reword_send[2].wxPublicAccountName = this.form.name3_3  //微信公众号名称
         this.reword_send[2].exchangeDesc = this.form.name3_4 //兑奖说明
         this.reword_send[2].exchangeAddress = this.form.address3//门店地址
         this.reword_send[2].exchangeTelephone = this.form.phone3_1//客服电话
         this.reword_send[2].prizeSource = this.radio3_1  //奖品来源
         this.reword_send[2].prizeCouponCodeType = this.radio3_2  //导入券码
+        if(this.radio3_1==1){
+          this.reword_type3=this.reword_data[2].jggAwardTypeList
+          this.rewordConent2=false
+        }else if(this.radio3_1==2){
+          this.reword_type3=this.reword_data[2].shopGoodsTypeList
+          this.rewordConent2=true
+        }
         if (this.radio3_2 == 1) {
           this.handShow2 = false
         } else if (this.radio3_2 == 2) {
@@ -1764,12 +2156,20 @@
         //奖品四
         this.reword_send[3].prizeName = this.form.name4_1 //奖品名称
         this.reword_send[3].prizeNum = this.form.name4_2 //奖品数量
+        this.reword_send[3].goodsId=this.reword_region3//商品内容
         this.reword_send[3].wxPublicAccountName = this.form.name4_3  //微信公众号名称
         this.reword_send[3].exchangeDesc = this.form.name4_4 //兑奖说明
         this.reword_send[3].exchangeAddress = this.form.address4//门店地址
         this.reword_send[3].exchangeTelephone = this.form.phone4_1//客服电话
         this.reword_send[3].prizeSource = this.radio4_1  //奖品来源
         this.reword_send[3].prizeCouponCodeType = this.radio4_2  //导入券码
+        if(this.radio4_1==1){
+          this.reword_type4=this.reword_data[3].jggAwardTypeList
+          this.rewordConent3=false
+        }else if(this.radio4_1==2){
+          this.reword_type4=this.reword_data[3].shopGoodsTypeList
+          this.rewordConent3=true
+        }
         if (this.radio4_2 == 1) {
           this.handShow3 = false
         } else if (this.radio4_2 == 2) {
@@ -1799,19 +2199,27 @@
         }
 
         this.reword_send[3].prizeImg = this.imgData4 //上传图片
-        this.reword_send[3].jggAwardTypeList = this.reword_type4 // 奖品类型
+        //this.reword_send[3].jggAwardTypeList = this.reword_type4 // 奖品类型
         this.reword_send[3].prizeType = this.form.region4
         this.reword_send[3].wxPublicAccountImg = this.dialogImageUrl3//微信公众号图片
 
         //奖品五
         this.reword_send[4].prizeName = this.form.name5_1 //奖品名称
         this.reword_send[4].prizeNum = this.form.name5_2 //奖品数量
+        this.reword_send[4].goodsId=this.reword_region4//商品内容
         this.reword_send[4].wxPublicAccountName = this.form.name5_3  //微信公众号名称
         this.reword_send[4].exchangeDesc = this.form.name5_4 //兑奖说明
         this.reword_send[4].exchangeAddress = this.form.address5//门店地址
         this.reword_send[4].exchangeTelephone = this.form.phone5_1//客服电话
         this.reword_send[4].prizeSource = this.radio5_1  //奖品来源
         this.reword_send[4].prizeCouponCodeType = this.radio5_2  //导入券码
+        if(this.radio5_1==1){
+          this.reword_type5=this.reword_data[4].jggAwardTypeList
+          this.rewordConent4=false
+        }else if(this.radio5_1==2){
+          this.reword_type5=this.reword_data[4].shopGoodsTypeList
+          this.rewordConent4=true
+        }
         if (this.radio5_2 == 1) {
           this.handShow4 = false
         } else if (this.radio5_2 == 2) {
@@ -1842,7 +2250,7 @@
 
 
         this.reword_send[4].prizeImg = this.imgData5 //上传图片
-        this.reword_send[4].jggAwardTypeList = this.reword_type5 // 奖品类型
+        //this.reword_send[4].jggAwardTypeList = this.reword_type5 // 奖品类型
         this.reword_send[4].prizeType = this.form.region5
         this.reword_send[4].wxPublicAccountImg = this.dialogImageUrl4//微信公众号图片
 
@@ -1850,12 +2258,20 @@
         //奖品六
         this.reword_send[5].prizeName = this.form.name6_1 //奖品名称
         this.reword_send[5].prizeNum = this.form.name6_2 //奖品数量
+        this.reword_send[5].goodsId=this.reword_region5//商品内容
         this.reword_send[5].wxPublicAccountName = this.form.name6_3  //微信公众号名称
         this.reword_send[5].exchangeDesc = this.form.name6_4 //兑奖说明
         this.reword_send[5].exchangeAddress = this.form.address6//门店地址
         this.reword_send[5].exchangeTelephone = this.form.phone6_1//客服电话
         this.reword_send[5].prizeSource = this.radio6_1  //奖品来源
         this.reword_send[5].prizeCouponCodeType = this.radio6_2  //导入券码
+        if(this.radio6_1==1){
+          this.reword_type6=this.reword_data[5].jggAwardTypeList
+          this.rewordConent5=false
+        }else if(this.radio6_1==2){
+          this.reword_type6=this.reword_data[5].shopGoodsTypeList
+          this.rewordConent5=true
+        }
         if (this.radio6_2 == 1) {
           this.handShow5 = false
         } else if (this.radio6_2 == 2) {
@@ -1886,7 +2302,6 @@
 
 
         this.reword_send[5].prizeImg = this.imgData6 //上传图片
-        this.reword_send[5].jggAwardTypeList = this.reword_type6 // 奖品类型
         this.reword_send[5].prizeType = this.form.region6
         this.reword_send[5].wxPublicAccountImg = this.dialogImageUrl5//微信公众号图片
 
@@ -1894,12 +2309,20 @@
         //奖品七
         this.reword_send[6].prizeName = this.form.name7_1 //奖品名称
         this.reword_send[6].prizeNum = this.form.name7_2 //奖品数量
+        this.reword_send[6].goodsId=this.reword_region6//商品内容
         this.reword_send[6].wxPublicAccountName = this.form.name7_3  //微信公众号名称
         this.reword_send[6].exchangeDesc = this.form.name7_4 //兑奖说明
         this.reword_send[6].exchangeAddress = this.form.address7//门店地址
         this.reword_send[6].exchangeTelephone = this.form.phone7_1//客服电话
         this.reword_send[6].prizeSource = this.radio7_1  //奖品来源
         this.reword_send[6].prizeCouponCodeType = this.radio7_2  //导入券码
+        if(this.radio7_1==1){
+          this.reword_type7=this.reword_data[6].jggAwardTypeList
+          this.rewordConent6=false
+        }else if(this.radio7_1==2){
+          this.reword_type7=this.reword_data[6].shopGoodsTypeList
+          this.rewordConent6=true
+        }
         if (this.radio7_2 == 1) {
           this.handShow6 = false
         } else if (this.radio7_2 == 2) {
@@ -1929,14 +2352,13 @@
         }
 
         this.reword_send[6].prizeImg = this.imgData7 //上传图片
-        this.reword_send[6].jggAwardTypeList = this.reword_type7 // 奖品类型
         this.reword_send[6].prizeType = this.form.region7
         this.reword_send[6].wxPublicAccountImg = this.dialogImageUrl6//微信公众号图片
 
 
 
         this.$store.state.setting_data.jggAwardSetupExtendList = this.reword_send
-        this.$bus.emit("send_reword", this.reword_send,this.addState)
+        this.$bus.emit("send_reword", this.reword_send)
       },
 
       onSubmit() {
@@ -1975,22 +2397,24 @@
       }
       .reword_type {
         width: 95%;
-        margin: 0 auto .5rem;
-        .reword_num {
-          width: 0.8rem;
-          height: 0.8rem;
-          line-height: 0.8rem;
-          border: solid 1px #ccc;
-          margin: 0 .1rem;
-          text-align: center;
-          display: inline-block;
-          border-radius: 4px;
-          cursor: pointer;
-        }
+
+        /*.reword_num {*/
+          /*width: 0.8rem;*/
+          /*height: 0.8rem;*/
+          /*line-height: 0.8rem;*/
+          /*border: solid 1px #ccc;*/
+          /*margin: 0 .1rem;*/
+          /*text-align: center;*/
+          /*display: inline-block;*/
+          /*border-radius: 4px;*/
+          /*cursor: pointer;*/
+        /*}*/
       }
     }
   }
-
+  .el-form-item__label{
+    text-align: left;
+  }
   .cddd {
     position: absolute;
     top: 10px;
@@ -2030,5 +2454,24 @@
     width: 145px;
     height: 145px;
     display: block;
+  }
+  .title_Info{
+    width: 550px;
+    height: 28px;
+    line-height: 28px;
+    background: #fdf6ec;
+    border-radius: 2px;
+    i{
+      color: #FC7132;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+    span{
+      opacity: 1;
+      font-family: MicrosoftYaHei;
+      font-size: 12px;
+      color: #FF5500;
+      letter-spacing: 0;
+    }
   }
 </style>

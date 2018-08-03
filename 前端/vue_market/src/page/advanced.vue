@@ -6,13 +6,13 @@
               <el-tab-pane label="企业信息" name="first">
                 <div class="message">
                   <p>
-                    <span class="host">主办单位</span>
+                    <span class="host">主办单位 :</span>
                     <span>
                       <el-input v-model="input" maxlength="20 " placeholder="不超过20个汉字" name="first" style="width:40%;size:30%;" ></el-input>
                     </span>
                   </p>
                   <p>
-                    <span class="host">链接地址:</span>
+                    <span class="host">链接地址 :</span>
                     <span>
                       <el-input placeholder="请输入内容" v-model="input3" style="width:60%;height:10px">
                         <template slot="prepend">Http://</template>
@@ -20,7 +20,7 @@
                     </span>
                   </p>
                   <p class="logo">
-                    <span class="host">主办单位LOGO:</span>
+                    <span class="host">主办单位LOGO :</span>
                     <span>
                       <el-radio-group v-model="radio2">
                         <el-radio label="1">隐藏</el-radio>
@@ -39,7 +39,7 @@
                   </p>
 
                   <p class="imageLoad">
-                    <span class="host">加载页面图片:</span>
+                    <span class="host">加载页面图片 :</span>
                     <span>
                       <el-radio-group v-model="radio3">
                         <el-radio label="0">默认</el-radio>
@@ -71,14 +71,14 @@
               <el-tab-pane label="安全设置" name="second">
                 <div class="safety">
                   <p>
-                    <span class="open">开启黑名单:</span>
+                    <span class="open">开启黑名单 :</span>
                     <span>
                       <el-radio v-model="radio4" label="1">开启</el-radio>
                       <el-radio v-model="radio4" label="2">关闭(黑名单用户将不被派奖)</el-radio>
                     </span>
                   </p>
                   <p>
-                    <span class="open">红包安全机制:</span>
+                    <span class="open">红包安全机制 :</span>
                     <span>
                       <el-radio v-model="radio5" label="1">初级</el-radio>
                       <el-radio v-model="radio5" label="2">中级</el-radio>
@@ -86,7 +86,7 @@
                     </span>
                   </p>
                   <p>
-                    <span class="open">验证方式:</span>
+                    <span class="open">验证方式 :</span>
                     <span>
                       <el-radio v-model="radio6" label="1">短信验证码</el-radio>
                       <el-radio v-model="radio6" label="2">语音验证码(账户短信余量)</el-radio>
@@ -111,7 +111,7 @@
                     </span>
                   </p>
                   <p>
-                    <span>轮播中奖信息：</span>
+                    <span>轮播中奖信息 :</span>
                     <span>
                       <el-radio v-model="radio8" label="1">开启</el-radio>
                       <el-tooltip class="item" effect="light" content="权限不足请升级" placement="top-start">
@@ -120,14 +120,14 @@
                     </span>
                   </p>
                   <p>
-                    <span>是否需要填写表单兑奖:</span>
+                    <span>是否需要填写表单兑奖 :</span>
                     <span>
                       <el-radio v-model="radio9" label="1">否</el-radio>
                       <el-radio v-model="radio9" label="2">是</el-radio>
                     </span>
                   </p>
                   <p>
-                    <span>参与地区限制:</span>
+                    <span>参与地区限制 :</span>
                     <span>
                       <el-radio v-model="radio10" label="1">
                         <span @click="centerDialogVisible = true">全部</span>
@@ -387,8 +387,8 @@
           .el-menu-demo {}
         }
         .message p {
-          margin-top: 1rem;
-          font-size: 0.5rem;
+          margin-top: 2rem;
+          font-size: 14px;
         }
         .message p .host {
           margin-right: 1rem;
@@ -399,8 +399,8 @@
       }
 
       .safety p {
-        margin-top: 1rem;
-        font-size: 0.5rem;
+        margin-top: 2rem;
+        font-size: 14px;
       }
 
 
@@ -410,7 +410,7 @@
       }
 
       .safety p .open {
-        font-size: 0.4rem;
+        font-size: 14px;
       }
 
       .safety p .preserve .hold {
@@ -419,8 +419,8 @@
 
       .rests p {
 
-        margin-top: 1rem;
-        font-size: 0.5rem;
+        margin-top: 2rem;
+        font-size: 14px;
       }
 
       .rests p .saves {

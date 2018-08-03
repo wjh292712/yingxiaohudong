@@ -2,11 +2,11 @@
   <div class="base_wrap">
     <div class="base_con">
       <el-form ref="form" :model="form" label-width="80px">
-        <el-form-item label="活动名称">
+        <el-form-item label="活动名称 :">
           <el-input v-model="formName" @input='inputData' maxlength="10" placeholder="不超过10个汉字" style="width: 300px"></el-input>
           <!-- <div>{{setting_data}}</div> -->
         </el-form-item>
-        <el-form-item label="活动日期">
+        <el-form-item label="活动日期 :">
           <el-date-picker
             v-model="value1"
             :disabled="startTime"
@@ -20,7 +20,7 @@
             placeholder="选择结束时间" style="width: 245px">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="参与人数">
+        <el-form-item label="参与人数 :">
           <el-radio-group v-model="radio1">
             <el-radio label="1">隐藏</el-radio>
             <el-radio label="2">显示</el-radio>
@@ -32,7 +32,7 @@
             <span>(该数据只用于显示，不计入统计)</span>
           </div>
         </el-form-item>
-        <el-form-item label="是否关注">
+        <el-form-item label="是否关注 :">
           <el-radio-group v-model="radio2">
             <el-tooltip class="item" effect="light" content="权限不足请升级" placement="top-start">
               <el-radio label="1" checked :disabled="follow">是</el-radio>
@@ -41,7 +41,7 @@
 
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="活动规则">
+        <el-form-item label="活动规则 :">
           <el-input style="height:6rem;" type="textarea" maxlength="500" v-model="form.desc" placeholder="请输入活动规则0／500字"></el-input>
         </el-form-item>
         <el-form-item>
@@ -247,8 +247,6 @@
 <style lang="scss">
   .base_wrap {
     width: 100%;
-    margin: 1rem 0;
-    padding: 15px;
     position: relative;
     z-index: 9;
     .label_text {

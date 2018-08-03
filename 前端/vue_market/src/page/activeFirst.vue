@@ -105,6 +105,9 @@
       }
     },
     created() {
+
+    },
+    mounted() {
       let _this = this
       this.$axios({
         method: "post",
@@ -159,9 +162,6 @@
         console.log(res);
         _this.mainmsg = res.data.data.list
       })
-    },
-    mounted() {
-
     },
     methods: {
       target(index) {

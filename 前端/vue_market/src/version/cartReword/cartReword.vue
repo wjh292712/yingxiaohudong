@@ -348,7 +348,7 @@
     width: 104%;
     height: 57px;
     line-height: 57px;
-    border-bottom: 2px solid #E8E8E8;
+    border-bottom: 1px solid #E8E8E8;
   }
 
   .active_inp {
@@ -444,7 +444,12 @@ margin-left: 5px;
     background: #FC7132;
     color: #fff;
   }
-
+  .ddd{
+    margin-top: 20px;
+  }
+  .block{
+    margin-top: 20px;
+  }
 </style>
 <style>
   .el-input-group__append {
@@ -454,5 +459,6 @@ margin-left: 5px;
   }
   .el-table th{
     text-align: center;
+    background: #FBFBFB;
   }
 </style>

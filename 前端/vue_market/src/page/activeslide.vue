@@ -95,7 +95,7 @@
             justify-content:flex-start;
             flex-wrap:wrap;
             .active_slide {
-                width:15%;
+                width:150px;
                 min-height:30rem;
                 background:#F2F2F2;
                 font-size:0.7rem;
